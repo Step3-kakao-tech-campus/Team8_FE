@@ -1,6 +1,7 @@
 import React from 'react';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ThemeProvider } from '@material-tailwind/react';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,7 +15,9 @@ const App = () => {
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
-        <div className='App'>위키키</div>
+        <ThemeProvider>
+          <div className='App'>위키키</div>
+        </ThemeProvider>
       </QueryClientProvider>
     </RecoilRoot>
   );
