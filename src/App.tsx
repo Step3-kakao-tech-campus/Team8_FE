@@ -1,7 +1,12 @@
 import React from 'react';
+import { RecoilRoot } from 'recoil';
 
 const App = () => {
-  return <div className='App'>위키키</div>;
+  return (
+    <RecoilRoot>
+      <div className='App'>위키키</div>;
+    </RecoilRoot>
+  );
 };
 
 export default App;
