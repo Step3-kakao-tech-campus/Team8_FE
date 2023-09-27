@@ -13,6 +13,7 @@ module.exports = {
     'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }], // tsx파일에도 jsx 구문 사용 가능하도록 허용
     'import/extensions': 'off',
     'react/require-default-props': 'off',
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'react/function-component-definition': [
       'error',
       {
