@@ -4,11 +4,28 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 
 import './tailwind.css';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
+import HomePage from './pages/HomePage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: '/login',
+        element: <LoginPage />,
+      },
+      {
+        path: '/signUp',
+        element: <SignUpPage />,
+      },
+    ],
   },
 ]);
 
