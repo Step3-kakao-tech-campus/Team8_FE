@@ -7,6 +7,7 @@ import './tailwind.css';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
+import MyPage from './pages/MyPage';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: '/signUp',
         element: <SignUpPage />,
+      },
+      {
+        path: '/myPage',
+        element: <MyPage />,
       },
     ],
   },

@@ -1,31 +1,34 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { MdPersonAdd, MdLogin, MdMenu } from 'react-icons/md';
-import { NavLink } from 'react-router-dom';
+import { MdPersonAdd, MdLogin } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../assets/images/logo/logo.svg';
 import isLoggedInState from '../recoil/login/atoms';
+import ProfileMenu from './ProfileMenu';
+import isGroupSelectedState from '../recoil/group/atoms';
 
-const Header = (): JSX.Element => {
+const Header = () => {
   const isLoggedIn = useRecoilValue(isLoggedInState);
+  const isGroupSelected = useRecoilValue(isGroupSelectedState);
 
   return (
     <header className='flex justify-between items-center px-6 py-2 border-b'>
-      <NavLink to='/'>
+      <Link to='/'>
         <Logo fill='black' width='42px' height='42px' />
-      </NavLink>
+      </Link>
       <nav className='flex gap-3'>
         {isLoggedIn ? (
-          <MdMenu className='w-6 h-6' />
+          <ProfileMenu isGroupSelected={isGroupSelected} />
         ) : (
           <>
-            <NavLink to='/signUp' className='flex items-center gap-1'>
+            <Link to='/signUp' className='flex items-center gap-1'>
               <MdPersonAdd className='w-6 h-6' />
               <span>회원가입</span>
-            </NavLink>
-            <NavLink to='/login' className='flex items-center gap-1'>
+            </Link>
+            <Link to='/login' className='flex items-center gap-1'>
               <MdLogin className='w-6 h-6' />
               <span>로그인</span>
-            </NavLink>
+            </Link>
           </>
         )}
       </nav>
