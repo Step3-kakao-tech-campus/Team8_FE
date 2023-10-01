@@ -10,5 +10,23 @@ describe('회원가입', () => {
 
       expect(textLogoElement).toBeInTheDocument();
     });
+    it('이메일 인풋 렌더링 성공', () => {
+      render(<SignUpPage />);
+      const emailInputElement = screen.getByTestId('email');
+
+      expect(emailInputElement).toBeInTheDocument();
+    });
+    it('비밀번호 인풋 렌더링 성공', () => {
+      render(<SignUpPage />);
+      const passwordInputElement = screen.getByTestId('password');
+
+      expect(passwordInputElement).toBeInTheDocument();
+    });
+    it('이름 인풋 렌더링 성공', () => {
+      render(<SignUpPage />);
+      const nameInputElement = screen.getByTestId('name');
+
+      expect(nameInputElement).toBeInTheDocument();
+    });
   });
 });
