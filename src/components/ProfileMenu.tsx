@@ -6,9 +6,9 @@ import { useSetRecoilState } from 'recoil';
 import isLoggedInState from '../recoil/login/atoms';
 import InviteMenu from './InviteMenu';
 
-type ProfileMenuProps = {
+interface ProfileMenuProps {
   selectedGroup: string;
-};
+}
 
 // 임시 초대코드
 const CODE: string =

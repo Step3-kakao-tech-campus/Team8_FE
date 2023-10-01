@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Button, MenuItem, Dialog, DialogHeader, DialogBody, DialogFooter, Alert } from '@material-tailwind/react';
 import { MdContentCopy, MdClear } from 'react-icons/md';
 
-type InviteMenuProps = {
+interface InviteMenuProps {
   isOpen: boolean;
   code: string;
   onModalClick: () => void;
-};
+}
 
 const InviteMenu = ({ isOpen, code, onModalClick }: InviteMenuProps) => {
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);

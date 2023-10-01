@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { List, ListItem, Card } from '@material-tailwind/react';
 import { MdClear, MdSearch } from 'react-icons/md';
 
-type InputProps = {
+interface InputProps {
   selectedGroup: string;
-};
+}
 
-const Input = (selectedGroup: InputProps) => {
+const SearchInput = ({ selectedGroup }: InputProps) => {
   const [searchBar, setSearchBar] = useState<string>('');
 
   const handleSearchBarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,4 +46,4 @@ const Input = (selectedGroup: InputProps) => {
   );
 };
 
-export default Input;
+export default SearchInput;

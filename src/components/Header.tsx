@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../assets/images/logo/logo.svg';
 import isLoggedInState from '../recoil/login/atoms';
 import ProfileMenu from './ProfileMenu';
-import Input from './Input';
+import SearchInput from './SearchInput';
 import selectedGroupState from '../recoil/group/atoms';
 import GroupSelector from './GroupSelector';
 
@@ -22,7 +22,7 @@ const Header = () => {
         {isLoggedIn && selectedGroup && (
           <GroupSelector selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />
         )}
-        <Input selectedGroup={selectedGroup} />
+        <SearchInput selectedGroup={selectedGroup} />
       </div>
       <nav className='flex gap-3 ml-4'>
         {isLoggedIn ? (

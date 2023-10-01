@@ -2,10 +2,10 @@ import React from 'react';
 import { Select, Option } from '@material-tailwind/react';
 import { SetterOrUpdater } from 'recoil';
 
-type GroupSelectorProps = {
+interface GroupSelectorProps {
   selectedGroup: string;
   setSelectedGroup: SetterOrUpdater<string>;
-};
+}
 
 const GROUPS = [
   { id: 1, title: '부산대학교' },
