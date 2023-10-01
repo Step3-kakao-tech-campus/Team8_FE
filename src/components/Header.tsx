@@ -14,7 +14,7 @@ const Header = () => {
   const [selectedGroup, setSelectedGroup] = useRecoilState(selectedGroupState);
 
   return (
-    <header className='flex justify-between items-center px-2 py-2 border-b md:px-6'>
+    <header className='fixed top-0 flex justify-between items-center w-full px-2 py-2 border-b md:px-6 bg-white z-30'>
       <Link to='/' className='mr-4'>
         <Logo fill='black' width='42px' height='42px' />
       </Link>
