@@ -7,14 +7,14 @@ import isLoggedInState from '../recoil/login/atoms';
 import InviteMenu from './InviteMenu';
 
 type ProfileMenuProps = {
-  isGroupSelected: boolean;
+  selectedGroup: string;
 };
 
 // 임시 초대코드
 const CODE: string =
   'https://www.notion.so/55bd5b40558b4558a376aa70617b0e1a?v=d19fad98d6b6424da591b3c64dc118a8&p=a7a7a704b33e477e8b330f746166a22e&pm=s';
 
-const ProfileMenu = ({ isGroupSelected }: ProfileMenuProps) => {
+const ProfileMenu = ({ selectedGroup }: ProfileMenuProps) => {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -36,7 +36,7 @@ const ProfileMenu = ({ isGroupSelected }: ProfileMenuProps) => {
         <MenuItem>
           <Link to='/myPage'>마이페이지</Link>
         </MenuItem>
-        {isGroupSelected && <InviteMenu isOpen={isModalOpen} code={CODE} onModalClick={handleModalClick} />}
+        {selectedGroup && <InviteMenu isOpen={isModalOpen} code={CODE} onModalClick={handleModalClick} />}
         <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
       </MenuList>
     </Menu>

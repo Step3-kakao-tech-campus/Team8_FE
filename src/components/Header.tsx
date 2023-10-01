@@ -1,26 +1,32 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { MdPersonAdd, MdLogin } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../assets/images/logo/logo.svg';
 import isLoggedInState from '../recoil/login/atoms';
 import ProfileMenu from './ProfileMenu';
-import isGroupSelectedState from '../recoil/group/atoms';
 import Input from './Input';
+import selectedGroupState from '../recoil/group/atoms';
+import GroupSelector from './GroupSelector';
 
 const Header = () => {
   const isLoggedIn = useRecoilValue(isLoggedInState);
-  const isGroupSelected = useRecoilValue(isGroupSelectedState);
+  const [selectedGroup, setSelectedGroup] = useRecoilState(selectedGroupState);
 
   return (
     <header className='flex justify-between items-center px-2 py-2 border-b md:px-6'>
       <Link to='/' className='mr-4'>
         <Logo fill='black' width='42px' height='42px' />
       </Link>
-      <Input />
+      <div className={`flex ${selectedGroup ? 'justify-between' : 'justify-center'} grow`}>
+        {isLoggedIn && selectedGroup && (
+          <GroupSelector selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />
+        )}
+        <Input selectedGroup={selectedGroup} />
+      </div>
       <nav className='flex gap-3 ml-4'>
         {isLoggedIn ? (
-          <ProfileMenu isGroupSelected={isGroupSelected} />
+          <ProfileMenu selectedGroup={selectedGroup} />
         ) : (
           <>
             <Link to='/signUp' className='flex items-center gap-1'>

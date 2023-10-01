@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { List, ListItem, Card } from '@material-tailwind/react';
 import { MdClear, MdSearch } from 'react-icons/md';
 
-const Input = () => {
+type InputProps = {
+  selectedGroup: string;
+};
+
+const Input = (selectedGroup: InputProps) => {
   const [searchBar, setSearchBar] = useState<string>('');
 
   const handleSearchBarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,11 +17,11 @@ const Input = () => {
   };
 
   return (
-    <div className='relative max-w-xl min-w-[240px] w-full'>
+    <div className={`relative ${selectedGroup ? 'max-w-sm' : 'max-w-xl'} min-w-[240px] w-full`}>
       <div className='relative'>
         <MdSearch className='absolute left-2 top-0 bottom-0 my-auto text-2xl text-gray-600' />
         <input
-          className='w-full px-9 py-[6px] bg-gray-100 border outline-none rounded placeholder:text-sm focus:bg-white focus:shadow-md focus:border-none'
+          className='w-full px-9 py-[6px] bg-gray-100 border outline-none rounded placeholder:text-sm focus:bg-white focus:shadow-md focus:border-none overflow-auto'
           placeholder='검색어를 입력해보세요...'
           value={searchBar}
           onChange={handleSearchBarChange}
