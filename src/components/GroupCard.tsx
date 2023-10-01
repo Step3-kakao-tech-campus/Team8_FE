@@ -11,7 +11,7 @@ interface GroupCardProps {
 const GroupCard = ({ group }: GroupCardProps) => {
   return (
     // TODO: Card에 링크 연결 필요
-    <Card className='mt-6 w-max cursor-pointer' shadow={false}>
+    <Card className='mt-6 w-max cursor-pointer mx-auto' shadow={false}>
       <CardHeader floated={false} className='m-0'>
         <img
           src={group.groupImage}
