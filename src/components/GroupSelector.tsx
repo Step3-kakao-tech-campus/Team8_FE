@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, MenuHandler, MenuList, MenuItem, Button } from '@material-tailwind/react';
+import { Select, Option } from '@material-tailwind/react';
 import { SetterOrUpdater } from 'recoil';
 
 type GroupSelectorProps = {
@@ -19,20 +19,15 @@ const GroupSelector = ({ selectedGroup, setSelectedGroup }: GroupSelectorProps) 
   };
 
   return (
-    <Menu>
-      <MenuHandler>
-        <Button className='w-52 py-[6px] mr-4 font-normal text-base text-black bg-transparent shadow-none hover:shadow-none border border-black'>
-          {selectedGroup}
-        </Button>
-      </MenuHandler>
-      <MenuList className='w-52'>
+    <div className='w-52'>
+      <Select label='그룹 선택' value={selectedGroup}>
         {GROUPS.map((group) => (
-          <MenuItem key={group.id} onClick={() => handleClick(group.title)}>
+          <Option key={group.id} onClick={() => handleClick(group.title)}>
             {group.title}
-          </MenuItem>
+          </Option>
         ))}
-      </MenuList>
-    </Menu>
+      </Select>
+    </div>
   );
 };
 
