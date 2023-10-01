@@ -6,17 +6,19 @@ import { ReactComponent as Logo } from '../assets/images/logo/logo.svg';
 import isLoggedInState from '../recoil/login/atoms';
 import ProfileMenu from './ProfileMenu';
 import isGroupSelectedState from '../recoil/group/atoms';
+import Input from './Input';
 
 const Header = () => {
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const isGroupSelected = useRecoilValue(isGroupSelectedState);
 
   return (
-    <header className='flex justify-between items-center px-6 py-2 border-b'>
-      <Link to='/'>
+    <header className='flex justify-between items-center px-2 py-2 border-b md:px-6'>
+      <Link to='/' className='mr-4'>
         <Logo fill='black' width='42px' height='42px' />
       </Link>
-      <nav className='flex gap-3'>
+      <Input />
+      <nav className='flex gap-3 ml-4'>
         {isLoggedIn ? (
           <ProfileMenu isGroupSelected={isGroupSelected} />
         ) : (
