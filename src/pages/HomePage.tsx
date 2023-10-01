@@ -54,6 +54,7 @@ const HomePage = () => {
       <section>
         <div className='flex justify-between items-baseline'>
           <h2 className={titleStyle}>내 그룹</h2>
+          {/* TODO: 버튼 기능 구현 필요 */}
           <Button className='rounded font-nanum h-8' size='sm'>
             그룹 생성
           </Button>
