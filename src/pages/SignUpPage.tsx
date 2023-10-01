@@ -21,6 +21,8 @@ const SignUpPage = () => {
         <Button className='w-full' data-testid='kakaoSignUpBtn'>
           카카오톡으로 회원가입
         </Button>
+        {/* TODO 임시 로고 구성 아이콘 로고로 변경 필요 */}
+        <TextLogo className='w-36 m-auto' />
       </div>
     </div>
   );
