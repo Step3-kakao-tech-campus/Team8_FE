@@ -4,11 +4,18 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 
 import './tailwind.css';
+import SignUpPage from './pages/SignUpPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    children: [
+      {
+        path: '/signUp',
+        element: <SignUpPage />,
+      },
+    ],
   },
 ]);
 
