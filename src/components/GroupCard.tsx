@@ -10,9 +10,14 @@ interface GroupCardProps {
 
 const GroupCard = ({ group }: GroupCardProps) => {
   return (
-    <Card className='mt-6 w-32' shadow={false}>
+    // TODO: Card에 링크 연결 필요
+    <Card className='mt-6 w-max cursor-pointer' shadow={false}>
       <CardHeader floated={false} className='m-0'>
-        <img src={group.groupImage} alt={`${group.groupName}`} className='object-cover w-full h-32' />
+        <img
+          src={group.groupImage}
+          alt={`${group.groupName}`}
+          className='object-cover w-32 h-32 hover:scale-110 duration-300'
+        />
       </CardHeader>
       <CardBody className='text-center pt-4 pb-1 px-1 text-black text-sm'>
         <span>{group.groupName}</span>
