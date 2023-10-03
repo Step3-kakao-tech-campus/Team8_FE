@@ -24,10 +24,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "GENERATE_SOURCEMAP=false react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "GENERATE_SOURCEMAP=false craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject"
   },
   "eslintConfig": {
     "extends": [
@@ -48,6 +48,8 @@
     ]
   },
   "devDependencies": {
+    "@craco/craco": "^7.1.0",
+    "@craco/types": "^7.1.0",
     "@tanstack/eslint-plugin-query": "^4.34.1",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.3",
