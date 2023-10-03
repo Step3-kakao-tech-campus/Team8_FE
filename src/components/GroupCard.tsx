@@ -16,7 +16,7 @@ const GroupCard = ({ group }: GroupCardProps) => {
         <img
           src={group.groupImage}
           alt={`${group.groupName}`}
-          className='object-cover w-32 h-32 hover:scale-110 duration-300'
+          className='object-cover w-36 h-36 hover:scale-110 duration-300'
         />
       </CardHeader>
       <CardBody className='text-center pt-4 pb-1 px-1 text-black text-sm'>
