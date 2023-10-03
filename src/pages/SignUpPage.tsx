@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Input } from '@material-tailwind/react';
-import { ReactComponent as TextLogo } from '../assets/images/logo/textLogo.svg';
-import DividerWithText from '../components/DividerWithText';
+import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
+import DividerWithText from '@components/DividerWithText';
 
 const SignUpPage = () => {
   return (
