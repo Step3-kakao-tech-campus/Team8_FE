@@ -3,7 +3,7 @@ import { Menu, MenuHandler, MenuList, MenuItem, Button } from '@material-tailwin
 import { MdMenu } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import isLoggedInState from '../recoil/login/atoms';
+import isLoggedInState from '@recoil/login/atoms';
 import InviteMenu from './InviteMenu';
 
 interface ProfileMenuProps {

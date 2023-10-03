@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Input } from '@material-tailwind/react';
-import GroupList from '../components/GroupList';
+import GroupList from '@components/GroupList';
 
 const MyPage = () => {
   const dummy = [

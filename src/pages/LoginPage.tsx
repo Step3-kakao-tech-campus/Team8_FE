@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Input } from '@material-tailwind/react';
-import { ReactComponent as TextLogo } from '../assets/images/logo/textLogo.svg';
-import DividerWithText from '../components/DividerWithText';
+import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
+import DividerWithText from '@components/DividerWithText';
 
 const LoginPage = () => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import SignUpPage from '../../pages/SignUpPage';
+import SignUpPage from '@pages/SignUpPage';
 
 describe('회원가입', () => {
   describe('UI 컴포넌트 렌더링', () => {

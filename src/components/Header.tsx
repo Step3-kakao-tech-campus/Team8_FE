@@ -2,12 +2,12 @@ import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { MdPersonAdd, MdLogin } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import { ReactComponent as Logo } from '../assets/images/logo/logo.svg';
-import isLoggedInState from '../recoil/login/atoms';
-import ProfileMenu from './ProfileMenu';
-import SearchInput from './SearchInput';
-import selectedGroupState from '../recoil/group/atoms';
+import isLoggedInState from '@recoil/login/atoms';
+import selectedGroupState from '@recoil/group/atoms';
+import { ReactComponent as Logo } from '@assets/images/logo/logo.svg';
 import GroupSelector from './GroupSelector';
+import SearchInput from './SearchInput';
+import ProfileMenu from './ProfileMenu';
 
 const Header = () => {
   const isLoggedIn = useRecoilValue(isLoggedInState);
