@@ -20,7 +20,7 @@ const Header = () => {
       </Link>
       <div className={`flex ${isLoggedIn ? 'justify-between' : 'justify-center'} grow`}>
         {isLoggedIn && <GroupSelector selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />}
-        <SearchInput selectedGroup={selectedGroup} />
+        <SearchInput isLoggedIn={isLoggedIn} />
       </div>
       <nav className='flex gap-3 ml-4'>
         {isLoggedIn ? (
