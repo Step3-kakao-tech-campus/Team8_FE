@@ -8,6 +8,8 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import HomePage from './pages/HomePage';
 import MyPage from './pages/MyPage';
+import GroupMainPage from './pages/GroupMainPage';
+import GroupMyPage from './pages/GroupMyPage';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: '/:groupName',
+        element: <GroupMainPage />,
+      },
+      {
+        path: '/:groupName/myPage',
+        element: <GroupMyPage />,
       },
       {
         path: '/login',
