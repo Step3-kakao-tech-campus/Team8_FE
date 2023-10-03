@@ -4,7 +4,7 @@ import { MdPersonAdd, MdLogin } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../assets/images/logo/logo.svg';
 import isLoggedInState from '../recoil/login/atoms';
-import ProfileMenu from './ProfileMenu';
+import HeaderMenu from './HeaderMenu';
 import SearchInput from './SearchInput';
 import GroupSelector from './GroupSelector';
 
@@ -22,7 +22,7 @@ const Header = () => {
       </div>
       <nav className='flex gap-3 ml-4'>
         {isLoggedIn ? (
-          <ProfileMenu />
+          <HeaderMenu />
         ) : (
           <>
             <Link to='/signUp' className='flex items-center gap-1'>

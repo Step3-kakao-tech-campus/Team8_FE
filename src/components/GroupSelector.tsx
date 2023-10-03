@@ -2,31 +2,26 @@ import React from 'react';
 import { Select, Option } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-interface Group {
-  id: number;
-  title: string;
-  url: string;
-}
-
 const GROUPS = [
-  { id: 1, title: '부산대학교', url: '/pusan' },
-  { id: 2, title: '이삼정보고', url: '/isam' },
-  { id: 3, title: '카카오테크캠퍼스', url: '/kakao' },
+  { id: 1, label: '부산대학교', value: 'pusan' },
+  { id: 2, label: '이삼정보고', value: 'isam' },
+  { id: 3, label: '카카오테크캠퍼스', value: 'kakao' },
 ];
 
 const GroupSelector = () => {
   const { groupName } = useParams();
   const navigate = useNavigate();
-  const handleClick = (group: Group) => {
-    navigate(group.url);
+
+  const handleChange = (value: string | undefined) => {
+    navigate(`/${value}`);
   };
 
   return (
     <div className='w-52'>
-      <Select label='그룹 선택' value={groupName}>
+      <Select label='그룹 선택' value={groupName} onChange={handleChange}>
         {GROUPS.map((group) => (
-          <Option key={group.id} onClick={() => handleClick(group)}>
-            {group.title}
+          <Option key={group.id} value={group.value}>
+            {group.label}
           </Option>
         ))}
       </Select>
