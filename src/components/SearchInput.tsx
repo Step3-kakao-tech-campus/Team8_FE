@@ -1,12 +1,14 @@
 import React, { useState, KeyboardEvent, ChangeEvent } from 'react';
 import { List, ListItem, Card, Input } from '@material-tailwind/react';
 import { MdClear, MdSearch } from 'react-icons/md';
+import { useParams } from 'react-router-dom';
 
 interface InputProps {
   isLoggedIn: boolean;
 }
 
 const SearchInput = ({ isLoggedIn }: InputProps) => {
+  const { groupName } = useParams();
   const [searchBar, setSearchBar] = useState<string>('');
 
   const handleSearchBarChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +29,7 @@ const SearchInput = ({ isLoggedIn }: InputProps) => {
           className={`w-full px-9 !text-base !bg-gray-100 !border-none focus:!bg-white focus:shadow-md ${
             searchBar ? 'rounded-b-none' : ''
           }`}
-          placeholder='검색어를 입력하세요.'
+          placeholder={groupName ? '페이지를 검색해보세요.' : '그룹을 검색해보세요.'}
           value={searchBar}
           crossOrigin=''
           labelProps={{
