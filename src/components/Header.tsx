@@ -18,10 +18,8 @@ const Header = () => {
       <Link to='/' className='mr-4'>
         <Logo fill='black' width='42px' height='42px' />
       </Link>
-      <div className={`flex ${selectedGroup ? 'justify-between' : 'justify-center'} grow`}>
-        {isLoggedIn && selectedGroup && (
-          <GroupSelector selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />
-        )}
+      <div className={`flex ${isLoggedIn ? 'justify-between' : 'justify-center'} grow`}>
+        {isLoggedIn && <GroupSelector selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />}
         <SearchInput selectedGroup={selectedGroup} />
       </div>
       <nav className='flex gap-3 ml-4'>
