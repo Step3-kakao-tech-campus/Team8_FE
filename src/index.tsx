@@ -4,6 +4,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import './tailwind.css';
 
+import GroupMainPage from '@pages/GroupMainPage';
+import GroupMyPage from '@pages/GroupMyPage';
 import HomePage from '@pages/HomePage';
 import LoginPage from '@pages/LoginPage';
 import SignUpPage from '@pages/SignUpPage';
@@ -19,6 +21,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: '/:groupName',
+        element: <GroupMainPage />,
+      },
+      {
+        path: '/:groupName/myPage',
+        element: <GroupMyPage />,
       },
       {
         path: '/login',

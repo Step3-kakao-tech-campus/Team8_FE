@@ -1,29 +1,27 @@
 import React from 'react';
 import { Select, Option } from '@material-tailwind/react';
-import { SetterOrUpdater } from 'recoil';
-
-interface GroupSelectorProps {
-  selectedGroup: string;
-  setSelectedGroup: SetterOrUpdater<string>;
-}
+import { useNavigate, useParams } from 'react-router-dom';
 
 const GROUPS = [
-  { id: 1, title: '부산대학교' },
-  { id: 2, title: '이삼정보고' },
-  { id: 3, title: '카카오테크캠퍼스' },
+  { id: 1, label: '부산대학교', value: 'pusan' },
+  { id: 2, label: '이삼정보고', value: 'isam' },
+  { id: 3, label: '카카오테크캠퍼스', value: 'kakao' },
 ];
 
-const GroupSelector = ({ selectedGroup, setSelectedGroup }: GroupSelectorProps) => {
-  const handleClick = (title: string) => {
-    setSelectedGroup(title);
+const GroupSelector = () => {
+  const { groupName } = useParams();
+  const navigate = useNavigate();
+
+  const handleChange = (value?: string) => {
+    navigate(`/${value}`);
   };
 
   return (
     <div className='w-52'>
-      <Select label='그룹 선택' value={selectedGroup}>
+      <Select label='그룹 선택' value={groupName} onChange={handleChange}>
         {GROUPS.map((group) => (
-          <Option key={group.id} onClick={() => handleClick(group.title)}>
-            {group.title}
+          <Option key={group.id} value={group.value}>
+            {group.label}
           </Option>
         ))}
       </Select>
