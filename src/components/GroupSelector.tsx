@@ -12,7 +12,7 @@ const GroupSelector = () => {
   const { groupName } = useParams();
   const navigate = useNavigate();
 
-  const handleChange = (value: string | undefined) => {
+  const handleChange = (value?: string) => {
     navigate(`/${value}`);
   };
 
