@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button } from '@material-tailwind/react';
-import GroupList from '../components/GroupList';
-import { ReactComponent as TextLogo } from '../assets/images/logo/textLogo.svg';
-import OfficialGroup from '../components/OfficialGroup';
+import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
+import OfficialGroup from '@components/OfficialGroup';
+import GroupList from '@components/GroupList';
 
 const HomePage = () => {
   const dummy = [

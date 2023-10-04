@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import App from './App';
 
 import './tailwind.css';
-import LoginPage from './pages/LoginPage';
-import SignUpPage from './pages/SignUpPage';
-import HomePage from './pages/HomePage';
-import MyPage from './pages/MyPage';
-import GroupMainPage from './pages/GroupMainPage';
-import GroupMyPage from './pages/GroupMyPage';
+
+import GroupMainPage from '@pages/GroupMainPage';
+import GroupMyPage from '@pages/GroupMyPage';
+import HomePage from '@pages/HomePage';
+import LoginPage from '@pages/LoginPage';
+import SignUpPage from '@pages/SignUpPage';
+import MyPage from '@pages/MyPage';
+
+import App from './App';
 
 const router = createBrowserRouter([
   {
