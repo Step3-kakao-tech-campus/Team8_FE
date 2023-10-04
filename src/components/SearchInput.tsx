@@ -18,7 +18,9 @@ const SearchInput = ({ isLoggedIn }: InputProps) => {
     setSearchBar('');
   };
   const handleSubmit = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') console.log(searchBar);
+    if (e.key === 'Enter') {
+      // console.log(searchBar);
+    }
   };
 
   return (

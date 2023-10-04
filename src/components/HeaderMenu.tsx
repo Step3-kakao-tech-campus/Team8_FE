@@ -3,7 +3,7 @@ import { Menu, MenuHandler, MenuList, MenuItem, Button } from '@material-tailwin
 import { MdMenu } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import isLoggedInState from '../recoil/login/atoms';
+import isLoggedInState from '@recoil/login/atoms';
 import InviteModal from './InviteModal';
 
 // 임시 초대코드

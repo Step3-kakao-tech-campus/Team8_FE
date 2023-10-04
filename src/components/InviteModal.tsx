@@ -32,9 +32,9 @@ const InviteModal = ({ code, isOpen, onModalClick }: InviteModalProps) => {
       <button type='button' className='absolute top-4 right-4' onClick={onModalClick}>
         <MdClear className='text-3xl text-black' />
       </button>
-      <DialogHeader className='flex flex-col gap-2'>
-        <span className='text-lg'>그룹원을 초대해보세요.</span>
-        <span className='text-sm text-gray-600 font-normal'>클릭하여 링크 복사</span>
+      <DialogHeader className='flex-col gap-2'>
+        <p className='text-lg'>그룹원을 초대해보세요.</p>
+        <p className='text-sm text-gray-600 font-normal'>클릭하여 링크 복사</p>
       </DialogHeader>
       <DialogBody className='flex'>
         <p className='px-4 py-1 bg-blue-gray-50 text-black overflow-auto'>{code}</p>
@@ -59,7 +59,7 @@ const InviteModal = ({ code, isOpen, onModalClick }: InviteModalProps) => {
           </Alert>
         ) : (
           <Button className='text-base' variant='gradient' onClick={onModalClick}>
-            <span>확인</span>
+            확인
           </Button>
         )}
       </DialogFooter>
