@@ -4,11 +4,7 @@ import { MdArrowCircleRight } from 'react-icons/md';
 
 const SearchResultPage = () => {
   const keyword = '테스트 검색어';
-  const dummy = [
-    { id: 1, title: 'page1', content: 'page1 content' },
-    { id: 2, title: 'page2', content: 'page2 content' },
-    { id: 3, title: 'page3', content: 'page3 content' },
-  ];
+  const dummy: Array<{ id: number; title: string; content: string }> = [];
 
   return (
     <div className='flex p-14 gap-20'>
@@ -21,12 +17,19 @@ const SearchResultPage = () => {
             <MdArrowCircleRight className='w-5 h-5' />
           </div>
         </div>
-        {dummy.map((page) => (
-          <div key={page.id} className='px-2 py-8 border-b border-gray-200'>
-            <h2 className='text-xl font-bold mb-1'>{page.title}</h2>
-            <p className='text-sm text-gray-500'>{page.content}</p>
+        {dummy.length === 0 ? (
+          <div className='flex flex-col items-center justify-center h-96'>
+            <span className='text-2xl font-bold mb-4'>검색 결과가 없습니다.</span>
+            <span className='text-lg'>다른 검색어로 검색하거나 직접 페이지를 만들어보세요.</span>
           </div>
-        ))}
+        ) : (
+          dummy.map((page) => (
+            <div key={page.id} className='px-2 py-8 border-b border-gray-200'>
+              <h2 className='text-xl font-bold mb-1'>{page.title}</h2>
+              <p className='text-sm text-gray-500'>{page.content}</p>
+            </div>
+          ))
+        )}
       </section>
       <aside>
         <RecentChangeList />
