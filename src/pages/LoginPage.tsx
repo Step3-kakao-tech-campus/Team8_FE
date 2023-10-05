@@ -12,13 +12,19 @@ const LoginPage = () => {
         <form className='space-y-12'>
           <Input label='이메일' crossOrigin='' data-testid='email' />
           <Input label='비밀번호' type='password' crossOrigin='' data-testid='password' />
-          <Button className='w-full' data-testid='signUpBtn'>
+          <Button className='w-full' data-testid='loginBtn'>
             로그인
           </Button>
         </form>
         <div className='text-center text-xs'>
           {/* TODO 경로 지정 필요 */}
-          <Link to='/'>회원가입</Link> | <Link to='/'>비밀번호 찾기</Link>
+          <Link to='/' data-testid='signUpLink'>
+            회원가입
+          </Link>
+          {` | `}
+          <Link to='/' data-testid='passwordFindLink'>
+            비밀번호 찾기
+          </Link>
         </div>
         <DividerWithText>다른 계정으로 로그인</DividerWithText>
         {/* TODO 카카오톡 버튼으로 변경 필요 */}
