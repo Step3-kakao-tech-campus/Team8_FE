@@ -10,6 +10,7 @@ import HomePage from '@pages/HomePage';
 import LoginPage from '@pages/LoginPage';
 import SignUpPage from '@pages/SignUpPage';
 import MyPage from '@pages/MyPage';
+import SearchResultPage from '@pages/SearchResultPage';
 
 import App from './App';
 
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: '/myPage',
         element: <MyPage />,
+      },
+      {
+        path: '/search',
+        element: <SearchResultPage />,
       },
     ],
   },
