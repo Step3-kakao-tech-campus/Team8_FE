@@ -1,38 +1,9 @@
 import React from 'react';
 import { Button, Input } from '@material-tailwind/react';
 import GroupList from '@components/GroupList';
+import { unOfficialGroupDummyData } from '@dummy/group';
 
 const MyPage = () => {
-  const dummy = [
-    {
-      groupId: 1,
-      groupName: '춘장이1기',
-      groupImage:
-        'https://i.namu.wiki/i/IUKpnzynPCMlkcs4qRLos3NAnwQu48KLCi7eUXFK0RDyRO1o4rgquRpH2iEJh6G4CGkiGglBWuDp04zsc4Cwww.webp',
-    },
-    {
-      groupId: 2,
-      groupName: '카카오테크캠퍼스',
-      groupImage:
-        'https://image.jtbcplus.kr/data/contents/jam_photo/202210/12/e940c652-d8ff-4faa-bad9-b2a31daa0a33.jpg',
-    },
-    {
-      groupId: 3,
-      groupName: 'group3',
-      groupImage: 'https://via.placeholder.com/128',
-    },
-    {
-      groupId: 4,
-      groupName: 'group4',
-      groupImage: 'https://via.placeholder.com/128',
-    },
-    {
-      groupId: 5,
-      groupName: 'group5',
-      groupImage: 'https://via.placeholder.com/128',
-    },
-  ];
-
   return (
     <div className='max-w-3xl min-w-max mx-auto my-32'>
       <h1 className='inline pb-4 pr-40 mb-20 text-xl font-extrabold border border-x-0 border-b-1 border-t-0 border-black'>
@@ -73,7 +44,7 @@ const MyPage = () => {
           <span className='font-extrabold w-40'>내 그룹 보기</span>
           <p className='text-xs text-gray-700'>프로필을 누르면 그룹으로 이동합니다.</p>
         </div>
-        <GroupList groups={dummy} />
+        <GroupList groups={unOfficialGroupDummyData} />
       </div>
     </div>
   );
