@@ -37,6 +37,7 @@ const GroupMyPage = () => {
   const navigate = useNavigate();
   const { groupName } = useParams();
   const [nickName, setNickName] = useState(INFO.groupNickName);
+  const [isNickNameChanging, setIsNickNameChanging] = useState<boolean>(false);
   const [isQuitModalOpen, setIsQuitModalOpen] = useState<boolean>(false);
 
   const handleNickName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +45,9 @@ const GroupMyPage = () => {
   };
   const handleQuitModal = () => {
     setIsQuitModalOpen((prev) => !prev);
+  };
+  const handleNickNameChage = () => {
+    setIsNickNameChanging((prev) => !prev);
   };
 
   return (
@@ -62,7 +66,7 @@ const GroupMyPage = () => {
               type='text'
               label='그룹 닉네임'
               crossOrigin=''
-              disabled
+              disabled={!isNickNameChanging}
               value={nickName}
               placeholder='그룹 닉네임'
               className='!border !border-gray-400 text-gray-900 rounded-sm placeholder:text-gray-500 focus:!border-gray-900'
@@ -72,13 +76,36 @@ const GroupMyPage = () => {
               containerProps={{ className: 'min-w-[100px]' }}
               onChange={handleNickName}
             />
-            <Button
-              variant='outlined'
-              color='gray'
-              className='ml-2 rounded-sm font-nanum h-9 w-28 p-1 whitespace-nowrap'
-            >
-              변경하기
-            </Button>
+            {isNickNameChanging ? (
+              <>
+                {/* 취소, 변경처리는 api되면 생각해보기로.. */}
+                <Button
+                  variant='outlined'
+                  color='gray'
+                  className='ml-2 rounded-sm font-nanum h-9 w-28 p-1 whitespace-nowrap'
+                  onClick={handleNickNameChage}
+                >
+                  취소
+                </Button>
+                <Button
+                  variant='outlined'
+                  color='gray'
+                  className='ml-2 rounded-sm font-nanum h-9 w-28 p-1 whitespace-nowrap'
+                  onClick={handleNickNameChage}
+                >
+                  변경하기
+                </Button>
+              </>
+            ) : (
+              <Button
+                variant='outlined'
+                color='gray'
+                className='ml-2 rounded-sm font-nanum h-9 w-28 p-1 whitespace-nowrap'
+                onClick={handleNickNameChage}
+              >
+                변경하기
+              </Button>
+            )}
           </div>
         </div>
       </section>
@@ -104,7 +131,7 @@ const GroupMyPage = () => {
         >
           그룹 탈퇴하기
         </Button>
-        <QuitModal group={INFO.groupName} isOpen={isQuitModalOpen} onClick={handleQuitModal} />
+        <QuitModal group={groupName} isOpen={isQuitModalOpen} onClick={handleQuitModal} />
       </div>
     </main>
   );
