@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { RiKakaoTalkFill } from 'react-icons/ri';
 import { Button, Input } from '@material-tailwind/react';
 import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
 import DividerWithText from '@components/DividerWithText';
@@ -27,9 +28,15 @@ const LoginPage = () => {
           </Link>
         </div>
         <DividerWithText>다른 계정으로 로그인</DividerWithText>
-        {/* TODO 카카오톡 버튼으로 변경 필요 */}
-        <Button className='w-full' data-testid='kakaoLoginBtn'>
-          카카오톡으로 로그인
+        <Button
+          className='flex font-[system-ui] justify-center w-full rounded-xl items-center gap-2 bg-kakaoContainer text-kakaoLabel'
+          data-testid='kakaoLoginBtn'
+        >
+          <div className='relative w-5 h-5'>
+            <RiKakaoTalkFill size={20} className='absolute inset-0 m-auto fill-kakaoSymbol' />
+            <div className='absolute inset-0 m-auto bg-kakaoSymbol w-4 h-2 rounded-full' />
+          </div>
+          카카오 로그인
         </Button>
       </div>
     </div>
