@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent } from 'react';
 import { Button, Input } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ContributeList from '@components/ContributeList';
+import QuitModal from '@components/QuitModal';
 
 const INFO = {
   groupName: '부산대학교',
@@ -36,9 +37,13 @@ const GroupMyPage = () => {
   const navigate = useNavigate();
   const { groupName } = useParams();
   const [nickName, setNickName] = useState(INFO.groupNickName);
+  const [isQuitModalOpen, setIsQuitModalOpen] = useState<boolean>(false);
 
   const handleNickName = (e: ChangeEvent<HTMLInputElement>) => {
     setNickName(e.target.value);
+  };
+  const handleQuitModal = () => {
+    setIsQuitModalOpen((prev) => !prev);
   };
 
   return (
@@ -95,9 +100,11 @@ const GroupMyPage = () => {
           variant='outlined'
           color='gray'
           className='p-1 rounded-sm font-nanum border-gray-300 whitespace-nowrap border-none text-red-600 hover:opacity-100 hover:underline decoration-black'
+          onClick={handleQuitModal}
         >
           그룹 탈퇴하기
         </Button>
+        <QuitModal group={INFO.groupName} isOpen={isQuitModalOpen} onClick={handleQuitModal} />
       </div>
     </main>
   );
