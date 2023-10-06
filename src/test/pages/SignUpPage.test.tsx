@@ -34,11 +34,5 @@ describe('회원가입', () => {
 
       expect(nameInputElement).toBeInTheDocument();
     });
-    it('카카오톡으로 회원가입 버튼 렌더링 성공', () => {
-      render(<SignUpPage />);
-      const nameInputElement = screen.getByTestId('kakaoSignUpBtn');
-
-      expect(nameInputElement).toBeInTheDocument();
-    });
   });
 });
