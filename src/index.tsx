@@ -11,6 +11,7 @@ import LoginPage from '@pages/LoginPage';
 import SignUpPage from '@pages/SignUpPage';
 import MyPage from '@pages/MyPage';
 import SearchResultPage from '@pages/SearchResultPage';
+import GroupCreatePage from '@pages/GroupCreatePage';
 
 import App from './App';
 
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: '/search',
         element: <SearchResultPage />,
+      },
+      {
+        path: '/groupCreate',
+        element: <GroupCreatePage />,
       },
     ],
   },
