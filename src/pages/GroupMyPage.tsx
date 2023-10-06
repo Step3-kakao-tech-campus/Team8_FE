@@ -47,14 +47,7 @@ const GroupMyPage = () => {
       </h1>
       <section className='mt-20 p-4'>
         <div className='flex'>
-          <span className='w-40 text-2xl text-blue-900 font-extrabold'>{groupName}</span>
-          <Button
-            variant='outlined'
-            color='gray'
-            className='rounded-sm font-nanum h-9 w-20 p-1 border-gray-400 whitespace-nowrap hover:text-red-600'
-          >
-            탈퇴하기
-          </Button>
+          <span className='text-2xl text-blue-900 font-extrabold'>{groupName}</span>
         </div>
         <div className='flex items-baseline mt-10'>
           <span className='font-extrabold w-40'>그룹 닉네임</span>
@@ -95,6 +88,15 @@ const GroupMyPage = () => {
         </div>
         <ContributeList contributeItems={INFO.historyList} />
       </section>
+      <div className='text-right p-4'>
+        <Button
+          variant='outlined'
+          color='gray'
+          className='p-1 rounded-sm font-nanum border-gray-300 whitespace-nowrap border-none text-red-600 hover:opacity-100 hover:underline decoration-black'
+        >
+          그룹 탈퇴하기
+        </Button>
+      </div>
     </main>
   );
 };
