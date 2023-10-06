@@ -1,12 +1,7 @@
 import React from 'react';
 import { Select, Option } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
-
-const GROUPS = [
-  { id: 1, label: '부산대학교', value: 'pusan' },
-  { id: 2, label: '이삼정보고', value: 'isam' },
-  { id: 3, label: '카카오테크캠퍼스', value: 'kakao' },
-];
+import { unOfficialGroupDummyData } from '@dummy/group';
 
 const GroupSelector = () => {
   const { groupName } = useParams();
@@ -19,9 +14,9 @@ const GroupSelector = () => {
   return (
     <div className='w-52'>
       <Select label='그룹 선택' value={groupName} onChange={handleChange}>
-        {GROUPS.map((group) => (
-          <Option key={group.id} value={group.value}>
-            {group.label}
+        {unOfficialGroupDummyData.map((group) => (
+          <Option key={group.groupId} value={group.groupName}>
+            {group.groupName}
           </Option>
         ))}
       </Select>
