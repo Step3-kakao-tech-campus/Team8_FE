@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Button, Input } from '@material-tailwind/react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ContributeList from '@components/ContributeList';
 
 const INFO = {
@@ -33,6 +33,7 @@ const INFO = {
 };
 
 const GroupMyPage = () => {
+  const navigate = useNavigate();
   const { groupName } = useParams();
   const [nickName, setNickName] = useState(INFO.groupNickName);
 
@@ -82,6 +83,7 @@ const GroupMyPage = () => {
           <Button
             variant='outlined'
             className='h-9 w-20 p-1 border-gray-400 text-gray-600 font-nanum whitespace-nowrap rounded-sm'
+            onClick={() => navigate('contribute')}
           >
             전체보기
           </Button>
