@@ -6,7 +6,8 @@
       "@components/*": ["src/components/*"],
       "@pages/*": ["src/pages/*"],
       "@recoil/*": ["src/recoil/*"],
-      "@test/*": ["src/test/*"]
+      "@test/*": ["src/test/*"],
+      "@dummy/*": ["src/dummy/*"]
     }
   }
 }
