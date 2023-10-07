@@ -31,9 +31,9 @@ const GroupMyPage = () => {
         <div className='flex'>
           <span className='text-2xl text-blue-900 font-extrabold'>{groupName}</span>
         </div>
-        <div className='flex items-baseline mt-10'>
+        <div className='flex items-center mt-10'>
           <span className='font-extrabold w-40'>그룹 닉네임</span>
-          <div className='flex items-center'>
+          <div className='flex items-center grow'>
             <Input
               type='text'
               label='그룹 닉네임'
@@ -45,7 +45,7 @@ const GroupMyPage = () => {
               labelProps={{
                 className: 'hidden',
               }}
-              containerProps={{ className: 'min-w-[100px]' }}
+              containerProps={{ className: 'min-w-[100px] max-w-[240px]' }}
               onChange={handleNickName}
             />
             {isNickNameChanging ? (
@@ -54,7 +54,7 @@ const GroupMyPage = () => {
                 <Button
                   variant='outlined'
                   color='gray'
-                  className='ml-2 rounded-sm font-nanum h-9 w-28 p-1 whitespace-nowrap'
+                  className='ml-4 rounded-sm font-nanum py-[11px] whitespace-nowrap'
                   onClick={handleNickNameChage}
                 >
                   취소
@@ -62,7 +62,7 @@ const GroupMyPage = () => {
                 <Button
                   variant='outlined'
                   color='gray'
-                  className='ml-2 rounded-sm font-nanum h-9 w-28 p-1 whitespace-nowrap'
+                  className='ml-2 rounded-sm font-nanum py-[11px] whitespace-nowrap'
                   onClick={handleNickNameChage}
                 >
                   변경하기
@@ -72,7 +72,7 @@ const GroupMyPage = () => {
               <Button
                 variant='outlined'
                 color='gray'
-                className='ml-2 rounded-sm font-nanum h-9 w-28 p-1 whitespace-nowrap'
+                className='ml-4 rounded-sm font-nanum py-[11px] whitespace-nowrap'
                 onClick={handleNickNameChage}
               >
                 변경하기
