@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { Button } from '@material-tailwind/react';
 import GroupList from '@components/GroupList';
+// import { nullGroupDummyData } from '@dummy/group';
 import { officialGroupDummyData, unOfficialGroupDummyData } from '@dummy/group';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
+import { MdChevronRight } from 'react-icons/md';
 
 const GroupSearchResultPage = () => {
   const [isOfficialGroup, setIsOfficialGroup] = useState<boolean>(true);
   const [searchParam] = useSearchParams();
   const keyword = searchParam.get('keyword') || '테스트 키워드';
+  const groupData = isOfficialGroup ? officialGroupDummyData : unOfficialGroupDummyData;
+  // const groupData = nullGroupDummyData;
 
   return (
     <section className='max-w-3xl min-w-max mx-auto my-40'>
@@ -36,7 +40,17 @@ const GroupSearchResultPage = () => {
           비공식 그룹
         </Button>
       </div>
-      <GroupList groups={isOfficialGroup ? officialGroupDummyData : unOfficialGroupDummyData} />
+      {groupData.length === 0 ? (
+        <div className='flex flex-col items-center justify-center h-[300px]'>
+          <h1 className='mb-2 text-xl font-bold'>관련된 그룹이 없어요.</h1>
+          <Link to='/groupCreate' className='mt-2 text-sm text-gray-400 hover:text-blue-300'>
+            <span>새로운 그룹 만들러 가기</span>
+            <MdChevronRight className='inline-block' width={15} height={15} />
+          </Link>
+        </div>
+      ) : (
+        <GroupList groups={groupData} />
+      )}
     </section>
   );
 };
