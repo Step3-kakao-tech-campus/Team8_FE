@@ -10,8 +10,10 @@ import HomePage from '@pages/HomePage';
 import LoginPage from '@pages/LoginPage';
 import SignUpPage from '@pages/SignUpPage';
 import MyPage from '@pages/MyPage';
+import MyContributePage from '@pages/MyContributePage';
 import SearchResultPage from '@pages/SearchResultPage';
 import GroupSearchResultPage from '@pages/GroupSearchResultPage';
+import GroupCreatePage from '@pages/GroupCreatePage';
 
 import App from './App';
 
@@ -33,6 +35,10 @@ const router = createBrowserRouter([
         element: <GroupMyPage />,
       },
       {
+        path: '/:groupName/myPage/contribute',
+        element: <MyContributePage />,
+      },
+      {
         path: '/login',
         element: <LoginPage />,
       },
@@ -51,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: '/search/group',
         element: <GroupSearchResultPage />,
+      },
+      {
+        path: '/groupCreate',
+        element: <GroupCreatePage />,
       },
     ],
   },
