@@ -4,7 +4,7 @@ import { Button, Typography } from '@material-tailwind/react';
 
 const GroupCreatePhotoSection = () => {
   return (
-    <section className='space-y-8'>
+    <section className='space-y-10'>
       <div>
         <Typography variant='lead'>
           그룹의 <strong>대표 사진</strong>을 등록해주세요.

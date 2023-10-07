@@ -3,7 +3,7 @@ import { Button, Input, Typography } from '@material-tailwind/react';
 
 const GroupCreateNickNameSection = () => {
   return (
-    <section className='space-y-8'>
+    <section className='space-y-10'>
       <div>
         <Typography variant='lead'>
           새 그룹의 <strong>닉네임</strong>을 입력해주세요.

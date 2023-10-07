@@ -6,7 +6,7 @@ const GroupCreateCompleteSection = () => {
   const inviteCode = 'https://www.dfdasdf.ffdda.com/ffaefdfdasdf';
 
   return (
-    <section className='space-y-8'>
+    <section className='space-y-10'>
       <div>
         <Typography variant='lead'>
           그룹 생성이 <strong>완료</strong>되었습니다!
