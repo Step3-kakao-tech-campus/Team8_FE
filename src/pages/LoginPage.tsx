@@ -8,7 +8,7 @@ import DividerWithText from '@components/DividerWithText';
 const LoginPage = () => {
   return (
     <div className='flex min-h-full flex-col justify-center py-12 px-8'>
-      <div className='mx-auto space-y-4 w-full max-w-[600px] border border-gray-400 px-32 pt-9 pb-16'>
+      <div className='mx-auto shadow space-y-4 w-full max-w-[450px] px-16 pt-9 pb-16'>
         <TextLogo className='w-36 m-auto mb-8' data-testid='textLogo' />
         <form className='space-y-12'>
           <Input label='이메일' crossOrigin='' data-testid='email' />
