@@ -1,7 +1,7 @@
-import React, { useState, KeyboardEvent, ChangeEvent } from 'react';
+import React, { useState, KeyboardEvent } from 'react';
 import { List, ListItem, Card, Input } from '@material-tailwind/react';
 import { MdClear, MdSearch } from 'react-icons/md';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 interface InputProps {
   isLoggedIn: boolean;
@@ -10,16 +10,19 @@ interface InputProps {
 const SearchInput = ({ isLoggedIn }: InputProps) => {
   const { groupName } = useParams();
   const [searchBar, setSearchBar] = useState<string>('');
+  const navigate = useNavigate();
 
-  const handleSearchBarChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleSearchBarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchBar(e.target.value);
   };
+
   const handleSearchBarClear = () => {
     setSearchBar('');
   };
   const handleSubmit = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      // console.log(searchBar);
+    if (e.key === 'Enter' && searchBar && e.nativeEvent.isComposing === false) {
+      navigate(groupName ? `${groupName}/search?keyword=${searchBar}` : `/search/group?keyword=${searchBar}`);
+      setSearchBar('');
     }
   };
 
