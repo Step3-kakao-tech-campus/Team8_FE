@@ -11,7 +11,7 @@ const GroupCreateNameSection = () => {
         <Typography variant='paragraph'>20자 이내의 그룹 이름을 자유롭게 입력해주세요.</Typography>
       </div>
       <div className='flex gap-2 flex-wrap'>
-        <Input size='lg' containerProps={{ className: 'w-96' }} crossOrigin='' icon={20} />
+        <Input size='lg' containerProps={{ className: 'max-w-md' }} crossOrigin='' icon={20} />
         <Button>확인</Button>
       </div>
     </section>
