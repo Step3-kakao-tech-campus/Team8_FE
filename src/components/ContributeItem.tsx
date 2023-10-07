@@ -23,7 +23,7 @@ const ContributeItem = ({ contributeItem }: { contributeItem: ContributeItemProp
         </p>
         <span className='text-sm text-gray-400'>{contributeItem.createAt}</span>
       </div>
-      <p className='pt-2 max-w-[702px] text-sm line-clamp-2'>{contributeItem.content.detail}</p>
+      <p className='pt-2 max-w-[702px] text-sm text-gray-600 line-clamp-2'>{contributeItem.content.detail}</p>
     </li>
   );
 };
