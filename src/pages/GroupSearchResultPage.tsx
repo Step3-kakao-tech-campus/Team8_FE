@@ -18,7 +18,7 @@ const GroupSearchResultPage = () => {
       <h1 className='mb-8'>
         &apos;<span className='text-xl font-bold'>{keyword}</span>&apos;에 대한 검색 결과입니다.
       </h1>
-      <div className='flex gap-2'>
+      <div className='flex gap-2 h-9'>
         <Button
           variant={isOfficialGroup ? 'filled' : 'outlined'}
           size='sm'
