@@ -10,6 +10,7 @@ import HomePage from '@pages/HomePage';
 import LoginPage from '@pages/LoginPage';
 import SignUpPage from '@pages/SignUpPage';
 import MyPage from '@pages/MyPage';
+import MyContributePage from '@pages/MyContributePage';
 import SearchResultPage from '@pages/SearchResultPage';
 import GroupCreatePage from '@pages/GroupCreatePage';
 
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: '/:groupName/myPage',
         element: <GroupMyPage />,
+      },
+      {
+        path: '/:groupName/myPage/contribute',
+        element: <MyContributePage />,
       },
       {
         path: '/login',
