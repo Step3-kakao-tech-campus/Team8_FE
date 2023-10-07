@@ -3,40 +3,12 @@ import { Button, Input } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ContributeList from '@components/ContributeList';
 import QuitModal from '@components/QuitModal';
-
-const INFO = {
-  groupName: '부산대학교',
-  groupNickName: '말차프라페',
-  historyList: [
-    {
-      historyId: 1,
-      pageName: '제도관',
-      content: {
-        index: 6.4,
-        name: '4층',
-        detail:
-          '4층에는 과사가 있다. [1] 참고로 오른쪽으로 도는게 빠르다. 그 외에는 주로 수업에 이용되는 전산실(6408, 6409, 6409-1)과 여러 랩실이 존재한다. 방학에도 4층을 방문하면 피곤해보이는 대학원생을 여럿 목격할 수 있다.',
-      },
-      createAt: '2023.09.14',
-    },
-    {
-      historyId: 2,
-      pageName: '제도냥',
-      content: {
-        index: 1,
-        name: '개요',
-        detail:
-          '2017년도쯤부터 2021년쯤까지 제도관 앞에서 흔히 볼 수 있었던 고양이. 덩치가 매우 크고(특히 얼굴이) 얼굴이 좌우 대칭으로 생겼다. 2층으로 올라가는 계단 및 중앙 정원에 누워있는 모습을 자주 목격할 수 있었으나 현재는 무지개다리를 건넜다.',
-      },
-      createAt: '2023.09.14',
-    },
-  ],
-};
+import { groupMyPageDummyData } from '@dummy/group';
 
 const GroupMyPage = () => {
   const navigate = useNavigate();
   const { groupName } = useParams();
-  const [nickName, setNickName] = useState(INFO.groupNickName);
+  const [nickName, setNickName] = useState(groupMyPageDummyData.groupNickName);
   const [isNickNameChanging, setIsNickNameChanging] = useState<boolean>(false);
   const [isQuitModalOpen, setIsQuitModalOpen] = useState<boolean>(false);
 
@@ -120,7 +92,7 @@ const GroupMyPage = () => {
             전체보기
           </Button>
         </div>
-        <ContributeList contributeItems={INFO.historyList} />
+        <ContributeList contributeItems={groupMyPageDummyData.historyList} />
       </section>
       <div className='text-right p-4'>
         <Button
