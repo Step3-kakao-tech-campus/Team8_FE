@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import GroupCreateNameSection from '@components/GroupCreateNameSection';
+import GroupCreatePhotoSection from '@components/GroupCreatePhotoSection';
 
 const GroupCreatePage = () => {
-  const [currentStep] = useState<1>(1);
+  const [currentStep] = useState<1 | 2>(1);
 
   const groupCreateSections = {
     1: <GroupCreateNameSection />,
+    2: <GroupCreatePhotoSection />,
   };
 
   return (
