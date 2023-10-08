@@ -6,7 +6,13 @@ const withMT = require('@material-tailwind/react/utils/withMT');
 module.exports = withMT({
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        kakaoContainer: '#FEE500',
+        kakaoSymbol: '#000000',
+        kakaoLabel: '#000000D9',
+      },
+    },
   },
   plugins: [],
 });

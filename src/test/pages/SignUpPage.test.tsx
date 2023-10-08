@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import SignUpPage from '../../pages/SignUpPage';
+import SignUpPage from '@pages/SignUpPage';
 
 describe('회원가입', () => {
   describe('UI 컴포넌트 렌더링', () => {
@@ -30,15 +30,9 @@ describe('회원가입', () => {
     });
     it('회원가입 버튼 렌더링 성공', () => {
       render(<SignUpPage />);
-      const nameInputElement = screen.getByTestId('signUpBtn');
+      const signUpBtnInputElement = screen.getByTestId('signUpBtn');
 
-      expect(nameInputElement).toBeInTheDocument();
-    });
-    it('카카오톡으로 회원가입 버튼 렌더링 성공', () => {
-      render(<SignUpPage />);
-      const nameInputElement = screen.getByTestId('kakaoSignUpBtn');
-
-      expect(nameInputElement).toBeInTheDocument();
+      expect(signUpBtnInputElement).toBeInTheDocument();
     });
   });
 });
