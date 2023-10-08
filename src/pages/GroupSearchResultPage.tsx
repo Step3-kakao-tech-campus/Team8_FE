@@ -14,7 +14,7 @@ const GroupSearchResultPage = () => {
   // const groupData = nullGroupDummyData;
 
   return (
-    <section className='max-w-3xl min-w-max mx-auto my-40'>
+    <section className='pb-20'>
       <h1 className='mb-8'>
         &apos;<span className='text-xl font-bold'>{keyword}</span>&apos;에 대한 검색 결과입니다.
       </h1>

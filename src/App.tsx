@@ -3,8 +3,8 @@ import { Outlet } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@material-tailwind/react';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from '@components/Header';
+import Footer from '@components/Footer';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,7 +20,7 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <Header />
-          <div className='mt-[59px]'>
+          <div className='max-w-3xl min-w-max mx-auto mt-[59px] pt-20 pb-12'>
             <Outlet />
           </div>
           <Footer />

@@ -9,7 +9,7 @@ const HomePage = () => {
   const titleStyle = 'font-bold text-lg mb-4 mt-20';
 
   return (
-    <main className='max-w-3xl min-w-max mx-auto my-16'>
+    <main>
       <section className='flex justify-center items-center mb-10'>
         <div className='text-center'>
           {/* TODO: 메인 로고 import */}
