@@ -5,7 +5,7 @@ import { unOfficialGroupDummyData } from '@dummy/group';
 
 const MyPage = () => {
   return (
-    <div className='max-w-3xl min-w-max mx-auto my-32'>
+    <div className='mb-10'>
       <h1 className='inline pb-4 pr-40 mb-20 text-xl font-extrabold border border-x-0 border-b-1 border-t-0 border-black'>
         마이페이지
       </h1>
