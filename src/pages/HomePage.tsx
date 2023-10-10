@@ -4,6 +4,8 @@ import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
 import OfficialGroup from '@components/OfficialGroup';
 import GroupList from '@components/GroupList';
 import { unOfficialGroupDummyData } from '@dummy/group';
+import { ReactComponent as Logo } from '@assets/images/logo/logo.svg';
+import SearchInput from '@components/SearchInput';
 
 const HomePage = () => {
   const titleStyle = 'font-bold text-lg mb-4 mt-20';
@@ -12,12 +14,10 @@ const HomePage = () => {
     <main>
       <section className='flex justify-center items-center mb-10'>
         <div className='text-center'>
-          {/* TODO: 메인 로고 import */}
-          <h1 className='my-4'>메인 로고</h1>
-          <TextLogo className='w-56' />
+          <Logo fill='black' width='50px' height='50px' className='mx-auto mb-4' />
+          <TextLogo className='w-56 mx-auto' />
           <p className='text-sm mt-4'>시간의 흐름; 기록의 증가</p>
-          {/* TODO: 검색창 컴포넌트 import */}
-          <p className='my-10'>검색창 컴포넌트</p>
+          <SearchInput isLoggedIn={false} className='!mx-0 mt-10' />
         </div>
       </section>
 
