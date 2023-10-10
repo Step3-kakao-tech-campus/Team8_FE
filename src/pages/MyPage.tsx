@@ -24,18 +24,14 @@ const MyPage = () => {
               }}
               containerProps={{ className: 'min-w-[100px]' }}
             />
-            <Button
-              variant='outlined'
-              color='gray'
-              className='ml-2 rounded-sm font-nanum h-9 w-28 p-1 whitespace-nowrap'
-            >
+            <Button variant='outlined' color='gray' className='ml-2 rounded-sm h-9 w-28 p-1 whitespace-nowrap'>
               변경하기
             </Button>
           </div>
         </div>
         <div className='flex items-baseline mt-10'>
           <span className='font-extrabold w-40'>비밀번호 변경</span>
-          <Button variant='outlined' color='gray' className='rounded-sm font-nanum h-9 w-20 p-1 whitespace-nowrap'>
+          <Button variant='outlined' color='gray' className='rounded-sm h-9 w-20 p-1 whitespace-nowrap'>
             바로가기
           </Button>
           <p className='text-xs text-gray-700 ml-4'>카카오톡 간편 회원은 지원하지 않는 기능입니다.</p>

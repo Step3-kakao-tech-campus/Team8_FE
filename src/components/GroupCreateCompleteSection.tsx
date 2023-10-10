@@ -16,15 +16,13 @@ const GroupCreateCompleteSection = () => {
   return (
     <section className='space-y-10'>
       <div>
-        <Typography variant='lead' className='font-nanum'>
+        <Typography variant='lead'>
           그룹 생성이 <strong>완료</strong>되었습니다!
         </Typography>
-        <Typography variant='paragraph' className='font-nanum'>
-          초대 링크를 통해 그룹원을 초대해보세요.
-        </Typography>
+        <Typography variant='paragraph'>초대 링크를 통해 그룹원을 초대해보세요.</Typography>
       </div>
       <Input
-        className='truncate outline-none font-nanum'
+        className='truncate outline-none'
         label='초대 링크'
         value={inviteCode}
         size='lg'
@@ -34,7 +32,7 @@ const GroupCreateCompleteSection = () => {
         onClick={() => handleCopyClipBoard(inviteCode)}
       />
       <div className='flex justify-end'>
-        <Button className='font-nanum'>시작하기</Button>
+        <Button>시작하기</Button>
       </div>
     </section>
   );

@@ -19,10 +19,10 @@ const GroupCreateNickNameSection = ({ onNextStep }: onNextStepProps) => {
   return (
     <section className='space-y-10'>
       <div>
-        <Typography variant='lead' className='font-nanum'>
+        <Typography variant='lead'>
           새 그룹에서 사용할 <strong>닉네임</strong>을 입력해주세요.
         </Typography>
-        <Typography variant='paragraph' className='font-nanum'>
+        <Typography variant='paragraph'>
           닉네임은 2자 이상 8자 이하, 영어 또는 숫자 또는 한글로 구성해주세요.
         </Typography>
       </div>
@@ -36,7 +36,7 @@ const GroupCreateNickNameSection = ({ onNextStep }: onNextStepProps) => {
           onChange={onInputChange}
           error={inputCount < 0}
         />
-        <Button className='font-nanum text-sm' onClick={handleNextStep}>
+        <Button className='text-sm' onClick={handleNextStep}>
           확인
         </Button>
       </div>

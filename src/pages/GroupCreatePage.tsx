@@ -17,7 +17,7 @@ const GroupCreatePage = () => {
 
   return (
     <div className='flex flex-col min-h-screen pt-20'>
-      <Stepper className='w-40 mb-14 font-nanum cursor-pointer' activeStep={currentStep - 1}>
+      <Stepper className='w-40 mb-14 cursor-pointer' activeStep={currentStep - 1}>
         {Object.keys(groupCreateSections).map((step) => (
           <Step
             className='w-6 h-6 text-xs bg-gray-100'

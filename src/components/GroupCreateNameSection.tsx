@@ -19,12 +19,10 @@ const GroupCreateNameSection = ({ onNextStep }: onNextStepProps) => {
   return (
     <section className='space-y-10'>
       <div>
-        <Typography variant='lead' className='font-nanum'>
+        <Typography variant='lead'>
           새 그룹의 <strong>이름</strong>을 입력해주세요.
         </Typography>
-        <Typography variant='paragraph' className='font-nanum'>
-          그룹 이름은 최대 12자까지 가능합니다.
-        </Typography>
+        <Typography variant='paragraph'>그룹 이름은 최대 12자까지 가능합니다.</Typography>
       </div>
       <div className='flex gap-2 flex-wrap'>
         <Input
@@ -36,7 +34,7 @@ const GroupCreateNameSection = ({ onNextStep }: onNextStepProps) => {
           onChange={onInputChange}
           error={inputCount < 0}
         />
-        <Button className='font-nanum text-sm' onClick={handleNextStep}>
+        <Button className='text-sm' onClick={handleNextStep}>
           확인
         </Button>
       </div>
