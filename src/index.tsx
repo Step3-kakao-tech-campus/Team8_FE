@@ -15,6 +15,8 @@ import SearchResultPage from '@pages/SearchResultPage';
 import GroupSearchResultPage from '@pages/GroupSearchResultPage';
 import GroupCreatePage from '@pages/GroupCreatePage';
 
+import MainLayout from '@components/MainLayout';
+import PageLayout from '@components/PageLayout';
 import App from './App';
 
 const router = createBrowserRouter([
@@ -23,44 +25,54 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        index: true,
-        element: <HomePage />,
+        element: <MainLayout />,
+        children: [
+          {
+            index: true,
+            element: <HomePage />,
+          },
+          {
+            path: '/:groupName/myPage',
+            element: <GroupMyPage />,
+          },
+          {
+            path: '/:groupName/myPage/contribute',
+            element: <MyContributePage />,
+          },
+          {
+            path: '/login',
+            element: <LoginPage />,
+          },
+          {
+            path: '/signUp',
+            element: <SignUpPage />,
+          },
+          {
+            path: '/myPage',
+            element: <MyPage />,
+          },
+          {
+            path: '/:groupName/search',
+            element: <SearchResultPage />,
+          },
+          {
+            path: '/search/group',
+            element: <GroupSearchResultPage />,
+          },
+          {
+            path: '/groupCreate',
+            element: <GroupCreatePage />,
+          },
+        ],
       },
       {
-        path: '/:groupName',
-        element: <GroupMainPage />,
-      },
-      {
-        path: '/:groupName/myPage',
-        element: <GroupMyPage />,
-      },
-      {
-        path: '/:groupName/myPage/contribute',
-        element: <MyContributePage />,
-      },
-      {
-        path: '/login',
-        element: <LoginPage />,
-      },
-      {
-        path: '/signUp',
-        element: <SignUpPage />,
-      },
-      {
-        path: '/myPage',
-        element: <MyPage />,
-      },
-      {
-        path: '/:groupName/search',
-        element: <SearchResultPage />,
-      },
-      {
-        path: '/search/group',
-        element: <GroupSearchResultPage />,
-      },
-      {
-        path: '/groupCreate',
-        element: <GroupCreatePage />,
+        element: <PageLayout />,
+        children: [
+          {
+            path: '/:groupName',
+            element: <GroupMainPage />,
+          },
+        ],
       },
     ],
   },
