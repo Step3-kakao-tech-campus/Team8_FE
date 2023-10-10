@@ -10,7 +10,7 @@ const GroupCreatePage = () => {
 
   const groupCreateSections = {
     1: <GroupCreateNameSection onNextStep={() => setCurrentStep(2)} />,
-    2: <GroupCreatePhotoSection />,
+    2: <GroupCreatePhotoSection onNextStep={() => setCurrentStep(3)} />,
     3: <GroupCreateNickNameSection />,
     4: <GroupCreateCompleteSection />,
   };
