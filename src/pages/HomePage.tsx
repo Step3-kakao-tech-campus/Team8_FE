@@ -10,8 +10,9 @@ import { useRecoilValue } from 'recoil';
 import isLoggedInState from '@recoil/login/atoms';
 import { useNavigate } from 'react-router-dom';
 
+const titleStyle = 'font-bold text-lg mb-4 mt-20';
+
 const HomePage = () => {
-  const titleStyle = 'font-bold text-lg mb-4 mt-20';
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const navigate = useNavigate();
 
