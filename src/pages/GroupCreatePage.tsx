@@ -6,10 +6,10 @@ import GroupCreateNickNameSection from '@components/GroupCreateNickNameSection';
 import GroupCreateCompleteSection from '@components/GroupCreateCompleteSection';
 
 const GroupCreatePage = () => {
-  const [currentStep] = useState<1 | 2 | 3 | 4>(4);
+  const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
 
   const groupCreateSections = {
-    1: <GroupCreateNameSection />,
+    1: <GroupCreateNameSection onNextStep={() => setCurrentStep(2)} />,
     2: <GroupCreatePhotoSection />,
     3: <GroupCreateNickNameSection />,
     4: <GroupCreateCompleteSection />,
@@ -17,9 +17,14 @@ const GroupCreatePage = () => {
 
   return (
     <div className='flex flex-col min-h-screen pt-20'>
-      <Stepper className='w-40 mb-14' activeStep={currentStep - 1}>
+      <Stepper className='w-40 mb-14 font-nanum cursor-pointer' activeStep={currentStep - 1}>
         {Object.keys(groupCreateSections).map((step) => (
-          <Step className='w-6 h-6 text-xs bg-gray-100'>{step}</Step>
+          <Step
+            className='w-6 h-6 text-xs bg-gray-100'
+            onClick={() => setCurrentStep(parseInt(step, 10) as 1 | 2 | 3 | 4)}
+          >
+            {step}
+          </Step>
         ))}
       </Stepper>
       {groupCreateSections[currentStep]}

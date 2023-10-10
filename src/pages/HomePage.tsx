@@ -8,10 +8,12 @@ import { ReactComponent as Logo } from '@assets/images/logo/logo.svg';
 import SearchInput from '@components/SearchInput';
 import { useRecoilValue } from 'recoil';
 import isLoggedInState from '@recoil/login/atoms';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const titleStyle = 'font-bold text-lg mb-4 mt-20';
   const isLoggedIn = useRecoilValue(isLoggedInState);
+  const navigate = useNavigate();
 
   return (
     <main>
@@ -30,7 +32,7 @@ const HomePage = () => {
           <section>
             <div className='flex justify-between items-baseline'>
               <h2 className={titleStyle}>내 그룹</h2>
-              <Button className='rounded font-nanum h-8' size='sm'>
+              <Button className='rounded font-nanum h-8' size='sm' onClick={() => navigate('/groupCreate')}>
                 그룹 생성
               </Button>
             </div>
@@ -42,7 +44,6 @@ const HomePage = () => {
           </section>
         </div>
       )}
-
       <section>
         <h2 className={titleStyle}>그룹 살펴보기</h2>
         <GroupList groups={unOfficialGroupDummyData} />
