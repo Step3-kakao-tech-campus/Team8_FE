@@ -17,10 +17,11 @@ const HomePage = () => {
           <Logo fill='black' width='50px' height='50px' className='mx-auto mb-4' />
           <TextLogo className='w-56 mx-auto' />
           <p className='text-sm mt-4'>시간의 흐름; 기록의 증가</p>
-          <SearchInput isLoggedIn={false} className='!mx-0 mt-10' />
         </div>
       </section>
-
+      <section className='mb-14'>
+        <SearchInput isLoggedIn={false} className='!mx-auto mt-10 !max-w-md' />
+      </section>
       {/* TODO: 로그인 시에만 나타나도록 설정 */}
       <section>
         <div className='flex justify-between items-baseline'>

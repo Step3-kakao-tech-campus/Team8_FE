@@ -5,9 +5,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 interface InputProps {
   isLoggedIn: boolean;
+  className?: string;
 }
 
-const SearchInput = ({ isLoggedIn }: InputProps) => {
+const SearchInput = ({ isLoggedIn, className }: InputProps) => {
   const { groupName } = useParams();
   const [searchBar, setSearchBar] = useState<string>('');
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const SearchInput = ({ isLoggedIn }: InputProps) => {
   };
 
   return (
-    <div className={`relative ${isLoggedIn ? 'max-w-sm' : 'max-w-xl'} min-w-[240px] w-full ml-4`}>
+    <div className={`relative ${isLoggedIn ? 'max-w-sm' : 'max-w-xl'} min-w-[240px] w-full ml-4 ${className}`}>
       <div className='relative'>
         <MdSearch className='absolute left-2 top-0 bottom-0 my-auto text-2xl text-gray-600 z-10' />
         <Input
