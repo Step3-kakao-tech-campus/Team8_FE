@@ -5,10 +5,16 @@ import { Select, Typography, Option, Textarea, Button } from '@material-tailwind
 const ReportPage = () => {
   return (
     <section>
-      <div className='flex items-center mb-6'>
-        <Typography variant='h4'>내용 신고하기</Typography>
-        <MdReport size={30} color='red' />
+      <div className='mb-6'>
+        <div className='flex items-center mb-1'>
+          <Typography variant='h4'>내용 신고하기</Typography>
+          <MdReport size={30} color='red' />
+        </div>
+        <Typography variant='paragraph' color='gray' className='text-sm'>
+          신고는 운영진에게 전달되며, 신고된 내용은 운영진이 검토 후에 삭제될 수 있습니다.
+        </Typography>
       </div>
+
       <form className='bg-gray-100 p-8 rounded-sm flex flex-col gap-4'>
         <div className='flex gap-4 items-center'>
           <Typography variant='h6' className='w-1/6'>
