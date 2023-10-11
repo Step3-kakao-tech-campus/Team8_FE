@@ -59,7 +59,7 @@ export const getPageInfo = (groupName: string): PageInfo => ({
     },
     {
       postId: 4,
-      index: '2-1',
+      index: '2.1',
       postTitle: '컴공의 역사',
       content: '내용...',
     },
