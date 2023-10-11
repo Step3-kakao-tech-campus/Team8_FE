@@ -1,18 +1,28 @@
-import React from 'react';
-import { Button, Input, Typography } from '@material-tailwind/react';
+import React, { useEffect, useState } from 'react';
+import { Alert, Button, Input, Typography } from '@material-tailwind/react';
 import { MdContentCopy } from 'react-icons/md';
 
 const GroupCreateCompleteSection = () => {
   const inviteCode = 'https://www.dfdasdf.ffdda.com/ffaefdfdasdf';
 
-  const handleCopyClipBoard = (text: string) => {
+  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+
+  const handleCopy = async () => {
     try {
-      navigator.clipboard.writeText(text);
-      alert('클립보드에 복사되었습니다.');
-    } catch (error) {
-      alert('클립보드 복사에 실패하였습니다.');
+      await navigator.clipboard.writeText(inviteCode);
+    } finally {
+      setIsAlertOpen(true);
     }
   };
+
+  useEffect(() => {
+    const timer: NodeJS.Timeout = setTimeout(() => {
+      setIsAlertOpen(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [isAlertOpen]);
+
   return (
     <section className='space-y-10'>
       <div>
@@ -28,12 +38,25 @@ const GroupCreateCompleteSection = () => {
         size='lg'
         readOnly
         crossOrigin=''
-        icon={<MdContentCopy onClick={() => handleCopyClipBoard(inviteCode)} />}
-        onClick={() => handleCopyClipBoard(inviteCode)}
+        icon={<MdContentCopy onClick={handleCopy} />}
+        onClick={handleCopy}
       />
       <div className='flex justify-end'>
         <Button>시작하기</Button>
       </div>
+      {isAlertOpen && (
+        <Alert
+          variant='ghost'
+          className='py-3 text-sm absolute top-10 max-w-3xl min-w-max mx-auto '
+          open={isAlertOpen}
+          animate={{
+            mount: { y: 0 },
+            unmount: { y: 100 },
+          }}
+        >
+          초대코드가 복사되었습니다.
+        </Alert>
+      )}
     </section>
   );
 };
