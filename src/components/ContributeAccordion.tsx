@@ -27,7 +27,7 @@ const ContributeAccordion = () => {
               {data.content.name}
             </p>
           </AccordionHeader>
-          <AccordionBody className='pt-0 text-base font-normal max-w-[768px]'>{data.content.detail}</AccordionBody>
+          <AccordionBody className='pt-0 max-w-[768px] text-gray-800'>{data.content.detail}</AccordionBody>
         </Accordion>
       ))}
     </>
