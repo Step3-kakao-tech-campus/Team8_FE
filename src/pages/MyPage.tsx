@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Input } from '@material-tailwind/react';
 import GroupList from '@components/GroupList';
 import { unOfficialGroupDummyData } from '@dummy/group';
+import PasswordChangeModal from '@components/PasswordChangeModal';
 
 const MyPage = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const handleOpen = () => setIsOpen(!isOpen);
+
   return (
     <div className='mb-10'>
       <h1 className='inline pb-4 pr-40 mb-20 text-xl font-extrabold border border-x-0 border-b-1 border-t-0 border-black'>
@@ -31,11 +35,17 @@ const MyPage = () => {
         </div>
         <div className='flex items-baseline mt-10'>
           <span className='font-extrabold w-40'>비밀번호 변경</span>
-          <Button variant='outlined' color='gray' className='rounded-sm h-9 w-20 p-1 whitespace-nowrap'>
+          <Button
+            variant='outlined'
+            color='gray'
+            className='rounded-sm h-9 w-20 p-1 whitespace-nowrap'
+            onClick={handleOpen}
+          >
             바로가기
           </Button>
           <p className='text-xs text-gray-700 ml-4'>카카오톡 간편 회원은 지원하지 않는 기능입니다.</p>
         </div>
+        <PasswordChangeModal isOpen={isOpen} handleOpen={handleOpen} />
         <div className='flex items-baseline mt-10 mb-10'>
           <span className='font-extrabold w-40'>내 그룹 보기</span>
           <p className='text-xs text-gray-700'>프로필을 누르면 그룹으로 이동합니다.</p>
