@@ -37,6 +37,7 @@ export const pageDummyData: Page[] = [
 
 interface PageInfo {
   pageName: string;
+  pageId: number;
   postList: Post[];
   goodCount: number;
   badCount: number;
@@ -44,6 +45,7 @@ interface PageInfo {
 
 export const getPageInfo = (groupName: string): PageInfo => ({
   pageName: groupName,
+  pageId: 1,
   postList: [
     {
       postId: 1,
@@ -67,3 +69,19 @@ export const getPageInfo = (groupName: string): PageInfo => ({
   goodCount: 7326,
   badCount: 545,
 });
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const getIndexList = (pageId: number): Pick<Post, 'index' | 'postTitle'>[] => [
+  {
+    index: '1',
+    postTitle: '개요',
+  },
+  {
+    index: '2',
+    postTitle: '역사',
+  },
+  {
+    index: '2.1',
+    postTitle: '컴공의 역사',
+  },
+];

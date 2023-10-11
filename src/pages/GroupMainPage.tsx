@@ -16,7 +16,7 @@ const GroupMainPage = () => {
   return (
     <div>
       <PageTitleSection title={pageInfo.pageName} />
-      <PageContainer>
+      <PageContainer pageId={pageInfo.pageId}>
         {pageInfo.postList.map((post) => (
           <article>
             <div className='border-b-2 mb-4'>
