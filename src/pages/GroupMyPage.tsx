@@ -41,7 +41,7 @@ const GroupMyPage = () => {
               disabled={!isNickNameChanging}
               value={nickName}
               placeholder='그룹 닉네임'
-              className='!border !border-gray-400 text-gray-900 rounded-sm placeholder:text-gray-500 focus:!border-gray-900'
+              className='!border !border-t-blue-gray-20 !border-gray-400 text-gray-900 rounded-sm placeholder:text-gray-500 focus:!border-gray-900'
               labelProps={{
                 className: 'hidden',
               }}
