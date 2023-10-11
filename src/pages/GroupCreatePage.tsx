@@ -20,6 +20,7 @@ const GroupCreatePage = () => {
       <Stepper className='w-40 mb-14 cursor-pointer' activeStep={currentStep - 1}>
         {Object.keys(groupCreateSections).map((step) => (
           <Step
+            key={step}
             className='w-6 h-6 text-xs bg-gray-100'
             onClick={() => setCurrentStep(parseInt(step, 10) as 1 | 2 | 3 | 4)}
           >
