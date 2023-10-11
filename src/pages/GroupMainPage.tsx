@@ -7,11 +7,11 @@ import PageContainer from '@components/PageContainer';
 import Viewer from '@components/Viewer';
 
 const GroupMainPage = () => {
-  const { groupName } = useParams();
+  const { groupName, page } = useParams();
 
   if (!groupName) return null;
 
-  const pageInfo = getPageInfo(groupName);
+  const pageInfo = getPageInfo(page ?? groupName);
 
   return (
     <div>
