@@ -42,8 +42,8 @@ interface PageInfo {
   badCount: number;
 }
 
-export const pageInfo: PageInfo = {
-  pageName: '부산대학교',
+export const getPageInfo = (groupName: string): PageInfo => ({
+  pageName: groupName,
   postList: [
     {
       postId: 1,
@@ -66,4 +66,4 @@ export const pageInfo: PageInfo = {
   ],
   goodCount: 7326,
   badCount: 545,
-};
+});
