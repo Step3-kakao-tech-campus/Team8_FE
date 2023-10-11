@@ -14,6 +14,7 @@ import MyContributePage from '@pages/MyContributePage';
 import SearchResultPage from '@pages/SearchResultPage';
 import GroupSearchResultPage from '@pages/GroupSearchResultPage';
 import GroupCreatePage from '@pages/GroupCreatePage';
+import ReportPage from '@pages/ReportPage';
 
 import MainLayout from '@components/MainLayout';
 import PageLayout from '@components/PageLayout';
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
           {
             path: '/groupCreate',
             element: <GroupCreatePage />,
+          },
+          {
+            path: '/:groupName/report',
+            element: <ReportPage />,
           },
         ],
       },
