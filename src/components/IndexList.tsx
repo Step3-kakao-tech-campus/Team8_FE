@@ -8,17 +8,14 @@ interface IndexListProps {
 const IndexList = ({ pageId }: IndexListProps) => {
   const indexList = getIndexList(pageId);
 
-  const getIndexDepth = (index: string) => {
-    return index.split('.').length - 1;
-  };
-
   return (
     <div className='w-full'>
-      <h2 className='font-bold px-1 py-2'>목차</h2>
-      <ul className='p-4 bg-gray-100 text-sm'>
+      <h2 className='font-bold px-1 py-2 text-sm'>목차</h2>
+      <ul className='p-4 bg-gray-100 text-xs'>
         {indexList.map((post) => (
           <li key={post.index} className='my-2 leading-tight whitespace-pre'>
-            {' '.repeat(getIndexDepth(post.index))} {post.index} {post.postTitle}
+            {post.index.split('.').length > 2 && '  '}
+            <span className='text-indigo-500'>{post.index}</span> {post.postTitle}
           </li>
         ))}
       </ul>
