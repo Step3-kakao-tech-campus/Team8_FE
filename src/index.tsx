@@ -65,7 +65,7 @@ const router = createBrowserRouter([
             element: <GroupCreatePage />,
           },
           {
-            path: '/:groupName/report',
+            path: '/:groupName/:page/:postId/report',
             element: <ReportPage />,
           },
         ],
