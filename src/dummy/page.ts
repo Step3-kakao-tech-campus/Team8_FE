@@ -85,28 +85,4 @@ export const getIndexList = (pageId: number): Pick<Post, 'index' | 'postTitle'>[
     index: '2.1.',
     postTitle: '컴공의 역사',
   },
-  {
-    index: '2.1.1.',
-    postTitle: '컴공의 역사입니다',
-  },
-  {
-    index: '2.1.1.1.',
-    postTitle: '컴공의 역사입니다',
-  },
-  {
-    index: '2.1.1.1.1.',
-    postTitle: '컴공의 역사입니다',
-  },
-  {
-    index: '2.1.1.1.1.1.',
-    postTitle: '컴공의 역사입니다',
-  },
-  {
-    index: '3.',
-    postTitle: '안녕',
-  },
-  {
-    index: '3.1.',
-    postTitle: '안녕하세요',
-  },
 ];

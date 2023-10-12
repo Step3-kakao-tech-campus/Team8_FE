@@ -16,10 +16,11 @@ const GroupMainPage = () => {
   return (
     <div className='mx-auto 2xl:max-w-screen-xl xl:max-w-screen-lg'>
       <PageTitleSection title={pageInfo.pageName} />
-      <PageContainer pageId={pageInfo.pageId}>
+      <PageContainer pageId={pageInfo.pageId} recentChangeList>
         {pageInfo.postList.map((post) => (
           <Post
             key={post.postId}
+            pageId={pageInfo.pageId}
             pageName={pageInfo.pageName}
             index={post.index}
             postTitle={post.postTitle}

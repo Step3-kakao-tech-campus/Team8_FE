@@ -4,13 +4,14 @@ import Viewer from '@components/Viewer';
 import { useNavigate } from 'react-router-dom';
 
 interface PostProps {
+  pageId: number;
   pageName: string;
   index: string;
   postTitle: string;
   content: string;
 }
 
-const Post = ({ pageName, index, postTitle, content }: PostProps) => {
+const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
   const navigate = useNavigate();
 
   return (
@@ -25,7 +26,7 @@ const Post = ({ pageName, index, postTitle, content }: PostProps) => {
           className='flex justify-center items-center p-1 hover:bg-transparent active:bg-transparent'
           onClick={() =>
             navigate(`${postTitle}/edit`, {
-              state: { index, pageName, postTitle, content },
+              state: { pageId, index, pageName, postTitle, content },
             })
           }
         >
