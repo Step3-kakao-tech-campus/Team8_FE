@@ -11,7 +11,7 @@ const PageTitleSection = ({ title, aboveAdornment, underAdornment }: PageTitleSe
     <section className='w-full flex flex-col justify-center max-w-full px-8'>
       <div>
         <div className='px-2 border-b-2 flex mb-2'>
-          <h1 className='text-4xl leading-normal font-semibold max-w-fit w-full truncate'>{title}</h1>
+          <h1 className='text-2xl leading-normal font-bold max-w-fit w-full truncate pb-1'>{title}</h1>
           {aboveAdornment}
         </div>
         {underAdornment}
