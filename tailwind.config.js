@@ -12,6 +12,9 @@ module.exports = withMT({
         kakaoSymbol: '#000000',
         kakaoLabel: '#000000D9',
       },
+      fontFamily: {
+        sans: ['NanumSquare', 'sans-serif'],
+      },
     },
   },
   plugins: [],

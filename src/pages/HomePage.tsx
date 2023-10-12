@@ -4,37 +4,47 @@ import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
 import OfficialGroup from '@components/OfficialGroup';
 import GroupList from '@components/GroupList';
 import { unOfficialGroupDummyData } from '@dummy/group';
+import { ReactComponent as Logo } from '@assets/images/logo/logo.svg';
+import SearchInput from '@components/SearchInput';
+import { useRecoilValue } from 'recoil';
+import isLoggedInState from '@recoil/login/atoms';
+import { useNavigate } from 'react-router-dom';
+
+const titleStyle = 'font-bold text-lg mb-4 mt-20';
 
 const HomePage = () => {
-  const titleStyle = 'font-bold text-lg mb-4 mt-20';
+  const isLoggedIn = useRecoilValue(isLoggedInState);
+  const navigate = useNavigate();
 
   return (
     <main>
       <section className='flex justify-center items-center mb-10'>
         <div className='text-center'>
-          {/* TODO: 메인 로고 import */}
-          <h1 className='my-4'>메인 로고</h1>
-          <TextLogo className='w-56' />
+          <Logo fill='black' width='50px' height='50px' className='mx-auto mb-4' />
+          <TextLogo className='w-56 mx-auto' />
           <p className='text-sm mt-4'>시간의 흐름; 기록의 증가</p>
-          {/* TODO: 검색창 컴포넌트 import */}
-          <p className='my-10'>검색창 컴포넌트</p>
         </div>
       </section>
-
-      {/* TODO: 로그인 시에만 나타나도록 설정 */}
-      <section>
-        <div className='flex justify-between items-baseline'>
-          <h2 className={titleStyle}>내 그룹</h2>
-          <Button className='rounded font-nanum h-8' size='sm'>
-            그룹 생성
-          </Button>
+      <section className='mb-14'>
+        <SearchInput isLoggedIn={false} className='!mx-auto mt-10 !max-w-md' />
+      </section>
+      {isLoggedIn && (
+        <div>
+          <section>
+            <div className='flex justify-between items-baseline'>
+              <h2 className={titleStyle}>내 그룹</h2>
+              <Button className='rounded h-8' size='sm' onClick={() => navigate('/groupCreate')}>
+                그룹 생성
+              </Button>
+            </div>
+            <GroupList groups={unOfficialGroupDummyData} />
+          </section>
+          <section>
+            <h2 className={titleStyle}>공식 그룹</h2>
+            <OfficialGroup />
+          </section>
         </div>
-        <GroupList groups={unOfficialGroupDummyData} />
-      </section>
-      <section>
-        <h2 className={titleStyle}>공식 그룹</h2>
-        <OfficialGroup />
-      </section>
+      )}
       <section>
         <h2 className={titleStyle}>그룹 살펴보기</h2>
         <GroupList groups={unOfficialGroupDummyData} />
