@@ -79,7 +79,7 @@ const router = createBrowserRouter([
             element: <GroupMainPage />,
           },
           {
-            path: '/:groupName/:page?/modify',
+            path: '/:groupName/:page?/:post/edit',
             element: <PostEditPage />,
           },
         ],
