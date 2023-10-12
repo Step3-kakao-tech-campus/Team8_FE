@@ -14,14 +14,14 @@ const GroupMainPage = () => {
   const pageInfo = getPageInfo(page ?? groupName);
 
   return (
-    <div>
+    <div className='mx-auto 2xl:max-w-screen-xl xl:max-w-screen-lg'>
       <PageTitleSection title={pageInfo.pageName} />
       <PageContainer pageId={pageInfo.pageId}>
         {pageInfo.postList.map((post) => (
           <article>
             <div className='border-b-2 mb-4'>
-              <h2 className='text-3xl leading-normal font-semibold'>
-                {post.index} {post.postTitle}
+              <h2 className='text-xl leading-relaxed font-semibold'>
+                <span className='text-indigo-500'>{post.index}</span> {post.postTitle}
               </h2>
             </div>
             <Viewer content={post.content} />
