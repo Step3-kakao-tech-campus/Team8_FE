@@ -2,7 +2,15 @@ import React from 'react';
 import { MdOutlineImage } from 'react-icons/md';
 import { Button, Typography } from '@material-tailwind/react';
 
-const GroupCreatePhotoSection = () => {
+interface onNextStepProps {
+  onNextStep: () => void;
+}
+
+const GroupCreatePhotoSection = ({ onNextStep }: onNextStepProps) => {
+  const handleNextStep = () => {
+    // TODO: 사진 조건 체크(있는지 없는지)
+    onNextStep();
+  };
   return (
     <section className='space-y-10'>
       <div>
@@ -20,7 +28,7 @@ const GroupCreatePhotoSection = () => {
       </Button>
       <div className='flex justify-between items-center'>
         <p className='text-gray-500 hover:text-gray-600 underline underline-offset-2'>다음에 하기</p>
-        <Button>확인</Button>
+        <Button onClick={handleNextStep}>확인</Button>
       </div>
     </section>
   );
