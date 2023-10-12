@@ -15,6 +15,7 @@ import SearchResultPage from '@pages/SearchResultPage';
 import GroupSearchResultPage from '@pages/GroupSearchResultPage';
 import GroupCreatePage from '@pages/GroupCreatePage';
 import ReportPage from '@pages/ReportPage';
+import PostEditPage from '@pages/PostEditPage';
 
 import MainLayout from '@components/MainLayout';
 import PageLayout from '@components/PageLayout';
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
           {
             path: '/:groupName/:page?',
             element: <GroupMainPage />,
+          },
+          {
+            path: '/:groupName/:page?/modify',
+            element: <PostEditPage />,
           },
         ],
       },
