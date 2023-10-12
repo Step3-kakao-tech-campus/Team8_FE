@@ -1,25 +1,13 @@
 import React from 'react';
 
 import ContributeAccordion from '@components/ContributeAccordion';
-import { IconButton, Typography } from '@material-tailwind/react';
-import { MdArrowBack, MdArrowForward } from 'react-icons/md';
+import Pagination from '@components/Pagination';
+
+// TODO: API 수정 후 맞춰서 수정 필요
+const lastIndex = 10;
 
 const MyContributePage = () => {
   const [active, setActive] = React.useState<number>(1);
-  // TODO: 데이터 받아와서 마지막 페이지 계산하기
-  const lastIndex = 10;
-
-  const next = () => {
-    if (active === lastIndex) return;
-
-    setActive(active + 1);
-  };
-
-  const prev = () => {
-    if (active === 1) return;
-
-    setActive(active - 1);
-  };
 
   return (
     <section>
@@ -33,17 +21,7 @@ const MyContributePage = () => {
         </div>
         <ContributeAccordion />
       </div>
-      <div className='flex items-center justify-center gap-4 mx-auto'>
-        <IconButton size='sm' variant='text' onClick={prev} disabled={active === 1}>
-          <MdArrowBack size={15} />
-        </IconButton>
-        <Typography color='gray' className='font-normal'>
-          Page <strong className='text-gray-900'>{active}</strong> of <strong className='text-gray-900'>10</strong>
-        </Typography>
-        <IconButton size='sm' variant='text' onClick={next} disabled={active === lastIndex}>
-          <MdArrowForward size={15} />
-        </IconButton>
-      </div>
+      <Pagination active={active} setActive={setActive} lastIndex={lastIndex} />
     </section>
   );
 };
