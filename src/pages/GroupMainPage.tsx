@@ -18,7 +18,7 @@ const GroupMainPage = () => {
       <PageTitleSection title={pageInfo.pageName} />
       <PageContainer pageId={pageInfo.pageId}>
         {pageInfo.postList.map((post) => (
-          <article>
+          <article key={post.postId}>
             <div className='border-b-2 mb-4'>
               <h2 className='text-xl leading-relaxed font-semibold'>
                 <span className='text-indigo-500'>{post.index}</span> {post.postTitle}
