@@ -74,7 +74,7 @@ const router = createBrowserRouter([
         element: <PageLayout />,
         children: [
           {
-            path: '/:groupName',
+            path: '/:groupName/:page?',
             element: <GroupMainPage />,
           },
         ],

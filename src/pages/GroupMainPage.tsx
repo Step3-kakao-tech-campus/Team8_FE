@@ -1,10 +1,35 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-const GroupMainPage = () => {
-  const { groupName } = useParams();
+import { getPageInfo } from '@dummy/page';
+import PageTitleSection from '@components/PageTitleSection';
+import PageContainer from '@components/PageContainer';
+import Viewer from '@components/Viewer';
 
-  return <div>{groupName}</div>;
+const GroupMainPage = () => {
+  const { groupName, page } = useParams();
+
+  if (!groupName) return null;
+
+  const pageInfo = getPageInfo(page ?? groupName);
+
+  return (
+    <div>
+      <PageTitleSection title={pageInfo.pageName} />
+      <PageContainer pageId={pageInfo.pageId}>
+        {pageInfo.postList.map((post) => (
+          <article>
+            <div className='border-b-2 mb-4'>
+              <h2 className='text-3xl leading-normal font-semibold'>
+                {post.index} {post.postTitle}
+              </h2>
+            </div>
+            <Viewer content={post.content} />
+          </article>
+        ))}
+      </PageContainer>
+    </div>
+  );
 };
 
 export default GroupMainPage;
