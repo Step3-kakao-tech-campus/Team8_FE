@@ -1,22 +1,33 @@
-import React, { ChangeEvent } from 'react';
-import { Textarea } from '@material-tailwind/react';
+import React from 'react';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import CustomEditor from 'ckeditor5-custom-build/build/ckeditor';
 
 interface EditorProps {
   content: string;
-  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  onChange: (content: string) => void;
 }
 
 /* TODO 추후 ck editor에 맞게 변경 필요 */
 const Editor = ({ content, onChange }: EditorProps) => {
   return (
     <div>
-      <Textarea
-        className='min-h-[300px] text-[13px] leading-6 bg-white !border !border-gray-400'
-        value={content}
-        labelProps={{
-          className: 'hidden',
+      <CKEditor
+        editor={CustomEditor}
+        data={content}
+        onReady={(editor) => {
+          // You can store the "editor" and use when it is needed.
+          console.log('Editor is ready to use!', editor);
         }}
-        onChange={onChange}
+        onChange={(event, editor) => {
+          const data = editor.getData();
+          onChange(data);
+        }}
+        onBlur={(event, editor) => {
+          console.log('Blur.', editor);
+        }}
+        onFocus={(event, editor) => {
+          console.log('Focus.', editor);
+        }}
       />
     </div>
   );

@@ -14,8 +14,8 @@ const PostEditPage = () => {
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
-  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
+  const handleContentChange = (data: string) => {
+    setContent(data);
   };
   const handleSaveClick = () => {
     // api 연결 후 작성
