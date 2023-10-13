@@ -21,7 +21,7 @@ const PostEditPage = () => {
   return (
     <div className='mx-auto 2xl:max-w-screen-xl xl:max-w-screen-lg'>
       <PageTitleSection title={pageName} />
-      <PageContainer pageId={pageId} recentChangeList={false}>
+      <PageContainer pageId={pageId} hasRecentChangeList={false}>
         <article className='p-4 bg-gray-100'>
           <div className='flex items-center gap-3 pb-2 border-b-2 mb-4'>
             <h2 className='text-xl text-indigo-500 leading-relaxed font-semibold'>{index}</h2>
