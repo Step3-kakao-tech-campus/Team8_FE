@@ -17,6 +17,9 @@ const PostEditPage = () => {
   const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
+  const handleSaveClick = () => {
+    // api 연결 후 작성
+  };
 
   return (
     <div className='mx-auto 2xl:max-w-screen-xl xl:max-w-screen-lg'>
@@ -42,10 +45,11 @@ const PostEditPage = () => {
               color='white'
               ripple={false}
               className='py-2 rounded-md shadow-none border border-gray-700 hover:shadow-none'
+              onClick={() => navigate(-1)}
             >
               취소
             </Button>
-            <Button ripple={false} className='py-2 rounded-md hover:shadow-none' onClick={() => navigate(-1)}>
+            <Button ripple={false} className='py-2 rounded-md hover:shadow-none' onClick={handleSaveClick}>
               저장
             </Button>
           </div>
