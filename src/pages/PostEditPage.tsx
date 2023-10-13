@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import PageContainer from '@components/PageContainer';
 import PageTitleSection from '@components/PageTitleSection';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Editor from '@components/Editor';
+import Editor from '@components/Editor/Editor';
 import { Button, Input } from '@material-tailwind/react';
 
 const PostEditPage = () => {

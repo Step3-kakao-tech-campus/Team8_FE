@@ -1,0 +1,22 @@
+ul,
+ol {
+  @apply pl-[26px];
+}
+
+.ck-content > h1,
+.ck-content > h2,
+.ck-content > h3,
+.ck-content > h4,
+.ck-content > h5,
+.ck-content > h6 {
+  font-size: revert;
+  font-weight: revert;
+}
+
+.ck-content {
+  @apply min-h-[320px] max-h-[600px];
+}
+
+.ck.ck-editor__main > .ck-editor__editable.ck-focused {
+  @apply border-gray-400 shadow-none;
+}

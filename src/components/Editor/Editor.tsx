@@ -1,6 +1,7 @@
 import React from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import CustomEditor from 'ckeditor5-custom-build/build/ckeditor';
+import './Editor.css';
 
 interface EditorProps {
   content: string;
@@ -10,7 +11,7 @@ interface EditorProps {
 /* TODO 추후 ck editor에 맞게 변경 필요 */
 const Editor = ({ content, onChange }: EditorProps) => {
   return (
-    <div>
+    <div className='mb-4'>
       <CKEditor
         editor={CustomEditor}
         data={content}
