@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@material-tailwind/react';
-import Viewer from '@components/Viewer';
+import Viewer from '@components/CKEditor5/Ckviewer';
 import { useNavigate } from 'react-router-dom';
 
 interface PostProps {
@@ -16,7 +16,7 @@ const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
 
   return (
     <article>
-      <div className='flex justify-between border-b-2 mb-4'>
+      <div className='flex justify-between border-b-2'>
         <h2 className='text-xl leading-relaxed font-semibold'>
           <span className='text-indigo-500'>{index}</span> {postTitle}
         </h2>
