@@ -2,8 +2,8 @@ import React, { ChangeEvent, useState } from 'react';
 import PageContainer from '@components/PageContainer';
 import PageTitleSection from '@components/PageTitleSection';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Editor from '@components/Editor';
 import { Button, Input } from '@material-tailwind/react';
+import CKEditor from '@components/CKEditor5/Ckeditor';
 
 const PostEditPage = () => {
   const { pageId, index, pageName, postTitle, content: postContent } = useLocation().state;
@@ -14,8 +14,8 @@ const PostEditPage = () => {
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
-  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
+  const handleContentChange = (data: string) => {
+    setContent(data);
   };
   const handleSaveClick = () => {
     // api 연결 후 작성
@@ -39,7 +39,7 @@ const PostEditPage = () => {
               onChange={handleTitleChange}
             />
           </div>
-          <Editor content={content} onChange={handleContentChange} />
+          <CKEditor content={content} onChange={handleContentChange} />
           <div className='flex justify-end gap-3'>
             <Button
               color='white'
