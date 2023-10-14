@@ -71,6 +71,15 @@ export const getPageInfo = (groupName: string): PageInfo => ({
   badCount: 545,
 });
 
+// 새로 생성된 페이지 UI 구현을 위한 함수, 목차도 비었다고 생각하면 됨.
+export const getNewPageInfo = (groupName: string): PageInfo => ({
+  pageName: groupName,
+  pageId: 1,
+  postList: [],
+  goodCount: 0,
+  badCount: 0,
+});
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getIndexList = (pageId: number): Pick<Post, 'index' | 'postTitle'>[] => [
   {

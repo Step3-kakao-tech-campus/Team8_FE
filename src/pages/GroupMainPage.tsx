@@ -1,7 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { getPageInfo } from '@dummy/page';
+// import { getPageInfo } from '@dummy/page';
+import { getNewPageInfo } from '@dummy/page';
 import PageTitleSection from '@components/PageTitleSection';
 import PageContainer from '@components/PageContainer';
 import Post from '@components/Post';
@@ -11,7 +12,8 @@ const GroupMainPage = () => {
 
   if (!groupName) return null;
 
-  const pageInfo = getPageInfo(page ?? groupName);
+  // const pageInfo = getPageInfo(page ?? groupName);
+  const pageInfo = getNewPageInfo(page ?? groupName);
 
   return (
     <div className='mx-auto 2xl:max-w-screen-xl xl:max-w-screen-lg'>

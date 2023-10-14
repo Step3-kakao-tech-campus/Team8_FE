@@ -2,21 +2,32 @@ import React from 'react';
 import RecentChangeList from '@components/RecentChangeList';
 import { MdArrowCircleRight } from 'react-icons/md';
 import { pageDummyData } from '@dummy/page';
+import { Button } from '@material-tailwind/react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 const SearchResultPage = () => {
-  const keyword = '테스트 검색어';
+  const query = useLocation().search;
+  const queries = new URLSearchParams(query);
+  const keyword = queries.get('keyword');
+  const { groupName } = useParams();
+  const navigate = useNavigate();
+
+  const handlePageCreate = () => {
+    // 페이지 생성 api 요청하기
+    navigate(`/${groupName}/${keyword}`);
+  };
 
   return (
     <div className='w-screen'>
       <main className='flex px-14 min-w-max gap-20'>
         <section className='result w-9/12'>
-          <span className='text-3xl font-bold'>{keyword}</span>
+          <span className='text-3xl font-bold'>{`"${keyword}"`}</span>
           <div className='flex items-center justify-between bg-gray-200 rounded-lg p-4 my-8'>
             <span className='text-sm mr-8'>찾는 페이지가 없다면?</span>
-            <div className='flex items-center gap-1 font-bold'>
-              <span className='text-sm'>새 페이지 생성하기</span>
+            <Button variant='text' className='flex items-center gap-1 text-sm font-bold' onClick={handlePageCreate}>
+              <span>새 페이지 생성하기</span>
               <MdArrowCircleRight className='w-5 h-5' />
-            </div>
+            </Button>
           </div>
           {pageDummyData.length === 0 ? (
             <div className='flex flex-col items-center justify-center h-96'>
