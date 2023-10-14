@@ -8,7 +8,6 @@ interface EditorProps {
   onChange: (content: string) => void;
 }
 
-/* TODO 추후 ck editor에 맞게 변경 필요 */
 const CKEditor = ({ content, onChange }: EditorProps) => {
   return (
     <div className='mb-4'>
@@ -17,7 +16,6 @@ const CKEditor = ({ content, onChange }: EditorProps) => {
         data={content}
         onChange={(event, editor) => {
           const data = editor.getData();
-          console.log(data);
           onChange(data);
         }}
       />
