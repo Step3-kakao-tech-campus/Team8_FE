@@ -24,9 +24,13 @@ const SearchResultPage = () => {
           <span className='text-3xl font-bold'>{`"${keyword}"`}</span>
           <div className='flex items-center justify-between bg-gray-200 rounded-lg p-4 my-8'>
             <span className='text-sm mr-8'>찾는 페이지가 없다면?</span>
-            <Button variant='text' className='flex items-center gap-1 text-sm font-bold' onClick={handlePageCreate}>
+            <Button
+              variant='text'
+              className='group flex items-center gap-1 py-1 px-2 text-sm font-bold hover:bg-transparent active:bg-transparent'
+              onClick={handlePageCreate}
+            >
               <span>새 페이지 생성하기</span>
-              <MdArrowCircleRight className='w-5 h-5' />
+              <MdArrowCircleRight className='w-5 h-5 group-hover:animate-arrowBounce' />
             </Button>
           </div>
           {pageDummyData.length === 0 ? (
