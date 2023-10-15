@@ -14,9 +14,7 @@ const SearchResultPage = () => {
 
   const handlePageCreate = () => {
     // 페이지 생성 api 요청하기
-    navigate(`/${groupName}/${keyword}`, {
-      state: { newPage: true },
-    });
+    navigate(`/${groupName}/${keyword}`);
   };
 
   return (

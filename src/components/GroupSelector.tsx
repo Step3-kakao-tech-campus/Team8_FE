@@ -8,9 +8,7 @@ const GroupSelector = () => {
   const navigate = useNavigate();
 
   const handleChange = (value?: string) => {
-    navigate(`/${value}`, {
-      state: { newPage: false },
-    });
+    navigate(`/${value}`);
   };
 
   return (
