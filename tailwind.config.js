@@ -15,6 +15,25 @@ module.exports = withMT({
       fontFamily: {
         sans: ['NanumSquare', 'sans-serif'],
       },
+      keyframes: {
+        arrow: {
+          '0%': {
+            transform: 'translateX(0)',
+            animationTimingFunction: 'linear',
+          },
+          '50%': {
+            transform: 'translateX(25%)',
+            animationTimingFunction: 'linear',
+          },
+          '100%': {
+            transform: 'translateX(0)',
+            animationTimingFunction: 'linear',
+          },
+        },
+      },
+      animation: {
+        arrowBounce: 'arrow .3s',
+      },
     },
   },
   plugins: [],
