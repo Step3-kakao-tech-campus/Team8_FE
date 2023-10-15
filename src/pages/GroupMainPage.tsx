@@ -1,5 +1,5 @@
-import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { MdArrowCircleRight } from 'react-icons/md';
 
 // import { getPageInfo } from '@dummy/page';
@@ -7,15 +7,17 @@ import { getEmptyPageInfo } from '@dummy/page';
 import PageTitleSection from '@components/PageTitleSection';
 import PageContainer from '@components/PageContainer';
 import Post from '@components/Post';
-import { Button } from '@material-tailwind/react';
+import { Alert, Button } from '@material-tailwind/react';
 
 const GroupMainPage = () => {
   const navigate = useNavigate();
+  const { newPage } = useLocation().state;
   const { groupName, page } = useParams();
+  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
 
   if (!groupName) return null;
 
-  // const pageInfo = getPageInfo(page ?? groupName);
+  // const { pageName, pageId, postList } = getPageInfo(page ?? groupName);
   const { pageName, pageId, postList } = getEmptyPageInfo(page ?? groupName);
 
   const handleWriteClick = () => {
@@ -23,6 +25,15 @@ const GroupMainPage = () => {
       state: { pageId, index: '1.', pageName, postTitle: '개요', content: '' },
     });
   };
+
+  useEffect(() => {
+    setIsAlertOpen(true);
+    const timer: NodeJS.Timeout = setTimeout(() => {
+      setIsAlertOpen(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className='mx-auto 2xl:max-w-screen-xl xl:max-w-screen-lg'>
@@ -40,8 +51,8 @@ const GroupMainPage = () => {
             />
           ))
         ) : (
-          <article className='flex justify-between items-center p-2 bg-gray-100 rounded-lg px-4'>
-            <p className='shrink-0'>
+          <article className='flex justify-between items-center p-4 bg-gray-100 rounded-lg px-4'>
+            <p className='text-sm shrink-0'>
               <span className='font-bold'>{`"${page ?? groupName}"`}</span>에 작성된 글이 없습니다.
             </p>
             <Button
@@ -53,6 +64,19 @@ const GroupMainPage = () => {
               <span>글쓰기</span>
               <MdArrowCircleRight className='w-5 h-5 group-hover:animate-arrowBounce' />
             </Button>
+            {newPage && isAlertOpen && (
+              <Alert
+                variant='ghost'
+                className='py-3 text-sm absolute top-6 max-w-3xl min-w-max mx-auto '
+                open={isAlertOpen}
+                animate={{
+                  mount: { y: 0 },
+                  unmount: { y: 100 },
+                }}
+              >
+                새 페이지가 생성되었습니다.
+              </Alert>
+            )}
           </article>
         )}
       </PageContainer>
