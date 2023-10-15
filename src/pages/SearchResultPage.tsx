@@ -26,6 +26,7 @@ const SearchResultPage = () => {
             <span className='text-sm mr-8'>찾는 페이지가 없다면?</span>
             <Button
               variant='text'
+              ripple={false}
               className='group flex items-center gap-1 py-1 px-2 text-sm font-bold hover:bg-transparent active:bg-transparent'
               onClick={handlePageCreate}
             >
