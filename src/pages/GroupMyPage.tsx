@@ -23,7 +23,7 @@ const GroupMyPage = () => {
   };
 
   return (
-    <main className='max-w-3xl min-w-max mx-auto mt-32 mb-10'>
+    <main className='mb-10'>
       <h1 className='inline pb-4 pr-40 mb-20 text-xl font-extrabold border border-x-0 border-b-1 border-t-0 border-black'>
         마이페이지
       </h1>
@@ -41,7 +41,7 @@ const GroupMyPage = () => {
               disabled={!isNickNameChanging}
               value={nickName}
               placeholder='그룹 닉네임'
-              className='!border !border-gray-400 text-gray-900 rounded-sm placeholder:text-gray-500 focus:!border-gray-900'
+              className='!border !border-t-blue-gray-20 !border-gray-400 text-gray-900 rounded-sm placeholder:text-gray-500 focus:!border-gray-900'
               labelProps={{
                 className: 'hidden',
               }}
@@ -54,7 +54,7 @@ const GroupMyPage = () => {
                 <Button
                   variant='outlined'
                   color='gray'
-                  className='ml-4 rounded-sm font-nanum py-[11px] whitespace-nowrap'
+                  className='ml-4 rounded-sm py-[11px] whitespace-nowrap'
                   onClick={handleNickNameChage}
                 >
                   취소
@@ -62,7 +62,7 @@ const GroupMyPage = () => {
                 <Button
                   variant='outlined'
                   color='gray'
-                  className='ml-2 rounded-sm font-nanum py-[11px] whitespace-nowrap'
+                  className='ml-2 rounded-sm py-[11px] whitespace-nowrap'
                   onClick={handleNickNameChage}
                 >
                   변경하기
@@ -72,7 +72,7 @@ const GroupMyPage = () => {
               <Button
                 variant='outlined'
                 color='gray'
-                className='ml-4 rounded-sm font-nanum py-[11px] whitespace-nowrap'
+                className='ml-4 rounded-sm py-[11px] whitespace-nowrap'
                 onClick={handleNickNameChage}
               >
                 변경하기
@@ -86,7 +86,7 @@ const GroupMyPage = () => {
           <h3 className='mb-2 font-extrabold'>내 문서 기여 목록</h3>
           <Button
             variant='outlined'
-            className='h-9 w-20 p-1 border-gray-400 text-gray-600 font-nanum whitespace-nowrap rounded-sm'
+            className='h-9 w-20 p-1 border-gray-400 text-gray-600 whitespace-nowrap rounded-sm'
             onClick={() => navigate('contribute')}
           >
             전체보기
@@ -98,7 +98,7 @@ const GroupMyPage = () => {
         <Button
           variant='outlined'
           color='gray'
-          className='p-1 rounded-sm font-nanum border-gray-300 whitespace-nowrap border-none text-red-600 hover:opacity-100 hover:underline decoration-black'
+          className='p-1 rounded-sm border-gray-300 whitespace-nowrap border-none text-red-600 hover:opacity-100 hover:underline decoration-black'
           onClick={handleQuitModal}
         >
           그룹 탈퇴하기

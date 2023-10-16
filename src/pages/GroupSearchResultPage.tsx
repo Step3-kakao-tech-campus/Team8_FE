@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@material-tailwind/react';
 import GroupList from '@components/GroupList';
-// import { nullGroupDummyData } from '@dummy/group';
 import { officialGroupDummyData, unOfficialGroupDummyData } from '@dummy/group';
 import { Link, useSearchParams } from 'react-router-dom';
 import { MdChevronRight } from 'react-icons/md';
@@ -11,10 +10,9 @@ const GroupSearchResultPage = () => {
   const [searchParam] = useSearchParams();
   const keyword = searchParam.get('keyword') || '테스트 키워드';
   const groupData = isOfficialGroup ? officialGroupDummyData : unOfficialGroupDummyData;
-  // const groupData = nullGroupDummyData;
 
   return (
-    <section className='max-w-3xl min-w-max mx-auto my-40'>
+    <section className='pb-20'>
       <h1 className='mb-8'>
         &apos;<span className='text-xl font-bold'>{keyword}</span>&apos;에 대한 검색 결과입니다.
       </h1>
@@ -24,7 +22,7 @@ const GroupSearchResultPage = () => {
           size='sm'
           color='gray'
           ripple={false}
-          className='rounded-full font-nanum'
+          className='rounded-full'
           onClick={() => setIsOfficialGroup(true)}
         >
           공식 그룹
@@ -34,7 +32,7 @@ const GroupSearchResultPage = () => {
           size='sm'
           color='gray'
           ripple={false}
-          className='rounded-full font-nanum'
+          className='rounded-full'
           onClick={() => setIsOfficialGroup(false)}
         >
           비공식 그룹

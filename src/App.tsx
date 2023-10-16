@@ -20,9 +20,7 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <Header />
-          <div className='mt-[59px]'>
-            <Outlet />
-          </div>
+          <Outlet />
           <Footer />
         </ThemeProvider>
       </QueryClientProvider>
