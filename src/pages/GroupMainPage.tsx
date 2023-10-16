@@ -2,8 +2,8 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { MdArrowCircleRight } from 'react-icons/md';
 
-// import { getPageInfo } from '@dummy/page';
-import { getEmptyPageInfo } from '@dummy/page';
+import { getPageInfo } from '@dummy/page';
+// import { getEmptyPageInfo } from '@dummy/page';
 import PageTitleSection from '@components/PageTitleSection';
 import PageContainer from '@components/PageContainer';
 import Post from '@components/Post';
@@ -15,8 +15,8 @@ const GroupMainPage = () => {
 
   if (!groupName) return null;
 
-  // const { pageName, pageId, postList } = getPageInfo(page ?? groupName);
-  const { pageName, pageId, postList } = getEmptyPageInfo(page ?? groupName);
+  const { pageName, pageId, postList } = getPageInfo(page ?? groupName);
+  // const { pageName, pageId, postList } = getEmptyPageInfo(page ?? groupName);
 
   const handleWriteClick = () => {
     navigate('개요/edit', {
