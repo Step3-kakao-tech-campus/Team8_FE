@@ -96,9 +96,9 @@ const GroupMyPage = () => {
       </section>
       <div className='text-right p-4'>
         <Button
-          variant='outlined'
-          color='gray'
-          className='p-1 rounded-sm border-gray-300 whitespace-nowrap border-none text-red-600 hover:opacity-100 hover:underline decoration-black'
+          variant='text'
+          ripple={false}
+          className='p-1 rounded-sm whitespace-nowrap text-red-600 hover:bg-transparent active:bg-transparent hover:underline decoration-black'
           onClick={handleQuitModal}
         >
           그룹 탈퇴하기

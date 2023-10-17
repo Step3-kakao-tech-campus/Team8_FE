@@ -15,10 +15,10 @@ const QuitModal = ({ group, isOpen, onClick }: QuitModalProps) => {
         정말 <span className='font-bold text-red-600'>[{group}]</span> 그룹을 탈퇴하시겠습니까?
       </DialogBody>
       <DialogFooter>
-        <Button variant='text' color='red' onClick={onClick} className='mr-1'>
+        <Button variant='text' ripple={false} color='red' onClick={onClick} className='mr-1'>
           확인
         </Button>
-        <Button variant='gradient' onClick={onClick}>
+        <Button variant='filled' ripple={false} onClick={onClick}>
           취소
         </Button>
       </DialogFooter>
