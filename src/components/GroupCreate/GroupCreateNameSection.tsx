@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { Button, Input, Typography } from '@material-tailwind/react';
 
-interface onNextStepProps {
+interface GroupCreateNameSectionProps {
   onNextStep: () => void;
+  groupName: string;
+  setGroupInfo: ({ groupName }: { groupName: string }) => void;
 }
 
-const GroupCreateNameSection = ({ onNextStep }: onNextStepProps) => {
+const GroupCreateNameSection = ({ onNextStep, groupName, setGroupInfo }: GroupCreateNameSectionProps) => {
   const [inputCount, setInputCount] = useState(12);
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputCount(12 - e.target.value.length);
+    setGroupInfo({ groupName: e.target.value });
   };
+
   const handleNextStep = () => {
     // TODO: 그룹 이름 중복 체크, 그룹 이름 길이 체크, 그 외 조건 체크
     if (inputCount >= 0) {
@@ -26,17 +30,16 @@ const GroupCreateNameSection = ({ onNextStep }: onNextStepProps) => {
       </div>
       <div className='flex gap-2 flex-wrap'>
         <Input
-          size='lg'
+          size='md'
           label='그룹 이름'
           containerProps={{ className: 'max-w-md' }}
           crossOrigin=''
-          icon={inputCount > 0 && inputCount}
+          icon={inputCount > 0 && <span className='text-sm'>{inputCount}</span>}
           onChange={onInputChange}
           error={inputCount < 0}
+          value={groupName}
         />
-        <Button className='text-sm' onClick={handleNextStep}>
-          확인
-        </Button>
+        <Button onClick={handleNextStep}>확인</Button>
       </div>
       {inputCount < 0 && <p className='text-red-500 !mt-3 px-2 text-sm'>조건을 확인해주세요.</p>}
     </section>
