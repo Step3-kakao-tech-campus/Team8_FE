@@ -23,25 +23,24 @@ const PostDeleteModal = ({ title, isOpen, onClickModal }: PostDeleteModalProps) 
   };
 
   return (
-    <Dialog open={isOpen} size='xs' handler={onClickModal}>
-      <DialogHeader className='text-xl'>
+    <Dialog open={isOpen} size='sm' handler={onClickModal}>
+      <DialogHeader className='justify-center text-lg'>
         <p>
           정말 <span className='text-red-600'>[{title}]</span> 포스트를 삭제하시겠습니까?
         </p>
       </DialogHeader>
-      <DialogBody className='pb-0 text-black font-normal'>
-        <p className='mb-2'>
-          포스트를 삭제하면 복구할 수 없으며, <br />
-          포스트에 해당하는 내용과 히스토리가 모두 삭제됩니다.
+      <DialogBody className='flex flex-col items-center pb-0 text-black font-normal'>
+        <p className='text-center text-gray-800 mb-2'>
+          포스트를 삭제하면 <span className='text-black font-semibold'>복구할 수 없으며</span>,
+          <br /> 포스트에 해당하는 <span className='text-black font-semibold'>내용과 히스토리가 모두 삭제</span>됩니다.
         </p>
         <Checkbox
           label={CONFIRMTEXT}
           ripple={false}
-          checked={isChecked}
           crossOrigin=''
           className='rounded-sm w-4 h-4 hover:before:bg-transparent before:bg-transparent before:w-5 before:h-5'
           labelProps={{
-            className: 'text-black text-sm',
+            className: 'text-gray-600 text-sm',
           }}
           onClick={handleCheck}
         />

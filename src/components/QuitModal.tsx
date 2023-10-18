@@ -10,8 +10,8 @@ interface QuitModalProps {
 const QuitModal = ({ group, isOpen, onClick }: QuitModalProps) => {
   return (
     <Dialog open={isOpen} handler={onClick} size='xs'>
-      <DialogHeader className='text-xl'>{group}</DialogHeader>
-      <DialogBody className='text-black font-normal'>
+      <DialogHeader className='justify-center text-lg'>{group}</DialogHeader>
+      <DialogBody className='text-center text-black font-normal'>
         정말 <span className='font-bold text-red-600'>[{group}]</span> 그룹을 탈퇴하시겠습니까?
       </DialogBody>
       <DialogFooter>
