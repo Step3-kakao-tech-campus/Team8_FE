@@ -4,12 +4,14 @@ import PageTitleSection from '@components/PageTitleSection';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Input } from '@material-tailwind/react';
 import CKEditor from '@components/CKEditor5/Ckeditor';
+import PostDeleteModal from '@components/PostDeleteModal';
 
 const PostEditPage = () => {
   const { pageId, index, pageName, postTitle, content: postContent } = useLocation().state;
   const navigate = useNavigate();
   const [title, setTitle] = useState<string>(postTitle);
   const [content, setContent] = useState<string>(postContent);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -19,6 +21,9 @@ const PostEditPage = () => {
   };
   const handleSaveClick = () => {
     // api 연결 후 작성
+  };
+  const handleDeleteModal = () => {
+    setIsDeleteModalOpen((prev) => !prev);
   };
 
   return (
@@ -40,19 +45,30 @@ const PostEditPage = () => {
             />
           </div>
           <CKEditor content={content} onChange={handleContentChange} />
-          <div className='flex justify-end gap-3'>
+          <div className='flex justify-between'>
             <Button
-              color='white'
+              variant='text'
               ripple={false}
-              className='py-2 rounded-md shadow-none border border-gray-700 hover:shadow-none'
-              onClick={() => navigate(-1)}
+              className='py-1 px-3 text-red-600 hover:bg-transparent hover:underline active:bg-transparent decoration-black'
+              onClick={handleDeleteModal}
             >
-              취소
+              삭제하기
             </Button>
-            <Button ripple={false} className='py-2 rounded-md hover:shadow-none' onClick={handleSaveClick}>
-              저장
-            </Button>
+            <div className='flex gap-3'>
+              <Button
+                color='white'
+                ripple={false}
+                className='py-2 rounded-md shadow-none border border-gray-700 hover:shadow-none'
+                onClick={() => navigate(-1)}
+              >
+                취소
+              </Button>
+              <Button ripple={false} className='py-2 rounded-md hover:shadow-none' onClick={handleSaveClick}>
+                저장
+              </Button>
+            </div>
           </div>
+          <PostDeleteModal title={title} isOpen={isDeleteModalOpen} onClickModal={handleDeleteModal} />
         </article>
       </PageContainer>
     </div>

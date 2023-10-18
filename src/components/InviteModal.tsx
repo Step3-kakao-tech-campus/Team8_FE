@@ -58,7 +58,7 @@ const InviteModal = ({ code, isOpen, onModalClick }: InviteModalProps) => {
             초대코드가 복사되었습니다.
           </Alert>
         ) : (
-          <Button className='text-base' variant='gradient' onClick={onModalClick}>
+          <Button variant='filled' ripple={false} onClick={onModalClick}>
             확인
           </Button>
         )}
