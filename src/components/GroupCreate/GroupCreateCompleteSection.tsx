@@ -47,7 +47,7 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
         onClick={handleCopy}
       />
       <div className='flex justify-end'>
-        <Button onClick={() => navigate(`/${groupName}`)}>시작하기</Button>
+        <Button onClick={() => navigate(`/${groupName}`, { replace: true })}>시작하기</Button>
       </div>
       {isAlertOpen && (
         <Alert
