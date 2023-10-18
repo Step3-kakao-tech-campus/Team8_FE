@@ -6,7 +6,7 @@ interface GroupCreateSearchSettingProps {
 }
 
 const GroupCreateSearchSetting = ({ onNextStep }: GroupCreateSearchSettingProps) => {
-  const [isPublic, setIsPublic] = React.useState(false);
+  const [isPublic, setIsPublic] = React.useState(true);
 
   const handleNextStep = () => {
     // TODO: 필수 입력 사항 체크
@@ -25,12 +25,17 @@ const GroupCreateSearchSetting = ({ onNextStep }: GroupCreateSearchSettingProps)
       </div>
       <form>
         <div className='flex gap-2 flex-wrap'>
-          <Radio name='type' label={<strong>공개</strong>} onClick={() => setIsPublic(true)} crossOrigin={undefined} />
+          <Radio
+            defaultChecked
+            name='type'
+            label={<strong>공개</strong>}
+            onClick={() => setIsPublic(true)}
+            crossOrigin={undefined}
+          />
           <Radio
             name='type'
             label={<strong>비공개</strong>}
             onClick={() => setIsPublic(false)}
-            defaultChecked
             crossOrigin={undefined}
           />
         </div>
