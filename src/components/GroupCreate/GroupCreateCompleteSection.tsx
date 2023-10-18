@@ -51,8 +51,7 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
       </div>
       {isAlertOpen && (
         <Alert
-          variant='ghost'
-          className='py-3 text-sm absolute top-10 max-w-3xl min-w-max mx-auto '
+          className='py-3 text-sm fixed top-10 z-30 max-w-xl min-w-max mx-auto bg-gray-200 text-gray-600'
           open={isAlertOpen}
           animate={{
             mount: { y: 0 },
