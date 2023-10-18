@@ -27,7 +27,7 @@ const GroupCreatePage = () => {
     2: <GroupCreatePhotoSection onNextStep={() => setCurrentStep(3)} />,
     3: <GroupCreateSearchSetting onNextStep={() => setCurrentStep(4)} />,
     4: <GroupCreateNickNameSection onNextStep={() => setCurrentStep(5)} />,
-    5: <GroupCreateCompleteSection />,
+    5: <GroupCreateCompleteSection groupName={groupInfo.groupName} />,
   };
 
   return (
@@ -44,7 +44,6 @@ const GroupCreatePage = () => {
         ))}
       </Stepper>
       {groupCreateSections[currentStep]}
-      {groupInfo && <p>{groupInfo.groupName}</p>}
     </div>
   );
 };
