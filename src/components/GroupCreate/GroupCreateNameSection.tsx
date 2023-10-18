@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { Button, Input, Typography } from '@material-tailwind/react';
 
-interface onNextStepProps {
+interface GroupCreateNameSectionProps {
   onNextStep: () => void;
+  setGroupInfo: ({ groupName }: { groupName: string }) => void;
 }
 
-const GroupCreateNameSection = ({ onNextStep }: onNextStepProps) => {
+const GroupCreateNameSection = ({ onNextStep, setGroupInfo }: GroupCreateNameSectionProps) => {
   const [inputCount, setInputCount] = useState(12);
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputCount(12 - e.target.value.length);
+    setGroupInfo({ groupName: e.target.value });
   };
+
   const handleNextStep = () => {
     // TODO: 그룹 이름 중복 체크, 그룹 이름 길이 체크, 그 외 조건 체크
     if (inputCount >= 0) {

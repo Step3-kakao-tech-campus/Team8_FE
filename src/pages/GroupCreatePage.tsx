@@ -8,9 +8,22 @@ import GroupCreateSearchSetting from '@components/GroupCreate/GroupCreateSearchS
 
 const GroupCreatePage = () => {
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4 | 5>(1);
+  const [groupInfo, setGroupInfo] = useState({
+    groupName: '',
+    groupImage: '',
+    groupNickname: '',
+    introduction: '',
+    entranceHint: '',
+    entrancePassword: '',
+  });
 
   const groupCreateSections = {
-    1: <GroupCreateNameSection onNextStep={() => setCurrentStep(2)} />,
+    1: (
+      <GroupCreateNameSection
+        onNextStep={() => setCurrentStep(2)}
+        setGroupInfo={(value) => setGroupInfo((prev) => ({ ...prev, ...value }))}
+      />
+    ),
     2: <GroupCreatePhotoSection onNextStep={() => setCurrentStep(3)} />,
     3: <GroupCreateSearchSetting onNextStep={() => setCurrentStep(4)} />,
     4: <GroupCreateNickNameSection onNextStep={() => setCurrentStep(5)} />,
@@ -31,6 +44,7 @@ const GroupCreatePage = () => {
         ))}
       </Stepper>
       {groupCreateSections[currentStep]}
+      {groupInfo && <p>{groupInfo.groupName}</p>}
     </div>
   );
 };

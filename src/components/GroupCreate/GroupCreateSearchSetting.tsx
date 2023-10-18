@@ -1,17 +1,18 @@
 import React from 'react';
 import { Typography, Input, Button, Radio } from '@material-tailwind/react';
 
-interface onNextStepProps {
+interface GroupCreateSearchSettingProps {
   onNextStep: () => void;
 }
 
-const GroupCreateSearchSetting = ({ onNextStep }: onNextStepProps) => {
+const GroupCreateSearchSetting = ({ onNextStep }: GroupCreateSearchSettingProps) => {
   const [isPublic, setIsPublic] = React.useState(false);
 
   const handleNextStep = () => {
     // TODO: 필수 입력 사항 체크
     onNextStep();
   };
+
   return (
     <section className='space-y-4'>
       <div>
