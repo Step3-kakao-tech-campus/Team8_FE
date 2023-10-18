@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Step, Stepper } from '@material-tailwind/react';
-import GroupCreateNameSection from '@components/GroupCreateNameSection';
-import GroupCreatePhotoSection from '@components/GroupCreatePhotoSection';
-import GroupCreateNickNameSection from '@components/GroupCreateNickNameSection';
-import GroupCreateCompleteSection from '@components/GroupCreateCompleteSection';
+import GroupCreateNameSection from '@components/GroupCreate/GroupCreateNameSection';
+import GroupCreatePhotoSection from '@components/GroupCreate/GroupCreatePhotoSection';
+import GroupCreateNickNameSection from '@components/GroupCreate/GroupCreateNickNameSection';
+import GroupCreateCompleteSection from '@components/GroupCreate/GroupCreateCompleteSection';
 
 const GroupCreatePage = () => {
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
