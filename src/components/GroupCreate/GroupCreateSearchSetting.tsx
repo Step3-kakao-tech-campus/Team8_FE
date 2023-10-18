@@ -70,9 +70,7 @@ const GroupCreateSearchSetting = ({ onNextStep }: onNextStepProps) => {
           </div>
         )}
         <div className='text-right max-w-xl'>
-          <Button className='text-sm' onClick={handleNextStep}>
-            확인
-          </Button>
+          <Button onClick={handleNextStep}>확인</Button>
         </div>
       </form>
     </section>

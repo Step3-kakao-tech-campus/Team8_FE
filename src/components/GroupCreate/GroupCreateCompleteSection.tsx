@@ -24,7 +24,7 @@ const GroupCreateCompleteSection = () => {
   }, [isAlertOpen]);
 
   return (
-    <section className='space-y-10'>
+    <section className='space-y-10 max-w-xl'>
       <div>
         <Typography variant='lead'>
           그룹 생성이 <strong>완료</strong>되었습니다!

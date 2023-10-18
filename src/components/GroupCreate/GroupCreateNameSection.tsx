@@ -26,7 +26,7 @@ const GroupCreateNameSection = ({ onNextStep }: onNextStepProps) => {
       </div>
       <div className='flex gap-2 flex-wrap'>
         <Input
-          size='lg'
+          size='md'
           label='그룹 이름'
           containerProps={{ className: 'max-w-md' }}
           crossOrigin=''
@@ -34,9 +34,7 @@ const GroupCreateNameSection = ({ onNextStep }: onNextStepProps) => {
           onChange={onInputChange}
           error={inputCount < 0}
         />
-        <Button className='text-sm' onClick={handleNextStep}>
-          확인
-        </Button>
+        <Button onClick={handleNextStep}>확인</Button>
       </div>
       {inputCount < 0 && <p className='text-red-500 !mt-3 px-2 text-sm'>조건을 확인해주세요.</p>}
     </section>
