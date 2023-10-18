@@ -33,7 +33,7 @@ const GroupCreatePage = () => {
   };
 
   return (
-    <div className='flex flex-col min-h-screen pt-10'>
+    <div className='flex flex-col pt-10 max-w-xl mx-auto mb-20 min-h-[500px]'>
       <Button
         variant='text'
         className='p-0 mb-2 max-w-fit text-gray-500'
