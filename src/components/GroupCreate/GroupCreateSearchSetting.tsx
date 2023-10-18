@@ -37,7 +37,7 @@ const GroupCreateSearchSetting = ({ onNextStep }: GroupCreateSearchSettingProps)
         {isPublic && (
           <div className='p-3'>
             <Typography variant='small' className='mb-2'>
-              <strong>한줄 소개글을 입력해주세요.</strong> 검색 결과에 함께 노출됩니다.
+              <strong>한줄 소개글</strong>을 입력해주세요. 검색 결과에 함께 노출됩니다.
             </Typography>
             <Input size='md' label='소개글' containerProps={{ className: 'max-w-md' }} crossOrigin='' />
             <Typography variant='small' className='mt-8 mb-2'>

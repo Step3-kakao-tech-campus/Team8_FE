@@ -30,7 +30,7 @@ const GroupCreateNickNameSection = ({ onNextStep }: onNextStepProps) => {
           label='닉네임'
           containerProps={{ className: 'max-w-md' }}
           crossOrigin=''
-          icon={inputCount > 0 && inputCount}
+          icon={inputCount > 0 && <span className='text-sm'>{inputCount}</span>}
           onChange={onInputChange}
           error={inputCount < 0}
         />

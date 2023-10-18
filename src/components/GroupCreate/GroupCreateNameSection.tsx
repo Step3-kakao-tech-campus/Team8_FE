@@ -33,7 +33,7 @@ const GroupCreateNameSection = ({ onNextStep, setGroupInfo }: GroupCreateNameSec
           label='그룹 이름'
           containerProps={{ className: 'max-w-md' }}
           crossOrigin=''
-          icon={inputCount > 0 && inputCount}
+          icon={inputCount > 0 && <span className='text-sm'>{inputCount}</span>}
           onChange={onInputChange}
           error={inputCount < 0}
         />
