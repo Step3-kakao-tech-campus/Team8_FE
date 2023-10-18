@@ -3,10 +3,11 @@ import { Button, Input, Typography } from '@material-tailwind/react';
 
 interface GroupCreateNameSectionProps {
   onNextStep: () => void;
+  groupName: string;
   setGroupInfo: ({ groupName }: { groupName: string }) => void;
 }
 
-const GroupCreateNameSection = ({ onNextStep, setGroupInfo }: GroupCreateNameSectionProps) => {
+const GroupCreateNameSection = ({ onNextStep, groupName, setGroupInfo }: GroupCreateNameSectionProps) => {
   const [inputCount, setInputCount] = useState(12);
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputCount(12 - e.target.value.length);
@@ -36,6 +37,7 @@ const GroupCreateNameSection = ({ onNextStep, setGroupInfo }: GroupCreateNameSec
           icon={inputCount > 0 && <span className='text-sm'>{inputCount}</span>}
           onChange={onInputChange}
           error={inputCount < 0}
+          value={groupName}
         />
         <Button onClick={handleNextStep}>확인</Button>
       </div>
