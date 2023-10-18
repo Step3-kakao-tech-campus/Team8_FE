@@ -20,7 +20,7 @@ const GroupCreateNickNameSection = ({ onNextStep }: onNextStepProps) => {
     <section className='space-y-10'>
       <div>
         <Typography variant='lead'>
-          새 그룹에서 사용할 <strong>닉네임</strong>을 입력해주세요.
+          그룹에서 사용할 <strong>닉네임</strong>을 입력해주세요.
         </Typography>
         <Typography variant='paragraph'>닉네임은 2자 이상 8자 이하의 한글, 숫자 또는 영어로 구성해주세요.</Typography>
       </div>
