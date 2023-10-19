@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   MdOutlineModeComment,
@@ -21,11 +21,16 @@ interface PostProps {
 }
 
 const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
+  const commentRef = useRef<HTMLDivElement>(null);
+
   const navigate = useNavigate();
   const [isCommentOpen, setIsCommentOpen] = useState<boolean>(false);
 
   const handleCommentClick = () => {
     setIsCommentOpen((prev) => !prev);
+    if (!isCommentOpen) {
+      commentRef.current?.scrollIntoView({ block: 'start', behavior: 'auto' });
+    }
   };
 
   return (
@@ -80,7 +85,12 @@ const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
         </div>
       </div>
       <Viewer content={content} />
-      <Comments isOpen={isCommentOpen} onCommentClose={handleCommentClick} comments={comments} />
+      <Comments
+        commentRef={commentRef}
+        isOpen={isCommentOpen}
+        onCommentClose={handleCommentClick}
+        comments={comments}
+      />
     </article>
   );
 };

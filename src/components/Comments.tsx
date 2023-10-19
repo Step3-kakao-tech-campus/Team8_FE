@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, RefObject, useState } from 'react';
 import { Collapse, Textarea } from '@material-tailwind/react';
 import { MdSend, MdOutlineKeyboardArrowUp } from 'react-icons/md';
 import Comment from './Comment';
@@ -12,12 +12,13 @@ interface Comment {
 }
 
 interface CommentsProps {
+  commentRef: RefObject<HTMLDivElement>;
   isOpen: boolean;
   onCommentClose: () => void;
   comments: Comment[];
 }
 
-const Comments = ({ isOpen, onCommentClose, comments }: CommentsProps) => {
+const Comments = ({ commentRef, isOpen, onCommentClose, comments }: CommentsProps) => {
   const [text, setText] = useState<string>('');
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -28,7 +29,7 @@ const Comments = ({ isOpen, onCommentClose, comments }: CommentsProps) => {
   };
 
   return (
-    <Collapse open={isOpen} className='relative mb-12'>
+    <Collapse ref={commentRef} open={isOpen} className='relative mb-12'>
       <button type='button' className='absolute top-4 right-4' onClick={onCommentClose}>
         <MdOutlineKeyboardArrowUp className='text-xl' />
       </button>
