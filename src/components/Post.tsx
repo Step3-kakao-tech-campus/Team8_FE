@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { scrollIntoView } from 'seamless-scroll-polyfill';
 import {
   MdOutlineModeComment,
   MdOutlineMoreHoriz,
@@ -28,8 +29,8 @@ const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
 
   const handleCommentClick = () => {
     setIsCommentOpen((prev) => !prev);
-    if (!isCommentOpen) {
-      commentRef.current?.scrollIntoView({ block: 'start', behavior: 'auto' });
+    if (!isCommentOpen && commentRef.current) {
+      scrollIntoView(commentRef.current, { block: 'start', behavior: 'smooth' });
     }
   };
 
