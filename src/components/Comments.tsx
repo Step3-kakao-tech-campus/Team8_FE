@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Collapse, Textarea } from '@material-tailwind/react';
-import { MdSend } from 'react-icons/md';
+import { MdSend, MdOutlineKeyboardArrowUp } from 'react-icons/md';
 import Comment from './Comment';
 
 interface Comment {
@@ -13,10 +13,11 @@ interface Comment {
 
 interface CommentsProps {
   isOpen: boolean;
+  onCommentClose: () => void;
   comments: Comment[];
 }
 
-const Comments = ({ isOpen, comments }: CommentsProps) => {
+const Comments = ({ isOpen, onCommentClose, comments }: CommentsProps) => {
   const [text, setText] = useState<string>('');
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -27,7 +28,10 @@ const Comments = ({ isOpen, comments }: CommentsProps) => {
   };
 
   return (
-    <Collapse open={isOpen} className='mb-12'>
+    <Collapse open={isOpen} className='relative mb-12'>
+      <button type='button' className='absolute top-4 right-4' onClick={onCommentClose}>
+        <MdOutlineKeyboardArrowUp className='text-xl' />
+      </button>
       <p className='pt-4 pl-4 font-bold border-t'>댓글 {comments.length}</p>
       <ul className='flex flex-col gap-4 p-4'>
         {comments.map((comment) => (

@@ -80,7 +80,7 @@ const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
         </div>
       </div>
       <Viewer content={content} />
-      <Comments isOpen={isCommentOpen} comments={comments} />
+      <Comments isOpen={isCommentOpen} onCommentClose={handleCommentClick} comments={comments} />
     </article>
   );
 };
