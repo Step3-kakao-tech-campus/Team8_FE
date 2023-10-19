@@ -1,6 +1,7 @@
 import React, { ChangeEvent, RefObject, useState } from 'react';
 import { Collapse, Textarea } from '@material-tailwind/react';
 import { MdSend, MdOutlineKeyboardArrowUp } from 'react-icons/md';
+import LEVELCOLOR from '../utils/constant';
 import Comment from './Comment';
 
 interface Comment {
@@ -39,7 +40,8 @@ const Comments = ({ commentRef, isOpen, onCommentClose, comments }: CommentsProp
           <Comment key={comment.commentId} comment={comment} />
         ))}
       </ul>
-      <div className='relative p-4 border-t'>
+      <div className='relative flex gap-3 p-4 border-t'>
+        <div className={`mt-1 w-8 h-8 ${LEVELCOLOR[1]} border rounded-full shrink-0`} />
         <Textarea
           className='min-h-full max-h-60 text-lg border focus:!text-black'
           rows={3}
@@ -48,8 +50,12 @@ const Comments = ({ commentRef, isOpen, onCommentClose, comments }: CommentsProp
           value={text}
           onChange={handleChangeText}
         />
-        <button type='submit' className='absolute right-5 bottom-7 p-[6px]'>
-          <MdSend className='text-xl text-gray-400 hover:text-black transition-all' />
+        <button
+          type='submit'
+          disabled={!text}
+          className={`absolute right-5 bottom-7 p-[6px] rounded-full ${text ? 'hover:bg-gray-200' : ''}`}
+        >
+          <MdSend className={`text-xl transition-all ${text ? 'text-black' : 'text-gray-400'}`} />
         </button>
       </div>
     </Collapse>

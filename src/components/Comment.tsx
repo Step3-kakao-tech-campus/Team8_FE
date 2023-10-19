@@ -1,5 +1,6 @@
-import { Typography } from '@material-tailwind/react';
 import React from 'react';
+import { Typography } from '@material-tailwind/react';
+import LEVELCOLOR from '../utils/constant';
 
 interface CommentProps {
   commentId: number;
@@ -8,12 +9,6 @@ interface CommentProps {
   content: string;
   createdAt: string;
 }
-
-const LEVELCOLOR: { [key: number]: string } = {
-  1: 'bg-green-300',
-  2: 'bg-yellow-300',
-  3: 'bg-blue-300',
-};
 
 const Comment = ({ comment: { nickName, memberLevel, content, createdAt } }: { comment: CommentProps }) => {
   return (
