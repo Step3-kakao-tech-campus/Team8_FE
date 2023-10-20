@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { scrollIntoView } from 'seamless-scroll-polyfill';
 import {
   MdOutlineModeComment,
   MdOutlineMoreHoriz,
@@ -9,6 +10,8 @@ import {
 } from 'react-icons/md';
 import { Button, Menu, MenuHandler, MenuList, MenuItem, Typography } from '@material-tailwind/react';
 import Viewer from '@components/CKEditor5/Ckviewer';
+import { comments } from '@dummy/page';
+import CommentList from './CommentList';
 
 interface PostProps {
   pageId: number;
@@ -19,7 +22,17 @@ interface PostProps {
 }
 
 const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
+  const commentRef = useRef<HTMLDivElement>(null);
+
   const navigate = useNavigate();
+  const [isCommentOpen, setIsCommentOpen] = useState<boolean>(false);
+
+  const handleCommentClick = () => {
+    setIsCommentOpen((prev) => !prev);
+    if (!isCommentOpen && commentRef.current) {
+      scrollIntoView(commentRef.current, { block: 'center', behavior: 'smooth' });
+    }
+  };
 
   return (
     <article>
@@ -28,7 +41,12 @@ const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
           <span className='text-indigo-500'>{index}</span> {postTitle}
         </h2>
         <div className='flex gap-1'>
-          <Button variant='text' ripple={false} className='p-1 text-xl hover:bg-transparent active:bg-transparent'>
+          <Button
+            variant='text'
+            ripple={false}
+            className='p-1 text-xl hover:bg-transparent active:bg-transparent'
+            onClick={handleCommentClick}
+          >
             <MdOutlineModeComment />
           </Button>
           <Menu placement='right-start'>
@@ -68,6 +86,12 @@ const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
         </div>
       </div>
       <Viewer content={content} />
+      <CommentList
+        commentRef={commentRef}
+        isOpen={isCommentOpen}
+        onCommentClose={handleCommentClick}
+        comments={comments}
+      />
     </article>
   );
 };

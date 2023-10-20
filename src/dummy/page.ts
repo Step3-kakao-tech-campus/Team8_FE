@@ -95,3 +95,42 @@ export const getIndexList = (pageId: number): Pick<Post, 'index' | 'postTitle'>[
     postTitle: '컴공의 역사',
   },
 ];
+
+interface Comment {
+  commentId: number;
+  nickName: string;
+  content: string;
+  createdAt: string;
+}
+
+export const comments: Comment[] = [
+  {
+    commentId: 1,
+    nickName: '이경우',
+    content: '이거 더 자세히 아시는 분 내용 추가 부탁드려요~',
+    // createdAt: '2023-10-14T19:15:57.079009',
+    createdAt: '2023.10.14',
+  },
+  {
+    commentId: 2,
+    nickName: '삼경우',
+    content:
+      '이거 더 자세히 아시는 분 내용 추가 부탁드려요~이거 더 자세히 아시는 분 내용 추가 부탁드려요~이거 더 자세히 아시는 분 내용 추가 부탁드려요~',
+    // createdAt: '2023-10-14T19:17:42.500834',
+    createdAt: '2023.10.14',
+  },
+  {
+    commentId: 3,
+    nickName: '사경우',
+    content: '이거 더 자세히 아시는 분 내용 추가 부탁드려요~',
+    // createdAt: '2023-10-14T19:17:43.309503',
+    createdAt: '2023.10.14',
+  },
+  {
+    commentId: 4,
+    nickName: '내이름',
+    content: '이거 더 자세히 아시는 분 내용 추가 부탁드려요~이거 더 자세히 아시는 분 내용 추가 부탁드려요~',
+    // createdAt: '2023-10-14T19:17:44.138125',
+    createdAt: '2023.10.14',
+  },
+];

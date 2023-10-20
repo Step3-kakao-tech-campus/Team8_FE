@@ -1,5 +1,5 @@
-ul,
-ol {
+.ck-content ul,
+.ck-content ol {
   @apply pl-[26px];
 }
 
