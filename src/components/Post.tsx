@@ -11,7 +11,7 @@ import {
 import { Button, Menu, MenuHandler, MenuList, MenuItem, Typography } from '@material-tailwind/react';
 import Viewer from '@components/CKEditor5/Ckviewer';
 import { comments } from '@dummy/page';
-import Comments from './Comments';
+import CommentList from './CommentList';
 
 interface PostProps {
   pageId: number;
@@ -30,7 +30,7 @@ const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
   const handleCommentClick = () => {
     setIsCommentOpen((prev) => !prev);
     if (!isCommentOpen && commentRef.current) {
-      scrollIntoView(commentRef.current, { block: 'start', behavior: 'smooth' });
+      scrollIntoView(commentRef.current, { block: 'center', behavior: 'smooth' });
     }
   };
 
@@ -86,7 +86,7 @@ const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
         </div>
       </div>
       <Viewer content={content} />
-      <Comments
+      <CommentList
         commentRef={commentRef}
         isOpen={isCommentOpen}
         onCommentClose={handleCommentClick}

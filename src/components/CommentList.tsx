@@ -12,14 +12,14 @@ interface Comment {
   createdAt: string;
 }
 
-interface CommentsProps {
+interface CommentListProps {
   commentRef: RefObject<HTMLDivElement>;
   isOpen: boolean;
   onCommentClose: () => void;
   comments: Comment[];
 }
 
-const Comments = ({ commentRef, isOpen, onCommentClose, comments }: CommentsProps) => {
+const CommentList = ({ commentRef, isOpen, onCommentClose, comments }: CommentListProps) => {
   const [text, setText] = useState<string>('');
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -30,7 +30,7 @@ const Comments = ({ commentRef, isOpen, onCommentClose, comments }: CommentsProp
   };
 
   return (
-    <Collapse ref={commentRef} open={isOpen} className='relative mb-12'>
+    <Collapse open={isOpen} ref={commentRef} className='relative mb-12'>
       <button type='button' className='absolute top-4 right-4' onClick={onCommentClose}>
         <MdOutlineKeyboardArrowUp className='text-xl' />
       </button>
@@ -62,4 +62,4 @@ const Comments = ({ commentRef, isOpen, onCommentClose, comments }: CommentsProp
   );
 };
 
-export default Comments;
+export default CommentList;
