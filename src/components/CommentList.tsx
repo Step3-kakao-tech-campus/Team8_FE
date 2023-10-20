@@ -1,13 +1,11 @@
 import React, { ChangeEvent, RefObject, useState } from 'react';
 import { Collapse, Textarea } from '@material-tailwind/react';
 import { MdSend, MdOutlineKeyboardArrowUp } from 'react-icons/md';
-import LEVELCOLOR from '../utils/constant';
 import Comment from './Comment';
 
 interface Comment {
   commentId: number;
   nickName: string;
-  memberLevel: number;
   content: string;
   createdAt: string;
 }
@@ -35,13 +33,12 @@ const CommentList = ({ commentRef, isOpen, onCommentClose, comments }: CommentLi
         <MdOutlineKeyboardArrowUp className='text-xl' />
       </button>
       <p className='pt-4 pl-4 font-bold border-t'>댓글 {comments.length}</p>
-      <ul className='flex flex-col gap-4 p-4'>
+      <ul className='flex flex-col gap-5 p-4'>
         {comments.map((comment) => (
           <Comment key={comment.commentId} comment={comment} />
         ))}
       </ul>
       <div className='relative flex gap-3 p-4 border-t'>
-        <div className={`mt-1 w-8 h-8 ${LEVELCOLOR[1]} border rounded-full shrink-0`} />
         <Textarea
           className='min-h-full max-h-60 text-lg border focus:!text-black'
           rows={3}
