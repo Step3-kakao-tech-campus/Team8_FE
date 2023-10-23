@@ -8,6 +8,7 @@ import PageTitleSection from '@components/PageTitleSection';
 import PageContainer from '@components/PageContainer';
 import Post from '@components/Post';
 import { Button } from '@material-tailwind/react';
+import LikeDislikeButton from '@components/LikeDislikeButton';
 
 const GroupMainPage = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const GroupMainPage = () => {
 
   return (
     <div className='mx-auto 2xl:max-w-screen-xl xl:max-w-screen-lg'>
-      <PageTitleSection title={pageName} />
+      <PageTitleSection title={pageName} aboveAdornment={<LikeDislikeButton upCount={12} downCount={7} />} />
       <PageContainer pageId={postList.length !== 0 ? pageId : undefined} hasRecentChangeList>
         {postList.length !== 0 ? (
           postList.map((post) => (
