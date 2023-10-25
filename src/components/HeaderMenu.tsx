@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Menu, MenuHandler, MenuList, MenuItem, Button } from '@material-tailwind/react';
 import { MdMenu } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -14,7 +14,8 @@ const HeaderMenu = () => {
   const { groupName } = useParams();
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const inviteModal = useModal();
   const groupMemberListModal = useModal();
 
   const handleLogout = () => {
@@ -27,9 +28,6 @@ const HeaderMenu = () => {
       navigate('/myPage');
     }
   };
-  const handleModalClick = () => {
-    setIsModalOpen((prev) => !prev);
-  };
 
   return (
     <>
@@ -41,12 +39,12 @@ const HeaderMenu = () => {
         </MenuHandler>
         <MenuList>
           <MenuItem onClick={handleMyPageClick}>{groupName ? '그룹 마이페이지' : '마이페이지'}</MenuItem>
-          {groupName && <MenuItem onClick={handleModalClick}>그룹원 초대</MenuItem>}
+          {groupName && <MenuItem onClick={inviteModal.handleModal}>그룹원 초대</MenuItem>}
           {groupName && <MenuItem onClick={groupMemberListModal.handleModal}>그룹원 목록</MenuItem>}
           <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
         </MenuList>
       </Menu>
-      <InviteModal code={inviteCodeDummyData} isOpen={isModalOpen} onModalClick={handleModalClick} />
+      <InviteModal code={inviteCodeDummyData} isOpen={inviteModal.isOpen} onModalClick={inviteModal.handleModal} />
       <GroupMemberList isOpen={groupMemberListModal.isOpen} handleModal={groupMemberListModal.handleModal} />
     </>
   );
