@@ -25,7 +25,7 @@ const PostHistoryAccordion = ({ historyList }: PostHistoryAccordionProps) => {
   };
 
   const handleUndoButtonClick = () => {
-    alert('해당 내용으로 되돌리기');
+    // TODO: 되돌리기 모달 추후 구현
   };
 
   useEffect(() => {
