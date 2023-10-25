@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
+import useModal from '@hooks/useModal';
 import PageContainer from '@components/PageContainer';
 import PageTitleSection from '@components/PageTitleSection';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -11,7 +12,7 @@ const PostEditPage = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState<string>(postTitle);
   const [content, setContent] = useState<string>(postContent);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const deleteModal = useModal();
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -21,9 +22,6 @@ const PostEditPage = () => {
   };
   const handleSaveClick = () => {
     // api 연결 후 작성
-  };
-  const handleDeleteModal = () => {
-    setIsDeleteModalOpen((prev) => !prev);
   };
 
   return (
@@ -50,7 +48,7 @@ const PostEditPage = () => {
               variant='text'
               ripple={false}
               className='py-1 px-3 text-red-600 hover:bg-transparent hover:underline active:bg-transparent decoration-black'
-              onClick={handleDeleteModal}
+              onClick={deleteModal.handleModal}
             >
               삭제하기
             </Button>
@@ -68,7 +66,7 @@ const PostEditPage = () => {
               </Button>
             </div>
           </div>
-          <PostDeleteModal title={title} isOpen={isDeleteModalOpen} onClickModal={handleDeleteModal} />
+          <PostDeleteModal title={title} isOpen={deleteModal.isOpen} onClickModal={deleteModal.handleModal} />
         </article>
       </PageContainer>
     </div>

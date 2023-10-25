@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Button, Input } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
+import useModal from '@hooks/useModal';
 import ContributeList from '@components/ContributeList';
 import QuitModal from '@components/QuitModal';
 import { groupMyPageDummyData } from '@dummy/group';
@@ -10,14 +11,12 @@ const GroupMyPage = () => {
   const { groupName } = useParams();
   const [nickName, setNickName] = useState(groupMyPageDummyData.groupNickName);
   const [isNickNameChanging, setIsNickNameChanging] = useState<boolean>(false);
-  const [isQuitModalOpen, setIsQuitModalOpen] = useState<boolean>(false);
+  const quitModal = useModal();
 
   const handleNickName = (e: ChangeEvent<HTMLInputElement>) => {
     setNickName(e.target.value);
   };
-  const handleQuitModal = () => {
-    setIsQuitModalOpen((prev) => !prev);
-  };
+
   const handleNickNameChage = () => {
     setIsNickNameChanging((prev) => !prev);
   };
@@ -99,11 +98,11 @@ const GroupMyPage = () => {
           variant='text'
           ripple={false}
           className='p-1 rounded-sm whitespace-nowrap text-red-600 hover:bg-transparent active:bg-transparent hover:underline decoration-black'
-          onClick={handleQuitModal}
+          onClick={quitModal.handleModal}
         >
           그룹 탈퇴하기
         </Button>
-        <QuitModal group={groupName} isOpen={isQuitModalOpen} onClick={handleQuitModal} />
+        <QuitModal group={groupName} isOpen={quitModal.isOpen} onClick={quitModal.handleModal} />
       </div>
     </main>
   );
