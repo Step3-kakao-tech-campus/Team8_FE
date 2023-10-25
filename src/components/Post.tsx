@@ -26,6 +26,7 @@ const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
 
   const navigate = useNavigate();
   const [isCommentOpen, setIsCommentOpen] = useState<boolean>(false);
+  const postId = `${pageId}-${index}`;
 
   const handleCommentClick = () => {
     setIsCommentOpen((prev) => !prev);
@@ -35,7 +36,7 @@ const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
   };
 
   return (
-    <article>
+    <article id={postId}>
       <div className='flex justify-between border-b-2'>
         <h2 className='text-xl leading-relaxed font-semibold'>
           <span className='text-indigo-500'>{index}</span> {postTitle}
