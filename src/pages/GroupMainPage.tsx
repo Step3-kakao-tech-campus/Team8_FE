@@ -9,6 +9,7 @@ import PageContainer from '@components/PageContainer';
 import Post from '@components/Post';
 import { Button } from '@material-tailwind/react';
 import LikeDislikeButton from '@components/LikeDislikeButton';
+import AddPostButton from '@components/AddPostButton';
 
 const GroupMainPage = () => {
   const navigate = useNavigate();
@@ -31,14 +32,17 @@ const GroupMainPage = () => {
       <PageContainer pageId={postList.length !== 0 ? pageId : undefined} hasRecentChangeList>
         {postList.length !== 0 ? (
           postList.map((post) => (
-            <Post
-              key={post.postId}
-              pageId={pageId}
-              pageName={pageName}
-              index={post.index}
-              postTitle={post.postTitle}
-              content={post.content}
-            />
+            <div>
+              <Post
+                key={post.postId}
+                pageId={pageId}
+                pageName={pageName}
+                index={post.index}
+                postTitle={post.postTitle}
+                content={post.content}
+              />
+              <AddPostButton />
+            </div>
           ))
         ) : (
           <article className='flex justify-between items-center p-4 bg-gray-100 rounded-lg px-4'>

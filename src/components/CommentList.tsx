@@ -28,7 +28,7 @@ const CommentList = ({ commentRef, isOpen, onCommentClose, comments }: CommentLi
   };
 
   return (
-    <Collapse open={isOpen} ref={commentRef} className='relative mb-12'>
+    <Collapse open={isOpen} ref={commentRef} className='relative mb-4'>
       <button type='button' className='absolute top-4 right-4' onClick={onCommentClose}>
         <MdOutlineKeyboardArrowUp className='text-xl' />
       </button>
