@@ -8,7 +8,7 @@ interface GroupMemberListProps {
   handleModal: () => void;
 }
 
-const GroupMemberList = ({ isOpen, handleModal }: GroupMemberListProps) => {
+const GroupMemberListModal = ({ isOpen, handleModal }: GroupMemberListProps) => {
   return (
     <Dialog open={isOpen} handler={handleModal}>
       <button type='button' className='absolute top-4 right-4' onClick={handleModal}>
@@ -26,4 +26,4 @@ const GroupMemberList = ({ isOpen, handleModal }: GroupMemberListProps) => {
   );
 };
 
-export default GroupMemberList;
+export default GroupMemberListModal;

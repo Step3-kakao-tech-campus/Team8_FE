@@ -8,7 +8,7 @@ import { inviteCodeDummyData } from '@dummy/group';
 import useModal from '@hooks/useModal';
 
 import InviteModal from './InviteModal';
-import GroupMemberList from './GroupMemberList';
+import GroupMemberListModal from './GroupMemberListModal';
 
 const HeaderMenu = () => {
   const { groupName } = useParams();
@@ -45,7 +45,7 @@ const HeaderMenu = () => {
         </MenuList>
       </Menu>
       <InviteModal code={inviteCodeDummyData} isOpen={inviteModal.isOpen} onModalClick={inviteModal.handleModal} />
-      <GroupMemberList isOpen={groupMemberListModal.isOpen} handleModal={groupMemberListModal.handleModal} />
+      <GroupMemberListModal isOpen={groupMemberListModal.isOpen} handleModal={groupMemberListModal.handleModal} />
     </>
   );
 };
