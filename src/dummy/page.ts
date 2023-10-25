@@ -134,3 +134,50 @@ export const comments: Comment[] = [
     createdAt: '2023.10.14',
   },
 ];
+
+interface History {
+  memberId: number;
+  nickName: string;
+  historyId: number;
+  title: string;
+  content: string;
+  createdAt: string;
+}
+
+interface PostHistory {
+  postId: number;
+  currentTitle: string;
+  historyList: History[];
+}
+
+export const postHistoryDummyData: PostHistory = {
+  postId: 1,
+  currentTitle: '개요',
+  historyList: [
+    {
+      memberId: 1,
+      nickName: '이경우',
+      historyId: 1,
+      title: '개요',
+      content:
+        '이 작품의 주역인 선택받은 아이들은 각 캐릭터마다 테마를 갖고 있는데, 저마다 가진 8개의 문장이 갖는 가치(좌측부터 용기, 우정, 사랑, 지식, 희망, 순수, 성실, 빛)가 바로 그것이다. 실제로 캐릭터들은 그 진리에 맞는 성격을 지니고 있으나, 동시에 이 가치들은 약점이자 콤플렉스로서 기능하기도 한다. 가령 태일은 용기가 뛰어나지만 때론 만용을 부리며 무모한 일에 타인을 끌어들이고, 매튜는 브라더 콤플렉스로 우정을 의심한다. 또 소라는 어머니의 사랑을 강박으로 받아들이기도 했고, 한솔은 지식만으로 사물을 판단해 타인에 대한 배려가 부족했다. 이미나는 순수가 도를 넘어 응석에 가까운 수준이었고 정석도 성실함이 지나친 나머지 스스로도 고지식으로 받아들일 만큼 융통성이 부족했다. 각각의 캐릭터들은 자신의 장점이자 결핍이기도 한 이들 가치를 극복하는 과정을 겪으며 그 문장의 힘을 자신의 것으로 체화해나가며, 그 과정은 훌륭한 전개 덕에 어색함 없이 매우 자연스럽게 다가온다.',
+      createdAt: '2023-10-12T14:30:34',
+    },
+    {
+      memberId: 2,
+      nickName: '김경우',
+      historyId: 2,
+      title: '개요',
+      content: '내용... ㅇㅇㅇㅇㅇㅇ',
+      createdAt: '2023-10-11T14:30:34',
+    },
+    {
+      memberId: 3,
+      nickName: '박경우',
+      historyId: 3,
+      title: '개요',
+      content: '내용...',
+      createdAt: '2023-10-09T14:30:34',
+    },
+  ],
+};
