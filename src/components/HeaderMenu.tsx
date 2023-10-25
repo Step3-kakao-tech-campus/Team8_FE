@@ -36,7 +36,7 @@ const HeaderMenu = () => {
           </Button>
         </MenuHandler>
         <MenuList>
-          <MenuItem onClick={handleMyPageClick}>마이페이지</MenuItem>
+          <MenuItem onClick={handleMyPageClick}>{groupName ? '그룹 마이페이지' : '마이페이지'}</MenuItem>
           {groupName && <MenuItem onClick={handleModalClick}>그룹원 초대</MenuItem>}
           <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
         </MenuList>
