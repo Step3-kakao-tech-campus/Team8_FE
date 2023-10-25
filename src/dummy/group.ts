@@ -172,3 +172,21 @@ export const groupMyPageDummyData: GroupMypage = {
     },
   ],
 };
+
+export const groupMember: string[] = [
+  'apple',
+  'banana',
+  'cherry',
+  'date',
+  'elderberry',
+  'fig',
+  'grape',
+  'honeydew',
+  'indigo',
+  'jicama',
+  'kiwi',
+  'lemon',
+  'mango',
+  'nectarine',
+  'orange',
+];
