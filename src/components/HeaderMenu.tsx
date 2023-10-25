@@ -5,13 +5,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import isLoggedInState from '@recoil/login/atoms';
 import { inviteCodeDummyData } from '@dummy/group';
+import useModal from '@hooks/useModal';
+
 import InviteModal from './InviteModal';
+import GroupMemberList from './GroupMemberList';
 
 const HeaderMenu = () => {
   const { groupName } = useParams();
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const groupMemberListModal = useModal();
 
   const handleLogout = () => {
     setIsLoggedIn(false);
@@ -38,10 +42,12 @@ const HeaderMenu = () => {
         <MenuList>
           <MenuItem onClick={handleMyPageClick}>{groupName ? '그룹 마이페이지' : '마이페이지'}</MenuItem>
           {groupName && <MenuItem onClick={handleModalClick}>그룹원 초대</MenuItem>}
+          {groupName && <MenuItem onClick={groupMemberListModal.handleModal}>그룹원 목록</MenuItem>}
           <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
         </MenuList>
       </Menu>
       <InviteModal code={inviteCodeDummyData} isOpen={isModalOpen} onModalClick={handleModalClick} />
+      <GroupMemberList isOpen={groupMemberListModal.isOpen} handleModal={groupMemberListModal.handleModal} />
     </>
   );
 };
