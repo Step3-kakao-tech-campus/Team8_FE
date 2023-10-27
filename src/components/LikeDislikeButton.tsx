@@ -11,16 +11,11 @@ interface LikeDislikeButtonProps {
 const LikeDislikeButton = ({ upCount, downCount }: LikeDislikeButtonProps) => {
   return (
     <div className='flex gap-2 h-7'>
-      <Button size='sm' ripple={false} className='rounded-full py-0 flex items-center gap-1 hover:animate-bounce'>
+      <Button size='sm' className='rounded-full py-0 flex items-center gap-1'>
         <MdThumbUp />
         {upCount}
       </Button>
-      <Button
-        color='white'
-        size='sm'
-        ripple={false}
-        className='rounded-full py-0 flex items-center gap-1 border hover:animate-bounce'
-      >
+      <Button color='white' size='sm' className='rounded-full py-0 flex items-center gap-1 border'>
         <MdThumbDown />
         {downCount}
       </Button>
