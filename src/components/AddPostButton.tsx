@@ -7,7 +7,7 @@ const AddPostButton = () => {
   const [isSplit, setIsSplit] = useState(false);
 
   const handleButtonClick = () => {
-    setIsSplit(!isSplit);
+    setIsSplit((prev) => !prev);
   };
 
   return (
