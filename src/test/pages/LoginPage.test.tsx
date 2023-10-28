@@ -1,15 +1,15 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import LoginPage from '@pages/LoginPage';
-import { BrowserRouter } from 'react-router-dom';
+import TestWrapper from '@test/utils/TestWrapper';
 
 describe('로그인', () => {
   describe('UI 컴포넌트 렌더링', () => {
     it('텍스트 로고 렌더링 성공', () => {
       render(
-        <BrowserRouter>
+        <TestWrapper>
           <LoginPage />
-        </BrowserRouter>,
+        </TestWrapper>,
       );
 
       const textLogoElement = screen.getByTestId('textLogo');
@@ -18,9 +18,9 @@ describe('로그인', () => {
     });
     it('이메일 인풋 렌더링 성공', () => {
       render(
-        <BrowserRouter>
+        <TestWrapper>
           <LoginPage />
-        </BrowserRouter>,
+        </TestWrapper>,
       );
 
       const emailInputElement = screen.getByTestId('email');
@@ -29,9 +29,9 @@ describe('로그인', () => {
     });
     it('비밀번호 인풋 렌더링 성공', () => {
       render(
-        <BrowserRouter>
+        <TestWrapper>
           <LoginPage />
-        </BrowserRouter>,
+        </TestWrapper>,
       );
 
       const passwordInputElement = screen.getByTestId('password');
@@ -40,9 +40,9 @@ describe('로그인', () => {
     });
     it('로그인 버튼 렌더링 성공', () => {
       render(
-        <BrowserRouter>
+        <TestWrapper>
           <LoginPage />
-        </BrowserRouter>,
+        </TestWrapper>,
       );
 
       const loginBtnElement = screen.getByTestId('loginBtn');
@@ -51,9 +51,9 @@ describe('로그인', () => {
     });
     it('회원가입 이동 링크 렌더링 성공', () => {
       render(
-        <BrowserRouter>
+        <TestWrapper>
           <LoginPage />
-        </BrowserRouter>,
+        </TestWrapper>,
       );
 
       const signUpLinkElement = screen.getByTestId('signUpLink');
@@ -62,9 +62,9 @@ describe('로그인', () => {
     });
     it('비밀번호 찾기 이동 링크 렌더링 성공', () => {
       render(
-        <BrowserRouter>
+        <TestWrapper>
           <LoginPage />
-        </BrowserRouter>,
+        </TestWrapper>,
       );
 
       const passwordFindLinkElement = screen.getByTestId('passwordFindLink');
@@ -73,9 +73,9 @@ describe('로그인', () => {
     });
     it('카카오톡으로 로그인 버튼 렌더링 성공', () => {
       render(
-        <BrowserRouter>
+        <TestWrapper>
           <LoginPage />
-        </BrowserRouter>,
+        </TestWrapper>,
       );
 
       const kakaoLoginBtnElement = screen.getByTestId('kakaoLoginBtn');

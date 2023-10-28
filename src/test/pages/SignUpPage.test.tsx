@@ -1,15 +1,15 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import SignUpPage from '@pages/SignUpPage';
-import { BrowserRouter } from 'react-router-dom';
+import TestWrapper from '@test/utils/TestWrapper';
 
 describe('회원가입', () => {
   describe('UI 컴포넌트 렌더링', () => {
     it('텍스트 로고 렌더링 성공', () => {
       render(
-        <BrowserRouter>
+        <TestWrapper>
           <SignUpPage />
-        </BrowserRouter>,
+        </TestWrapper>,
       );
       const textLogoElement = screen.getByTestId('textLogo');
 
@@ -17,9 +17,9 @@ describe('회원가입', () => {
     });
     it('이메일 인풋 렌더링 성공', () => {
       render(
-        <BrowserRouter>
+        <TestWrapper>
           <SignUpPage />
-        </BrowserRouter>,
+        </TestWrapper>,
       );
       const emailInputElement = screen.getByTestId('email');
 
@@ -27,9 +27,9 @@ describe('회원가입', () => {
     });
     it('비밀번호 인풋 렌더링 성공', () => {
       render(
-        <BrowserRouter>
+        <TestWrapper>
           <SignUpPage />
-        </BrowserRouter>,
+        </TestWrapper>,
       );
       const passwordInputElement = screen.getByTestId('password');
 
@@ -37,9 +37,9 @@ describe('회원가입', () => {
     });
     it('이름 인풋 렌더링 성공', () => {
       render(
-        <BrowserRouter>
+        <TestWrapper>
           <SignUpPage />
-        </BrowserRouter>,
+        </TestWrapper>,
       );
       const nameInputElement = screen.getByTestId('name');
 
@@ -47,9 +47,9 @@ describe('회원가입', () => {
     });
     it('회원가입 버튼 렌더링 성공', () => {
       render(
-        <BrowserRouter>
+        <TestWrapper>
           <SignUpPage />
-        </BrowserRouter>,
+        </TestWrapper>,
       );
       const signUpBtnInputElement = screen.getByTestId('signUpBtn');
 
