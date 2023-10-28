@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import SignUpPage from '@pages/SignUpPage';
 import TestWrapper from '@test/utils/TestWrapper';
+import { EMAIL_ERROR_MSG, NAME_ERROR_MSG, PASSWORD_ERROR_MSG } from '@constants/errorMsg';
 
 describe('회원가입', () => {
   describe('UI 컴포넌트 렌더링', () => {
@@ -54,6 +55,57 @@ describe('회원가입', () => {
       const signUpBtnInputElement = screen.getByTestId('signUpBtn');
 
       expect(signUpBtnInputElement).toBeInTheDocument();
+    });
+  });
+  describe('유효성 검증', () => {
+    it('이메일 형식이 잘못된 경우, 오류 메시지가 표시되어야 함', async () => {
+      render(
+        <TestWrapper>
+          <SignUpPage />
+        </TestWrapper>,
+      );
+
+      // 유효하지 않은 이메일 형식 입력
+      const INVALID_EMAIL = 'invalid-email';
+      const emailInputElement = screen.getByTestId('email');
+      fireEvent.change(emailInputElement, { target: { value: INVALID_EMAIL } });
+
+      // 이메일 형식 오류 메시지 확인
+      const emailErrorMessage = await screen.findByText(EMAIL_ERROR_MSG);
+      expect(emailErrorMessage).toBeInTheDocument();
+    });
+    it('비밀번호 형식이 잘못된 경우, 오류 메시지가 표시되어야 함', async () => {
+      render(
+        <TestWrapper>
+          <SignUpPage />
+        </TestWrapper>,
+      );
+
+      // 유효하지 않은 비밀번호 형식 입력
+      const INVALID_PASSWORD = 'short';
+      const passwordInputElement = screen.getByTestId('password');
+      fireEvent.change(passwordInputElement, { target: { value: INVALID_PASSWORD } });
+
+      // 비밀번호 형식 오류 메시지 확인
+      const passwordErrorMessage = await screen.findByText(PASSWORD_ERROR_MSG);
+      expect(passwordErrorMessage).toBeInTheDocument();
+    });
+
+    it('이름 형식이 잘못된 경우, 오류 메시지가 표시되어야 함', async () => {
+      render(
+        <TestWrapper>
+          <SignUpPage />
+        </TestWrapper>,
+      );
+
+      // 유효하지 않은 이름 형식 입력
+      const INVALID_NAME = '1234567890';
+      const nameInputElement = screen.getByTestId('name');
+      fireEvent.change(nameInputElement, { target: { value: INVALID_NAME } });
+
+      // 이름 형식 오류 메시지 확인
+      const nameErrorMessage = await screen.findByText(NAME_ERROR_MSG);
+      expect(nameErrorMessage).toBeInTheDocument();
     });
   });
 });
