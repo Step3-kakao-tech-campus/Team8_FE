@@ -3,7 +3,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Input } from '@material-tailwind/react';
 import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
 import { EMAIL_PATTERN, NAME_PATTERN, PASSWORD_PATTERN } from '@constants/validationPatterns';
-import { REQUIRE_ERROR_MSG } from '@constants/errorMsg';
+import { EMAIL_ERROR_MSG, NAME_ERROR_MSG, PASSWORD_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
 import { useMutation } from '@tanstack/react-query';
 import { signUpFn } from '@apis/authApi';
 import { useNavigate } from 'react-router-dom';
@@ -48,7 +48,7 @@ const SignUpPage = () => {
               data-testid='email'
               {...register('email', {
                 required: REQUIRE_ERROR_MSG,
-                pattern: { value: EMAIL_PATTERN, message: '이메일 형식이 맞지 않습니다.' },
+                pattern: { value: EMAIL_PATTERN, message: EMAIL_ERROR_MSG },
               })}
             />
             {errors.email && <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.email.message}</p>}
@@ -61,7 +61,7 @@ const SignUpPage = () => {
               data-testid='password'
               {...register('password', {
                 required: REQUIRE_ERROR_MSG,
-                pattern: { value: PASSWORD_PATTERN, message: '8~20자 영문과 숫자를 사용하세요.' },
+                pattern: { value: PASSWORD_PATTERN, message: PASSWORD_ERROR_MSG },
               })}
             />
             {errors.password && (
@@ -75,7 +75,7 @@ const SignUpPage = () => {
               data-testid='name'
               {...register('name', {
                 required: REQUIRE_ERROR_MSG,
-                pattern: { value: NAME_PATTERN, message: '1~10자 한글, 영어만 가능합니다.' },
+                pattern: { value: NAME_PATTERN, message: NAME_ERROR_MSG },
               })}
             />
             {errors.name && <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.name.message}</p>}
