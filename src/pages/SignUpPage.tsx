@@ -14,7 +14,7 @@ interface SignUpInputs {
 const SignUpPage = () => {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<SignUpInputs>({ mode: 'onChange' });
 
   return (
@@ -62,7 +62,7 @@ const SignUpPage = () => {
             />
             {errors.name && <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.name.message}</p>}
           </div>
-          <Button className='w-full' data-testid='signUpBtn'>
+          <Button className='w-full' data-testid='signUpBtn' disabled={!isValid}>
             회원가입
           </Button>
         </form>
