@@ -8,7 +8,8 @@
       "@recoil/*": ["src/recoil/*"],
       "@test/*": ["src/test/*"],
       "@dummy/*": ["src/dummy/*"],
-      "@constants/*": ["src/constants/*"]
+      "@constants/*": ["src/constants/*"],
+      "@apis/*": ["src/apis/*"]
     }
   }
 }
