@@ -2,6 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /** @type {import('tailwindcss').Config} */
 const withMT = require('@material-tailwind/react/utils/withMT');
+const colors = require('tailwindcss/colors');
 
 module.exports = withMT({
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
@@ -11,6 +12,7 @@ module.exports = withMT({
         kakaoContainer: '#FEE500',
         kakaoSymbol: '#000000',
         kakaoLabel: '#000000D9',
+        error: colors.red[500],
       },
       fontFamily: {
         sans: ['NanumSquare', 'sans-serif'],
