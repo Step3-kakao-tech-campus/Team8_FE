@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { MdArrowCircleRight } from 'react-icons/md';
-
+import { v4 as uuidv4 } from 'uuid';
 import { getPageInfo } from '@dummy/page';
 // import { getEmptyPageInfo } from '@dummy/page';
 import PageTitleSection from '@components/PageTitleSection';
@@ -31,19 +31,20 @@ const GroupMainPage = () => {
       <PageTitleSection title={pageName} aboveAdornment={<LikeDislikeButton upCount={12} downCount={7} />} />
       <PageContainer pageId={postList.length !== 0 ? pageId : undefined} hasRecentChangeList>
         {postList.length !== 0 ? (
-          postList.map((post) => (
-            <div>
-              <Post
-                key={post.postId}
-                pageId={pageId}
-                pageName={pageName}
-                index={post.index}
-                postTitle={post.postTitle}
-                content={post.content}
-              />
-              <AddPostButton />
-            </div>
-          ))
+          <ul>
+            {postList.map((post) => (
+              <li key={uuidv4()}>
+                <Post
+                  pageId={pageId}
+                  pageName={pageName}
+                  index={post.index}
+                  postTitle={post.postTitle}
+                  content={post.content}
+                />
+                <AddPostButton />
+              </li>
+            ))}
+          </ul>
         ) : (
           <article className='flex justify-between items-center p-4 bg-gray-100 rounded-lg px-4'>
             <p className='text-sm shrink-0'>

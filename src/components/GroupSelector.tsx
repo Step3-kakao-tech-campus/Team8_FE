@@ -1,6 +1,7 @@
 import React from 'react';
 import { Select, Option } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import { unOfficialGroupDummyData } from '@dummy/group';
 
 const GroupSelector = () => {
@@ -15,7 +16,7 @@ const GroupSelector = () => {
     <div className='w-52'>
       <Select label='그룹 선택' value={groupName} onChange={handleChange}>
         {unOfficialGroupDummyData.map((group) => (
-          <Option key={group.groupId} value={group.groupName}>
+          <Option key={uuidv4()} value={group.groupName}>
             {group.groupName}
           </Option>
         ))}
