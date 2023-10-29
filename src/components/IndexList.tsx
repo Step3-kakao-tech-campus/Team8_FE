@@ -9,6 +9,14 @@ interface IndexListProps {
 const IndexList = ({ pageId }: IndexListProps) => {
   const indexList = getIndexList(pageId);
 
+  const scrollToPost = (postId: string) => {
+    console.log(postId);
+    const postElement = document.getElementById(postId);
+    if (postElement) {
+      window.scrollTo({ top: postElement.offsetTop - 60, behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className='w-full'>
       <h2 className='font-bold px-1 py-2 text-sm'>목차</h2>
@@ -16,7 +24,9 @@ const IndexList = ({ pageId }: IndexListProps) => {
         {indexList.map((post) => (
           <li key={uuidv4()} className='my-2 leading-tight whitespace-pre'>
             {post.index.split('.').length > 2 && '  '}
-            <span className='text-indigo-500'>{post.index}</span> {post.postTitle}
+            <button type='button' onClick={() => scrollToPost(`${pageId}-${post.index}`)}>
+              <span className='text-indigo-500'>{post.index}</span> {post.postTitle}
+            </button>
           </li>
         ))}
       </ul>
