@@ -1,9 +1,10 @@
 import React from 'react';
-import RecentChangeList from '@components/RecentChangeList';
-import { MdArrowCircleRight } from 'react-icons/md';
-import { pageDummyData } from '@dummy/page';
-import { Button } from '@material-tailwind/react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { MdArrowCircleRight } from 'react-icons/md';
+import { v4 as uuidv4 } from 'uuid';
+import { Button } from '@material-tailwind/react';
+import RecentChangeList from '@components/RecentChangeList';
+import { pageDummyData } from '@dummy/page';
 
 const SearchResultPage = () => {
   const query = useLocation().search;
@@ -41,7 +42,7 @@ const SearchResultPage = () => {
             </div>
           ) : (
             pageDummyData.map((post) => (
-              <div key={post.pageId} className='px-2 py-8 border-b border-gray-200'>
+              <div key={uuidv4()} className='px-2 py-8 border-b border-gray-200'>
                 <h2 className='text-lg font-bold mb-1'>{post.pageName}</h2>
                 <p className='text-sm text-gray-500'>{post.content}</p>
               </div>

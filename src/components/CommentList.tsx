@@ -1,6 +1,7 @@
 import React, { ChangeEvent, RefObject, useState } from 'react';
 import { Collapse, Textarea } from '@material-tailwind/react';
 import { MdSend, MdOutlineKeyboardArrowUp } from 'react-icons/md';
+import { v4 as uuidv4 } from 'uuid';
 import Comment from './Comment';
 
 interface Comment {
@@ -35,7 +36,7 @@ const CommentList = ({ commentRef, isOpen, onCommentClose, comments }: CommentLi
       <p className='pt-4 pl-4 font-bold border-t'>댓글 {comments.length}</p>
       <ul className='flex flex-col gap-5 p-4'>
         {comments.map((comment) => (
-          <Comment key={comment.commentId} comment={comment} />
+          <Comment key={uuidv4()} comment={comment} />
         ))}
       </ul>
       <div className='relative flex gap-3 p-4 border-t'>
