@@ -3,7 +3,13 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Input } from '@material-tailwind/react';
 import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
 import { EMAIL_PATTERN, NAME_PATTERN, PASSWORD_PATTERN } from '@constants/validationPatterns';
-import { EMAIL_ERROR_MSG, NAME_ERROR_MSG, PASSWORD_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
+import {
+  EMAIL_ERROR_MSG,
+  NAME_ERROR_MSG,
+  PASSWORD_ERROR_MSG,
+  REQUIRE_ERROR_MSG,
+  PASSWORD_CONFIRM_ERROR_MSG,
+} from '@constants/errorMsg';
 import { useMutation } from '@tanstack/react-query';
 import { signUpFn } from '@apis/authApi';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 interface SignUpInputs {
   email: string;
   password: string;
+  passwordConfirm: string;
   name: string;
 }
 
@@ -18,6 +25,7 @@ const SignUpPage = () => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors, isValid },
   } = useForm<SignUpInputs>({ mode: 'onChange' });
   const navigate = useNavigate();
@@ -66,6 +74,26 @@ const SignUpPage = () => {
             />
             {errors.password && (
               <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.password.message}</p>
+            )}
+          </div>
+          <div>
+            <Input
+              label='비밀번호 확인'
+              type='password'
+              crossOrigin=''
+              data-testid='passwordConfirm'
+              {...register('passwordConfirm', {
+                required: REQUIRE_ERROR_MSG,
+                validate: {
+                  confirmMatchPassward: (value) => {
+                    if (getValues('password') !== value) return PASSWORD_CONFIRM_ERROR_MSG;
+                    return undefined;
+                  },
+                },
+              })}
+            />
+            {errors.passwordConfirm && (
+              <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.passwordConfirm.message}</p>
             )}
           </div>
           <div>
