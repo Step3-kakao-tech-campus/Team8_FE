@@ -9,7 +9,7 @@ import {
   MdModeEditOutline,
 } from 'react-icons/md';
 import { Button, Menu, MenuHandler, MenuList, MenuItem, Typography } from '@material-tailwind/react';
-import Viewer from '@components/CKEditor5/Ckviewer';
+import Viewer from '@components/Page/Post/Editor/Ckviewer';
 import { comments } from '@dummy/page';
 import CommentList from './CommentList';
 

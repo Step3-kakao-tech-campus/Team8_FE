@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Button, Input } from '@material-tailwind/react';
-import GroupList from '@components/GroupList';
+import GroupList from '@components/Home/GroupList';
 import { unOfficialGroupDummyData, groupMyPageDummyData } from '@dummy/group';
-import PasswordChangeModal from '@components/PasswordChangeModal';
+import PasswordChangeModal from '@components/Modal/PasswordChangeModal';
 
 const MyPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);

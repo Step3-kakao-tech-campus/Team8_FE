@@ -1,5 +1,5 @@
 import React from 'react';
-import RecentChangeList from '@components/RecentChangeList';
+import RecentChangeList from '@components/Page/Common/RecentChangeList';
 import { MdArrowCircleRight } from 'react-icons/md';
 import { pageDummyData } from '@dummy/page';
 import { Button } from '@material-tailwind/react';

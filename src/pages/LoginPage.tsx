@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { RiKakaoTalkFill } from 'react-icons/ri';
 import { Button, Input } from '@material-tailwind/react';
 import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
-import DividerWithText from '@components/DividerWithText';
+import DividerWithText from '@components/Common/DividerWithText';
 
 const LoginPage = () => {
   return (

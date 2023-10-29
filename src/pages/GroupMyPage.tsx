@@ -1,8 +1,8 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Button, Input } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
-import ContributeList from '@components/ContributeList';
-import QuitModal from '@components/QuitModal';
+import ContributeList from '@components/MyPage/ContributeList';
+import QuitModal from '@components/Modal/QuitModal';
 import { groupMyPageDummyData } from '@dummy/group';
 
 const GroupMyPage = () => {

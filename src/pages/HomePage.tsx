@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button } from '@material-tailwind/react';
 import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
-import OfficialGroup from '@components/OfficialGroup';
-import GroupList from '@components/GroupList';
+import OfficialGroup from '@components/Home/OfficialGroup';
+import GroupList from '@components/Home/GroupList';
 import { unOfficialGroupDummyData } from '@dummy/group';
 import { ReactComponent as Logo } from '@assets/images/logo/logo.svg';
-import SearchInput from '@components/SearchInput';
+import SearchInput from '@components/Common/SearchInput';
 import { useRecoilValue } from 'recoil';
 import isLoggedInState from '@recoil/login/atoms';
 import { useNavigate } from 'react-router-dom';

@@ -4,12 +4,12 @@ import { MdArrowCircleRight } from 'react-icons/md';
 
 import { getPageInfo } from '@dummy/page';
 // import { getEmptyPageInfo } from '@dummy/page';
-import PageTitleSection from '@components/PageTitleSection';
-import PageContainer from '@components/PageContainer';
-import Post from '@components/Post';
+import PageTitleSection from '@components/Page/Common/PageTitleSection';
+import PageContainer from '@components/Page/Common/PageContainer';
+import Post from '@components/Page/Post/Post';
 import { Button } from '@material-tailwind/react';
-import LikeDislikeButton from '@components/LikeDislikeButton';
-import AddPostButton from '@components/AddPostButton';
+import LikeDislikeButton from '@components/Page/Common/LikeDislikeButton';
+import AddPostButton from '@components/Page/Post/AddPostButton';
 
 const GroupMainPage = () => {
   const navigate = useNavigate();
