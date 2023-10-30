@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { MdPersonAdd, MdLogin } from 'react-icons/md';
-import isLoggedInState from '@recoil/login/atoms';
+import isLoggedInState from '@recoil/atoms/auth';
 import { ReactComponent as Logo } from '@assets/images/logo/logo.svg';
 import { Link } from 'react-router-dom';
 import HeaderMenu from './HeaderMenu';

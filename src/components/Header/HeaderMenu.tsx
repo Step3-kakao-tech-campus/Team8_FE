@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Menu, MenuHandler, MenuList, MenuItem, Button } from '@material-tailwind/react';
 import { MdMenu } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import isLoggedInState from '@recoil/login/atoms';
+import isLoggedInState from '@recoil/atoms/auth';
 import { inviteCodeDummyData } from '@dummy/group';
 import InviteModal from '../Modal/InviteModal';
+import useModal from '@hooks/useModal';
+import GroupMemberListModal from '@components/Modal/GroupMemberListModal';
 
 const HeaderMenu = () => {
   const { groupName } = useParams();
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const inviteModal = useModal();
+  const groupMemberListModal = useModal();
 
   const handleLogout = () => {
     setIsLoggedIn(false);
@@ -23,9 +27,6 @@ const HeaderMenu = () => {
       navigate('/myPage');
     }
   };
-  const handleModalClick = () => {
-    setIsModalOpen((prev) => !prev);
-  };
 
   return (
     <>
@@ -36,12 +37,14 @@ const HeaderMenu = () => {
           </Button>
         </MenuHandler>
         <MenuList>
-          <MenuItem onClick={handleMyPageClick}>마이페이지</MenuItem>
-          {groupName && <MenuItem onClick={handleModalClick}>그룹원 초대</MenuItem>}
+          <MenuItem onClick={handleMyPageClick}>{groupName ? '그룹 마이페이지' : '마이페이지'}</MenuItem>
+          {groupName && <MenuItem onClick={inviteModal.handleModal}>그룹원 초대</MenuItem>}
+          {groupName && <MenuItem onClick={groupMemberListModal.handleModal}>그룹원 목록</MenuItem>}
           <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
         </MenuList>
       </Menu>
-      <InviteModal code={inviteCodeDummyData} isOpen={isModalOpen} onModalClick={handleModalClick} />
+      <InviteModal code={inviteCodeDummyData} isOpen={inviteModal.isOpen} onModalClick={inviteModal.handleModal} />
+      <GroupMemberListModal isOpen={groupMemberListModal.isOpen} handleModal={groupMemberListModal.handleModal} />
     </>
   );
 };

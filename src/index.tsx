@@ -16,6 +16,7 @@ import GroupSearchResultPage from '@pages/GroupSearchResultPage';
 import GroupCreatePage from '@pages/GroupCreatePage';
 import ReportPage from '@pages/ReportPage';
 import PostEditPage from '@pages/PostEditPage';
+import PostHistoryPage from '@pages/PostHistoryPage';
 
 import MainLayout from '@components/Layout/MainLayout';
 import PageLayout from '@components/Layout/PageLayout';
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
           {
             path: '/:groupName/:page/:postId/report',
             element: <ReportPage />,
+          },
+          {
+            path: '/:groupName/:page/:postId/history',
+            element: <PostHistoryPage />,
           },
         ],
       },

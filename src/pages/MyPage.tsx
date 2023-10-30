@@ -1,14 +1,14 @@
 import React, { ChangeEvent, useState } from 'react';
+import useModal from '@hooks/useModal';
 import { Button, Input } from '@material-tailwind/react';
 import GroupList from '@components/Home/GroupList';
 import { unOfficialGroupDummyData, groupMyPageDummyData } from '@dummy/group';
 import PasswordChangeModal from '@components/Modal/PasswordChangeModal';
 
 const MyPage = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const handleOpen = () => setIsOpen(!isOpen);
   const [nickName, setNickName] = useState(groupMyPageDummyData.groupNickName);
   const [isNickNameChanging, setIsNickNameChanging] = useState<boolean>(false);
+  const passwordChangeModal = useModal();
 
   const handleNickName = (e: ChangeEvent<HTMLInputElement>) => {
     setNickName(e.target.value);
@@ -78,13 +78,13 @@ const MyPage = () => {
             variant='outlined'
             color='gray'
             className='rounded-sm h-9 w-20 p-1 whitespace-nowrap'
-            onClick={handleOpen}
+            onClick={passwordChangeModal.handleModal}
           >
             바로가기
           </Button>
           <p className='text-xs text-gray-700 ml-4'>카카오톡 간편 회원은 지원하지 않는 기능입니다.</p>
         </div>
-        <PasswordChangeModal isOpen={isOpen} handleOpen={handleOpen} />
+        <PasswordChangeModal isOpen={passwordChangeModal.isOpen} handleOpen={passwordChangeModal.handleModal} />
         <div className='flex items-baseline mt-10 mb-10'>
           <span className='font-extrabold w-40'>내 그룹 보기</span>
           <p className='text-xs text-gray-700'>프로필을 누르면 그룹으로 이동합니다.</p>

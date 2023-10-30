@@ -7,7 +7,10 @@
       "@pages/*": ["src/pages/*"],
       "@recoil/*": ["src/recoil/*"],
       "@test/*": ["src/test/*"],
-      "@dummy/*": ["src/dummy/*"]
+      "@dummy/*": ["src/dummy/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@constants/*": ["src/constants/*"],
+      "@apis/*": ["src/apis/*"]
     }
   }
 }

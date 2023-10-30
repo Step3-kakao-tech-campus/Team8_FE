@@ -14,11 +14,13 @@
     "@types/node": "^16.18.54",
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
+    "@types/uuid": "^9.0.6",
     "axios": "^1.5.0",
     "ckeditor5-custom-build": "file:ckeditor5",
     "cross-env": "^7.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.47.0",
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.16.0",
     "react-scripts": "5.0.1",
@@ -70,5 +72,10 @@
   },
   "overrides": {
     "typescript": "^5.2.2"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(axios)/)"
+    ]
   }
 }

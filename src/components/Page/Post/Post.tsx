@@ -26,6 +26,7 @@ const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
 
   const navigate = useNavigate();
   const [isCommentOpen, setIsCommentOpen] = useState<boolean>(false);
+  const postId = `${pageId}-${index}`;
 
   const handleCommentClick = () => {
     setIsCommentOpen((prev) => !prev);
@@ -35,7 +36,7 @@ const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
   };
 
   return (
-    <article>
+    <article id={postId}>
       <div className='flex justify-between border-b-2'>
         <h2 className='text-xl leading-relaxed font-semibold'>
           <span className='text-indigo-500'>{index}</span> {postTitle}
@@ -69,7 +70,10 @@ const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
                   편집
                 </Typography>
               </MenuItem>
-              <MenuItem className='flex items-center gap-2 py-1'>
+              <MenuItem
+                className='flex items-center gap-2 py-1'
+                onClick={() => navigate(`${pageName}/${postTitle}/history`)}
+              >
                 <MdOutlineHistory className='text-2xl' />
                 <Typography variant='small' className='font-semibold'>
                   히스토리
