@@ -17,6 +17,7 @@ import GroupCreatePage from '@pages/GroupCreatePage';
 import ReportPage from '@pages/ReportPage';
 import PostEditPage from '@pages/PostEditPage';
 import PostHistoryPage from '@pages/PostHistoryPage';
+import GroupJoinPage from '@pages/GroupJoinPage';
 
 import MainLayout from '@components/Layout/MainLayout';
 import PageLayout from '@components/Layout/PageLayout';
@@ -35,28 +36,16 @@ const router = createBrowserRouter([
             element: <HomePage />,
           },
           {
-            path: '/:groupName/myPage',
-            element: <GroupMyPage />,
-          },
-          {
-            path: '/:groupName/myPage/contribute',
-            element: <MyContributePage />,
+            path: '/signUp',
+            element: <SignUpPage />,
           },
           {
             path: '/login',
             element: <LoginPage />,
           },
           {
-            path: '/signUp',
-            element: <SignUpPage />,
-          },
-          {
             path: '/myPage',
             element: <MyPage />,
-          },
-          {
-            path: '/:groupName/search',
-            element: <SearchResultPage />,
           },
           {
             path: '/search/group',
@@ -65,6 +54,22 @@ const router = createBrowserRouter([
           {
             path: '/groupCreate',
             element: <GroupCreatePage />,
+          },
+          {
+            path: '/:groupName/join',
+            element: <GroupJoinPage />,
+          },
+          {
+            path: '/:groupName/myPage',
+            element: <GroupMyPage />,
+          },
+          {
+            path: '/:groupName/myPage/contribute',
+            element: <MyContributePage />,
+          },
+          {
+            path: '/:groupName/search',
+            element: <SearchResultPage />,
           },
           {
             path: '/:groupName/:page/:postId/report',
