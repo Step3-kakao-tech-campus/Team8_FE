@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@material-tailwind/react';
-import GroupList from '@components/GroupList';
+import GroupList from '@components/Home/GroupList';
 import { officialGroupDummyData, unOfficialGroupDummyData } from '@dummy/group';
 import { Link, useSearchParams } from 'react-router-dom';
 import { MdChevronRight } from 'react-icons/md';

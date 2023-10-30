@@ -5,7 +5,7 @@ import isLoggedInState from '@recoil/atoms/auth';
 import { ReactComponent as Logo } from '@assets/images/logo/logo.svg';
 import { Link } from 'react-router-dom';
 import HeaderMenu from './HeaderMenu';
-import SearchInput from './SearchInput';
+import SearchInput from '../Common/SearchInput';
 import GroupSelector from './GroupSelector';
 
 const Header = () => {

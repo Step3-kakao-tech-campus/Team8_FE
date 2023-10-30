@@ -5,10 +5,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import isLoggedInState from '@recoil/atoms/auth';
 import { inviteCodeDummyData } from '@dummy/group';
+import InviteModal from '../Modal/InviteModal';
 import useModal from '@hooks/useModal';
-
-import InviteModal from './InviteModal';
-import GroupMemberListModal from './GroupMemberListModal';
+import GroupMemberListModal from '@components/Modal/GroupMemberListModal';
 
 const HeaderMenu = () => {
   const { groupName } = useParams();

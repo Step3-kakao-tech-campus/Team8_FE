@@ -18,8 +18,8 @@ import ReportPage from '@pages/ReportPage';
 import PostEditPage from '@pages/PostEditPage';
 import PostHistoryPage from '@pages/PostHistoryPage';
 
-import MainLayout from '@components/MainLayout';
-import PageLayout from '@components/PageLayout';
+import MainLayout from '@components/Layout/MainLayout';
+import PageLayout from '@components/Layout/PageLayout';
 import App from './App';
 
 const router = createBrowserRouter([

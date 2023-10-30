@@ -1,11 +1,11 @@
 import React, { ChangeEvent, useState } from 'react';
+import PageContainer from '@components/Page/Common/PageContainer';
+import PageTitleSection from '@components/Page/Common/PageTitleSection';
 import useModal from '@hooks/useModal';
-import PageContainer from '@components/PageContainer';
-import PageTitleSection from '@components/PageTitleSection';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Input } from '@material-tailwind/react';
-import CKEditor from '@components/CKEditor5/Ckeditor';
-import PostDeleteModal from '@components/PostDeleteModal';
+import CKEditor from '@components/Page/Post/Editor/Ckeditor';
+import PostDeleteModal from '@components/Modal/PostDeleteModal';
 
 const PostEditPage = () => {
   const { pageId, index, pageName, postTitle, content: postContent } = useLocation().state;

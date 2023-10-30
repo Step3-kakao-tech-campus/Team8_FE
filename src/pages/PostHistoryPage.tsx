@@ -1,8 +1,7 @@
 import React from 'react';
-
 import PostHistoryAccordion from '@components/PostHistoryAccordion';
-import Pagination from '@components/Pagination';
 import { postHistoryDummyData } from '@dummy/page';
+import Pagination from '@components/Common/Pagination';
 
 const PostHistoryPage = () => {
   const [active, setActive] = React.useState<number>(1);

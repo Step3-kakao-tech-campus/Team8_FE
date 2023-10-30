@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ContributeAccordion from '@components/ContributeAccordion';
-import Pagination from '@components/Pagination';
+import ContributeAccordion from '@components/MyPage/ContributeAccordion';
+import Pagination from '@components/Common/Pagination';
 
 // TODO: API 수정 후 맞춰서 수정 필요
 const lastIndex = 10;

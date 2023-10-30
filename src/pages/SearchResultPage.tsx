@@ -1,9 +1,9 @@
 import React from 'react';
+import RecentChangeList from '@components/Page/Common/RecentChangeList';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { MdArrowCircleRight } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@material-tailwind/react';
-import RecentChangeList from '@components/RecentChangeList';
 import { pageDummyData } from '@dummy/page';
 
 const SearchResultPage = () => {
