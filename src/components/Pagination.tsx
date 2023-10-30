@@ -30,7 +30,8 @@ const Pagination = ({ active, setActive, lastIndex }: PaginationProps) => {
         <MdArrowBack size={15} />
       </IconButton>
       <Typography color='gray' className='font-normal'>
-        Page <strong className='text-gray-900'>{active}</strong> of <strong className='text-gray-900'>10</strong>
+        Page <strong className='text-gray-900'>{active}</strong> of{' '}
+        <strong className='text-gray-900'>{lastIndex}</strong>
       </Typography>
       <IconButton size='sm' variant='text' onClick={handleNext} disabled={active === lastIndex}>
         <MdArrowForward size={15} />

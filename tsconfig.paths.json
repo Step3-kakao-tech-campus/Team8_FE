@@ -9,6 +9,8 @@
       "@test/*": ["src/test/*"],
       "@dummy/*": ["src/dummy/*"],
       "@hooks/*": ["src/hooks/*"]
+      "@constants/*": ["src/constants/*"],
+      "@apis/*": ["src/apis/*"]
     }
   }
 }
