@@ -1,25 +1,79 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { RiKakaoTalkFill } from 'react-icons/ri';
 import { Button, Input } from '@material-tailwind/react';
 import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
 import DividerWithText from '@components/Common/DividerWithText';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { REQUIRE_ERROR_MSG } from '@constants/errorMsg';
+import { loginFn } from '@apis/authApi';
+import { useMutation } from '@tanstack/react-query';
+import { getErrorMsg } from '@utils/serverError';
+
+interface LoginInputs {
+  email: string;
+  password: string;
+}
 
 const LoginPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<LoginInputs>({ mode: 'onChange' });
+  const navigate = useNavigate();
+
+  const { mutate: login, error } = useMutation({ mutationFn: loginFn });
+
+  const handleLoginSubmit: SubmitHandler<FieldValues> = ({ email, password }) => {
+    login(
+      { email, password },
+      {
+        onSuccess: () => {
+          navigate('/');
+        },
+      },
+    );
+  };
+
   return (
     <div className='flex min-h-full flex-col justify-center px-8'>
       <div className='mx-auto shadow space-y-4 w-full max-w-[450px] px-16 pt-9 pb-16'>
         <TextLogo className='w-36 m-auto mb-8' data-testid='textLogo' />
-        <form className='space-y-12'>
-          <Input label='이메일' crossOrigin='' data-testid='email' />
-          <Input label='비밀번호' type='password' crossOrigin='' data-testid='password' />
-          <Button className='w-full' data-testid='loginBtn'>
+        <form className='space-y-12' onSubmit={handleSubmit(handleLoginSubmit)}>
+          <div>
+            <Input
+              label='이메일'
+              type='email'
+              crossOrigin=''
+              data-testid='email'
+              {...register('email', {
+                required: REQUIRE_ERROR_MSG,
+              })}
+            />
+            {errors.email && <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.email.message}</p>}
+          </div>
+          <div>
+            <Input
+              label='비밀번호'
+              type='password'
+              crossOrigin=''
+              data-testid='password'
+              {...register('password', {
+                required: REQUIRE_ERROR_MSG,
+              })}
+            />
+            {errors.password && (
+              <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.password.message}</p>
+            )}
+          </div>
+          {Boolean(error) && <p className='text-xs mx-1 text-center text-error'>{getErrorMsg(error)}</p>}
+          <Button type='submit' className='w-full' data-testid='loginBtn' disabled={!isValid}>
             로그인
           </Button>
         </form>
         <div className='text-center text-xs'>
-          {/* TODO 경로 지정 필요 */}
-          <Link to='/' data-testid='signUpLink'>
+          <Link to='/signUp' data-testid='signUpLink'>
             회원가입
           </Link>
           {` | `}
