@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-interface ServerError {
+interface ServerErrorData {
   success: boolean;
   response: unknown;
   error: string;
@@ -8,7 +8,7 @@ interface ServerError {
 
 // eslint-disable-next-line import/prefer-default-export
 export const getErrorMsg = (serverError: unknown) => {
-  if (axios.isAxiosError<ServerError>(serverError)) {
+  if (axios.isAxiosError<ServerErrorData>(serverError)) {
     return serverError.response?.data.error;
   }
   return null;
