@@ -208,3 +208,5 @@ export const groupInfoDummyData: GroupInfo = {
   memberCount: 123,
   entranceHint: '파닥몬이 진화한 천사형 디지몬의 이름은?',
 };
+
+export const groupJoinPassword: string = '엔젤몬';
