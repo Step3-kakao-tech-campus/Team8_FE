@@ -2,6 +2,10 @@ import { instance } from './axios';
 
 // /group/${groupId}/page 관련 api
 
+const token =
+  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiYXV0aCI6InVzZXIiLCJleHAiOjE2OTg3NzMxMzl9.mf9x6yoqdwgL8nRl7qjdekaP0MScAqIfEztgLkkbnnk';
+instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+
 export const getPageByTitleFn = ({ groupId, title }: { groupId: string; title: string }) =>
   instance.get(`/group/${groupId}/page?title=${title}`);
 

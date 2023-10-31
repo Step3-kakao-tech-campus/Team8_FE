@@ -1,33 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { Button } from '@material-tailwind/react';
 import { MdThumbDown, MdThumbUp } from 'react-icons/md';
 import { useMutation } from '@tanstack/react-query';
 import { pageHateFn, pageLikeFn } from '@apis/pageApi';
+import { queryClient } from '@apis/queryClient';
 
 interface LikeDislikeButtonProps {
   goodCount: number;
   badCount: number;
   groupId: string;
   pageId: number;
+  page: string;
 }
 
-const LikeDislikeButton = ({ goodCount, badCount, groupId, pageId }: LikeDislikeButtonProps) => {
-  const [likeCount, setLikeCount] = useState(goodCount);
-  const [dislikeCount, setDislikeCount] = useState(badCount);
+const LikeDislikeButton = ({ goodCount, badCount, groupId, pageId, page }: LikeDislikeButtonProps) => {
+  const likeMutateFn = () => pageLikeFn({ groupId, pageId });
+  const dislikeMutateFn = () => pageHateFn({ groupId, pageId });
 
   const { mutate: likeMutate } = useMutation({
-    mutationFn: () => pageLikeFn({ groupId, pageId }),
-    onSuccess: (response) => {
-      console.log(response);
-      setLikeCount(response.data.response.goodCount);
+    mutationFn: likeMutateFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['page', { groupId, title: page }]);
     },
   });
 
   const { mutate: dislikeMutate } = useMutation({
-    mutationFn: () => pageHateFn({ groupId, pageId }),
-    onSuccess: (response) => {
-      setDislikeCount(response.data.response.badCount);
+    mutationFn: dislikeMutateFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['page', { groupId, title: page }]);
     },
   });
 
@@ -39,16 +40,11 @@ const LikeDislikeButton = ({ goodCount, badCount, groupId, pageId }: LikeDislike
     dislikeMutate();
   };
 
-  useEffect(() => {
-    setLikeCount(goodCount);
-    setDislikeCount(badCount);
-  }, [goodCount, badCount]);
-
   return (
     <div className='flex gap-2 h-7'>
       <Button size='sm' className='rounded-full py-0 flex items-center gap-1' onClick={handleLikeClick}>
         <MdThumbUp />
-        {likeCount}
+        {goodCount}
       </Button>
       <Button
         color='white'
@@ -57,7 +53,7 @@ const LikeDislikeButton = ({ goodCount, badCount, groupId, pageId }: LikeDislike
         onClick={handleDislikeClick}
       >
         <MdThumbDown />
-        {dislikeCount}
+        {badCount}
       </Button>
     </div>
   );

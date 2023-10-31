@@ -57,6 +57,7 @@ const GroupMainPage = () => {
   };
 
   useEffect(() => {
+    if (error) console.log(error);
     if (error && (error as Error).response.data.error.message === '존재하지 않는 페이지 입니다.') {
       navigate('/404', { replace: true });
     }
@@ -68,7 +69,13 @@ const GroupMainPage = () => {
         <PageTitleSection
           title={pageName}
           aboveAdornment={
-            <LikeDislikeButton goodCount={goodCount} badCount={badCount} groupId={groupId} pageId={pageId} />
+            <LikeDislikeButton
+              goodCount={goodCount}
+              badCount={badCount}
+              groupId={groupId}
+              pageId={pageId}
+              page={page}
+            />
           }
         />
         <PageContainer pageId={postList.length !== 0 ? pageId : undefined} hasRecentChangeList>
