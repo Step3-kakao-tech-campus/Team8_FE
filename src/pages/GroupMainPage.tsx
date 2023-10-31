@@ -8,8 +8,8 @@ import Post from '@components/Page/Post/Post';
 import { Button } from '@material-tailwind/react';
 import LikeDislikeButton from '@components/Page/Common/LikeDislikeButton';
 import AddPostButton from '@components/Page/Post/AddPostButton';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { createPageFn, getPageByTitleFn } from '@apis/pageApi';
+import { useQuery } from '@tanstack/react-query';
+import { getPageByTitleFn } from '@apis/pageApi';
 
 interface Post {
   postId: number;
@@ -44,8 +44,6 @@ const GroupMainPage = () => {
 
   const { pageName, pageId, postList } = data?.data?.response || { pageName: 'test', pageId: 1, postList: [] };
 
-  const { mutate } = useMutation({ mutationFn: createPageFn });
-
   const handleWriteClick = () => {
     navigate('개요/edit', {
       state: { pageId, index: '1.', pageName, postTitle: '개요', content: '' },
@@ -54,8 +52,7 @@ const GroupMainPage = () => {
 
   useEffect(() => {
     if (error && (error as Error).response.data.error.message === '존재하지 않는 페이지 입니다.') {
-      mutate({ groupId, pageName: page });
-      navigate(`/${groupId}/${page}`, { replace: true });
+      navigate('/404', { replace: true });
     }
   }, [data, error, status]);
 

@@ -19,6 +19,8 @@ import PostEditPage from '@pages/PostEditPage';
 import PostHistoryPage from '@pages/PostHistoryPage';
 import GroupJoinPage from '@pages/GroupJoinPage';
 
+import NotFoundPage from '@pages/NotFoundPage';
+
 import MainLayout from '@components/Layout/MainLayout';
 import PageLayout from '@components/Layout/PageLayout';
 import App from './App';
@@ -78,6 +80,10 @@ const router = createBrowserRouter([
           {
             path: '/:groupName/:page/:postId/history',
             element: <PostHistoryPage />,
+          },
+          {
+            path: '/404',
+            element: <NotFoundPage />,
           },
         ],
       },
