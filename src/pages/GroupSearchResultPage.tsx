@@ -1,16 +1,33 @@
 import React, { useState } from 'react';
 import { Button } from '@material-tailwind/react';
 import GroupList from '@components/Home/GroupList';
-import { officialGroupDummyData, unOfficialGroupDummyData } from '@dummy/group';
 import { Link, useSearchParams } from 'react-router-dom';
 import { MdChevronRight } from 'react-icons/md';
+import { useQuery } from '@tanstack/react-query';
+import GROUP_KEYS from '@constants/queryKeys';
+import { fakeGroupSearchFn } from '@apis/groupApi';
+// import { groupSearchFn } from '@apis/groupApi';
 
 const GroupSearchResultPage = () => {
   const [isOfficialGroup, setIsOfficialGroup] = useState<boolean>(true);
   const [searchParam] = useSearchParams();
   const keyword = searchParam.get('keyword') || '테스트 키워드';
-  const groupData = isOfficialGroup ? officialGroupDummyData : unOfficialGroupDummyData;
+  const { isLoading, error, data } = useQuery({
+    queryKey: [...GROUP_KEYS.groupSearch, keyword],
+    queryFn: async () => fakeGroupSearchFn({ keyword }),
+  });
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>error</div>;
+  }
+
+  const response = data?.data?.response;
+  const officialGroups = response?.officialGroups || [];
+  const unOfficialGroups = response?.unofficialOpenedGroups || [];
+  const groupData = isOfficialGroup ? officialGroups : unOfficialGroups;
   return (
     <section className='pb-20'>
       <h1 className='mb-8'>
