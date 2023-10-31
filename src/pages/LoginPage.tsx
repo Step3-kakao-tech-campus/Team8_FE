@@ -9,6 +9,8 @@ import { REQUIRE_ERROR_MSG } from '@constants/errorMsg';
 import { loginFn } from '@apis/authApi';
 import { useMutation } from '@tanstack/react-query';
 import { getErrorMsg } from '@utils/serverError';
+import useModal from '@hooks/useModal';
+import PasswordFindModal from '@components/Modal/PasswordFindModal';
 
 interface LoginInputs {
   email: string;
@@ -22,6 +24,7 @@ const LoginPage = () => {
     formState: { errors, isValid },
   } = useForm<LoginInputs>({ mode: 'onChange' });
   const navigate = useNavigate();
+  const passwordFindModal = useModal();
 
   const { mutate: login, error } = useMutation({ mutationFn: loginFn });
 
@@ -77,9 +80,10 @@ const LoginPage = () => {
             회원가입
           </Link>
           {` | `}
-          <Link to='/' data-testid='passwordFindLink'>
+          <button type='button' data-testid='passwordFindLink' onClick={passwordFindModal.handleModal}>
             비밀번호 찾기
-          </Link>
+          </button>
+          <PasswordFindModal isOpen={passwordFindModal.isOpen} handleOpen={passwordFindModal.handleModal} />
         </div>
         <DividerWithText>다른 계정으로 로그인</DividerWithText>
         <Button
