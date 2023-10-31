@@ -7,26 +7,15 @@ import GroupCreatePhotoSection from '@components/GroupCreate/GroupCreatePhotoSec
 import GroupCreateNickNameSection from '@components/GroupCreate/GroupCreateNickNameSection';
 import GroupCreateCompleteSection from '@components/GroupCreate/GroupCreateCompleteSection';
 import GroupCreateSearchSetting from '@components/GroupCreate/GroupCreateSearchSetting';
+import { useRecoilValue } from 'recoil';
+import groupCreateInfoState from '@recoil/atoms/group';
 
 const GroupCreatePage = () => {
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4 | 5>(1);
-  const [groupInfo, setGroupInfo] = useState({
-    groupName: '',
-    groupImage: '',
-    groupNickname: '',
-    introduction: '',
-    entranceHint: '',
-    entrancePassword: '',
-  });
+  const groupInfo = useRecoilValue(groupCreateInfoState);
 
   const groupCreateSections = {
-    1: (
-      <GroupCreateNameSection
-        onNextStep={() => setCurrentStep(2)}
-        groupName={groupInfo.groupName}
-        setGroupInfo={(value) => setGroupInfo((prev) => ({ ...prev, ...value }))}
-      />
-    ),
+    1: <GroupCreateNameSection onNextStep={() => setCurrentStep(2)} />,
     2: <GroupCreatePhotoSection onNextStep={() => setCurrentStep(3)} />,
     3: <GroupCreateSearchSetting onNextStep={() => setCurrentStep(4)} />,
     4: <GroupCreateNickNameSection onNextStep={() => setCurrentStep(5)} />,

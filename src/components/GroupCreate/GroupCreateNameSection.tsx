@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { Button, Input, Typography } from '@material-tailwind/react';
+import { useRecoilState } from 'recoil';
+import groupCreateInfoState from '@recoil/atoms/group';
 
 interface GroupCreateNameSectionProps {
   onNextStep: () => void;
-  groupName: string;
-  setGroupInfo: ({ groupName }: { groupName: string }) => void;
 }
 
-const GroupCreateNameSection = ({ onNextStep, groupName, setGroupInfo }: GroupCreateNameSectionProps) => {
+const GroupCreateNameSection = ({ onNextStep }: GroupCreateNameSectionProps) => {
   const [inputCount, setInputCount] = useState(12);
+  const [groupInfo, setGroupInfo] = useRecoilState(groupCreateInfoState);
+
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputCount(12 - e.target.value.length);
-    setGroupInfo({ groupName: e.target.value });
+    setGroupInfo((prev) => ({ ...prev, groupName: e.target.value }));
   };
-
   const handleNextStep = () => {
     // TODO: 그룹 이름 중복 체크, 그룹 이름 길이 체크, 그 외 조건 체크
     if (inputCount >= 0) {
@@ -37,7 +38,7 @@ const GroupCreateNameSection = ({ onNextStep, groupName, setGroupInfo }: GroupCr
           icon={inputCount > 0 && <span className='text-sm'>{inputCount}</span>}
           onChange={onInputChange}
           error={inputCount < 0}
-          value={groupName}
+          value={groupInfo.groupName}
         />
         <Button onClick={handleNextStep}>확인</Button>
       </div>
