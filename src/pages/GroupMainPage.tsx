@@ -46,6 +46,8 @@ const GroupMainPage = () => {
     pageName: 'test',
     pageId: 1,
     postList: [],
+    goodCount: 0,
+    badCount: 0,
   };
 
   const handleWriteClick = () => {
