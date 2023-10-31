@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MdOutlineImage } from 'react-icons/md';
 import { Button, Typography } from '@material-tailwind/react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import groupCreateInfoState from '@recoil/atoms/group';
 
 interface onNextStepProps {
@@ -9,24 +9,27 @@ interface onNextStepProps {
 }
 
 const GroupCreatePhotoSection = ({ onNextStep }: onNextStepProps) => {
-  const setGroupInfo = useSetRecoilState(groupCreateInfoState);
+  const [groupInfo, setGroupInfo] = useRecoilState(groupCreateInfoState);
   const inputRef = useRef<HTMLInputElement>(null);
   const [imgPreview, setImgPreview] = useState<string>('');
   const [error, setError] = useState<string>('');
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files?.length) return;
-
-    const imageFile = e.target.files[0];
+  const getImagePreview = (imageFile: File | undefined) => {
+    if (!imageFile) return;
     const fileReader = new FileReader();
-    setGroupInfo((prev) => ({ ...prev, groupImage: imageFile }));
-
     fileReader.readAsDataURL(imageFile);
     fileReader.onload = (event) => {
       const result = event?.target?.result as string;
       setImgPreview(result);
       setError('');
     };
+  };
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.length) return;
+
+    const imageFile = e.target.files[0];
+    setGroupInfo((prev) => ({ ...prev, groupImage: imageFile }));
+    getImagePreview(imageFile);
   };
   const handleFileRemove = () => {
     setImgPreview('');
@@ -49,6 +52,10 @@ const GroupCreatePhotoSection = ({ onNextStep }: onNextStepProps) => {
     }
     onNextStep();
   };
+
+  useEffect(() => {
+    getImagePreview(groupInfo.groupImage);
+  }, []);
   return (
     <section className='space-y-10'>
       <div>
