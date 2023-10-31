@@ -11,12 +11,13 @@ interface RecentChangePage {
 
 const RecentChangeList = () => {
   const { groupId } = useParams();
+  const numGroupId = Number(groupId);
 
   if (!groupId) return null;
 
   const { data } = useQuery({
-    queryKey: PAGE_KEYS.recentChangeList({ groupId }),
-    queryFn: () => getRecentChangeListFn({ groupId }),
+    queryKey: PAGE_KEYS.recentChangeList({ groupId: numGroupId }),
+    queryFn: () => getRecentChangeListFn({ groupId: numGroupId }),
   });
 
   const { recentPage } = data?.data?.response || { recentPage: [] };

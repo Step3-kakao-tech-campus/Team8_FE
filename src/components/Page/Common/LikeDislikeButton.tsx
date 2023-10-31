@@ -10,7 +10,7 @@ import PAGE_KEYS from '@constants/queryKeys';
 interface LikeDislikeButtonProps {
   goodCount: number;
   badCount: number;
-  groupId: string;
+  groupId: number;
   pageId: number;
   page: string;
 }

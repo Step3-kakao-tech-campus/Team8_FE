@@ -34,13 +34,14 @@ interface Error {
 const GroupMainPage = () => {
   const navigate = useNavigate();
   const { groupId, page } = useParams();
+  const numGroupId = Number(groupId);
 
   if (!groupId) return null;
   if (!page) return null;
 
   const { data, error, status } = useQuery({
-    queryKey: PAGE_KEYS.byTitle({ groupId, title: page }),
-    queryFn: () => getPageByTitleFn({ groupId, title: page }),
+    queryKey: PAGE_KEYS.byTitle({ groupId: numGroupId, title: page }),
+    queryFn: () => getPageByTitleFn({ groupId: numGroupId, title: page }),
   });
 
   const { pageName, pageId, postList, goodCount, badCount } = data?.data?.response || {
@@ -73,7 +74,7 @@ const GroupMainPage = () => {
             <LikeDislikeButton
               goodCount={goodCount}
               badCount={badCount}
-              groupId={groupId}
+              groupId={numGroupId}
               pageId={pageId}
               page={page}
             />
