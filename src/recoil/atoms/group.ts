@@ -7,7 +7,7 @@ const groupCreateInfoState = atom({
     groupType: 'UNOFFICIAL_OPENED' as 'UNOFFICIAL_OPENED' | 'UNOFFICIAL_CLOSED',
     groupName: '' as string,
     groupImage: undefined as File | undefined,
-    groupNickname: '' as string,
+    groupNickName: '' as string,
     introduction: '' as string,
     entranceHint: '' as string,
     entrancePassword: '' as string,

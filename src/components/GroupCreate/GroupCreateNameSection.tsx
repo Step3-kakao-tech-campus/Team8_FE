@@ -61,7 +61,7 @@ const GroupCreateNameSection = ({ onNextStep }: GroupCreateNameSectionProps) => 
             <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.groupName.message}</p>
           )}
         </div>
-        <div className=''>
+        <div>
           <Button type='submit'>확인</Button>
         </div>
       </form>
