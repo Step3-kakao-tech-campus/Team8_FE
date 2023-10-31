@@ -42,7 +42,11 @@ const GroupMainPage = () => {
     queryFn: () => getPageByTitleFn({ groupId, title: page }),
   });
 
-  const { pageName, pageId, postList } = data?.data?.response || { pageName: 'test', pageId: 1, postList: [] };
+  const { pageName, pageId, postList, goodCount, badCount } = data?.data?.response || {
+    pageName: 'test',
+    pageId: 1,
+    postList: [],
+  };
 
   const handleWriteClick = () => {
     navigate('개요/edit', {
@@ -59,7 +63,12 @@ const GroupMainPage = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className='mx-auto 2xl:max-w-screen-xl xl:max-w-screen-lg'>
-        <PageTitleSection title={pageName} aboveAdornment={<LikeDislikeButton upCount={12} downCount={7} />} />
+        <PageTitleSection
+          title={pageName}
+          aboveAdornment={
+            <LikeDislikeButton goodCount={goodCount} badCount={badCount} groupId={groupId} pageId={pageId} />
+          }
+        />
         <PageContainer pageId={postList.length !== 0 ? pageId : undefined} hasRecentChangeList>
           {postList.length !== 0 ? (
             <ul>
