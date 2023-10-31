@@ -5,6 +5,7 @@ import { MdThumbDown, MdThumbUp } from 'react-icons/md';
 import { useMutation } from '@tanstack/react-query';
 import { pageHateFn, pageLikeFn } from '@apis/pageApi';
 import { queryClient } from '@apis/queryClient';
+import PAGE_KEYS from '@constants/queryKeys';
 
 interface LikeDislikeButtonProps {
   goodCount: number;
@@ -21,14 +22,14 @@ const LikeDislikeButton = ({ goodCount, badCount, groupId, pageId, page }: LikeD
   const { mutate: likeMutate } = useMutation({
     mutationFn: likeMutateFn,
     onSuccess: () => {
-      queryClient.invalidateQueries(['page', { groupId, title: page }]);
+      queryClient.invalidateQueries(PAGE_KEYS.byTitle({ groupId, title: page }));
     },
   });
 
   const { mutate: dislikeMutate } = useMutation({
     mutationFn: dislikeMutateFn,
     onSuccess: () => {
-      queryClient.invalidateQueries(['page', { groupId, title: page }]);
+      queryClient.invalidateQueries(PAGE_KEYS.byTitle({ groupId, title: page }));
     },
   });
 

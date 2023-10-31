@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Link, useParams } from 'react-router-dom';
 import { getRecentChangeListFn } from '@apis/pageApi';
 import { useQuery } from '@tanstack/react-query';
+import PAGE_KEYS from '@constants/queryKeys';
 
 interface RecentChangePage {
   pageName: string;
@@ -14,7 +15,7 @@ const RecentChangeList = () => {
   if (!groupId) return null;
 
   const { data } = useQuery({
-    queryKey: ['recentChangePage', { groupId }],
+    queryKey: PAGE_KEYS.recentChangeList({ groupId }),
     queryFn: () => getRecentChangeListFn({ groupId }),
   });
 

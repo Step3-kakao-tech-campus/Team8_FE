@@ -10,6 +10,7 @@ import LikeDislikeButton from '@components/Page/Common/LikeDislikeButton';
 import AddPostButton from '@components/Page/Post/AddPostButton';
 import { useQuery } from '@tanstack/react-query';
 import { getPageByTitleFn } from '@apis/pageApi';
+import PAGE_KEYS from '@constants/queryKeys';
 
 interface Post {
   postId: number;
@@ -38,7 +39,7 @@ const GroupMainPage = () => {
   if (!page) return null;
 
   const { data, error, status } = useQuery({
-    queryKey: ['page', { groupId, title: page }],
+    queryKey: PAGE_KEYS.byTitle({ groupId, title: page }),
     queryFn: () => getPageByTitleFn({ groupId, title: page }),
   });
 
