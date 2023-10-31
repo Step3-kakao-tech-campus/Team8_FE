@@ -18,6 +18,7 @@ import ReportPage from '@pages/ReportPage';
 import PostEditPage from '@pages/PostEditPage';
 import PostHistoryPage from '@pages/PostHistoryPage';
 import GroupJoinPage from '@pages/GroupJoinPage';
+import KakaoLoginPage from '@pages/KakaoLoginPage';
 
 import MainLayout from '@components/Layout/MainLayout';
 import PageLayout from '@components/Layout/PageLayout';
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
           {
             path: '/signUp',
             element: <SignUpPage />,
+          },
+          {
+            path: '/kakaoLogin',
+            element: <KakaoLoginPage />,
           },
           {
             path: '/login',

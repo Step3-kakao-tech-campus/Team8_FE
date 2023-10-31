@@ -10,6 +10,8 @@ import { loginFn } from '@apis/authApi';
 import { useMutation } from '@tanstack/react-query';
 import { getErrorMsg } from '@utils/serverError';
 
+const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URL}`;
+
 interface LoginInputs {
   email: string;
   password: string;
@@ -82,16 +84,18 @@ const LoginPage = () => {
           </Link>
         </div>
         <DividerWithText>다른 계정으로 로그인</DividerWithText>
-        <Button
-          className='flex font-[system-ui] justify-center w-full rounded-xl items-center gap-2 bg-kakaoContainer text-kakaoLabel'
-          data-testid='kakaoLoginBtn'
-        >
-          <div className='relative w-5 h-5'>
-            <RiKakaoTalkFill size={20} className='absolute inset-0 m-auto fill-kakaoSymbol' />
-            <div className='absolute inset-0 m-auto bg-kakaoSymbol w-4 h-2 rounded-full' />
-          </div>
-          카카오 로그인
-        </Button>
+        <a href={KAKAO_URL}>
+          <Button
+            className='flex font-[system-ui] justify-center w-full rounded-xl items-center gap-2 bg-kakaoContainer text-kakaoLabel'
+            data-testid='kakaoLoginBtn'
+          >
+            <div className='relative w-5 h-5'>
+              <RiKakaoTalkFill size={20} className='absolute inset-0 m-auto fill-kakaoSymbol' />
+              <div className='absolute inset-0 m-auto bg-kakaoSymbol w-4 h-2 rounded-full' />
+            </div>
+            카카오 로그인
+          </Button>
+        </a>
       </div>
     </div>
   );
