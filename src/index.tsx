@@ -17,6 +17,7 @@ import GroupCreatePage from '@pages/GroupCreatePage';
 import ReportPage from '@pages/ReportPage';
 import PostEditPage from '@pages/PostEditPage';
 import PostHistoryPage from '@pages/PostHistoryPage';
+import KakaoLoginPage from '@pages/KakaoLoginPage';
 
 import MainLayout from '@components/Layout/MainLayout';
 import PageLayout from '@components/Layout/PageLayout';
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
           {
             path: '/:groupName/myPage/contribute',
             element: <MyContributePage />,
+          },
+          {
+            path: '/kakaoLogin',
+            element: <KakaoLoginPage />,
           },
           {
             path: '/login',
