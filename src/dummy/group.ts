@@ -190,3 +190,25 @@ export const groupMember: string[] = [
   'nectarine',
   'orange',
 ];
+
+interface GroupInfo {
+  groupName: string;
+  groupImage: string;
+  introduction: string;
+  created_at: string;
+  memberCount: number;
+  entranceHint: string;
+}
+
+export const groupInfoDummyData: GroupInfo = {
+  groupName: '파닥몬 팬클럽',
+  groupImage: 'https://s3.orbi.kr/data/file/united2/3ad3fab7db63458580252770eeb79c74.jpg',
+  introduction: '파닥파닥',
+  created_at: '2023-10-06T12:34:56',
+  memberCount: 123,
+  entranceHint: '파닥몬이 진화한 천사형 디지몬의 이름은?',
+};
+
+export const groupJoinPassword: string = '엔젤몬';
+
+export const groupType: 'official' | 'unofficialOpen' | 'unofficialNoOpen' = 'official';
