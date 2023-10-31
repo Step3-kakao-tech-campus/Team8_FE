@@ -85,11 +85,11 @@ const router = createBrowserRouter([
         element: <PageLayout />,
         children: [
           {
-            path: '/:groupName/:page?',
+            path: '/:groupId/:page',
             element: <GroupMainPage />,
           },
           {
-            path: '/:groupName/:page?/:post/edit',
+            path: '/:groupId/:page/:post/edit',
             element: <PostEditPage />,
           },
         ],
