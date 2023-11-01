@@ -5,7 +5,7 @@ import { groupCreateInfoState, groupImageFileState } from '@recoil/atoms/group';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { GROUP_NICKNAME_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
 import { GROUP_NICKNAME_PATTERN } from '@constants/validationPatterns';
-import uploadImage from '@apis/image';
+import getImageUrl from '@apis/image';
 
 interface onNextStepProps {
   onNextStep: () => void;
@@ -30,18 +30,18 @@ const GroupCreateNickNameSection = ({ onNextStep }: onNextStepProps) => {
 
   const handleNextStep: SubmitHandler<FieldValues> = async ({ groupNickName }) => {
     // TODO: 닉네임 중복 체크
-    if (isValid) {
-      setGroupInfo((prev) => ({ ...prev, groupNickName }));
-      if (groupImageFile !== undefined) {
-        try {
-          const imageUrl = await uploadImage(groupImageFile);
-          setGroupInfo((prev) => ({ ...prev, groupImage: imageUrl }));
-        } catch (error) {
-          console.log(error);
-        }
+    if (!isValid) return;
+
+    setGroupInfo((prev) => ({ ...prev, groupNickName }));
+    if (groupImageFile !== undefined) {
+      try {
+        const imageUrl = await getImageUrl(groupImageFile);
+        setGroupInfo((prev) => ({ ...prev, groupImage: imageUrl }));
+      } catch (error) {
+        console.log(error);
       }
-      onNextStep();
     }
+    onNextStep();
   };
   return (
     <section className='space-y-10'>

@@ -7,7 +7,7 @@ AWS.config.update({
   secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
 });
 
-const uploadImage = (imageFile: File | undefined) => {
+const getImageUrl = (imageFile: File | undefined) => {
   if (!imageFile) return '';
 
   const upload = new AWS.S3.ManagedUpload({
@@ -24,4 +24,4 @@ const uploadImage = (imageFile: File | undefined) => {
     .catch((error) => error);
 };
 
-export default uploadImage;
+export default getImageUrl;

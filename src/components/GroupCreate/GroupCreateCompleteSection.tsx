@@ -3,6 +3,9 @@ import { Alert, Button, Input, Typography } from '@material-tailwind/react';
 import { MdContentCopy } from 'react-icons/md';
 import { inviteCodeDummyData } from '@dummy/group';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { groupCreateInfoState } from '@recoil/atoms/group';
+import { createGroupFn } from '@apis/groupApi';
 
 interface GroupCreateCompleteSectionProps {
   groupName: string;
@@ -11,6 +14,8 @@ interface GroupCreateCompleteSectionProps {
 const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionProps) => {
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
   const navigate = useNavigate();
+  const groupInfo = useRecoilValue(groupCreateInfoState);
+  // console.log(groupInfo);
 
   const handleCopy = async () => {
     try {
@@ -19,6 +24,18 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
       setIsAlertOpen(true);
     }
   };
+
+  useEffect(() => {
+    const groupCreate = async () => {
+      try {
+        const response = await createGroupFn(groupInfo);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    groupCreate();
+  }, []);
 
   useEffect(() => {
     const timer: NodeJS.Timeout = setTimeout(() => {
