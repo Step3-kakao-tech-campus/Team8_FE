@@ -8,7 +8,7 @@ import GroupCreateNickNameSection from '@components/GroupCreate/GroupCreateNickN
 import GroupCreateCompleteSection from '@components/GroupCreate/GroupCreateCompleteSection';
 import GroupCreateSearchSetting from '@components/GroupCreate/GroupCreateSearchSetting';
 import { useRecoilValue } from 'recoil';
-import groupCreateInfoState from '@recoil/atoms/group';
+import { groupCreateInfoState } from '@recoil/atoms/group';
 
 const GroupCreatePage = () => {
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4 | 5>(1);

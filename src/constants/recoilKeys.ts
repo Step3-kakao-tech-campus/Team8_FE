@@ -6,4 +6,5 @@ export const AUTH_RECOIL_KEYS = {
 // 그룹 생성 관련 key
 export const GROUP_CREATE_RECOIL_KEYS = {
   groupInfo: 'groupCreateInfoState',
+  groupImageFile: 'groupImageState',
 };

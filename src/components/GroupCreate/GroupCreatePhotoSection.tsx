@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { MdOutlineImage } from 'react-icons/md';
 import { Button, Typography } from '@material-tailwind/react';
 import { useRecoilState } from 'recoil';
-import groupCreateInfoState from '@recoil/atoms/group';
+import { groupImageFileState } from '@recoil/atoms/group';
 
 interface onNextStepProps {
   onNextStep: () => void;
 }
 
 const GroupCreatePhotoSection = ({ onNextStep }: onNextStepProps) => {
-  const [groupInfo, setGroupInfo] = useRecoilState(groupCreateInfoState);
+  const [groupImageFile, setGroupImageFile] = useRecoilState(groupImageFileState);
   const inputRef = useRef<HTMLInputElement>(null);
   const [imgPreview, setImgPreview] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -28,7 +28,7 @@ const GroupCreatePhotoSection = ({ onNextStep }: onNextStepProps) => {
     if (!e.target.files?.length) return;
 
     const imageFile = e.target.files[0];
-    setGroupInfo((prev) => ({ ...prev, groupImage: imageFile }));
+    setGroupImageFile(imageFile);
     getImagePreview(imageFile);
   };
   const handleFileRemove = () => {
@@ -54,7 +54,7 @@ const GroupCreatePhotoSection = ({ onNextStep }: onNextStepProps) => {
   };
 
   useEffect(() => {
-    getImagePreview(groupInfo.groupImage);
+    getImagePreview(groupImageFile);
   }, []);
   return (
     <section className='space-y-10'>

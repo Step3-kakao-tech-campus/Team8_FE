@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Input, Typography } from '@material-tailwind/react';
 import { useRecoilState } from 'recoil';
-import groupCreateInfoState from '@recoil/atoms/group';
+import { groupCreateInfoState } from '@recoil/atoms/group';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { GROUP_NAME_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
 

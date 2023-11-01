@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button, Input, Typography } from '@material-tailwind/react';
-import { useRecoilState } from 'recoil';
-import groupCreateInfoState from '@recoil/atoms/group';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { groupCreateInfoState, groupImageFileState } from '@recoil/atoms/group';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { GROUP_NICKNAME_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
 import { GROUP_NICKNAME_PATTERN } from '@constants/validationPatterns';
+import uploadImage from '@apis/image';
 
 interface onNextStepProps {
   onNextStep: () => void;
@@ -16,6 +17,7 @@ interface groupNickNameInput {
 
 const GroupCreateNickNameSection = ({ onNextStep }: onNextStepProps) => {
   const [groupInfo, setGroupInfo] = useRecoilState(groupCreateInfoState);
+  const groupImageFile = useRecoilValue(groupImageFileState);
   const {
     register,
     handleSubmit,
@@ -26,10 +28,20 @@ const GroupCreateNickNameSection = ({ onNextStep }: onNextStepProps) => {
     },
   });
 
-  const handleNextStep: SubmitHandler<FieldValues> = ({ groupNickName }) => {
+  const handleNextStep: SubmitHandler<FieldValues> = async ({ groupNickName }) => {
     // TODO: 닉네임 중복 체크
-    setGroupInfo((prev) => ({ ...prev, groupNickName }));
-    if (isValid) onNextStep();
+    if (isValid) {
+      setGroupInfo((prev) => ({ ...prev, groupNickName }));
+      if (groupImageFile !== undefined) {
+        try {
+          const imageUrl = await uploadImage(groupImageFile);
+          setGroupInfo((prev) => ({ ...prev, groupImage: imageUrl }));
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      onNextStep();
+    }
   };
   return (
     <section className='space-y-10'>

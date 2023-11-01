@@ -1,12 +1,12 @@
 import { atom } from 'recoil';
 import { GROUP_CREATE_RECOIL_KEYS } from '@constants/recoilKeys';
 
-const groupCreateInfoState = atom({
+export const groupCreateInfoState = atom({
   key: GROUP_CREATE_RECOIL_KEYS.groupInfo,
   default: {
     groupType: 'UNOFFICIAL_OPENED' as 'UNOFFICIAL_OPENED' | 'UNOFFICIAL_CLOSED',
     groupName: '' as string,
-    groupImage: undefined as File | undefined,
+    groupImage: '' as string,
     groupNickName: '' as string,
     introduction: '' as string,
     entranceHint: '' as string,
@@ -14,4 +14,7 @@ const groupCreateInfoState = atom({
   },
 });
 
-export default groupCreateInfoState;
+export const groupImageFileState = atom({
+  key: GROUP_CREATE_RECOIL_KEYS.groupImageFile,
+  default: undefined as undefined | File,
+});
