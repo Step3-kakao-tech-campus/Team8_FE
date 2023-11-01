@@ -9,7 +9,7 @@ interface InputProps {
 }
 
 const SearchInput = ({ isLoggedIn, className }: InputProps) => {
-  const { groupName } = useParams();
+  const { groupId } = useParams();
   const [searchBar, setSearchBar] = useState<string>('');
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ const SearchInput = ({ isLoggedIn, className }: InputProps) => {
   };
   const handleSubmit = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && searchBar && e.nativeEvent.isComposing === false) {
-      navigate(groupName ? `${groupName}/search?keyword=${searchBar}` : `/search/group?keyword=${searchBar}`);
+      navigate(groupId ? `${groupId}/search?keyword=${searchBar}` : `/search/group?keyword=${searchBar}`);
       setSearchBar('');
     }
   };
@@ -35,7 +35,7 @@ const SearchInput = ({ isLoggedIn, className }: InputProps) => {
           className={`w-full px-9 !text-base !bg-gray-100 !border-none focus:!bg-white focus:shadow-md ${
             searchBar ? 'rounded-b-none' : ''
           }`}
-          placeholder={groupName ? '페이지를 검색해보세요.' : '그룹을 검색해보세요.'}
+          placeholder={groupId ? '페이지를 검색해보세요.' : '그룹을 검색해보세요.'}
           value={searchBar}
           crossOrigin=''
           labelProps={{
