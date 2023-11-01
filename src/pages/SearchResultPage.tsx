@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@material-tailwind/react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createPageFn, getPageByTitleFn, searchPageFn } from '@apis/pageApi';
-import PAGE_KEYS from '@constants/queryKeys';
+import { PAGE_KEYS } from '@constants/queryKeys';
 import PageCreateModal from '@components/Modal/PageCreateModal';
 import useModal from '@hooks/useModal';
 

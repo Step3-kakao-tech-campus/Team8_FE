@@ -10,7 +10,7 @@ import LikeDislikeButton from '@components/Page/Common/LikeDislikeButton';
 import AddPostButton from '@components/Page/Post/AddPostButton';
 import { useQuery } from '@tanstack/react-query';
 import { getPageByTitleFn } from '@apis/pageApi';
-import PAGE_KEYS from '@constants/queryKeys';
+import { PAGE_KEYS } from '@constants/queryKeys';
 
 interface Post {
   postId: number;
