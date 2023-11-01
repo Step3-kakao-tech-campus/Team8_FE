@@ -3,7 +3,7 @@ import { Menu, MenuHandler, MenuList, MenuItem, Button } from '@material-tailwin
 import { MdMenu } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import isLoggedInState from '@recoil/atoms/auth';
+import tokenState from '@recoil/atoms/auth';
 import { inviteCodeDummyData } from '@dummy/group';
 import useModal from '@hooks/useModal';
 import GroupMemberListModal from '@components/Modal/GroupMemberListModal';
@@ -12,13 +12,13 @@ import InviteModal from '../Modal/InviteModal';
 const HeaderMenu = () => {
   const { groupId } = useParams();
   const navigate = useNavigate();
-  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+  const setToken = useSetRecoilState(tokenState);
 
   const inviteModal = useModal();
   const groupMemberListModal = useModal();
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    setToken(null);
   };
   const handleMyPageClick = () => {
     if (groupId) {

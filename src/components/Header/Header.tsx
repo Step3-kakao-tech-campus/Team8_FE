@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { MdPersonAdd, MdLogin } from 'react-icons/md';
-import isLoggedInState from '@recoil/atoms/auth';
+import tokenState from '@recoil/atoms/auth';
 import { ReactComponent as Logo } from '@assets/images/logo/logo.svg';
 import { Link } from 'react-router-dom';
 import HeaderMenu from './HeaderMenu';
@@ -9,7 +9,7 @@ import SearchInput from '../Common/SearchInput';
 import GroupSelector from './GroupSelector';
 
 const Header = () => {
-  const isLoggedIn = useRecoilValue(isLoggedInState);
+  const isLoggedIn = Boolean(useRecoilValue(tokenState));
 
   return (
     <header className='fixed top-0 flex justify-between items-center w-full px-2 py-2 border-b md:px-6 bg-white z-30'>
