@@ -14,3 +14,5 @@ export const loginFn = ({ email, password }: { email: string; password: string }
     email,
     password,
   });
+
+export const passwordFindFn = ({ email }: { email: string }) => instance.post(`${ENDPOINT}/password/find`, { email });

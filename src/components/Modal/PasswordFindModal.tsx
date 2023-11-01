@@ -24,6 +24,21 @@ const PasswordFindModal = ({ isOpen, handleOpen }: PasswordFindModalProps) => {
 
   const handlePasswordReset: SubmitHandler<FieldValues> = ({ email }) => {
     if (!isValid) return;
+
+    passwordFind(
+      { email },
+      {
+        onSuccess: () => {
+          handleOpen();
+        },
+        onError: (error) => {
+          const errorMsg = getErrorMsg(error);
+          if (errorMsg) {
+            setError('email', { message: errorMsg });
+          }
+        },
+      },
+    );
   };
 
   return (
