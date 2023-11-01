@@ -1,12 +1,7 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { Group } from '@apis/dto';
 import GroupCard from './GroupCard';
-
-interface Group {
-  groupId: number;
-  groupImage: string;
-  groupName: string;
-}
 
 const GroupList = ({ groups }: { groups: Group[] }) => {
   return (
