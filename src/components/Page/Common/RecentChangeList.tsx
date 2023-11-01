@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Link, useParams } from 'react-router-dom';
 import { getRecentChangeListFn } from '@apis/pageApi';
 import { useQuery } from '@tanstack/react-query';
-import PAGE_KEYS from '@constants/queryKeys';
+import { PAGE_KEYS } from '@constants/queryKeys';
 
 interface RecentChangePage {
   pageName: string;

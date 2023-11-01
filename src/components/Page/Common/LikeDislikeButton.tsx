@@ -5,7 +5,7 @@ import { MdThumbDown, MdThumbUp } from 'react-icons/md';
 import { useMutation } from '@tanstack/react-query';
 import { pageHateFn, pageLikeFn } from '@apis/pageApi';
 import { queryClient } from '@apis/queryClient';
-import PAGE_KEYS from '@constants/queryKeys';
+import { PAGE_KEYS } from '@constants/queryKeys';
 
 interface LikeDislikeButtonProps {
   goodCount: number;

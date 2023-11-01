@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardHeader, CardBody } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
+import Logo from '@assets/images/logo/logo.svg';
 
 interface GroupCardProps {
   group: {
@@ -11,6 +12,13 @@ interface GroupCardProps {
 }
 
 const GroupCard = ({ group }: GroupCardProps) => {
+  const [isImgError, setImageError] = useState(false);
+
+  const handleImgError: React.ReactEventHandler<HTMLImageElement> = (e) => {
+    e.currentTarget.src = Logo;
+    setImageError(true);
+  };
+
   return (
     <Link to={`/${group.groupId}/${group.groupName}`}>
       <Card className='mt-6 w-max cursor-pointer mx-auto' shadow={false}>
@@ -18,7 +26,8 @@ const GroupCard = ({ group }: GroupCardProps) => {
           <img
             src={group.groupImage}
             alt={`${group.groupName}`}
-            className='object-cover w-36 h-36 hover:scale-110 duration-300'
+            onError={handleImgError}
+            className={`object-cover w-36 h-36 hover:scale-110 duration-300  ${isImgError ? 'opacity-10 p-10' : ''}`}
           />
         </CardHeader>
         <CardBody className='text-center pt-4 pb-1 px-1 text-black text-sm'>

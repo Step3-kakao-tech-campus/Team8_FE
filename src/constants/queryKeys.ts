@@ -5,4 +5,8 @@ const PAGE_KEYS = {
     ['searchKeyword', { groupId, keyword }] as const,
 };
 
-export default PAGE_KEYS;
+const MAIN_KEYS = {
+  main: ['main'],
+};
+
+export { PAGE_KEYS, MAIN_KEYS };
