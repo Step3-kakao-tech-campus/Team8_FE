@@ -4,9 +4,11 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { MdArrowCircleRight } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@material-tailwind/react';
-import { useQuery } from '@tanstack/react-query';
-import { searchPageFn } from '@apis/pageApi';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { createPageFn, searchPageFn } from '@apis/pageApi';
 import PAGE_KEYS from '@constants/queryKeys';
+import PageCreateModal from '@components/Modal/PageCreateModal';
+import useModal from '@hooks/useModal';
 
 interface Page {
   pageId: number;
@@ -18,13 +20,13 @@ const SearchResultPage = () => {
   const navigate = useNavigate();
 
   const { groupId } = useParams();
-  // if (!groupId) return null;
+  const numGroupId = Number(groupId);
 
   const query = useLocation().search;
   const queries = new URLSearchParams(query);
   const keyword = queries.get('keyword') || '';
 
-  const numGroupId = Number(groupId);
+  const pageCreateModal = useModal();
 
   const { data } = useQuery({
     queryKey: PAGE_KEYS.searchKeyword({ groupId: numGroupId, keyword }),
@@ -33,9 +35,15 @@ const SearchResultPage = () => {
 
   const pages = data?.data?.response.pages || [];
 
+  const { mutate: createPage } = useMutation({
+    mutationFn: createPageFn,
+    onSuccess: () => {
+      navigate(`/${groupId}/${keyword}`);
+    },
+  });
+
   const handlePageCreate = () => {
-    // 페이지 생성 api 요청하기
-    navigate(`/${groupId}/${keyword}`);
+    createPage({ groupId: numGroupId, pageName: keyword });
   };
 
   useEffect(() => {
@@ -55,12 +63,18 @@ const SearchResultPage = () => {
               variant='text'
               ripple={false}
               className='group flex items-center gap-1 py-1 px-2 text-sm font-bold hover:bg-transparent active:bg-transparent'
-              onClick={handlePageCreate}
+              onClick={pageCreateModal.handleModal}
             >
               <span>새 페이지 생성하기</span>
               <MdArrowCircleRight className='w-5 h-5 group-hover:animate-arrowBounce' />
             </Button>
           </div>
+          <PageCreateModal
+            page={keyword}
+            isOpen={pageCreateModal.isOpen}
+            onClick={handlePageCreate}
+            handleModal={pageCreateModal.handleModal}
+          />
           {pages.length === 0 ? (
             <div className='flex flex-col items-center justify-center h-96'>
               <span className='text-xl font-bold mb-4'>검색 결과가 없습니다.</span>
