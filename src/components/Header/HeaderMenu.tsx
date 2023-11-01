@@ -10,7 +10,7 @@ import GroupMemberListModal from '@components/Modal/GroupMemberListModal';
 import InviteModal from '../Modal/InviteModal';
 
 const HeaderMenu = () => {
-  const { groupName } = useParams();
+  const { groupId } = useParams();
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
 
@@ -21,8 +21,8 @@ const HeaderMenu = () => {
     setIsLoggedIn(false);
   };
   const handleMyPageClick = () => {
-    if (groupName) {
-      navigate(`/${groupName}/myPage`);
+    if (groupId) {
+      navigate(`/${groupId}/myPage`);
     } else {
       navigate('/myPage');
     }
@@ -37,9 +37,9 @@ const HeaderMenu = () => {
           </Button>
         </MenuHandler>
         <MenuList>
-          <MenuItem onClick={handleMyPageClick}>{groupName ? '그룹 마이페이지' : '마이페이지'}</MenuItem>
-          {groupName && <MenuItem onClick={inviteModal.handleModal}>그룹원 초대</MenuItem>}
-          {groupName && <MenuItem onClick={groupMemberListModal.handleModal}>그룹원 목록</MenuItem>}
+          <MenuItem onClick={handleMyPageClick}>{groupId ? '그룹 마이페이지' : '마이페이지'}</MenuItem>
+          {groupId && <MenuItem onClick={inviteModal.handleModal}>그룹원 초대</MenuItem>}
+          {groupId && <MenuItem onClick={groupMemberListModal.handleModal}>그룹원 목록</MenuItem>}
           <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
         </MenuList>
       </Menu>
