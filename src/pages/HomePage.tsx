@@ -7,13 +7,13 @@ import { unOfficialGroupDummyData } from '@dummy/group';
 import { ReactComponent as Logo } from '@assets/images/logo/logo.svg';
 import SearchInput from '@components/Common/SearchInput';
 import { useRecoilValue } from 'recoil';
-import isLoggedInState from '@recoil/atoms/auth';
+import tokenState from '@recoil/atoms/auth';
 import { useNavigate } from 'react-router-dom';
 
 const titleStyle = 'font-bold text-lg mb-4 mt-20';
 
 const HomePage = () => {
-  const isLoggedIn = useRecoilValue(isLoggedInState);
+  const isLoggedIn = Boolean(useRecoilValue(tokenState));
   const navigate = useNavigate();
 
   return (
