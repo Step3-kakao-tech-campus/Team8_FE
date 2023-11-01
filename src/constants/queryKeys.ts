@@ -1,5 +1,5 @@
 const GROUP_KEYS = {
-  groupSearch: ['groupSearch'] as const,
+  groupSearch: ({ keyword }: { keyword: string }) => ['groupSearch', keyword] as const,
 };
 
 export default GROUP_KEYS;
