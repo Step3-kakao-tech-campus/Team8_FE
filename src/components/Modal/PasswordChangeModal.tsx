@@ -1,34 +1,114 @@
 import React from 'react';
 import { Button, Input, Dialog, Card, CardBody, CardFooter, Typography } from '@material-tailwind/react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { PASSWORD_CONFIRM_ERROR_MSG, PASSWORD_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
+import { PASSWORD_PATTERN } from '@constants/validationPatterns';
+import { useMutation } from '@tanstack/react-query';
+import { passwordChangeFn } from '@apis/authApi';
+import { getErrorMsg } from '@utils/serverError';
 
 interface PasswordChangeModalProps {
   isOpen: boolean;
   handleOpen: () => void;
 }
 
+interface PasswordChangeInputs {
+  currentPassword: string;
+  newPassword: string;
+  newPasswordConfirm: string;
+}
+
 const PasswordChangeModal: React.FC<PasswordChangeModalProps> = ({ isOpen, handleOpen }: PasswordChangeModalProps) => {
-  // TODO: 비밀번호 변경 기능 구현 -> 비밀번호 변경 전 사용자 인증 과정 등 필요
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors, isValid },
+  } = useForm<PasswordChangeInputs>({ mode: 'onChange' });
+
+  const { mutate: passwordChange, error } = useMutation({ mutationFn: passwordChangeFn });
+  const handlePasswordChangeSubmit: SubmitHandler<FieldValues> = ({ currentPassword, newPassword }) => {
+    passwordChange(
+      { currentPassword, newPassword },
+      {
+        onSuccess: () => {
+          handleOpen();
+        },
+      },
+    );
+  };
+
   return (
     <Dialog size='xs' open={isOpen} handler={handleOpen} className='bg-transparent shadow-none'>
-      <Card className='mx-auto w-full max-w-[24rem]'>
-        <CardBody className='flex flex-col gap-4 text-black'>
-          <div className='pb-2'>
-            <Typography variant='h6' className='text-center mb-1'>
-              변경할 비밀번호를 입력해주세요.
-            </Typography>
-            <Typography variant='small' className='text-center text-xs'>
-              비밀번호는 8자 이상, 영문, 숫자, 특수문자를 포함해야 합니다.
-            </Typography>
-          </div>
-          <Input type='password' label='비밀번호' size='lg' crossOrigin={undefined} />
-          <Input type='password' label='비밀번호 확인' size='lg' crossOrigin={undefined} />
-        </CardBody>
-        <CardFooter className='pt-0'>
-          <Button variant='gradient' onClick={handleOpen} fullWidth>
-            변경하기
-          </Button>
-        </CardFooter>
-      </Card>
+      <form onSubmit={handleSubmit(handlePasswordChangeSubmit)}>
+        <Card className='mx-auto w-full max-w-[24rem]'>
+          <CardBody className='flex flex-col gap-4 text-black'>
+            <div className='pb-2'>
+              <Typography variant='h6' className='text-center mb-1'>
+                변경할 비밀번호를 입력해주세요.
+              </Typography>
+              <Typography variant='small' className='text-center text-xs'>
+                비밀번호는 8자 이상, 영문, 숫자, 특수문자를 포함해야 합니다.
+              </Typography>
+            </div>
+            <div>
+              <Input
+                type='password'
+                label='현재 비밀번호'
+                size='lg'
+                crossOrigin={undefined}
+                {...register('currentPassword', {
+                  required: REQUIRE_ERROR_MSG,
+                })}
+              />
+              {errors.currentPassword && (
+                <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.currentPassword.message}</p>
+              )}
+            </div>
+            <div>
+              <Input
+                type='password'
+                label='새 비밀번호'
+                size='lg'
+                crossOrigin={undefined}
+                {...register('newPassword', {
+                  required: REQUIRE_ERROR_MSG,
+                  pattern: { value: PASSWORD_PATTERN, message: PASSWORD_ERROR_MSG },
+                })}
+              />
+              {errors.newPassword && (
+                <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.newPassword.message}</p>
+              )}
+            </div>
+            <div>
+              <Input
+                type='password'
+                label='새 비밀번호 확인'
+                size='lg'
+                crossOrigin={undefined}
+                {...register('newPasswordConfirm', {
+                  required: REQUIRE_ERROR_MSG,
+                  validate: {
+                    confirmMatchPassward: (value) => {
+                      if (getValues('newPassword') !== value) return PASSWORD_CONFIRM_ERROR_MSG;
+                      return undefined;
+                    },
+                  },
+                })}
+              />
+              {errors.newPasswordConfirm && (
+                <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.newPasswordConfirm.message}</p>
+              )}
+            </div>
+            {Boolean(error) && <p className='text-xs mx-1 text-center text-error'>{getErrorMsg(error)}</p>}
+          </CardBody>
+          <CardFooter className='pt-0'>
+            <Button type='submit' variant='gradient' fullWidth disabled={!isValid}>
+              변경하기
+            </Button>
+          </CardFooter>
+        </Card>
+      </form>
     </Dialog>
   );
 };

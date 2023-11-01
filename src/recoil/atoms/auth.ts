@@ -1,9 +1,13 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
 import AUTH_KEYS from '@constants/recoilKeys';
 
-const isLoggedInState = atom<boolean>({
-  key: AUTH_KEYS.isLoggedIn,
-  default: true,
+const { persistAtom } = recoilPersist();
+
+const tokenState = atom<string | null>({
+  key: AUTH_KEYS.token,
+  default: null,
+  effects_UNSTABLE: [persistAtom],
 });
 
-export default isLoggedInState;
+export default tokenState;
