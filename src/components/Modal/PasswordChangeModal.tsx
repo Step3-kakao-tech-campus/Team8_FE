@@ -7,7 +7,6 @@ interface PasswordChangeModalProps {
 }
 
 const PasswordChangeModal: React.FC<PasswordChangeModalProps> = ({ isOpen, handleOpen }: PasswordChangeModalProps) => {
-  // TODO: 비밀번호 변경 기능 구현 -> 비밀번호 변경 전 사용자 인증 과정 등 필요
   return (
     <Dialog size='xs' open={isOpen} handler={handleOpen} className='bg-transparent shadow-none'>
       <Card className='mx-auto w-full max-w-[24rem]'>
@@ -20,8 +19,9 @@ const PasswordChangeModal: React.FC<PasswordChangeModalProps> = ({ isOpen, handl
               비밀번호는 8자 이상, 영문, 숫자, 특수문자를 포함해야 합니다.
             </Typography>
           </div>
-          <Input type='password' label='비밀번호' size='lg' crossOrigin={undefined} />
-          <Input type='password' label='비밀번호 확인' size='lg' crossOrigin={undefined} />
+          <Input type='password' label='현재 비밀번호' size='lg' crossOrigin={undefined} />
+          <Input type='password' label='새 비밀번호' size='lg' crossOrigin={undefined} />
+          <Input type='password' label='새 비밀번호 확인' size='lg' crossOrigin={undefined} />
         </CardBody>
         <CardFooter className='pt-0'>
           <Button variant='gradient' onClick={handleOpen} fullWidth>
