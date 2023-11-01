@@ -75,7 +75,7 @@ const router = createBrowserRouter([
             element: <MyContributePage />,
           },
           {
-            path: '/:groupName/search',
+            path: '/:groupId/search',
             element: <SearchResultPage />,
           },
           {

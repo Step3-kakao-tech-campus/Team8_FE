@@ -1,22 +1,48 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import RecentChangeList from '@components/Page/Common/RecentChangeList';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { MdArrowCircleRight } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@material-tailwind/react';
-import { pageDummyData } from '@dummy/page';
+import { useQuery } from '@tanstack/react-query';
+import { searchPageFn } from '@apis/pageApi';
+import PAGE_KEYS from '@constants/queryKeys';
+
+interface Page {
+  pageId: number;
+  pageName: string;
+  content: string;
+}
 
 const SearchResultPage = () => {
+  const navigate = useNavigate();
+
+  const { groupId } = useParams();
+  // if (!groupId) return null;
+
   const query = useLocation().search;
   const queries = new URLSearchParams(query);
-  const keyword = queries.get('keyword');
-  const { groupName } = useParams();
-  const navigate = useNavigate();
+  const keyword = queries.get('keyword') || '';
+
+  const numGroupId = Number(groupId);
+
+  const { data } = useQuery({
+    queryKey: PAGE_KEYS.searchKeyword({ groupId: numGroupId, keyword }),
+    queryFn: () => searchPageFn({ groupId: numGroupId, keyword }),
+  });
+
+  const pages = data?.data?.response.pages || [];
 
   const handlePageCreate = () => {
     // 페이지 생성 api 요청하기
-    navigate(`/${groupName}/${keyword}`);
+    navigate(`/${groupId}/${keyword}`);
   };
+
+  useEffect(() => {
+    console.log(groupId);
+    console.log('data');
+    console.log(data);
+  }, [data]);
 
   return (
     <div className='w-screen'>
@@ -35,16 +61,16 @@ const SearchResultPage = () => {
               <MdArrowCircleRight className='w-5 h-5 group-hover:animate-arrowBounce' />
             </Button>
           </div>
-          {pageDummyData.length === 0 ? (
+          {pages.length === 0 ? (
             <div className='flex flex-col items-center justify-center h-96'>
               <span className='text-xl font-bold mb-4'>검색 결과가 없습니다.</span>
               <span>다른 검색어로 검색하거나 직접 페이지를 만들어보세요.</span>
             </div>
           ) : (
-            pageDummyData.map((post) => (
+            pages.map((page: Page) => (
               <div key={uuidv4()} className='px-2 py-8 border-b border-gray-200'>
-                <h2 className='text-lg font-bold mb-1'>{post.pageName}</h2>
-                <p className='text-sm text-gray-500'>{post.content}</p>
+                <h2 className='text-lg font-bold mb-1'>{page.pageName}</h2>
+                <p className='text-sm text-gray-500'>{page.content}</p>
               </div>
             ))
           )}
