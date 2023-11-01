@@ -20,7 +20,7 @@ const PasswordChangeModal: React.FC<PasswordChangeModalProps> = ({ isOpen, handl
     register,
     handleSubmit,
     getValues,
-    formState: { isValid },
+    formState: { errors, isValid },
   } = useForm<PasswordChangeInputs>({ mode: 'onChange' });
 
   const handlePasswordChangeSubmit = () => {
@@ -40,40 +40,55 @@ const PasswordChangeModal: React.FC<PasswordChangeModalProps> = ({ isOpen, handl
                 비밀번호는 8자 이상, 영문, 숫자, 특수문자를 포함해야 합니다.
               </Typography>
             </div>
-            <Input
-              type='password'
-              label='현재 비밀번호'
-              size='lg'
-              crossOrigin={undefined}
-              {...register('currentPassword', {
-                required: REQUIRE_ERROR_MSG,
-              })}
-            />
-            <Input
-              type='password'
-              label='새 비밀번호'
-              size='lg'
-              crossOrigin={undefined}
-              {...register('newPassword', {
-                required: REQUIRE_ERROR_MSG,
-                pattern: { value: PASSWORD_PATTERN, message: PASSWORD_ERROR_MSG },
-              })}
-            />
-            <Input
-              type='password'
-              label='새 비밀번호 확인'
-              size='lg'
-              crossOrigin={undefined}
-              {...register('newPasswordConfirm', {
-                required: REQUIRE_ERROR_MSG,
-                validate: {
-                  confirmMatchPassward: (value) => {
-                    if (getValues('newPassword') !== value) return PASSWORD_CONFIRM_ERROR_MSG;
-                    return undefined;
+            <div>
+              <Input
+                type='password'
+                label='현재 비밀번호'
+                size='lg'
+                crossOrigin={undefined}
+                {...register('currentPassword', {
+                  required: REQUIRE_ERROR_MSG,
+                })}
+              />
+              {errors.currentPassword && (
+                <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.currentPassword.message}</p>
+              )}
+            </div>
+            <div>
+              <Input
+                type='password'
+                label='새 비밀번호'
+                size='lg'
+                crossOrigin={undefined}
+                {...register('newPassword', {
+                  required: REQUIRE_ERROR_MSG,
+                  pattern: { value: PASSWORD_PATTERN, message: PASSWORD_ERROR_MSG },
+                })}
+              />
+              {errors.newPassword && (
+                <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.newPassword.message}</p>
+              )}
+            </div>
+            <div>
+              <Input
+                type='password'
+                label='새 비밀번호 확인'
+                size='lg'
+                crossOrigin={undefined}
+                {...register('newPasswordConfirm', {
+                  required: REQUIRE_ERROR_MSG,
+                  validate: {
+                    confirmMatchPassward: (value) => {
+                      if (getValues('newPassword') !== value) return PASSWORD_CONFIRM_ERROR_MSG;
+                      return undefined;
+                    },
                   },
-                },
-              })}
-            />
+                })}
+              />
+              {errors.newPasswordConfirm && (
+                <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.newPasswordConfirm.message}</p>
+              )}
+            </div>
           </CardBody>
           <CardFooter className='pt-0'>
             <Button type='submit' variant='gradient' onClick={handleOpen} fullWidth disabled={!isValid}>
