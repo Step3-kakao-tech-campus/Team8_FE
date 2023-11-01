@@ -11,6 +11,8 @@ import { useMutation } from '@tanstack/react-query';
 import { getErrorMsg } from '@utils/serverError';
 import useModal from '@hooks/useModal';
 import PasswordFindModal from '@components/Modal/PasswordFindModal';
+import { useSetRecoilState } from 'recoil';
+import tokenState from '@recoil/atoms/auth';
 
 const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URL}`;
 
@@ -29,12 +31,14 @@ const LoginPage = () => {
   const passwordFindModal = useModal();
 
   const { mutate: login, error } = useMutation({ mutationFn: loginFn });
+  const setToken = useSetRecoilState(tokenState);
 
   const handleLoginSubmit: SubmitHandler<FieldValues> = ({ email, password }) => {
     login(
       { email, password },
       {
-        onSuccess: () => {
+        onSuccess: ({ grantType, accessToken }) => {
+          setToken(`${grantType} ${accessToken}`);
           navigate('/');
         },
       },
