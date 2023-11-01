@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Input, Dialog, CardFooter, CardBody, Typography, Card } from '@material-tailwind/react';
+import { Button, Input, Dialog, CardFooter, CardBody, Typography, Card, Spinner } from '@material-tailwind/react';
 import { useMutation } from '@tanstack/react-query';
 import { passwordFindFn } from '@apis/authApi';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -20,7 +20,7 @@ const PasswordFindModal = ({ isOpen, handleOpen }: PasswordFindModalProps) => {
     formState: { errors, isValid },
   } = useForm<{ email: string }>({ mode: 'onChange' });
 
-  const { mutate: passwordFind } = useMutation({ mutationFn: passwordFindFn });
+  const { mutate: passwordFind, isLoading } = useMutation({ mutationFn: passwordFindFn });
 
   const handlePasswordReset: SubmitHandler<FieldValues> = ({ email }) => {
     if (!isValid) return;
@@ -54,19 +54,28 @@ const PasswordFindModal = ({ isOpen, handleOpen }: PasswordFindModalProps) => {
                 가입하신 이메일로 비밀번호 재설정이 가능합니다.
               </Typography>
             </div>
-            <div>
-              <Input
-                type='email'
-                label='이메일'
-                size='lg'
-                crossOrigin={undefined}
-                {...register('email', {
-                  required: REQUIRE_ERROR_MSG,
-                  pattern: { value: EMAIL_PATTERN, message: EMAIL_ERROR_MSG },
-                })}
-              />
-              {errors.email && <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.email.message}</p>}
-            </div>
+            {isLoading ? (
+              <div className='flex justify-center gap-2'>
+                <Typography variant='small'>이메일 전송중...</Typography>
+                <Spinner />
+              </div>
+            ) : (
+              <div>
+                <Input
+                  type='email'
+                  label='이메일'
+                  size='lg'
+                  crossOrigin={undefined}
+                  {...register('email', {
+                    required: REQUIRE_ERROR_MSG,
+                    pattern: { value: EMAIL_PATTERN, message: EMAIL_ERROR_MSG },
+                  })}
+                />
+                {errors.email && (
+                  <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.email.message}</p>
+                )}
+              </div>
+            )}
           </CardBody>
           <CardFooter className='flex gap-2 pt-0'>
             <Button variant='outlined' onClick={handleOpen} fullWidth>
