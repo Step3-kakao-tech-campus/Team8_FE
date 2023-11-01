@@ -18,6 +18,9 @@ import ReportPage from '@pages/ReportPage';
 import PostEditPage from '@pages/PostEditPage';
 import PostHistoryPage from '@pages/PostHistoryPage';
 import GroupJoinPage from '@pages/GroupJoinPage';
+import KakaoLoginPage from '@pages/KakaoLoginPage';
+
+import NotFoundPage from '@pages/NotFoundPage';
 
 import MainLayout from '@components/Layout/MainLayout';
 import PageLayout from '@components/Layout/PageLayout';
@@ -38,6 +41,10 @@ const router = createBrowserRouter([
           {
             path: '/signUp',
             element: <SignUpPage />,
+          },
+          {
+            path: '/kakaoLogin',
+            element: <KakaoLoginPage />,
           },
           {
             path: '/login',
@@ -79,17 +86,21 @@ const router = createBrowserRouter([
             path: '/:groupName/:page/:postId/history',
             element: <PostHistoryPage />,
           },
+          {
+            path: '/404',
+            element: <NotFoundPage />,
+          },
         ],
       },
       {
         element: <PageLayout />,
         children: [
           {
-            path: '/:groupName/:page?',
+            path: '/:groupId/:page',
             element: <GroupMainPage />,
           },
           {
-            path: '/:groupName/:page?/:post/edit',
+            path: '/:groupId/:page/:post/edit',
             element: <PostEditPage />,
           },
         ],
