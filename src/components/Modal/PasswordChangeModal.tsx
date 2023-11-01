@@ -1,8 +1,11 @@
 import React from 'react';
 import { Button, Input, Dialog, Card, CardBody, CardFooter, Typography } from '@material-tailwind/react';
-import { useForm } from 'react-hook-form';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { PASSWORD_CONFIRM_ERROR_MSG, PASSWORD_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
 import { PASSWORD_PATTERN } from '@constants/validationPatterns';
+import { useMutation } from '@tanstack/react-query';
+import { passwordChangeFn } from '@apis/authApi';
+import { getErrorMsg } from '@utils/serverError';
 
 interface PasswordChangeModalProps {
   isOpen: boolean;
@@ -23,8 +26,16 @@ const PasswordChangeModal: React.FC<PasswordChangeModalProps> = ({ isOpen, handl
     formState: { errors, isValid },
   } = useForm<PasswordChangeInputs>({ mode: 'onChange' });
 
-  const handlePasswordChangeSubmit = () => {
-    //
+  const { mutate: passwordChange, error } = useMutation({ mutationFn: passwordChangeFn });
+  const handlePasswordChangeSubmit: SubmitHandler<FieldValues> = ({ currentPassword, newPassword }) => {
+    passwordChange(
+      { currentPassword, newPassword },
+      {
+        onSuccess: () => {
+          handleOpen();
+        },
+      },
+    );
   };
 
   return (
@@ -89,9 +100,10 @@ const PasswordChangeModal: React.FC<PasswordChangeModalProps> = ({ isOpen, handl
                 <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.newPasswordConfirm.message}</p>
               )}
             </div>
+            {Boolean(error) && <p className='text-xs mx-1 text-center text-error'>{getErrorMsg(error)}</p>}
           </CardBody>
           <CardFooter className='pt-0'>
-            <Button type='submit' variant='gradient' onClick={handleOpen} fullWidth disabled={!isValid}>
+            <Button type='submit' variant='gradient' fullWidth disabled={!isValid}>
               변경하기
             </Button>
           </CardFooter>

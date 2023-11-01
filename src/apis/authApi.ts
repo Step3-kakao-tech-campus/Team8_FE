@@ -16,3 +16,6 @@ export const loginFn = ({ email, password }: { email: string; password: string }
   });
 
 export const passwordFindFn = ({ email }: { email: string }) => instance.post(`${ENDPOINT}/password/find`, { email });
+
+export const passwordChangeFn = ({ currentPassword, newPassword }: { currentPassword: string; newPassword: string }) =>
+  instance.patch(`${ENDPOINT}/password/change`, { currentPassword, newPassword });
