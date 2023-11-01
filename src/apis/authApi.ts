@@ -10,9 +10,11 @@ export const signUpFn = ({ email, password, name }: { email: string; password: s
   });
 
 export const loginFn = ({ email, password }: { email: string; password: string }) =>
-  instance.post(`${ENDPOINT}/signin`, {
-    email,
-    password,
-  });
+  instance
+    .post(`${ENDPOINT}/signin`, {
+      email,
+      password,
+    })
+    .then(({ data }) => data.response);
 
 export const passwordFindFn = ({ email }: { email: string }) => instance.post(`${ENDPOINT}/password/find`, { email });
