@@ -41,7 +41,7 @@ const HomePage = () => {
                 그룹 생성
               </Button>
             </div>
-            {groupList && groupList.myGroup.length > 0 ? (
+            {groupList && groupList.myGroup && groupList.myGroup.length > 0 ? (
               <GroupList groups={groupList.myGroup} />
             ) : (
               <p className='text-center my-10'>참여한 그룹이 없습니다.</p>
