@@ -4,12 +4,16 @@ import { MdPersonAdd, MdLogin } from 'react-icons/md';
 import tokenState from '@recoil/atoms/auth';
 import { ReactComponent as Logo } from '@assets/images/logo/logo.svg';
 import { Link } from 'react-router-dom';
+import { instance } from '@apis/axios';
 import HeaderMenu from './HeaderMenu';
 import SearchInput from '../Common/SearchInput';
 import GroupSelector from './GroupSelector';
 
 const Header = () => {
-  const isLoggedIn = Boolean(useRecoilValue(tokenState));
+  const token = useRecoilValue(tokenState);
+  const isLoggedIn = Boolean(token);
+
+  instance.defaults.headers.common.Authorization = token;
 
   return (
     <header className='fixed top-0 flex justify-between items-center w-full px-2 py-2 border-b md:px-6 bg-white z-30'>
