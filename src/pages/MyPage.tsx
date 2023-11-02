@@ -2,7 +2,6 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import useModal from '@hooks/useModal';
 import { Button, Input } from '@material-tailwind/react';
 import GroupList from '@components/Home/GroupList';
-import { unOfficialGroupDummyData } from '@dummy/group';
 import PasswordChangeModal from '@components/Modal/PasswordChangeModal';
 import { useQuery } from '@tanstack/react-query';
 import { AUTH_KEYS } from '@constants/queryKeys';
@@ -101,7 +100,11 @@ const MyPage = () => {
           <span className='font-extrabold w-40'>내 그룹 보기</span>
           <p className='text-xs text-gray-700'>프로필을 누르면 그룹으로 이동합니다.</p>
         </div>
-        <GroupList groups={unOfficialGroupDummyData} />
+        {myInfo && myInfo.groupList && myInfo.groupList.length > 0 ? (
+          <GroupList groups={myInfo.groupList} />
+        ) : (
+          <p className='text-center my-10'>참여한 그룹이 없습니다.</p>
+        )}
       </div>
     </div>
   );
