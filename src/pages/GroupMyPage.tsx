@@ -4,9 +4,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ContributeList from '@components/MyPage/ContributeList';
 import QuitModal from '@components/Modal/QuitModal';
 import useModal from '@hooks/useModal';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { GROUP_KEYS } from '@constants/queryKeys';
-import { getGroupMyInfo } from '@apis/groupApi';
+import { getGroupMyInfo, setGroupMyInfo } from '@apis/groupApi';
+import { queryClient } from '@apis/queryClient';
 
 const GroupMyPage = () => {
   const navigate = useNavigate();
@@ -18,12 +19,19 @@ const GroupMyPage = () => {
     queryKey: GROUP_KEYS.groupMyInfo({ groupId }),
     queryFn: () => getGroupMyInfo(groupId),
   });
+  const { mutate: setGroupMyInfoMutate } = useMutation({
+    mutationFn: () => setGroupMyInfo({ groupId, newGroupNickName: nickName }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(GROUP_KEYS.groupMyInfo({ groupId }));
+    },
+  });
 
   const handleNickName = (e: ChangeEvent<HTMLInputElement>) => {
     setNickName(e.target.value);
   };
   const handleNickNameChage = () => {
     setIsNickNameChanging((prev) => !prev);
+    setGroupMyInfoMutate();
   };
 
   useEffect(() => {

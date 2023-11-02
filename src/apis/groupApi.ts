@@ -25,3 +25,8 @@ export const fakeCreateGroupFn = () => axios.get('/data/createGroup.json').then(
 
 export const getGroupMyInfo = (groupId: string) =>
   instance.get(`${ENDPOINT}/${groupId}/myInfo`).then(({ data }) => data.response);
+
+export const setGroupMyInfo = ({ groupId, newGroupNickName }: { groupId: string; newGroupNickName: string }) =>
+  instance
+    .patch(`${ENDPOINT}/${groupId}/myInfo`, { groupNickName: newGroupNickName })
+    .then(({ data }) => data.response);
