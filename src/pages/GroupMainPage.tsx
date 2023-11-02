@@ -22,7 +22,7 @@ interface Post {
 }
 
 const countPostsWithPrefix = (postList: Post[], prefix: string) =>
-  postList.filter((post) => post.index.startsWith(prefix)).length;
+  postList.filter((post) => post.index.startsWith(`${prefix}.`)).length;
 
 const GroupMainPage = () => {
   const navigate = useNavigate();
