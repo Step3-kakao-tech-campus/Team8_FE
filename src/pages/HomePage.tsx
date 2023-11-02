@@ -6,15 +6,31 @@ import GroupList from '@components/Home/GroupList';
 import { unOfficialGroupDummyData } from '@dummy/group';
 import { ReactComponent as Logo } from '@assets/images/logo/logo.svg';
 import SearchInput from '@components/Common/SearchInput';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import isLoggedInState from '@recoil/atoms/auth';
 import { useNavigate } from 'react-router-dom';
+import { groupCreateInfoState } from '@recoil/atoms/group';
 
 const titleStyle = 'font-bold text-lg mb-4 mt-20';
+const defaultGroupInfo = {
+  groupType: 'UNOFFICIAL_OPENED' as 'UNOFFICIAL_OPENED' | 'UNOFFICIAL_CLOSED',
+  groupName: '' as string,
+  groupImage: '' as string,
+  groupNickName: '' as string,
+  introduction: '' as string,
+  entranceHint: '' as string,
+  entrancePassword: '' as string,
+};
 
 const HomePage = () => {
   const isLoggedIn = useRecoilValue(isLoggedInState);
+  const setGroupInfo = useSetRecoilState(groupCreateInfoState);
   const navigate = useNavigate();
+
+  const handleCreateClick = () => {
+    navigate('/groupCreate');
+    setGroupInfo(defaultGroupInfo);
+  };
 
   return (
     <main>
@@ -33,7 +49,7 @@ const HomePage = () => {
           <section>
             <div className='flex justify-between items-baseline'>
               <h2 className={titleStyle}>내 그룹</h2>
-              <Button className='rounded h-8' size='sm' onClick={() => navigate('/groupCreate')}>
+              <Button className='rounded h-8' size='sm' onClick={handleCreateClick}>
                 그룹 생성
               </Button>
             </div>

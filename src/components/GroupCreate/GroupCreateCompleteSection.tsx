@@ -12,6 +12,7 @@ interface GroupCreateCompleteSectionProps {
 const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionProps) => {
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
   const [inviteCode, setInviteCode] = useState<string>('');
+  const [groupId, setGroupId] = useState<string>('');
   const navigate = useNavigate();
 
   const handleCopy = async () => {
@@ -21,6 +22,9 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
       setIsAlertOpen(true);
     }
   };
+  const handleStartClick = () => {
+    navigate(`/${groupId}/${groupName}`, { replace: true });
+  };
 
   useEffect(() => {
     const groupCreate = async () => {
@@ -28,6 +32,7 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
         // const response = await createGroupFn(groupInfo);
         const response = await fakeCreateGroupFn();
         setInviteCode(response.inviteCode);
+        setGroupId(response.groupId);
       } catch (error) {
         console.log(error);
       }
@@ -62,7 +67,7 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
         onClick={handleCopy}
       />
       <div className='flex justify-end'>
-        <Button onClick={() => navigate(`/${groupName}`, { replace: true })}>시작하기</Button>
+        <Button onClick={handleStartClick}>시작하기</Button>
       </div>
       {isAlertOpen && (
         <Alert
