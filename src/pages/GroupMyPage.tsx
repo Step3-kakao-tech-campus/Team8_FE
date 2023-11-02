@@ -1,26 +1,40 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useEffect } from 'react';
 import { Button, Input } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ContributeList from '@components/MyPage/ContributeList';
 import QuitModal from '@components/Modal/QuitModal';
 import useModal from '@hooks/useModal';
-import { groupMyPageDummyData } from '@dummy/group';
+import { useQuery } from '@tanstack/react-query';
+import { GROUP_KEYS } from '@constants/queryKeys';
+import { getGroupMyInfo } from '@apis/groupApi';
 
 const GroupMyPage = () => {
   const navigate = useNavigate();
-  const { groupName } = useParams();
-  const [nickName, setNickName] = useState(groupMyPageDummyData.groupNickName);
+  const { groupId } = useParams() as { groupId: string };
+  const [nickName, setNickName] = useState('');
   const [isNickNameChanging, setIsNickNameChanging] = useState<boolean>(false);
   const quitModal = useModal();
+  const { data: groupMyInfo, isLoading } = useQuery({
+    queryKey: GROUP_KEYS.groupMyInfo({ groupId }),
+    queryFn: () => getGroupMyInfo(groupId),
+  });
 
   const handleNickName = (e: ChangeEvent<HTMLInputElement>) => {
     setNickName(e.target.value);
   };
-
   const handleNickNameChage = () => {
     setIsNickNameChanging((prev) => !prev);
   };
 
+  useEffect(() => {
+    if (groupMyInfo) {
+      setNickName(groupMyInfo.groupNickName);
+    }
+  }, [groupMyInfo]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <main className='mb-10'>
       <h1 className='inline pb-4 pr-40 mb-20 text-xl font-extrabold border border-x-0 border-b-1 border-t-0 border-black'>
@@ -28,7 +42,7 @@ const GroupMyPage = () => {
       </h1>
       <section className='mt-20 p-4'>
         <div className='flex'>
-          <span className='text-2xl text-blue-900 font-extrabold'>{groupName}</span>
+          <span className='text-2xl text-blue-900 font-extrabold'>{groupId}</span>
         </div>
         <div className='flex items-center mt-10'>
           <span className='font-extrabold w-40'>그룹 닉네임</span>
@@ -91,7 +105,7 @@ const GroupMyPage = () => {
             전체보기
           </Button>
         </div>
-        <ContributeList contributeItems={groupMyPageDummyData.historyList} />
+        <ContributeList contributeItems={groupMyInfo.myHistorgiyDTOS} />
       </section>
       <div className='text-right p-4'>
         <Button
@@ -102,7 +116,7 @@ const GroupMyPage = () => {
         >
           그룹 탈퇴하기
         </Button>
-        <QuitModal group={groupName} isOpen={quitModal.isOpen} onClick={quitModal.handleModal} />
+        <QuitModal group={groupId} isOpen={quitModal.isOpen} onClick={quitModal.handleModal} />
       </div>
     </main>
   );
