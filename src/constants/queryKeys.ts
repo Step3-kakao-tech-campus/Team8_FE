@@ -9,4 +9,8 @@ const MAIN_KEYS = {
   main: ['main'],
 };
 
-export { PAGE_KEYS, MAIN_KEYS };
+const AUTH_KEYS = {
+  myInfo: ['myInfo'],
+};
+
+export { PAGE_KEYS, MAIN_KEYS, AUTH_KEYS };
