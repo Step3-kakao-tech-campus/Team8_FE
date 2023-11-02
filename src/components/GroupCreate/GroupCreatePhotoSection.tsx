@@ -32,6 +32,7 @@ const GroupCreatePhotoSection = ({ onNextStep }: onNextStepProps) => {
     getImagePreview(imageFile);
   };
   const handleFileRemove = () => {
+    setGroupImageFile(undefined);
     setImgPreview('');
     setError('');
   };
