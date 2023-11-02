@@ -3,13 +3,16 @@ import { Button } from '@material-tailwind/react';
 import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
 import OfficialGroup from '@components/Home/OfficialGroup';
 import GroupList from '@components/Home/GroupList';
-import { unOfficialGroupDummyData } from '@dummy/group';
 import { ReactComponent as Logo } from '@assets/images/logo/logo.svg';
 import SearchInput from '@components/Common/SearchInput';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import isLoggedInState from '@recoil/atoms/auth';
-import { useNavigate } from 'react-router-dom';
 import { groupCreateInfoState } from '@recoil/atoms/group';
+import tokenState from '@recoil/atoms/auth';
+import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { MAIN_KEYS } from '@constants/queryKeys';
+import { getGroupListFn } from '@apis/mainApi';
+import { MainGroups } from '@apis/dto';
 
 const titleStyle = 'font-bold text-lg mb-4 mt-20';
 const defaultGroupInfo = {
@@ -23,9 +26,10 @@ const defaultGroupInfo = {
 };
 
 const HomePage = () => {
-  const isLoggedIn = useRecoilValue(isLoggedInState);
-  const setGroupInfo = useSetRecoilState(groupCreateInfoState);
   const navigate = useNavigate();
+  const setGroupInfo = useSetRecoilState(groupCreateInfoState);
+  const isLoggedIn = Boolean(useRecoilValue(tokenState));
+  const { data: groupList } = useQuery<MainGroups>({ queryKey: MAIN_KEYS.main, queryFn: getGroupListFn });
 
   const handleCreateClick = () => {
     navigate('/groupCreate');
@@ -53,17 +57,29 @@ const HomePage = () => {
                 그룹 생성
               </Button>
             </div>
-            <GroupList groups={unOfficialGroupDummyData} />
+            {groupList && groupList.myGroup && groupList.myGroup.length > 0 ? (
+              <GroupList groups={groupList.myGroup} />
+            ) : (
+              <p className='text-center my-10'>참여한 그룹이 없습니다.</p>
+            )}
           </section>
           <section>
             <h2 className={titleStyle}>공식 그룹</h2>
-            <OfficialGroup />
+            {groupList && groupList.officialGroup.length > 0 ? (
+              <OfficialGroup officialGroups={groupList.officialGroup} />
+            ) : (
+              <p className='text-center my-10'>등록된 공식 그룹이 없습니다.</p>
+            )}
           </section>
         </div>
       )}
       <section>
         <h2 className={titleStyle}>그룹 살펴보기</h2>
-        <GroupList groups={unOfficialGroupDummyData} />
+        {groupList && groupList.unOfficialGroup.length > 0 ? (
+          <GroupList groups={groupList.unOfficialGroup} />
+        ) : (
+          <p className='text-center my-10'>등록된 그룹이 없습니다.</p>
+        )}
       </section>
     </main>
   );

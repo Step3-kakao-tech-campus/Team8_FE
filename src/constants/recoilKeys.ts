@@ -1,6 +1,6 @@
 // auth 관련 key
-export const AUTH_RECOIL_KEYS = {
-  isLoggedIn: 'isLoggedInState',
+export const AUTH_KEYS = {
+  token: 'tokenState',
 };
 
 // 그룹 생성 관련 key

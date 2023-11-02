@@ -2,12 +2,12 @@ import React from 'react';
 import { Carousel } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { officialGroupDummyData } from '@dummy/group';
+import { Group } from '@apis/dto';
 
-const OfficialGroup = () => {
+const OfficialGroup = ({ officialGroups }: { officialGroups: Group[] }) => {
   return (
     <Carousel className='rounded-xl max-w-[768px]' loop>
-      {officialGroupDummyData.map((group) => (
+      {officialGroups.map((group) => (
         <Link to={`/${group.groupName}`} key={uuidv4()}>
           <div key={group.groupId} className='relative h-full w-full'>
             <img src={group.groupImage} alt={group.groupName} className='w-full h-40 object-cover mx-auto' />

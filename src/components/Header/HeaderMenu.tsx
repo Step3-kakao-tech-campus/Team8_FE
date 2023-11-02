@@ -3,26 +3,26 @@ import { Menu, MenuHandler, MenuList, MenuItem, Button } from '@material-tailwin
 import { MdMenu } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import isLoggedInState from '@recoil/atoms/auth';
+import tokenState from '@recoil/atoms/auth';
 import { inviteCodeDummyData } from '@dummy/group';
 import GroupMemberListModal from '@components/Modal/GroupMemberListModal';
 import InviteModal from '@components/Modal/InviteModal';
 import useModal from '@hooks/useModal';
 
 const HeaderMenu = () => {
-  const { groupName } = useParams();
+  const { groupId } = useParams();
   const navigate = useNavigate();
-  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+  const setToken = useSetRecoilState(tokenState);
 
   const inviteModal = useModal();
   const groupMemberListModal = useModal();
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    setToken(null);
   };
   const handleMyPageClick = () => {
-    if (groupName) {
-      navigate(`/${groupName}/myPage`);
+    if (groupId) {
+      navigate(`/${groupId}/myPage`);
     } else {
       navigate('/myPage');
     }
@@ -37,9 +37,9 @@ const HeaderMenu = () => {
           </Button>
         </MenuHandler>
         <MenuList>
-          <MenuItem onClick={handleMyPageClick}>{groupName ? '그룹 마이페이지' : '마이페이지'}</MenuItem>
-          {groupName && <MenuItem onClick={inviteModal.handleModal}>그룹원 초대</MenuItem>}
-          {groupName && <MenuItem onClick={groupMemberListModal.handleModal}>그룹원 목록</MenuItem>}
+          <MenuItem onClick={handleMyPageClick}>{groupId ? '그룹 마이페이지' : '마이페이지'}</MenuItem>
+          {groupId && <MenuItem onClick={inviteModal.handleModal}>그룹원 초대</MenuItem>}
+          {groupId && <MenuItem onClick={groupMemberListModal.handleModal}>그룹원 목록</MenuItem>}
           <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
         </MenuList>
       </Menu>

@@ -210,3 +210,5 @@ export const groupInfoDummyData: GroupInfo = {
 };
 
 export const groupJoinPassword: string = '엔젤몬';
+
+export const groupType: 'official' | 'unofficialOpen' | 'unofficialNoOpen' = 'official';

@@ -1,21 +1,83 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import RecentChangeList from '@components/Page/Common/RecentChangeList';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { MdArrowCircleRight } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@material-tailwind/react';
-import { pageDummyData } from '@dummy/page';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { createPageFn, getPageByTitleFn, searchPageFn } from '@apis/pageApi';
+import { PAGE_KEYS } from '@constants/queryKeys';
+import PageCreateModal from '@components/Modal/PageCreateModal';
+import useModal from '@hooks/useModal';
+
+interface Page {
+  pageId: number;
+  pageName: string;
+  content: string;
+}
+
+interface Error {
+  response: {
+    data: {
+      error: {
+        message: string;
+      };
+    };
+  };
+}
 
 const SearchResultPage = () => {
-  const query = useLocation().search;
-  const queries = new URLSearchParams(query);
-  const keyword = queries.get('keyword');
-  const { groupName } = useParams();
   const navigate = useNavigate();
 
+  const { groupId } = useParams();
+  const numGroupId = Number(groupId);
+
+  const query = useLocation().search;
+  const queries = new URLSearchParams(query);
+  const keyword = queries.get('keyword') || '';
+
+  const pageCreateModal = useModal();
+
+  const [hasMatchingPage, setHasMatchingPage] = React.useState<boolean>(true);
+
+  const { status, error } = useQuery({
+    queryKey: PAGE_KEYS.byTitle({ groupId: numGroupId, title: keyword }),
+    queryFn: () => getPageByTitleFn({ groupId: numGroupId, title: keyword }),
+    staleTime: 1000 * 60 * 60 * 24,
+  });
+
+  useEffect(() => {
+    // 일치하는 페이지가 없는 경우에 검색 결과 받아오기
+    if (status === 'error') {
+      if ((error as Error).response?.data?.error?.message === '존재하지 않는 페이지 입니다.') {
+        setHasMatchingPage(false);
+      }
+    }
+
+    // 일치하는 페이지가 있는 경우 해당 페이지로 이동
+    if (status === 'success') {
+      setHasMatchingPage(true);
+      navigate(`/${groupId}/${keyword}`);
+    }
+  }, [status, error, keyword, groupId, navigate]);
+
+  const { data: pageData } = useQuery({
+    queryKey: PAGE_KEYS.searchKeyword({ groupId: numGroupId, keyword }),
+    queryFn: () => searchPageFn({ groupId: numGroupId, keyword }),
+    enabled: !hasMatchingPage,
+  });
+
+  const pages = pageData?.data?.response.pages || [];
+
+  const { mutate: createPage } = useMutation({
+    mutationFn: createPageFn,
+    onSuccess: () => {
+      navigate(`/${groupId}/${keyword}`);
+    },
+  });
+
   const handlePageCreate = () => {
-    // 페이지 생성 api 요청하기
-    navigate(`/${groupName}/${keyword}`);
+    createPage({ groupId: numGroupId, pageName: keyword });
   };
 
   return (
@@ -29,22 +91,28 @@ const SearchResultPage = () => {
               variant='text'
               ripple={false}
               className='group flex items-center gap-1 py-1 px-2 text-sm font-bold hover:bg-transparent active:bg-transparent'
-              onClick={handlePageCreate}
+              onClick={pageCreateModal.handleModal}
             >
               <span>새 페이지 생성하기</span>
               <MdArrowCircleRight className='w-5 h-5 group-hover:animate-arrowBounce' />
             </Button>
           </div>
-          {pageDummyData.length === 0 ? (
+          <PageCreateModal
+            page={keyword}
+            isOpen={pageCreateModal.isOpen}
+            onClick={handlePageCreate}
+            handleModal={pageCreateModal.handleModal}
+          />
+          {pages.length === 0 ? (
             <div className='flex flex-col items-center justify-center h-96'>
               <span className='text-xl font-bold mb-4'>검색 결과가 없습니다.</span>
               <span>다른 검색어로 검색하거나 직접 페이지를 만들어보세요.</span>
             </div>
           ) : (
-            pageDummyData.map((post) => (
+            pages.map((page: Page) => (
               <div key={uuidv4()} className='px-2 py-8 border-b border-gray-200'>
-                <h2 className='text-lg font-bold mb-1'>{post.pageName}</h2>
-                <p className='text-sm text-gray-500'>{post.content}</p>
+                <h2 className='text-lg font-bold mb-1'>{page.pageName}</h2>
+                <p className='text-sm text-gray-500'>{page.content}</p>
               </div>
             ))
           )}
