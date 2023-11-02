@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Button, Input, Typography } from '@material-tailwind/react';
 import { MdContentCopy } from 'react-icons/md';
-import { inviteCodeDummyData } from '@dummy/group';
 import { useNavigate } from 'react-router-dom';
+import { fakeCreateGroupFn } from '@apis/groupApi';
+// import { createGroupFn } from '@apis/groupApi';
 
 interface GroupCreateCompleteSectionProps {
   groupName: string;
@@ -10,15 +11,34 @@ interface GroupCreateCompleteSectionProps {
 
 const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionProps) => {
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+  const [inviteCode, setInviteCode] = useState<string>('');
+  const [groupId, setGroupId] = useState<string>('');
   const navigate = useNavigate();
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(inviteCodeDummyData);
+      await navigator.clipboard.writeText(inviteCode);
     } finally {
       setIsAlertOpen(true);
     }
   };
+  const handleStartClick = () => {
+    navigate(`/${groupId}/${groupName}`, { replace: true });
+  };
+
+  useEffect(() => {
+    const groupCreate = async () => {
+      try {
+        // const response = await createGroupFn(groupInfo);
+        const response = await fakeCreateGroupFn();
+        setInviteCode(response.inviteCode);
+        setGroupId(response.groupId);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    groupCreate();
+  }, []);
 
   useEffect(() => {
     const timer: NodeJS.Timeout = setTimeout(() => {
@@ -39,7 +59,7 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
       <Input
         className='truncate outline-none'
         label='초대 링크'
-        value={inviteCodeDummyData}
+        value={inviteCode}
         size='lg'
         readOnly
         crossOrigin=''
@@ -47,7 +67,7 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
         onClick={handleCopy}
       />
       <div className='flex justify-end'>
-        <Button onClick={() => navigate(`/${groupName}`, { replace: true })}>시작하기</Button>
+        <Button onClick={handleStartClick}>시작하기</Button>
       </div>
       {isAlertOpen && (
         <Alert

@@ -1,24 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Input, Typography } from '@material-tailwind/react';
+import { useRecoilState } from 'recoil';
+import { groupCreateInfoState } from '@recoil/atoms/group';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { GROUP_NAME_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
 
 interface GroupCreateNameSectionProps {
   onNextStep: () => void;
-  groupName: string;
-  setGroupInfo: ({ groupName }: { groupName: string }) => void;
 }
 
-const GroupCreateNameSection = ({ onNextStep, groupName, setGroupInfo }: GroupCreateNameSectionProps) => {
-  const [inputCount, setInputCount] = useState(12);
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputCount(12 - e.target.value.length);
-    setGroupInfo({ groupName: e.target.value });
-  };
+interface groupNameInput {
+  groupName: string;
+}
 
-  const handleNextStep = () => {
+const GroupCreateNameSection = ({ onNextStep }: GroupCreateNameSectionProps) => {
+  const [groupInfo, setGroupInfo] = useRecoilState(groupCreateInfoState);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<groupNameInput>({
+    defaultValues: {
+      groupName: groupInfo.groupName,
+    },
+  });
+
+  const handleNextStep: SubmitHandler<FieldValues> = ({ groupName }) => {
     // TODO: 그룹 이름 중복 체크, 그룹 이름 길이 체크, 그 외 조건 체크
-    if (inputCount >= 0) {
-      onNextStep();
-    }
+    setGroupInfo((prev) => ({ ...prev, groupName }));
+    if (isValid) onNextStep();
   };
   return (
     <section className='space-y-10'>
@@ -28,20 +38,33 @@ const GroupCreateNameSection = ({ onNextStep, groupName, setGroupInfo }: GroupCr
         </Typography>
         <Typography variant='paragraph'>그룹 이름은 최대 12자까지 가능합니다.</Typography>
       </div>
-      <div className='flex gap-2 flex-wrap'>
-        <Input
-          size='md'
-          label='그룹 이름'
-          containerProps={{ className: 'max-w-md' }}
-          crossOrigin=''
-          icon={inputCount > 0 && <span className='text-sm'>{inputCount}</span>}
-          onChange={onInputChange}
-          error={inputCount < 0}
-          value={groupName}
-        />
-        <Button onClick={handleNextStep}>확인</Button>
-      </div>
-      {inputCount < 0 && <p className='text-red-500 !mt-3 px-2 text-sm'>조건을 확인해주세요.</p>}
+      <form className='flex gap-2' onSubmit={handleSubmit(handleNextStep)}>
+        <div className='grow'>
+          <Input
+            size='md'
+            label='그룹 이름'
+            containerProps={{ className: 'max-w-md' }}
+            crossOrigin=''
+            {...register('groupName', {
+              required: REQUIRE_ERROR_MSG,
+              minLength: {
+                value: 2,
+                message: GROUP_NAME_ERROR_MSG,
+              },
+              maxLength: {
+                value: 12,
+                message: GROUP_NAME_ERROR_MSG,
+              },
+            })}
+          />
+          {errors.groupName && (
+            <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.groupName.message}</p>
+          )}
+        </div>
+        <div>
+          <Button type='submit'>확인</Button>
+        </div>
+      </form>
     </section>
   );
 };
