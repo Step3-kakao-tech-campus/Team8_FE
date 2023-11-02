@@ -9,3 +9,8 @@ export interface MainGroups {
   officialGroup: Group[];
   unOfficialGroup: Group[];
 }
+
+export interface MyInfo {
+  mainNickName: string;
+  groupList: (Group & { groupNickName: string })[];
+}

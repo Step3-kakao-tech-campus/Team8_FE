@@ -4,7 +4,9 @@ import { instance } from './axios';
 const ENDPOINT = '/group';
 
 export const groupSearchFn = ({ keyword }: { keyword: string }) =>
-  instance.get(`${ENDPOINT}/search?keyword=${keyword}`);
+  instance.get(`${ENDPOINT}/search?keyword=${keyword}`).then(({ data }) => data.response);
+
+export const fakeGroupSearchFn = () => axios.get('/data/groupSearchResult.json').then(({ data }) => data.response);
 
 interface groupInfoType {
   groupType: 'UNOFFICIAL_OPENED' | 'UNOFFICIAL_CLOSED';

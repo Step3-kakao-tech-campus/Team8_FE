@@ -14,6 +14,7 @@ import { comments } from '@dummy/page';
 import CommentList from './CommentList';
 
 interface PostProps {
+  postId: number;
   pageId: number;
   pageName: string;
   index: string;
@@ -21,12 +22,11 @@ interface PostProps {
   content: string;
 }
 
-const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
+const Post = ({ postId, pageId, pageName, index, postTitle, content }: PostProps) => {
   const commentRef = useRef<HTMLDivElement>(null);
 
   const navigate = useNavigate();
   const [isCommentOpen, setIsCommentOpen] = useState<boolean>(false);
-  const postId = `${pageId}-${index}`;
 
   const handleCommentClick = () => {
     setIsCommentOpen((prev) => !prev);
@@ -36,7 +36,7 @@ const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
   };
 
   return (
-    <article id={postId}>
+    <article id={postId.toString()}>
       <div className='flex justify-between border-b-2'>
         <h2 className='text-xl leading-relaxed font-semibold'>
           <span className='text-indigo-500'>{index}</span> {postTitle}
@@ -61,7 +61,7 @@ const Post = ({ pageId, pageName, index, postTitle, content }: PostProps) => {
                 className='flex items-center gap-2 py-1'
                 onClick={() =>
                   navigate(`${postTitle}/edit`, {
-                    state: { pageId, index, pageName, postTitle, content },
+                    state: { postId, pageId, index, pageName, postTitle, content },
                   })
                 }
               >
