@@ -48,7 +48,7 @@ const PostEditPage = () => {
     } else {
       // 있던 글 수정하는 경우
     }
-    // navigate(`/${groupId}/${pageName}`, { replace: true });
+    navigate(-1);
   };
 
   return (

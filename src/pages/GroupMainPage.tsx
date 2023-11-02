@@ -50,7 +50,7 @@ const GroupMainPage = () => {
 
   const handleNewPostClick = () => {
     navigate('개요/edit', {
-      state: { pageId, parentPostId: 0, order: 1, index: '1.', pageName, postTitle: '개요', content: '', type: 'new' },
+      state: { pageId, parentPostId: 0, order: 1, index: '1', pageName, postTitle: '개요', content: '', type: 'new' },
     });
   };
 
