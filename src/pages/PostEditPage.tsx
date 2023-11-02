@@ -2,26 +2,64 @@ import React, { ChangeEvent, useState } from 'react';
 import PageContainer from '@components/Page/Common/PageContainer';
 import PageTitleSection from '@components/Page/Common/PageTitleSection';
 import useModal from '@hooks/useModal';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Button, Input } from '@material-tailwind/react';
 import CKEditor from '@components/Page/Post/Editor/Ckeditor';
 import PostDeleteModal from '@components/Modal/PostDeleteModal';
+import { useMutation } from '@tanstack/react-query';
+import { createPostFn, modifyPostFn } from '@apis/postApi';
 
 const PostEditPage = () => {
-  const { pageId, index, pageName, postTitle, content: postContent } = useLocation().state;
-  const navigate = useNavigate();
+  // url로 넘어온 group id
+  const { groupId } = useParams();
+  const numGroupId = Number(groupId);
+
+  // 페이지에서 넘어온 데이터
+  const {
+    postId,
+    pageId,
+    parentPostId,
+    order,
+    index,
+    pageName,
+    postTitle,
+    content: postContent,
+    type,
+  } = useLocation().state;
+
   const [title, setTitle] = useState<string>(postTitle);
   const [content, setContent] = useState<string>(postContent);
+
+  const navigate = useNavigate();
   const deleteModal = useModal();
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
+
   const handleContentChange = (data: string) => {
     setContent(data);
   };
+
+  // 새로 작성
+  const { mutate: createPost } = useMutation({
+    mutationFn: () => createPostFn({ groupId: numGroupId, pageId, parentPostId, order, title, content }),
+  });
+
+  // 수정
+  const { mutate: updatePost } = useMutation({
+    mutationFn: () => modifyPostFn({ groupId: numGroupId, postId, title, content }),
+  });
+
   const handleSaveClick = () => {
-    // api 연결 후 작성
+    // 새로 작성하는 경우
+    if (type === 'new') {
+      createPost();
+    } else {
+      // 있던 글 수정하는 경우
+      updatePost();
+    }
+    navigate(-1);
   };
 
   return (
@@ -35,7 +73,7 @@ const PostEditPage = () => {
               className='!text-base !border !border-gray-400 bg-white rounded-md focus:!border-gray-700'
               crossOrigin=''
               value={title}
-              placeholder={`목차(${index}) 제목을 입력하세요.`}
+              placeholder='제목을 입력하세요.'
               labelProps={{
                 className: 'hidden',
               }}
