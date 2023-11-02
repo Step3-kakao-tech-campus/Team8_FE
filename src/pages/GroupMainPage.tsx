@@ -21,6 +21,9 @@ interface Post {
   parentPostId: number;
 }
 
+const countPostsWithPrefix = (postList: Post[], prefix: string) =>
+  postList.filter((post) => post.index.startsWith(prefix)).length;
+
 const GroupMainPage = () => {
   const navigate = useNavigate();
   const { groupId, page } = useParams();
@@ -81,7 +84,12 @@ const GroupMainPage = () => {
                       postTitle={post.postTitle}
                       content={post.content}
                     />
-                    <AddPostButton />
+                    <AddPostButton
+                      post={post}
+                      pageId={pageId}
+                      pageName={pageName}
+                      descendantCount={countPostsWithPrefix(postList, post.index)}
+                    />
                   </li>
                 ))}
               </ul>

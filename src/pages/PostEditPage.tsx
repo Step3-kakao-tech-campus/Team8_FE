@@ -10,32 +10,45 @@ import { useMutation } from '@tanstack/react-query';
 import { createPostFn } from '@apis/postApi';
 
 const PostEditPage = () => {
+  // url로 넘어온 group id
   const { groupId } = useParams();
   const numGroupId = Number(groupId);
+
+  // 페이지에서 넘어온 데이터
   const { pageId, parentPostId, order, index, pageName, postTitle, content: postContent, type } = useLocation().state;
-  const navigate = useNavigate();
+
   const [title, setTitle] = useState<string>(postTitle);
   const [content, setContent] = useState<string>(postContent);
+
+  const navigate = useNavigate();
   const deleteModal = useModal();
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
+
   const handleContentChange = (data: string) => {
     setContent(data);
   };
 
-  // 글을 새로 작성하는 경우
+  // 새로 작성
   const { mutate: createPost } = useMutation({
     mutationFn: () => createPostFn({ groupId: numGroupId, pageId, parentPostId, order, title, content }),
   });
 
+  // 수정
+  // const { mutate: updatePost } = useMutation({
+  //   mutationFn: () => modifyPostFn({ groupId: numGroupId, postId: 1, title, content }),
+  // });
+
   const handleSaveClick = () => {
-    // api 연결 후 작성
+    // 새로 작성하는 경우
     if (type === 'new') {
       createPost();
+    } else {
+      // 있던 글 수정하는 경우
     }
-    navigate(`/${groupId}/${pageName}`, { replace: true });
+    // navigate(`/${groupId}/${pageName}`, { replace: true });
   };
 
   return (
