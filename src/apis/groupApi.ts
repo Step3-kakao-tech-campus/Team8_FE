@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { instance } from './axios';
 
 const ENDPOINT = '/group';
@@ -16,3 +17,5 @@ interface groupInfoType {
 }
 
 export const createGroupFn = (groupInfo: groupInfoType) => instance.post(`${ENDPOINT}/create`, groupInfo);
+
+export const fakeCreateGroupFn = () => axios.get('/data/createGroup.json').then(({ data }) => data.response);
