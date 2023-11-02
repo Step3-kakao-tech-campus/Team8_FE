@@ -21,3 +21,5 @@ export const passwordFindFn = ({ email }: { email: string }) => instance.post(`$
 
 export const passwordChangeFn = ({ currentPassword, newPassword }: { currentPassword: string; newPassword: string }) =>
   instance.patch(`${ENDPOINT}/password/change`, { currentPassword, newPassword });
+
+export const getMyInfoFn = () => instance.get(`${ENDPOINT}/myinfo`).then(({ data }) => data.response);
