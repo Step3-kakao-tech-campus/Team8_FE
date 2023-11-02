@@ -7,7 +7,7 @@ import { Button, Input } from '@material-tailwind/react';
 import CKEditor from '@components/Page/Post/Editor/Ckeditor';
 import PostDeleteModal from '@components/Modal/PostDeleteModal';
 import { useMutation } from '@tanstack/react-query';
-import { createPostFn } from '@apis/postApi';
+import { createPostFn, modifyPostFn } from '@apis/postApi';
 
 const PostEditPage = () => {
   // url로 넘어온 group id
@@ -15,7 +15,17 @@ const PostEditPage = () => {
   const numGroupId = Number(groupId);
 
   // 페이지에서 넘어온 데이터
-  const { pageId, parentPostId, order, index, pageName, postTitle, content: postContent, type } = useLocation().state;
+  const {
+    postId,
+    pageId,
+    parentPostId,
+    order,
+    index,
+    pageName,
+    postTitle,
+    content: postContent,
+    type,
+  } = useLocation().state;
 
   const [title, setTitle] = useState<string>(postTitle);
   const [content, setContent] = useState<string>(postContent);
@@ -37,9 +47,9 @@ const PostEditPage = () => {
   });
 
   // 수정
-  // const { mutate: updatePost } = useMutation({
-  //   mutationFn: () => modifyPostFn({ groupId: numGroupId, postId: 1, title, content }),
-  // });
+  const { mutate: updatePost } = useMutation({
+    mutationFn: () => modifyPostFn({ groupId: numGroupId, postId, title, content }),
+  });
 
   const handleSaveClick = () => {
     // 새로 작성하는 경우
@@ -47,6 +57,7 @@ const PostEditPage = () => {
       createPost();
     } else {
       // 있던 글 수정하는 경우
+      updatePost();
     }
     navigate(-1);
   };
