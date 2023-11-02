@@ -4,11 +4,13 @@ import { Button, Input } from '@material-tailwind/react';
 import GroupList from '@components/Home/GroupList';
 import { unOfficialGroupDummyData, groupMyPageDummyData } from '@dummy/group';
 import PasswordChangeModal from '@components/Modal/PasswordChangeModal';
+import AuthDeleteModal from '@components/Modal/AuthDeleteModal';
 
 const MyPage = () => {
   const [nickName, setNickName] = useState(groupMyPageDummyData.groupNickName);
   const [isNickNameChanging, setIsNickNameChanging] = useState<boolean>(false);
   const passwordChangeModal = useModal();
+  const authDeleteModal = useModal();
 
   const handleNickName = (e: ChangeEvent<HTMLInputElement>) => {
     setNickName(e.target.value);
@@ -90,6 +92,17 @@ const MyPage = () => {
           <p className='text-xs text-gray-700'>프로필을 누르면 그룹으로 이동합니다.</p>
         </div>
         <GroupList groups={unOfficialGroupDummyData} />
+      </div>
+      <div className='text-right p-4'>
+        <Button
+          variant='text'
+          ripple={false}
+          className='p-1 rounded-sm whitespace-nowrap text-red-600 hover:bg-transparent active:bg-transparent hover:underline decoration-black'
+          onClick={authDeleteModal.handleModal}
+        >
+          회원 탈퇴하기
+        </Button>
+        <AuthDeleteModal isOpen={authDeleteModal.isOpen} onClick={authDeleteModal.handleModal} />
       </div>
     </div>
   );
