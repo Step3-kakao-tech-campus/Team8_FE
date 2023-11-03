@@ -26,7 +26,7 @@ const PostDeleteModal = ({ title, isOpen, onClickModal, groupId, postId, pageNam
     mutationFn: () => deletePostFn({ groupId, postId }),
     onSuccess: () => {
       onClickModal();
-      navigate(`${groupId}/${pageName}`, { replace: true });
+      navigate(`/${groupId}/${pageName}`, { replace: true });
     },
     onError: (error: AxiosError) => {
       // 에러 처리, 삭제 버튼 위에 tip으로 미리 해당사항 알려주기
