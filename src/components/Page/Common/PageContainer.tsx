@@ -1,4 +1,5 @@
 import React from 'react';
+import ScrollToTopButton from '@components/Common/ScrollToTop';
 import RecentChangeList from './RecentChangeList';
 import IndexList from './IndexList';
 
@@ -22,6 +23,7 @@ const PageContainer = ({ children, pageId, hasRecentChangeList }: PageContainerP
           <RecentChangeList />
         </aside>
       )}
+      <ScrollToTopButton />
     </div>
   );
 };

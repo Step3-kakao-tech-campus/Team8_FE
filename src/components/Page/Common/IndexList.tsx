@@ -40,17 +40,20 @@ const IndexList = ({ pageId }: IndexListProps) => {
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-          <ul className='p-2 bg-gray-100 text-xs whitespace-pre'>
+          <ul className='p-2 bg-gray-100 text-xs xl:overflow-auto max-h-[65vh] lg:overflow-hidden scroll'>
             {postList.length !== 0 &&
               postList.map((post: Post) => (
-                <li key={uuidv4()} className='m-2 leading-tight'>
-                  {'  '.repeat(post.index.split('.').length - 1)}
+                <li key={uuidv4()} className='m-2 leading-tight overflow-hidden'>
                   <button
                     type='button'
                     onClick={() => scrollToPost(post.postId.toString())}
                     className='whitespace-break-spaces text-left'
                   >
-                    <span className='text-indigo-500'>{post.index}</span> {post.postTitle}
+                    <span className='text-indigo-500'>
+                      {'  '.repeat(post.index.split('.').length - 1)}
+                      {post.index}
+                    </span>{' '}
+                    {post.postTitle}
                   </button>
                 </li>
               ))}
