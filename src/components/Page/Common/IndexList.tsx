@@ -16,7 +16,6 @@ interface Post {
 }
 
 const scrollToPost = (postId: string) => {
-  console.log(postId);
   const postElement = document.getElementById(postId);
   if (postElement) {
     window.scrollTo({ top: postElement.offsetTop - 60, behavior: 'smooth' });
