@@ -31,7 +31,6 @@ const PostDeleteModal = ({ title, isOpen, onClickModal, groupId, postId, pageNam
     onError: (error: AxiosError) => {
       // 에러 처리, 삭제 버튼 위에 tip으로 미리 해당사항 알려주기
       if (error.response && error.response.status === 400) {
-        console.log('400 error');
         setErrorMessage('하위문서를 모두 삭제한 후 진행해주세요.');
       } else {
         // 그룹 또는 페이지가 없거나 회원이 아니거나 하는 경우 모두 404로 처리
