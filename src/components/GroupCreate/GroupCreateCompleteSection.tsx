@@ -4,6 +4,10 @@ import { MdContentCopy } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { fakeCreateGroupFn } from '@apis/groupApi';
 // import { createGroupFn } from '@apis/groupApi';
+// import { useRecoilValue } from 'recoil';
+// import { groupCreateInfoState } from '@recoil/atoms/group';
+import { useMutation } from '@tanstack/react-query';
+import { createPageFn } from '@apis/pageApi';
 
 interface GroupCreateCompleteSectionProps {
   groupName: string;
@@ -12,8 +16,25 @@ interface GroupCreateCompleteSectionProps {
 const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionProps) => {
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
   const [inviteCode, setInviteCode] = useState<string>('');
-  const [groupId, setGroupId] = useState<string>('');
+  const [groupId, setGroupId] = useState<number>(0);
+  // const groupInfo = useRecoilValue(groupCreateInfoState);
   const navigate = useNavigate();
+
+  const { mutateAsync: createPage } = useMutation({
+    mutationFn: createPageFn,
+    onSuccess: () => {
+      navigate(`/${groupId}/${groupName}`, { replace: true });
+    },
+  });
+  const { mutateAsync: createGroup } = useMutation({
+    mutationFn: fakeCreateGroupFn,
+    // mutationFn: () => createGroupFn(groupInfo),
+    onSuccess: (response) => {
+      setInviteCode(response.inviteCode);
+      setGroupId(response.groupId);
+      createPage({ groupId: response.groupId, pageName: response.groupName });
+    },
+  });
 
   const handleCopy = async () => {
     try {
@@ -27,17 +48,7 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
   };
 
   useEffect(() => {
-    const groupCreate = async () => {
-      try {
-        // const response = await createGroupFn(groupInfo);
-        const response = await fakeCreateGroupFn();
-        setInviteCode(response.inviteCode);
-        setGroupId(response.groupId);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    groupCreate();
+    createGroup();
   }, []);
 
   useEffect(() => {
