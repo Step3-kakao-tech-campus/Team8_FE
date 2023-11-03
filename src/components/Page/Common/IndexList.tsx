@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { getIndexListFn } from '@apis/pageApi';
 import { useQuery } from '@tanstack/react-query';
+import { PAGE_KEYS } from '@constants/queryKeys';
 
 interface IndexListProps {
   pageId: number;
@@ -27,7 +28,7 @@ const IndexList = ({ pageId }: IndexListProps) => {
   const numGroupId = Number(groupId.groupId);
 
   const { data, isLoading } = useQuery({
-    queryKey: ['indexList', numGroupId, pageId],
+    queryKey: PAGE_KEYS.indexList({ groupId: numGroupId, pageId }),
     queryFn: () => getIndexListFn({ groupId: numGroupId, pageId }),
   });
 
