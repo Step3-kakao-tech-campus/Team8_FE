@@ -15,6 +15,10 @@ const PostEditPage = () => {
   const numGroupId = Number(groupId);
   const postId = Number(post);
 
+  window.scrollTo({ top: 0, behavior: 'instant' });
+
+  if (!groupId || !page) return null;
+
   // 페이지에서 넘어온 데이터
   const { pageId, parentPostId, order, index, pageName, postTitle, content: postContent, type } = useLocation().state;
 
@@ -42,15 +46,15 @@ const PostEditPage = () => {
     mutationFn: () => modifyPostFn({ groupId: numGroupId, postId, title, content }),
   });
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
     // 새로 작성하는 경우
     if (type === 'new') {
-      createPost();
+      await createPost();
     } else {
       // 있던 글 수정하는 경우
-      updatePost();
+      await updatePost();
     }
-    navigate(`${groupId}/${page}`, { replace: true });
+    navigate(`/${groupId}/${page}`, { replace: true });
   };
 
   return (
