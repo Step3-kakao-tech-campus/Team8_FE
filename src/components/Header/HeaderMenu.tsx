@@ -44,7 +44,11 @@ const HeaderMenu = () => {
         </MenuList>
       </Menu>
       <InviteModal code={inviteCodeDummyData} isOpen={inviteModal.isOpen} onModalClick={inviteModal.handleModal} />
-      <GroupMemberListModal isOpen={groupMemberListModal.isOpen} handleModal={groupMemberListModal.handleModal} />
+      <GroupMemberListModal
+        isOpen={groupMemberListModal.isOpen}
+        handleModal={groupMemberListModal.handleModal}
+        groupId={groupId}
+      />
     </>
   );
 };

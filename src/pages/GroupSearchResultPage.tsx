@@ -5,8 +5,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { MdChevronRight } from 'react-icons/md';
 import { useQuery } from '@tanstack/react-query';
 import { GROUP_KEYS } from '@constants/queryKeys';
-import { fakeGroupSearchFn } from '@apis/groupApi';
-// import { groupSearchFn } from '@apis/groupApi';
+import { groupSearchFn } from '@apis/groupApi';
 
 const GroupSearchResultPage = () => {
   const [isOfficialGroup, setIsOfficialGroup] = useState<boolean>(true);
@@ -14,8 +13,7 @@ const GroupSearchResultPage = () => {
   const keyword = searchParam.get('keyword') || '테스트 키워드';
   const { data } = useQuery({
     queryKey: GROUP_KEYS.groupSearch({ keyword }),
-    // queryFn: async () => groupSearchFn({ keyword }),
-    queryFn: async () => fakeGroupSearchFn(),
+    queryFn: async () => groupSearchFn({ keyword }),
   });
 
   const officialGroups = data?.officialGroups || [];
