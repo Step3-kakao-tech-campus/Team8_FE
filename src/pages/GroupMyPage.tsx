@@ -8,7 +8,7 @@ import { groupMyPageDummyData } from '@dummy/group';
 
 const GroupMyPage = () => {
   const navigate = useNavigate();
-  const { groupName } = useParams();
+  const { groupId } = useParams();
   const [nickName, setNickName] = useState(groupMyPageDummyData.groupNickName);
   const [isNickNameChanging, setIsNickNameChanging] = useState<boolean>(false);
   const quitModal = useModal();
@@ -28,7 +28,7 @@ const GroupMyPage = () => {
       </h1>
       <section className='mt-20 p-4'>
         <div className='flex'>
-          <span className='text-2xl text-blue-900 font-extrabold'>{groupName}</span>
+          <span className='text-2xl text-blue-900 font-extrabold'>{groupId}</span>
         </div>
         <div className='flex items-center mt-10'>
           <span className='font-extrabold w-40'>그룹 닉네임</span>
@@ -102,7 +102,7 @@ const GroupMyPage = () => {
         >
           그룹 탈퇴하기
         </Button>
-        <QuitModal group={groupName} isOpen={quitModal.isOpen} onClick={quitModal.handleModal} />
+        <QuitModal group={groupId} isOpen={quitModal.isOpen} onClick={quitModal.handleModal} />
       </div>
     </main>
   );
