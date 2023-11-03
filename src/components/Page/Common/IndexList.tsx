@@ -40,11 +40,11 @@ const IndexList = ({ pageId }: IndexListProps) => {
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-          <ul className='p-4 bg-gray-100 text-xs'>
+          <ul className='p-2 bg-gray-100 text-xs whitespace-pre'>
             {postList.length !== 0 &&
               postList.map((post: Post) => (
-                <li key={uuidv4()} className='my-2 leading-tight whitespace-pre'>
-                  {post.index.split('.').length > 1 && '  '}
+                <li key={uuidv4()} className='m-2 leading-tight'>
+                  {'  '.repeat(post.index.split('.').length - 1)}
                   <button
                     type='button'
                     onClick={() => scrollToPost(post.postId.toString())}
