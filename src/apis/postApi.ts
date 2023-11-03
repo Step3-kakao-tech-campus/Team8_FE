@@ -29,3 +29,6 @@ export const modifyPostFn = ({
   title: string;
   content: string;
 }) => instance.put(`/group/${groupId}/post/modify`, { postId, title, content });
+
+export const deletePostFn = ({ groupId, postId }: { groupId: number; postId: number }) =>
+  instance.delete(`/group/${groupId}/post/${postId}`);

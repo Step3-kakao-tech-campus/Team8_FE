@@ -1,25 +1,54 @@
 import React, { useState } from 'react';
 import { Dialog, DialogHeader, DialogBody, DialogFooter, Button, Checkbox } from '@material-tailwind/react';
+import { useMutation } from '@tanstack/react-query';
+import { deletePostFn } from '@apis/postApi';
+import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 interface PostDeleteModalProps {
   title: string;
   isOpen: boolean;
   onClickModal: () => void;
+  groupId: number;
+  postId: number;
+  pageName: string | undefined;
 }
 
 const CONFIRMTEXT = '위의 내용을 확인하였으며 삭제 동의';
 
-const PostDeleteModal = ({ title, isOpen, onClickModal }: PostDeleteModalProps) => {
+const PostDeleteModal = ({ title, isOpen, onClickModal, groupId, postId, pageName }: PostDeleteModalProps) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const handleCheck = () => {
-    setIsChecked((prev) => !prev);
-  };
+  const navigate = useNavigate();
+
+  const { mutate: deletePost } = useMutation({
+    mutationFn: () => deletePostFn({ groupId, postId }),
+    onSuccess: () => {
+      onClickModal();
+      navigate(`${groupId}/${pageName}`, { replace: true });
+    },
+    onError: (error: AxiosError) => {
+      // 에러 처리, 삭제 버튼 위에 tip으로 미리 해당사항 알려주기
+      if (error.response && error.response.status === 400) {
+        console.log('400 error');
+        setErrorMessage('하위문서를 모두 삭제한 후 진행해주세요.');
+      } else {
+        // 그룹 또는 페이지가 없거나 회원이 아니거나 하는 경우 모두 404로 처리
+        alert('잘못된 요청입니다.');
+        onClickModal();
+        navigate('/404', { replace: true });
+      }
+    },
+  });
+
   const handleDeleteClick = () => {
     if (!isChecked) return;
-    onClickModal();
-    // 이부분은 실제 코드 만들때 삭제!
-    handleCheck();
+    deletePost();
+  };
+
+  const handleCheckboxChange = () => {
+    setIsChecked((prev) => !prev);
   };
 
   return (
@@ -34,6 +63,7 @@ const PostDeleteModal = ({ title, isOpen, onClickModal }: PostDeleteModalProps) 
           포스트를 삭제하면 <span className='text-black font-semibold'>복구할 수 없으며</span>,
           <br /> 포스트에 해당하는 <span className='text-black font-semibold'>내용과 히스토리가 모두 삭제</span>됩니다.
         </p>
+        {errorMessage && <p className='text-center text-red-600 mb-2 font-bold bg-red-50 px-2'>{errorMessage}</p>}
         <Checkbox
           label={CONFIRMTEXT}
           ripple={false}
@@ -42,11 +72,19 @@ const PostDeleteModal = ({ title, isOpen, onClickModal }: PostDeleteModalProps) 
           labelProps={{
             className: 'text-gray-600 text-sm',
           }}
-          onClick={handleCheck}
+          checked={isChecked}
+          onChange={handleCheckboxChange}
         />
       </DialogBody>
       <DialogFooter className='pt-0'>
-        <Button variant='text' ripple={false} color='red' onClick={handleDeleteClick} className='mr-1'>
+        <Button
+          variant='filled'
+          ripple={false}
+          color={isChecked ? 'red' : 'gray'}
+          onClick={handleDeleteClick}
+          className='mr-1'
+          disabled={!isChecked}
+        >
           <span>삭제</span>
         </Button>
         <Button variant='filled' ripple={false} onClick={onClickModal}>
