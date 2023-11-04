@@ -49,9 +49,9 @@ const GroupJoinPage = () => {
           <Typography variant='h6'>{groupName}</Typography>
           <p className='text-xs min-w-[400px]'>{introduction}</p>
         </div>
-        {groupType === 'UNOFFICIAL_OPENED' && <UnOfficialOpenedGroup data={data} />}
-        {groupType === 'UNOFFICIAL_CLOSED' && <UnOfficialClosedGroup data={data} />}
-        {groupType === 'OFFICIAL' && <OfficialGroup />}
+        {groupType === 'un_official_opened_group' && <UnOfficialOpenedGroup data={data} />}
+        {groupType === 'un_official_closed_group' && <UnOfficialClosedGroup data={data} />}
+        {groupType === 'official_group' && <OfficialGroup />}
       </div>
     </section>
   );

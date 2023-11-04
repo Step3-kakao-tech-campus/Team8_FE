@@ -21,7 +21,6 @@ const UnOfficialOpenedGroup = ({ data }: { data: GroupDetail }) => {
   const {
     register,
     handleSubmit,
-    setFocus,
     setError,
     getValues,
     formState: { errors, isValid },
@@ -36,7 +35,24 @@ const UnOfficialOpenedGroup = ({ data }: { data: GroupDetail }) => {
     onSuccess: () => {
       navigate(`/${groupId}/${groupName}`, { replace: true });
     },
-    // 중복처리해야함
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        const errorData = error.response?.data.error;
+        const { message, status } = errorData;
+        if (status === 400 && message === '해당 닉네임은 이미 사용중입니다.') {
+          setError(
+            'nickName',
+            {
+              type: 'manual',
+              message,
+            },
+            {
+              shouldFocus: true,
+            },
+          );
+        }
+      }
+    },
   });
   const { mutate: checkPassword } = useMutation({
     mutationFn: (entrancePassword: string) => checkGroupPasswordFn({ groupId, entrancePassword }),
@@ -48,11 +64,16 @@ const UnOfficialOpenedGroup = ({ data }: { data: GroupDetail }) => {
         const errorData = error.response?.data.error;
         const { message, status } = errorData;
         if (status === 400 && message === '비밀번호가 틀렸습니다.') {
-          setFocus('entrancePassword');
-          setError('entrancePassword', {
-            type: 'manual',
-            message: GROUP_PASSWORD_ERROR_MSG,
-          });
+          setError(
+            'entrancePassword',
+            {
+              type: 'manual',
+              message: GROUP_PASSWORD_ERROR_MSG,
+            },
+            {
+              shouldFocus: true,
+            },
+          );
         }
       }
     },

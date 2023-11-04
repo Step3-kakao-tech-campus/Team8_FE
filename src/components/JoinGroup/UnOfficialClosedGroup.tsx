@@ -7,6 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { joinGroupFn } from '@apis/groupApi';
 import { GroupDetail } from '@apis/dto';
 import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
 
 interface nickNameInput {
   nickName: string;
@@ -18,6 +19,7 @@ const UnOfficialClosedGroup = ({ data }: { data: GroupDetail }) => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isValid },
   } = useForm<nickNameInput>({
     defaultValues: {
@@ -29,7 +31,24 @@ const UnOfficialClosedGroup = ({ data }: { data: GroupDetail }) => {
     onSuccess: () => {
       navigate(`/${groupId}/${groupName}`, { replace: true });
     },
-    // 중복처리해야함
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        const errorData = error.response?.data.error;
+        const { message, status } = errorData;
+        if (status === 400 && message === '해당 닉네임은 이미 사용중입니다.') {
+          setError(
+            'nickName',
+            {
+              type: 'manual',
+              message,
+            },
+            {
+              shouldFocus: true,
+            },
+          );
+        }
+      }
+    },
   });
 
   const handleJoin: SubmitHandler<FieldValues> = ({ nickName }) => {
