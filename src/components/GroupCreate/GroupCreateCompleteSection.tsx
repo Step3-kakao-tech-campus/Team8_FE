@@ -20,16 +20,16 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
   // const groupInfo = useRecoilValue(groupCreateInfoState);
   const navigate = useNavigate();
 
-  const { mutateAsync: createPage } = useMutation({
+  const { mutateAsync: createPageMutate } = useMutation({
     mutationFn: createPageFn,
   });
-  const { mutateAsync: createGroup } = useMutation({
+  const { mutateAsync: createGroupMutate } = useMutation({
     mutationFn: fakeCreateGroupFn,
     // mutationFn: () => createGroupFn(groupInfo),
     onSuccess: (response) => {
       setInviteCode(response.inviteCode);
       setGroupId(response.groupId);
-      createPage({ groupId: response.groupId, pageName: response.groupName });
+      createPageMutate({ groupId: response.groupId, pageName: response.groupName });
     },
   });
 
@@ -45,7 +45,7 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
   };
 
   useEffect(() => {
-    createGroup();
+    createGroupMutate();
   }, []);
 
   useEffect(() => {
