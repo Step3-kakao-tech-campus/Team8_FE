@@ -40,7 +40,7 @@ const IndexList = ({ pageId }: IndexListProps) => {
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-          <ul className='p-2 bg-gray-100 text-xs xl:overflow-auto max-h-[65vh] lg:overflow-hidden scroll'>
+          <ul className='p-2 bg-gray-100 text-xs xl:overflow-auto xl:max-h-[65vh] overflow-hidden scroll'>
             {postList.length !== 0 &&
               postList.map((post: Post) => (
                 <li key={uuidv4()} className='m-2 leading-tight overflow-hidden'>
