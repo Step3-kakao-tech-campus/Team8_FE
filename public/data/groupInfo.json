@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "response": {
+    "groupId": 50,
+    "groupName": "비공식공개비번테스트",
+    "groupImage": "",
+    "introduction": "비공식 공개 비번테스트 해볼게요.",
+    "memberCount": 11,
+    "created_at": "2023-11-02T14:31:07.349153",
+    "entranceHint": "정답은 정답",
+    "groupType": "UNOFFICIAL_OPENED"
+  },
+  "error": null
+}
