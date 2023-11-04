@@ -23,3 +23,12 @@ export const fakeCreateGroupFn = () => axios.get('/data/createGroup.json').then(
 export const getGroupMemberFn = (groupId?: string) =>
   instance.get(`${ENDPOINT}/${groupId}/groupMembers`).then(({ data }) => data.response);
 export const fakeGetGroupMemberFn = () => axios.get('/data/groupMembers.json').then(({ data }) => data.response);
+
+export const getGroupMyInfo = (groupId: number) =>
+  instance.get(`${ENDPOINT}/${groupId}/myInfo`).then(({ data }) => data.response);
+
+export const setGroupMyInfo = ({ groupId, newGroupNickName }: { groupId: number; newGroupNickName: string }) =>
+  instance
+    .patch(`${ENDPOINT}/${groupId}/myInfo`, { groupNickName: newGroupNickName })
+    .then(({ data }) => data.response);
+
