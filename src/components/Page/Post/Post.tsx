@@ -10,10 +10,10 @@ import {
 } from 'react-icons/md';
 import { Button, Menu, MenuHandler, MenuList, MenuItem, Typography } from '@material-tailwind/react';
 import Viewer from '@components/Page/Post/Editor/Ckviewer';
-import { comments } from '@dummy/page';
 import CommentList from './CommentList';
 
 interface PostProps {
+  groupId: number;
   postId: number;
   pageId: number;
   pageName: string;
@@ -22,11 +22,11 @@ interface PostProps {
   content: string;
 }
 
-const Post = ({ postId, pageId, pageName, index, postTitle, content }: PostProps) => {
+const Post = ({ groupId, postId, pageId, pageName, index, postTitle, content }: PostProps) => {
+  const [isCommentOpen, setIsCommentOpen] = useState<boolean>(false);
   const commentRef = useRef<HTMLDivElement>(null);
 
   const navigate = useNavigate();
-  const [isCommentOpen, setIsCommentOpen] = useState<boolean>(false);
 
   const handleCommentClick = () => {
     setIsCommentOpen((prev) => !prev);
@@ -91,10 +91,11 @@ const Post = ({ postId, pageId, pageName, index, postTitle, content }: PostProps
       </div>
       <Viewer content={content} />
       <CommentList
+        groupId={groupId}
+        postId={postId}
         commentRef={commentRef}
         isOpen={isCommentOpen}
         onCommentClose={handleCommentClick}
-        comments={comments}
       />
     </article>
   );

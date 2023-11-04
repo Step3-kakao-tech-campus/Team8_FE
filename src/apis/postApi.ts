@@ -32,3 +32,10 @@ export const modifyPostFn = ({
 
 export const deletePostFn = ({ groupId, postId }: { groupId: number; postId: number }) =>
   instance.delete(`/group/${groupId}/post/${postId}`);
+
+// 댓글
+export const getCommentsFn = ({ groupId, postId }: { groupId: number; postId: number }) =>
+  instance.get(`/group/${groupId}/post/${postId}/comment?page=1`);
+
+export const createCommentFn = ({ groupId, postId, content }: { groupId: number; postId: number; content: string }) =>
+  instance.post(`/group/${groupId}/post/${postId}/comment`, { content });

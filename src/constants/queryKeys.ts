@@ -6,6 +6,11 @@ export const PAGE_KEYS = {
   indexList: ({ groupId, pageId }: { groupId: number; pageId: number }) => ['indexList', { groupId, pageId }] as const,
 };
 
+export const COMMENT_KEYS = {
+  commentList: ({ groupId, postId }: { groupId: number; postId: number }) =>
+    ['commentList', { groupId, postId }] as const,
+};
+
 export const MAIN_KEYS = {
   main: ['main'],
 };
