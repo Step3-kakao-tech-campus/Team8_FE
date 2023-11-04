@@ -22,9 +22,6 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
 
   const { mutateAsync: createPage } = useMutation({
     mutationFn: createPageFn,
-    onSuccess: () => {
-      navigate(`/${groupId}/${groupName}`, { replace: true });
-    },
   });
   const { mutateAsync: createGroup } = useMutation({
     mutationFn: fakeCreateGroupFn,
