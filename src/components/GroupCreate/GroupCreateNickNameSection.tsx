@@ -1,20 +1,47 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Input, Typography } from '@material-tailwind/react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { groupCreateInfoState, groupImageFileState } from '@recoil/atoms/group';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { GROUP_NICKNAME_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
+import { GROUP_NICKNAME_PATTERN } from '@constants/validationPatterns';
+import getImageUrl from '@apis/image';
 
 interface onNextStepProps {
   onNextStep: () => void;
 }
 
+interface groupNickNameInput {
+  groupNickName: string;
+}
+
 const GroupCreateNickNameSection = ({ onNextStep }: onNextStepProps) => {
-  const [inputCount, setInputCount] = useState(8);
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputCount(8 - e.target.value.length);
-  };
-  const handleNextStep = () => {
-    // TODO: 닉네임 조건 체크
-    if (inputCount >= 0) {
-      onNextStep();
+  const [groupInfo, setGroupInfo] = useRecoilState(groupCreateInfoState);
+  const groupImageFile = useRecoilValue(groupImageFileState);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<groupNickNameInput>({
+    defaultValues: {
+      groupNickName: groupInfo.groupNickName,
+    },
+  });
+
+  const handleNextStep: SubmitHandler<FieldValues> = async ({ groupNickName }) => {
+    // TODO: 닉네임 중복 체크
+    if (!isValid) return;
+
+    setGroupInfo((prev) => ({ ...prev, groupNickName }));
+    if (groupImageFile !== undefined) {
+      try {
+        const imageUrl = await getImageUrl(groupImageFile);
+        setGroupInfo((prev) => ({ ...prev, groupImage: imageUrl }));
+      } catch (error) {
+        console.log(error);
+      }
     }
+    onNextStep();
   };
   return (
     <section className='space-y-10'>
@@ -24,20 +51,32 @@ const GroupCreateNickNameSection = ({ onNextStep }: onNextStepProps) => {
         </Typography>
         <Typography variant='paragraph'>닉네임은 2자 이상 8자 이하의 한글, 숫자 또는 영어로 구성해주세요.</Typography>
       </div>
-      <div className='flex gap-2 flex-wrap'>
-        <Input
-          size='md'
-          label='닉네임'
-          containerProps={{ className: 'max-w-md' }}
-          crossOrigin=''
-          icon={inputCount > 0 && <span className='text-sm'>{inputCount}</span>}
-          onChange={onInputChange}
-          error={inputCount < 0}
-        />
-        <Button onClick={handleNextStep}>확인</Button>
-      </div>
-      {/* TODO: 조건에 따른 안내 메세지 수정 필요 */}
-      {inputCount < 0 && <p className='text-red-500 !mt-3 px-2 text-sm'>조건을 확인해주세요.</p>}
+      <form className='flex gap-2' onSubmit={handleSubmit(handleNextStep)}>
+        <div className='grow'>
+          <Input
+            size='md'
+            label='닉네임'
+            containerProps={{ className: 'max-w-md' }}
+            crossOrigin=''
+            {...register('groupNickName', {
+              required: REQUIRE_ERROR_MSG,
+              minLength: 2,
+              maxLength: 8,
+              pattern: GROUP_NICKNAME_PATTERN,
+            })}
+          />
+          {errors.groupNickName && (
+            <p className='text-xs mt-1 mx-1 flex items-center text-error'>
+              {errors.groupNickName.message ? REQUIRE_ERROR_MSG : GROUP_NICKNAME_ERROR_MSG}
+            </p>
+          )}
+        </div>
+        <div>
+          <Button ripple={false} type='submit'>
+            확인
+          </Button>
+        </div>
+      </form>
     </section>
   );
 };

@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import AUTH_KEYS from '@constants/recoilKeys';
+import { AUTH_KEYS } from '@constants/recoilKeys';
 
 const { persistAtom } = recoilPersist();
 

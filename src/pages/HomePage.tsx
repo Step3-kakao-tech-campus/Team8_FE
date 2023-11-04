@@ -5,7 +5,8 @@ import OfficialGroup from '@components/Home/OfficialGroup';
 import GroupList from '@components/Home/GroupList';
 import { ReactComponent as Logo } from '@assets/images/logo/logo.svg';
 import SearchInput from '@components/Common/SearchInput';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { groupCreateInfoState, groupImageFileState } from '@recoil/atoms/group';
 import tokenState from '@recoil/atoms/auth';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -14,11 +15,28 @@ import { getGroupListFn } from '@apis/mainApi';
 import { MainGroups } from '@apis/dto';
 
 const titleStyle = 'font-bold text-lg mb-4 mt-20';
+const defaultGroupInfo = {
+  groupType: 'UNOFFICIAL_OPENED' as 'UNOFFICIAL_OPENED' | 'UNOFFICIAL_CLOSED',
+  groupName: '' as string,
+  groupImage: '' as string,
+  groupNickName: '' as string,
+  introduction: '' as string,
+  entranceHint: '' as string,
+  entrancePassword: '' as string,
+};
 
 const HomePage = () => {
-  const isLoggedIn = Boolean(useRecoilValue(tokenState));
   const navigate = useNavigate();
+  const setGroupInfo = useSetRecoilState(groupCreateInfoState);
+  const setGroupImageFile = useSetRecoilState(groupImageFileState);
+  const isLoggedIn = Boolean(useRecoilValue(tokenState));
   const { data: groupList } = useQuery<MainGroups>({ queryKey: MAIN_KEYS.main, queryFn: getGroupListFn });
+
+  const handleCreateClick = () => {
+    navigate('/groupCreate');
+    setGroupInfo(defaultGroupInfo);
+    setGroupImageFile(undefined);
+  };
 
   return (
     <main>
@@ -37,7 +55,7 @@ const HomePage = () => {
           <section>
             <div className='flex justify-between items-baseline'>
               <h2 className={titleStyle}>내 그룹</h2>
-              <Button className='rounded h-8' size='sm' onClick={() => navigate('/groupCreate')}>
+              <Button className='rounded h-8' size='sm' onClick={handleCreateClick}>
                 그룹 생성
               </Button>
             </div>
