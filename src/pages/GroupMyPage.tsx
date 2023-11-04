@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Input } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ContributeList from '@components/MyPage/ContributeList';
@@ -8,35 +8,78 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { GROUP_KEYS } from '@constants/queryKeys';
 import { getGroupMyInfo, setGroupMyInfo } from '@apis/groupApi';
 import { queryClient } from '@apis/queryClient';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { REQUIRE_ERROR_MSG, GROUP_NICKNAME_ERROR_MSG } from '@constants/errorMsg';
+import { GROUP_NICKNAME_PATTERN } from '@constants/validationPatterns';
+import { AxiosError } from 'axios';
+
+interface nickNameInput {
+  nickName: string;
+}
 
 const GroupMyPage = () => {
   const navigate = useNavigate();
   const { groupId } = useParams() as { groupId: string };
-  const [nickName, setNickName] = useState('');
+  const [nowNickName, setNowNickName] = useState<string>('');
   const [isNickNameChanging, setIsNickNameChanging] = useState<boolean>(false);
   const quitModal = useModal();
   const { data: groupMyInfo, isLoading } = useQuery({
     queryKey: GROUP_KEYS.groupMyInfo({ groupId }),
     queryFn: () => getGroupMyInfo(groupId),
   });
-  const { mutate: setGroupMyInfoMutate } = useMutation({
-    mutationFn: () => setGroupMyInfo({ groupId, newGroupNickName: nickName }),
-    onSuccess: () => {
-      queryClient.invalidateQueries(GROUP_KEYS.groupMyInfo({ groupId }));
+  const {
+    register,
+    handleSubmit,
+    setError,
+    setValue,
+    formState: { errors, isValid },
+  } = useForm<nickNameInput>({
+    defaultValues: {
+      nickName: '',
     },
   });
 
-  const handleNickName = (e: ChangeEvent<HTMLInputElement>) => {
-    setNickName(e.target.value);
-  };
-  const handleNickNameChage = () => {
+  const { mutate: setGroupMyInfoMutate } = useMutation({
+    mutationFn: (nickName: string) => setGroupMyInfo({ groupId, newGroupNickName: nickName }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(GROUP_KEYS.groupMyInfo({ groupId }));
+      setIsNickNameChanging(false);
+    },
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        const errorData = error.response?.data.error;
+        const { message, status } = errorData;
+        if (status === 400 && message === '해당 닉네임은 이미 사용중입니다.') {
+          setError(
+            'nickName',
+            {
+              type: 'manual',
+              message,
+            },
+            {
+              shouldFocus: true,
+            },
+          );
+        }
+      }
+    },
+  });
+  const handleChangeClick = () => {
+    if (isNickNameChanging) {
+      setValue('nickName', nowNickName);
+    }
     setIsNickNameChanging((prev) => !prev);
-    setGroupMyInfoMutate();
+  };
+  const handleNickNameChange: SubmitHandler<FieldValues> = ({ nickName }) => {
+    if (!isValid) return;
+
+    setGroupMyInfoMutate(nickName);
   };
 
   useEffect(() => {
     if (groupMyInfo) {
-      setNickName(groupMyInfo.groupNickName);
+      setValue('nickName', groupMyInfo.groupNickName);
+      setNowNickName(groupMyInfo.groupNickName);
     }
   }, [groupMyInfo]);
 
@@ -54,39 +97,48 @@ const GroupMyPage = () => {
         </div>
         <div className='flex items-center mt-10'>
           <span className='font-extrabold w-40'>그룹 닉네임</span>
-          <div className='flex items-center grow'>
-            <Input
-              type='text'
-              label='그룹 닉네임'
-              crossOrigin=''
-              disabled={!isNickNameChanging}
-              value={nickName}
-              placeholder='그룹 닉네임'
-              className='!border !border-t-blue-gray-20 !border-gray-400 text-gray-900 rounded-sm placeholder:text-gray-500 focus:!border-gray-900'
-              labelProps={{
-                className: 'hidden',
-              }}
-              containerProps={{ className: 'min-w-[100px] max-w-[240px]' }}
-              onChange={handleNickName}
-            />
+          <form className='flex items-center grow' onSubmit={handleSubmit(handleNickNameChange)}>
+            <div>
+              <Input
+                type='text'
+                label='닉네임'
+                className='!border !border-t-blue-gray-20 !border-gray-400 text-gray-900 rounded-sm placeholder:text-gray-500 focus:!border-gray-900'
+                containerProps={{ className: 'min-w-[100px] max-w-[240px]' }}
+                labelProps={{
+                  className: 'hidden',
+                }}
+                crossOrigin=''
+                disabled={!isNickNameChanging}
+                {...register('nickName', {
+                  required: REQUIRE_ERROR_MSG,
+                  minLength: 2,
+                  maxLength: 8,
+                  pattern: GROUP_NICKNAME_PATTERN,
+                })}
+              />
+              {errors.nickName && (
+                <p className='text-xs mt-1 mx-1 flex items-center text-error'>
+                  {errors.nickName.message ? REQUIRE_ERROR_MSG : GROUP_NICKNAME_ERROR_MSG}
+                </p>
+              )}
+            </div>
             {isNickNameChanging ? (
               <>
-                {/* 취소, 변경처리는 api되면 생각해보기로.. */}
                 <Button
                   variant='outlined'
                   color='gray'
                   className='ml-4 rounded-sm py-[11px] whitespace-nowrap'
-                  onClick={handleNickNameChage}
+                  onClick={handleChangeClick}
                 >
                   취소
                 </Button>
                 <Button
+                  type='submit'
                   variant='outlined'
                   color='gray'
                   className='ml-2 rounded-sm py-[11px] whitespace-nowrap'
-                  onClick={handleNickNameChage}
                 >
-                  변경하기
+                  확인
                 </Button>
               </>
             ) : (
@@ -94,12 +146,12 @@ const GroupMyPage = () => {
                 variant='outlined'
                 color='gray'
                 className='ml-4 rounded-sm py-[11px] whitespace-nowrap'
-                onClick={handleNickNameChage}
+                onClick={handleChangeClick}
               >
                 변경하기
               </Button>
             )}
-          </div>
+          </form>
         </div>
       </section>
       <section className='p-4 mt-4'>
