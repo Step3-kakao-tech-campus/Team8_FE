@@ -33,6 +33,7 @@ const GroupMyPage = () => {
     handleSubmit,
     setError,
     setValue,
+    clearErrors,
     formState: { errors, isValid },
   } = useForm<NickNameInput>({
     defaultValues: {
@@ -68,6 +69,7 @@ const GroupMyPage = () => {
   const handleChangeClick = () => {
     if (isNickNameChanging) {
       setValue('nickName', nowNickName);
+      clearErrors();
     }
     setIsNickNameChanging((prev) => !prev);
   };
@@ -99,7 +101,7 @@ const GroupMyPage = () => {
         <div className='flex items-center mt-10'>
           <span className='font-extrabold w-40'>그룹 닉네임</span>
           <form className='flex items-center grow' onSubmit={handleSubmit(handleNickNameChange)}>
-            <div>
+            <div className='relative'>
               <Input
                 type='text'
                 label='닉네임'
@@ -118,7 +120,7 @@ const GroupMyPage = () => {
                 })}
               />
               {errors.nickName && (
-                <p className='text-xs mt-1 mx-1 flex items-center text-error'>
+                <p className='absolute text-xs mt-1 mx-1 flex items-center text-error'>
                   {errors.nickName.message ? REQUIRE_ERROR_MSG : GROUP_NICKNAME_ERROR_MSG}
                 </p>
               )}
@@ -128,7 +130,7 @@ const GroupMyPage = () => {
                 <Button
                   variant='outlined'
                   color='gray'
-                  className='ml-4 rounded-sm py-[11px] whitespace-nowrap'
+                  className='ml-4 rounded-sm py-[11px] whitespace-nowrap hover:opacity-100'
                   onClick={handleChangeClick}
                 >
                   취소
@@ -137,7 +139,7 @@ const GroupMyPage = () => {
                   type='submit'
                   variant='outlined'
                   color='gray'
-                  className='ml-2 rounded-sm py-[11px] whitespace-nowrap'
+                  className='ml-2 rounded-sm py-[11px] whitespace-nowrap hover:opacity-100'
                 >
                   확인
                 </Button>
@@ -146,7 +148,7 @@ const GroupMyPage = () => {
               <Button
                 variant='outlined'
                 color='gray'
-                className='ml-4 rounded-sm py-[11px] whitespace-nowrap'
+                className='ml-4 rounded-sm py-[11px] whitespace-nowrap hover:opacity-100'
                 onClick={handleChangeClick}
               >
                 변경하기
