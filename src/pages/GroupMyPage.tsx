@@ -13,19 +13,20 @@ import { REQUIRE_ERROR_MSG, GROUP_NICKNAME_ERROR_MSG } from '@constants/errorMsg
 import { GROUP_NICKNAME_PATTERN } from '@constants/validationPatterns';
 import { AxiosError } from 'axios';
 
-interface nickNameInput {
+interface NickNameInput {
   nickName: string;
 }
 
 const GroupMyPage = () => {
   const navigate = useNavigate();
   const { groupId } = useParams() as { groupId: string };
+  const numGroupId = Number(groupId);
   const [nowNickName, setNowNickName] = useState<string>('');
   const [isNickNameChanging, setIsNickNameChanging] = useState<boolean>(false);
   const quitModal = useModal();
   const { data: groupMyInfo, isLoading } = useQuery({
-    queryKey: GROUP_KEYS.groupMyInfo({ groupId }),
-    queryFn: () => getGroupMyInfo(groupId),
+    queryKey: GROUP_KEYS.groupMyInfo({ groupId: numGroupId }),
+    queryFn: () => getGroupMyInfo(numGroupId),
   });
   const {
     register,
@@ -33,16 +34,16 @@ const GroupMyPage = () => {
     setError,
     setValue,
     formState: { errors, isValid },
-  } = useForm<nickNameInput>({
+  } = useForm<NickNameInput>({
     defaultValues: {
       nickName: '',
     },
   });
 
   const { mutate: setGroupMyInfoMutate } = useMutation({
-    mutationFn: (nickName: string) => setGroupMyInfo({ groupId, newGroupNickName: nickName }),
+    mutationFn: (nickName: string) => setGroupMyInfo({ groupId: numGroupId, newGroupNickName: nickName }),
     onSuccess: () => {
-      queryClient.invalidateQueries(GROUP_KEYS.groupMyInfo({ groupId }));
+      queryClient.invalidateQueries(GROUP_KEYS.groupMyInfo({ groupId: numGroupId }));
       setIsNickNameChanging(false);
     },
     onError: (error) => {
