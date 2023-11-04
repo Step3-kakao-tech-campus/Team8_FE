@@ -24,5 +24,8 @@ export const getGroupInfoFn = (groupId: string) =>
   instance.get(`${ENDPOINT}/search/${groupId}`).then(({ data }) => data.response);
 export const fakeGetGroupInfoFn = () => axios.get('/data/groupInfo.json').then(({ data }) => data.response);
 
-export const checkGroupPassword = ({ groupId, entrancePassword }: { groupId: number; entrancePassword: string }) =>
+export const checkGroupPasswordFn = ({ groupId, entrancePassword }: { groupId: number; entrancePassword: string }) =>
   instance.post(`${ENDPOINT}/${groupId}/entry`, { entrancePassword });
+
+export const joinGroupFn = ({ groupId, nickName }: { groupId: number; nickName: string }) =>
+  instance.post(`${ENDPOINT}/${groupId}/join`, { nickName });

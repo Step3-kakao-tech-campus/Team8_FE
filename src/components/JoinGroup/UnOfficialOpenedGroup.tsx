@@ -4,12 +4,14 @@ import DividerWithText from '@components/Common/DividerWithText';
 import { Button, Input, Typography } from '@material-tailwind/react';
 import { GroupDetail } from '@apis/dto';
 import { useNavigate } from 'react-router-dom';
-import { GROUP_PASSWORD_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
+import { GROUP_NICKNAME_ERROR_MSG, GROUP_PASSWORD_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
 import { useMutation } from '@tanstack/react-query';
-import { checkGroupPassword } from '@apis/groupApi';
+import { checkGroupPasswordFn, joinGroupFn } from '@apis/groupApi';
 import { AxiosError } from 'axios';
+import { GROUP_NICKNAME_PATTERN } from '@constants/validationPatterns';
 
 interface entrancePasswordInput {
+  nickName: string;
   entrancePassword: string;
 }
 
@@ -21,19 +23,27 @@ const UnOfficialOpenedGroup = ({ data }: { data: GroupDetail }) => {
     handleSubmit,
     setFocus,
     setError,
+    getValues,
     formState: { errors, isValid },
   } = useForm<entrancePasswordInput>({
     defaultValues: {
+      nickName: '',
       entrancePassword: '',
     },
   });
-  const { mutate: checkPassword } = useMutation({
-    mutationFn: (entrancePassword: string) => checkGroupPassword({ groupId, entrancePassword }),
+  const { mutate: joinGroup } = useMutation({
+    mutationFn: () => joinGroupFn({ groupId, nickName: getValues('nickName') }),
     onSuccess: () => {
       navigate(`/${groupId}/${groupName}`, { replace: true });
     },
+    // 중복처리해야함
+  });
+  const { mutate: checkPassword } = useMutation({
+    mutationFn: (entrancePassword: string) => checkGroupPasswordFn({ groupId, entrancePassword }),
+    onSuccess: () => {
+      joinGroup();
+    },
     onError: (error) => {
-      console.log(error);
       if (error instanceof AxiosError) {
         const errorData = error.response?.data.error;
         const { message, status } = errorData;
@@ -60,7 +70,29 @@ const UnOfficialOpenedGroup = ({ data }: { data: GroupDetail }) => {
         <Typography variant='h6' className='text-sm mb-3 mt-6'>
           Q. {entranceHint}
         </Typography>
-        <form className='relative flex w-full' onSubmit={handleSubmit(handleSendMail)}>
+        <form className='flex flex-col gap-4 w-full' onSubmit={handleSubmit(handleSendMail)}>
+          <div className='w-full'>
+            <Input
+              type='text'
+              label='닉네임'
+              className=''
+              containerProps={{
+                className: 'min-w-0 w-full',
+              }}
+              crossOrigin=''
+              {...register('nickName', {
+                required: REQUIRE_ERROR_MSG,
+                minLength: 2,
+                maxLength: 8,
+                pattern: GROUP_NICKNAME_PATTERN,
+              })}
+            />
+            {errors.nickName && (
+              <p className='text-xs mt-1 mx-1 flex items-center text-error'>
+                {errors.nickName.message ? REQUIRE_ERROR_MSG : GROUP_NICKNAME_ERROR_MSG}
+              </p>
+            )}
+          </div>
           <div className='w-full'>
             <Input
               type='text'
@@ -78,7 +110,7 @@ const UnOfficialOpenedGroup = ({ data }: { data: GroupDetail }) => {
               <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.entrancePassword.message}</p>
             )}
           </div>
-          <Button type='submit' size='sm' className='!absolute right-1 top-1 rounded'>
+          <Button type='submit' className='rounded'>
             가입하기
           </Button>
         </form>

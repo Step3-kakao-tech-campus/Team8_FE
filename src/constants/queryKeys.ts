@@ -13,6 +13,7 @@ export const GROUP_KEYS = {
   groupSearch: ({ keyword }: { keyword: string }) => ['groupSearch', keyword] as const,
   groupInfo: ({ groupId }: { groupId: string }) => ['joinGroupInfo', groupId] as const,
   groupPassword: ({ groupId }: { groupId: string }) => ['groupPassword', groupId] as const,
+  groupJoin: ({ groupId }: { groupId: number }) => ['groupJoin', groupId] as const,
 };
 
 export const AUTH_KEYS = {
