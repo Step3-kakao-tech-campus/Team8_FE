@@ -3,6 +3,7 @@ export const PAGE_KEYS = {
   recentChangeList: ({ groupId }: { groupId: number }) => ['recentChangeList', { groupId }] as const,
   searchKeyword: ({ groupId, keyword }: { groupId: number; keyword: string }) =>
     ['searchKeyword', { groupId, keyword }] as const,
+  indexList: ({ groupId, pageId }: { groupId: number; pageId: number }) => ['indexList', { groupId, pageId }] as const,
 };
 
 export const MAIN_KEYS = {
