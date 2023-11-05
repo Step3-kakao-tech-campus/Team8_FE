@@ -5,7 +5,7 @@ import QuitModal from '@components/Modal/QuitModal';
 import useModal from '@hooks/useModal';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { GROUP_KEYS } from '@constants/queryKeys';
-import { getGroupMyInfo, setGroupMyInfo } from '@apis/groupApi';
+import { getGroupMyInfoFn, setGroupMyInfoFn } from '@apis/groupApi';
 import { queryClient } from '@apis/queryClient';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { AxiosError } from 'axios';
@@ -25,7 +25,7 @@ const GroupMyPage = () => {
   const quitModal = useModal();
   const { data: groupMyInfo, isLoading } = useQuery({
     queryKey: GROUP_KEYS.groupMyInfo({ groupId: numGroupId }),
-    queryFn: () => getGroupMyInfo(numGroupId),
+    queryFn: () => getGroupMyInfoFn(numGroupId),
   });
   const {
     register,
@@ -42,7 +42,7 @@ const GroupMyPage = () => {
   });
 
   const { mutate: setGroupMyInfoMutate } = useMutation({
-    mutationFn: (nickName: string) => setGroupMyInfo({ groupId: numGroupId, newGroupNickName: nickName }),
+    mutationFn: (nickName: string) => setGroupMyInfoFn({ groupId: numGroupId, newGroupNickName: nickName }),
     onSuccess: () => {
       queryClient.invalidateQueries(GROUP_KEYS.groupMyInfo({ groupId: numGroupId }));
       setIsNickNameChanging(false);

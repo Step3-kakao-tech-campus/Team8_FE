@@ -30,10 +30,10 @@ export const joinGroupFn = ({ groupId, nickName }: { groupId: number; nickName: 
 export const getGroupMemberFn = (groupId: number) =>
   instance.get(`${ENDPOINT}/${groupId}/groupMembers`).then(({ data }) => data.response);
 
-export const getGroupMyInfo = (groupId: number) =>
+export const getGroupMyInfoFn = (groupId: number) =>
   instance.get(`${ENDPOINT}/${groupId}/myInfo`).then(({ data }) => data.response);
 
-export const setGroupMyInfo = ({ groupId, newGroupNickName }: { groupId: number; newGroupNickName: string }) =>
+export const setGroupMyInfoFn = ({ groupId, newGroupNickName }: { groupId: number; newGroupNickName: string }) =>
   instance
     .patch(`${ENDPOINT}/${groupId}/myInfo`, { groupNickName: newGroupNickName })
     .then(({ data }) => data.response);
