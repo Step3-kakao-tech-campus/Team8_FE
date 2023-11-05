@@ -11,6 +11,7 @@ import useModal from '@hooks/useModal';
 
 const HeaderMenu = () => {
   const { groupId } = useParams();
+  console.log(groupId);
   const navigate = useNavigate();
   const setToken = useSetRecoilState(tokenState);
 
