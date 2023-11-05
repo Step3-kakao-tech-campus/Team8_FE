@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createCommentFn, getCommentsFn } from '@apis/postApi';
 import { COMMENT_KEYS } from '@constants/queryKeys';
+import { queryClient } from '@apis/queryClient';
 import Comment from './Comment';
 
 interface Comment {
@@ -37,12 +38,13 @@ const CommentList = ({ groupId, postId, commentRef, isOpen, onCommentClose }: Co
     mutationFn: createCommentFn,
     onSuccess: () => {
       setText('');
+      queryClient.invalidateQueries(COMMENT_KEYS.commentList({ groupId, postId }));
     },
   });
 
-  const handleCreateComment = () => {
+  const handleCreateComment = async () => {
     if (!text) return;
-    createComment({ groupId, postId, content: text });
+    await createComment({ groupId, postId, content: text });
   };
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -57,13 +59,20 @@ const CommentList = ({ groupId, postId, commentRef, isOpen, onCommentClose }: Co
       <button type='button' className='absolute top-4 right-4' onClick={onCommentClose}>
         <MdOutlineKeyboardArrowUp className='text-xl' />
       </button>
-      <p className='pt-4 pl-4 font-bold border-t'>댓글 {comments.length}</p>
+
       {!isLoading && (
-        <ul className='flex flex-col gap-5 p-4'>
-          {comments.map((comment: Comment) => (
-            <Comment key={uuidv4()} comment={comment} />
-          ))}
-        </ul>
+        <div>
+          <p className='pt-4 pl-4 font-bold border-t'>댓글 {comments.length}</p>
+          {comments.length === 0 ? (
+            <p className='p-4 text-center text-gray-400'>댓글이 없습니다.</p>
+          ) : (
+            <ul className='flex flex-col gap-5 p-4'>
+              {comments.map((comment: Comment) => (
+                <Comment key={uuidv4()} comment={comment} />
+              ))}
+            </ul>
+          )}
+        </div>
       )}
 
       <div className='relative flex gap-3 p-4 border-t'>
