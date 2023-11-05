@@ -16,6 +16,17 @@ interface CommentProps {
   // isMyComment: boolean;
 }
 
+const getRandomColor = () => {
+  const baseColor = [105, 149, 199];
+  const range = 30;
+
+  const r = baseColor[0] + Math.floor(Math.random() * range);
+  const g = baseColor[1] + Math.floor(Math.random() * range);
+  const b = baseColor[2] + Math.floor(Math.random() * range);
+
+  return `rgba(${r}, ${g}, ${b}, 0.1)`;
+};
+
 const Comment = ({
   comment: { commentId, nickName, content, createdAt },
   groupId,
@@ -52,6 +63,8 @@ const Comment = ({
     e.target.style.height = 'auto';
     e.target.style.height = `${e.target.scrollHeight}px`;
   };
+
+  const randomBackgroundColor = getRandomColor();
 
   return (
     <li className={`flex flex-col gap-1 list-none ${isModify ? 'w-full' : 'w-fit'}`}>
@@ -111,7 +124,12 @@ const Comment = ({
           />
         </div>
       ) : (
-        <Typography className='p-3 text-sm font-normal bg-gray-100 border rounded-lg'>{content}</Typography>
+        <Typography
+          className='p-3 text-sm font-normal bg-gray-100 border rounded-lg'
+          style={{ backgroundColor: randomBackgroundColor }}
+        >
+          {content}
+        </Typography>
       )}
       <ConfirmCancelModal
         isOpen={modifyModal.isOpen}
