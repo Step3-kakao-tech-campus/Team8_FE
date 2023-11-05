@@ -8,10 +8,9 @@ import { GROUP_KEYS } from '@constants/queryKeys';
 import { getGroupMyInfo, setGroupMyInfo } from '@apis/groupApi';
 import { queryClient } from '@apis/queryClient';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { REQUIRE_ERROR_MSG, GROUP_NICKNAME_ERROR_MSG } from '@constants/errorMsg';
-import { GROUP_NICKNAME_PATTERN } from '@constants/validationPatterns';
 import { AxiosError } from 'axios';
 import ContributeAccordion from '@components/MyPage/ContributeAccordion';
+import { getNickNameError, nickNameRegister } from '@utils/Form/nickName';
 
 interface NickNameInput {
   nickName: string;
@@ -34,6 +33,7 @@ const GroupMyPage = () => {
     setError,
     setValue,
     clearErrors,
+    setFocus,
     formState: { errors, isValid },
   } = useForm<NickNameInput>({
     defaultValues: {
@@ -51,12 +51,13 @@ const GroupMyPage = () => {
       if (error instanceof AxiosError) {
         const errorData = error.response?.data.error;
         const { message, status } = errorData;
-        if (status === 400 && message === '해당 닉네임은 이미 사용중입니다.') {
+        if (status === 400) {
+          const { type, errorMsg } = getNickNameError(message);
           setError(
             'nickName',
             {
-              type: 'manual',
-              message,
+              type,
+              message: errorMsg,
             },
             {
               shouldFocus: true,
@@ -67,11 +68,11 @@ const GroupMyPage = () => {
     },
   });
   const handleChangeClick = () => {
+    setIsNickNameChanging((prev) => !prev);
     if (isNickNameChanging) {
       setValue('nickName', nowNickName);
       clearErrors();
     }
-    setIsNickNameChanging((prev) => !prev);
   };
   const handleNickNameChange: SubmitHandler<FieldValues> = ({ nickName }) => {
     if (!isValid) return;
@@ -85,6 +86,12 @@ const GroupMyPage = () => {
       setNowNickName(groupMyInfo.groupNickName);
     }
   }, [groupMyInfo]);
+
+  useEffect(() => {
+    if (isNickNameChanging) {
+      setFocus('nickName');
+    }
+  }, [isNickNameChanging]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -112,17 +119,10 @@ const GroupMyPage = () => {
                 }}
                 crossOrigin=''
                 disabled={!isNickNameChanging}
-                {...register('nickName', {
-                  required: REQUIRE_ERROR_MSG,
-                  minLength: 2,
-                  maxLength: 8,
-                  pattern: GROUP_NICKNAME_PATTERN,
-                })}
+                {...register('nickName', nickNameRegister)}
               />
               {errors.nickName && (
-                <p className='absolute text-xs mt-1 mx-1 flex items-center text-error'>
-                  {errors.nickName.message ? REQUIRE_ERROR_MSG : GROUP_NICKNAME_ERROR_MSG}
-                </p>
+                <p className='absolute text-xs mt-1 mx-1 flex items-center text-error'>{errors.nickName.message}</p>
               )}
             </div>
             {isNickNameChanging ? (
