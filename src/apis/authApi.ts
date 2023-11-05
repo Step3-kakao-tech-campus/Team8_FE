@@ -23,3 +23,6 @@ export const passwordChangeFn = ({ currentPassword, newPassword }: { currentPass
   instance.patch(`${ENDPOINT}/password/change`, { currentPassword, newPassword });
 
 export const getMyInfoFn = () => instance.get(`${ENDPOINT}/myinfo`).then(({ data }) => data.response);
+
+export const nickNameChangeFn = ({ newNickName }: { newNickName: string }) =>
+  instance.patch(`${ENDPOINT}/changename`, { newNickName });
