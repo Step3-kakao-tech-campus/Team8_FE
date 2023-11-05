@@ -72,7 +72,7 @@ const UnOfficialOpenedGroup = ({ data }: { data: GroupDetail }) => {
           setError(
             'entrancePassword',
             {
-              type: 'manual',
+              type: 'wrong',
               message: GROUP_PASSWORD_ERROR_MSG,
             },
             {

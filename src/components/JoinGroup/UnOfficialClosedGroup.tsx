@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Input } from '@material-tailwind/react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { GROUP_NICKNAME_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
+import { GROUP_EXIST_NICKNAME_ERROR_MSG, GROUP_NICKNAME_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
 import { GROUP_NICKNAME_PATTERN } from '@constants/validationPatterns';
 import { useMutation } from '@tanstack/react-query';
 import { joinGroupFn } from '@apis/groupApi';
@@ -39,8 +39,8 @@ const UnOfficialClosedGroup = ({ data }: { data: GroupDetail }) => {
           setError(
             'nickName',
             {
-              type: 'manual',
-              message,
+              type: 'exist',
+              message: GROUP_EXIST_NICKNAME_ERROR_MSG,
             },
             {
               shouldFocus: true,
@@ -69,16 +69,18 @@ const UnOfficialClosedGroup = ({ data }: { data: GroupDetail }) => {
           crossOrigin=''
           {...register('nickName', {
             required: REQUIRE_ERROR_MSG,
-            minLength: 2,
-            maxLength: 8,
+            minLength: {
+              value: 2,
+              message: GROUP_NICKNAME_ERROR_MSG,
+            },
+            maxLength: {
+              value: 8,
+              message: GROUP_NICKNAME_ERROR_MSG,
+            },
             pattern: GROUP_NICKNAME_PATTERN,
           })}
         />
-        {errors.nickName && (
-          <p className='text-xs mt-1 mx-1 flex items-center text-error'>
-            {errors.nickName.message ? REQUIRE_ERROR_MSG : GROUP_NICKNAME_ERROR_MSG}
-          </p>
-        )}
+        {errors.nickName && <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.nickName.message}</p>}
       </div>
       <Button type='submit'>가입하기</Button>
     </form>
