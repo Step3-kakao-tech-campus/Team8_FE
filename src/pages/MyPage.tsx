@@ -19,7 +19,7 @@ const MyPage = () => {
     setNickName(e.target.value);
   };
 
-  const handleNickNameChange = () => {
+  const handleIsNickNameChanging = () => {
     setIsNickNameChanging((prev) => !prev);
   };
 
@@ -58,7 +58,7 @@ const MyPage = () => {
                   variant='outlined'
                   color='gray'
                   className='ml-4 rounded-sm py-[11px] whitespace-nowrap hover:opacity-100'
-                  onClick={handleNickNameChange}
+                  onClick={handleIsNickNameChanging}
                 >
                   취소
                 </Button>
@@ -66,7 +66,7 @@ const MyPage = () => {
                   variant='outlined'
                   color='gray'
                   className='ml-2 rounded-sm py-[11px] whitespace-nowrap hover:opacity-100'
-                  onClick={handleNickNameChange}
+                  onClick={handleIsNickNameChanging}
                 >
                   변경하기
                 </Button>
@@ -76,7 +76,7 @@ const MyPage = () => {
                 variant='outlined'
                 color='gray'
                 className='ml-4 rounded-sm py-[11px] whitespace-nowrap'
-                onClick={handleNickNameChange}
+                onClick={handleIsNickNameChanging}
               >
                 변경하기
               </Button>
