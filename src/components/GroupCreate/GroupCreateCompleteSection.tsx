@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Alert, Button, Input, Typography } from '@material-tailwind/react';
 import { MdContentCopy } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import { fakeCreateGroupFn } from '@apis/groupApi';
-// import { createGroupFn } from '@apis/groupApi';
-// import { useRecoilValue } from 'recoil';
-// import { groupCreateInfoState } from '@recoil/atoms/group';
+import { createGroupFn } from '@apis/groupApi';
+import { useRecoilValue } from 'recoil';
+import { groupCreateInfoState } from '@recoil/atoms/group';
 import { useMutation } from '@tanstack/react-query';
 import { createPageFn } from '@apis/pageApi';
 
@@ -17,15 +16,14 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
   const [inviteCode, setInviteCode] = useState<string>('');
   const [groupId, setGroupId] = useState<number>(0);
-  // const groupInfo = useRecoilValue(groupCreateInfoState);
+  const groupInfo = useRecoilValue(groupCreateInfoState);
   const navigate = useNavigate();
 
   const { mutateAsync: createPageMutate } = useMutation({
     mutationFn: createPageFn,
   });
   const { mutateAsync: createGroupMutate } = useMutation({
-    mutationFn: fakeCreateGroupFn,
-    // mutationFn: () => createGroupFn(groupInfo),
+    mutationFn: () => createGroupFn(groupInfo),
     onSuccess: (response) => {
       setInviteCode(response.inviteCode);
       setGroupId(response.groupId);
