@@ -18,6 +18,15 @@ interface groupInfoType {
 export const createGroupFn = (groupInfo: groupInfoType) =>
   instance.post(`${ENDPOINT}/create`, groupInfo).then(({ data }) => data.response);
 
+export const getGroupInfoFn = (groupId: number) =>
+  instance.get(`${ENDPOINT}/search/${groupId}`).then(({ data }) => data.response);
+
+export const checkGroupPasswordFn = ({ groupId, entrancePassword }: { groupId: number; entrancePassword: string }) =>
+  instance.post(`${ENDPOINT}/${groupId}/entry`, { entrancePassword });
+
+export const joinGroupFn = ({ groupId, nickName }: { groupId: number; nickName: string }) =>
+  instance.post(`${ENDPOINT}/${groupId}/join`, { nickName });
+
 export const getGroupMemberFn = (groupId: number) =>
   instance.get(`${ENDPOINT}/${groupId}/groupMembers`).then(({ data }) => data.response);
 
