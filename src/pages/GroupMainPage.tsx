@@ -56,7 +56,7 @@ const GroupMainPage = () => {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className='mx-auto 2xl:max-w-screen-xl xl:max-w-screen-lg'>
+      <div className='mx-auto 2xl:max-w-screen-2xl xl:max-w-screen-xl'>
         <PageTitleSection
           title={pageName}
           aboveAdornment={
