@@ -15,6 +15,7 @@ const GroupJoinPage = () => {
   const { data, isLoading } = useQuery({
     queryKey: GROUP_KEYS.groupInfo({ groupId }),
     queryFn: () => getGroupInfoFn(Number(groupId)),
+    enabled: !!groupId,
   });
 
   const handleImgError: React.ReactEventHandler<HTMLImageElement> = (e) => {

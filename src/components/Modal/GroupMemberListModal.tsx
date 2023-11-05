@@ -16,6 +16,7 @@ const GroupMemberListModal = ({ isOpen, handleModal, groupId }: GroupMemberListP
   const { data, isLoading } = useQuery({
     queryKey: GROUP_KEYS.members({ groupId: Number(groupId) }),
     queryFn: () => getGroupMemberFn(Number(groupId)),
+    enabled: isOpen,
   });
 
   if (isLoading) {
