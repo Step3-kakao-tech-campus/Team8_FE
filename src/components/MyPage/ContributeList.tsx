@@ -19,9 +19,9 @@ const ContributeList = ({ contributeItems }: { contributeItems: ContributeItemPr
   return (
     <article className='p-4 max-h-[503px] border border-gray-400 overflow-y-auto'>
       <ul className='flex flex-col gap-4'>
-        {contributeItems.slice(0, 3).map((contributeItem) => (
-          <ContributeItem key={uuidv4()} contributeItem={contributeItem} />
-        ))}
+        {contributeItems
+          ?.slice(0, 3)
+          .map((contributeItem) => <ContributeItem key={uuidv4()} contributeItem={contributeItem} />)}
       </ul>
     </article>
   );
