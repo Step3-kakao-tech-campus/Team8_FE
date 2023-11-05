@@ -15,6 +15,7 @@ export const GROUP_KEYS = {
   groupInfo: ({ groupId }: { groupId: string }) => ['joinGroupInfo', groupId] as const,
   groupPassword: ({ groupId }: { groupId: string }) => ['groupPassword', groupId] as const,
   groupJoin: ({ groupId }: { groupId: number }) => ['groupJoin', groupId] as const,
+  members: ({ groupId }: { groupId: number }) => ['members', groupId] as const,
   groupMyInfo: ({ groupId }: { groupId: number }) => ['groupMyInfo', groupId] as const,
 };
 

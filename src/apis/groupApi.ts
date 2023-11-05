@@ -27,6 +27,9 @@ export const checkGroupPasswordFn = ({ groupId, entrancePassword }: { groupId: n
 export const joinGroupFn = ({ groupId, nickName }: { groupId: number; nickName: string }) =>
   instance.post(`${ENDPOINT}/${groupId}/join`, { nickName });
 
+export const getGroupMemberFn = (groupId: number) =>
+  instance.get(`${ENDPOINT}/${groupId}/groupMembers`).then(({ data }) => data.response);
+
 export const getGroupMyInfo = (groupId: number) =>
   instance.get(`${ENDPOINT}/${groupId}/myInfo`).then(({ data }) => data.response);
 
