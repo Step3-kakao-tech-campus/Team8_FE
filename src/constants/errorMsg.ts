@@ -8,3 +8,4 @@ export const GROUP_NAME_ERROR_MSG = '그룹 이름은 2자 이상 최대 12자�
 export const GROUP_NICKNAME_ERROR_MSG = '닉네임은 2자 이상 8자 이하의 한글, 숫자 또는 영어만 가능합니다.';
 
 export const GROUP_PASSWORD_ERROR_MSG = '정답이 아닙니다.';
+export const GROUP_EXIST_NICKNAME_ERROR_MSG = '해당 닉네임은 이미 사용중입니다.';

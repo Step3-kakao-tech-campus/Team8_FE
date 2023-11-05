@@ -4,7 +4,12 @@ import DividerWithText from '@components/Common/DividerWithText';
 import { Button, Input, Typography } from '@material-tailwind/react';
 import { GroupDetail } from '@apis/dto';
 import { useNavigate } from 'react-router-dom';
-import { GROUP_NICKNAME_ERROR_MSG, GROUP_PASSWORD_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
+import {
+  GROUP_EXIST_NICKNAME_ERROR_MSG,
+  GROUP_NICKNAME_ERROR_MSG,
+  GROUP_PASSWORD_ERROR_MSG,
+  REQUIRE_ERROR_MSG,
+} from '@constants/errorMsg';
 import { useMutation } from '@tanstack/react-query';
 import { checkGroupPasswordFn, joinGroupFn } from '@apis/groupApi';
 import { AxiosError } from 'axios';
@@ -43,8 +48,8 @@ const UnOfficialOpenedGroup = ({ data }: { data: GroupDetail }) => {
           setError(
             'nickName',
             {
-              type: 'manual',
-              message,
+              type: 'exist',
+              message: GROUP_EXIST_NICKNAME_ERROR_MSG,
             },
             {
               shouldFocus: true,
@@ -103,15 +108,19 @@ const UnOfficialOpenedGroup = ({ data }: { data: GroupDetail }) => {
               crossOrigin=''
               {...register('nickName', {
                 required: REQUIRE_ERROR_MSG,
-                minLength: 2,
-                maxLength: 8,
+                minLength: {
+                  value: 2,
+                  message: GROUP_NICKNAME_ERROR_MSG,
+                },
+                maxLength: {
+                  value: 8,
+                  message: GROUP_NICKNAME_ERROR_MSG,
+                },
                 pattern: GROUP_NICKNAME_PATTERN,
               })}
             />
             {errors.nickName && (
-              <p className='text-xs mt-1 mx-1 flex items-center text-error'>
-                {errors.nickName.message ? REQUIRE_ERROR_MSG : GROUP_NICKNAME_ERROR_MSG}
-              </p>
+              <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.nickName.message}</p>
             )}
           </div>
           <div className='w-full'>
