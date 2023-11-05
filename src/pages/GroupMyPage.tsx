@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Input } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
-import ContributeList from '@components/MyPage/ContributeList';
 import QuitModal from '@components/Modal/QuitModal';
 import useModal from '@hooks/useModal';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -12,6 +11,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { REQUIRE_ERROR_MSG, GROUP_NICKNAME_ERROR_MSG } from '@constants/errorMsg';
 import { GROUP_NICKNAME_PATTERN } from '@constants/validationPatterns';
 import { AxiosError } from 'axios';
+import ContributeAccordion from '@components/MyPage/ContributeAccordion';
 
 interface NickNameInput {
   nickName: string;
@@ -168,7 +168,7 @@ const GroupMyPage = () => {
             전체보기
           </Button>
         </div>
-        <ContributeList contributeItems={groupMyInfo.myHistorgiyDTOS} />
+        <ContributeAccordion contributeItems={groupMyInfo?.historyList} />
       </section>
       <div className='text-right p-4'>
         <Button

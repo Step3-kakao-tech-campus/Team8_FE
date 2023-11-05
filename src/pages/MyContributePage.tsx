@@ -2,6 +2,7 @@ import React from 'react';
 
 import ContributeAccordion from '@components/MyPage/ContributeAccordion';
 import Pagination from '@components/Common/Pagination';
+import { groupMyPageDummyData } from '@dummy/group';
 
 // TODO: API 수정 후 맞춰서 수정 필요
 const lastIndex = 10;
@@ -19,7 +20,7 @@ const MyContributePage = () => {
           <span>문서</span>
           <span>수정 날짜</span>
         </div>
-        <ContributeAccordion />
+        <ContributeAccordion contributeItems={groupMyPageDummyData.historyList} />
       </div>
       <Pagination active={active} setActive={setActive} lastIndex={lastIndex} />
     </section>

@@ -1,16 +1,16 @@
 import React from 'react';
 import { Accordion, AccordionHeader, AccordionBody } from '@material-tailwind/react';
 import { v4 as uuidv4 } from 'uuid';
-import { groupMyPageDummyData } from '@dummy/group';
+import { ContributeItemProps } from '@apis/dto';
 
-const ContributeAccordion = () => {
+const ContributeAccordion = ({ contributeItems }: { contributeItems: ContributeItemProps[] }) => {
   const [open, setOpen] = React.useState(1);
 
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
 
   return (
     <>
-      {groupMyPageDummyData.historyList.map((data) => (
+      {contributeItems.map((data) => (
         <Accordion
           key={uuidv4()}
           open={open === data.historyId}
