@@ -83,7 +83,7 @@ const CommentList = ({ groupId, postId, commentRef, isOpen, onCommentClose }: Co
         </div>
       )}
 
-      <div className='relative flex gap-3 p-4 border-t'>
+      <div className='relative flex gap-3 pl-1 pr-4 py-4 border-t'>
         <Textarea
           className='min-h-full max-h-60 text-lg border focus:!text-black'
           rows={3}
@@ -99,7 +99,7 @@ const CommentList = ({ groupId, postId, commentRef, isOpen, onCommentClose }: Co
           className={`absolute right-5 bottom-5 p-[6px] rounded-full ${text ? 'hover:bg-gray-200' : ''}`}
           onClick={handleCreateComment}
         >
-          <MdSend className={`text-xl transition-all ${text ? 'text-black' : 'text-gray-400'}`} />
+          <MdSend className={`text-xl transition-all ${text ? 'text-black' : 'text-gray-400'}`} size={15} />
         </button>
       </div>
     </Collapse>
