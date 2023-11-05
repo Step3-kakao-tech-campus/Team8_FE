@@ -30,11 +30,7 @@ const GroupMemberListModal = ({ isOpen, handleModal, groupId }: GroupMemberListP
         <p className='text-lg'>그룹원 보기</p>
       </DialogHeader>
       <DialogBody className=' h-96 overflow-y-auto'>
-        <List>
-          {data.nickNames.map((nickName: string) => (
-            <ListItem key={uuidv4()}>{nickName}</ListItem>
-          ))}
-        </List>
+        <List>{data?.nickNames.map((nickName: string) => <ListItem key={uuidv4()}>{nickName}</ListItem>)}</List>
       </DialogBody>
     </Dialog>
   );
