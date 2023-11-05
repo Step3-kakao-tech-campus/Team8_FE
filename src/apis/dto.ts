@@ -33,5 +33,5 @@ export interface ContributeItemProps {
   historyId: number;
   pageName: string;
   content: ContributeItemContent;
-  createAt: string;
+  createdAt: string;
 }
