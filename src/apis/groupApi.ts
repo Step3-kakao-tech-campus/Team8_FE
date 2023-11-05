@@ -18,7 +18,6 @@ interface groupInfoType {
 
 export const createGroupFn = (groupInfo: groupInfoType) =>
   instance.post(`${ENDPOINT}/create`, groupInfo).then(({ data }) => data.response);
-export const fakeCreateGroupFn = () => axios.get('/data/createGroup.json').then(({ data }) => data.response);
 
 export const getGroupMemberFn = (groupId?: number) =>
   instance.get(`${ENDPOINT}/${groupId}/groupMembers`).then(({ data }) => data.response);
