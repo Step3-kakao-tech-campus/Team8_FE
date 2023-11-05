@@ -49,7 +49,7 @@ const GroupJoinPage = () => {
         </div>
         {groupType === 'un_official_opened_group' && <UnOfficialOpenedGroup data={data} />}
         {groupType === 'un_official_closed_group' && <UnOfficialClosedGroup data={data} />}
-        {groupType === 'official_group' && <OfficialGroup />}
+        {groupType === 'official_group' && <OfficialGroup data={data} />}
       </div>
     </section>
   );
