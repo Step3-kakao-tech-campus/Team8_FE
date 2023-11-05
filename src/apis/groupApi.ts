@@ -20,9 +20,8 @@ export const createGroupFn = (groupInfo: groupInfoType) =>
   instance.post(`${ENDPOINT}/create`, groupInfo).then(({ data }) => data.response);
 export const fakeCreateGroupFn = () => axios.get('/data/createGroup.json').then(({ data }) => data.response);
 
-export const getGroupInfoFn = (groupId: string) =>
+export const getGroupInfoFn = (groupId: number) =>
   instance.get(`${ENDPOINT}/search/${groupId}`).then(({ data }) => data.response);
-export const fakeGetGroupInfoFn = () => axios.get('/data/groupInfo.json').then(({ data }) => data.response);
 
 export const checkGroupPasswordFn = ({ groupId, entrancePassword }: { groupId: number; entrancePassword: string }) =>
   instance.post(`${ENDPOINT}/${groupId}/entry`, { entrancePassword });

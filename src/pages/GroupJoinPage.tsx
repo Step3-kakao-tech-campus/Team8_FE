@@ -3,8 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Typography } from '@material-tailwind/react';
 import { GROUP_KEYS } from '@constants/queryKeys';
-// import { getGroupInfoFn } from '@apis/groupApi';
-import { fakeGetGroupInfoFn } from '@apis/groupApi';
+import { getGroupInfoFn } from '@apis/groupApi';
 import Logo from '@assets/images/logo/logo.svg';
 import OfficialGroup from '@components/JoinGroup/OfficialGroup';
 import UnOfficialOpenedGroup from '@components/JoinGroup/UnOfficialOpenedGroup';
@@ -15,8 +14,7 @@ const GroupJoinPage = () => {
   const [isImgError, setImageError] = useState(false);
   const { data, isLoading } = useQuery({
     queryKey: GROUP_KEYS.groupInfo({ groupId }),
-    queryFn: fakeGetGroupInfoFn,
-    // queryFn: () => getGroupInfoFn(groupId),
+    queryFn: () => getGroupInfoFn(Number(groupId)),
   });
 
   const handleImgError: React.ReactEventHandler<HTMLImageElement> = (e) => {
