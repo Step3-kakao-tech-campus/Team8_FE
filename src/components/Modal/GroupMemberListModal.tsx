@@ -9,7 +9,7 @@ import { getGroupMemberFn } from '@apis/groupApi';
 interface GroupMemberListProps {
   isOpen: boolean;
   handleModal: () => void;
-  groupId?: string;
+  groupId: string;
 }
 
 const GroupMemberListModal = ({ isOpen, handleModal, groupId }: GroupMemberListProps) => {
