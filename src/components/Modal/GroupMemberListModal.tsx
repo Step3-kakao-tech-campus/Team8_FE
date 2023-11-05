@@ -4,8 +4,7 @@ import { MdClear } from 'react-icons/md';
 import { useQuery } from '@tanstack/react-query';
 import { v4 as uuidv4 } from 'uuid';
 import { GROUP_KEYS } from '@constants/queryKeys';
-import { fakeGetGroupMemberFn } from '@apis/groupApi';
-// import { getGroupMemberFn } from '@apis/groupApi';
+import { getGroupMemberFn } from '@apis/groupApi';
 
 interface GroupMemberListProps {
   isOpen: boolean;
@@ -16,8 +15,7 @@ interface GroupMemberListProps {
 const GroupMemberListModal = ({ isOpen, handleModal, groupId }: GroupMemberListProps) => {
   const { data, isLoading } = useQuery({
     queryKey: GROUP_KEYS.members({ groupId: Number(groupId) }),
-    queryFn: fakeGetGroupMemberFn,
-    // queryFn: () => getGroupMemberFn(groupId),
+    queryFn: () => getGroupMemberFn(Number(groupId)),
   });
 
   if (isLoading) {
