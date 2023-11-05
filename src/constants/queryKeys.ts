@@ -12,6 +12,7 @@ export const MAIN_KEYS = {
 
 export const GROUP_KEYS = {
   groupSearch: ({ keyword }: { keyword: string }) => ['groupSearch', keyword] as const,
+  members: ({ groupId }: { groupId: number }) => ['members', groupId] as const,
   groupMyInfo: ({ groupId }: { groupId: number }) => ['groupMyInfo', groupId] as const,
 };
 

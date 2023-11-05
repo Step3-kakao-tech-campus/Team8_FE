@@ -1,12 +1,9 @@
-import axios from 'axios';
 import { instance } from './axios';
 
 const ENDPOINT = '/group';
 
 export const groupSearchFn = ({ keyword }: { keyword: string }) =>
   instance.get(`${ENDPOINT}/search?keyword=${keyword}`).then(({ data }) => data.response);
-
-export const fakeGroupSearchFn = () => axios.get('/data/groupSearchResult.json').then(({ data }) => data.response);
 
 interface groupInfoType {
   groupType: 'UNOFFICIAL_OPENED' | 'UNOFFICIAL_CLOSED';
@@ -20,6 +17,9 @@ interface groupInfoType {
 
 export const createGroupFn = (groupInfo: groupInfoType) =>
   instance.post(`${ENDPOINT}/create`, groupInfo).then(({ data }) => data.response);
+
+export const getGroupMemberFn = (groupId: number) =>
+  instance.get(`${ENDPOINT}/${groupId}/groupMembers`).then(({ data }) => data.response);
 
 export const getGroupMyInfo = (groupId: number) =>
   instance.get(`${ENDPOINT}/${groupId}/myInfo`).then(({ data }) => data.response);
