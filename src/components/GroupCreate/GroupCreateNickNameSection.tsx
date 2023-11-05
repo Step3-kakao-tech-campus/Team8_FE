@@ -28,7 +28,6 @@ const GroupCreateNickNameSection = ({ onNextStep }: onNextStepProps) => {
   });
 
   const handleNextStep: SubmitHandler<FieldValues> = async ({ groupNickName }) => {
-    // TODO: 닉네임 중복 체크
     if (!isValid) return;
 
     setGroupInfo((prev) => ({ ...prev, groupNickName }));

@@ -2,6 +2,7 @@ import React from 'react';
 import { Accordion, AccordionHeader, AccordionBody } from '@material-tailwind/react';
 import { v4 as uuidv4 } from 'uuid';
 import { ContributeItemProps } from '@apis/dto';
+import Viewer from '@components/Page/Post/Editor/Ckviewer';
 
 const ContributeAccordion = ({ contributeItems }: { contributeItems: ContributeItemProps[] }) => {
   const [open, setOpen] = React.useState(1);
@@ -28,7 +29,9 @@ const ContributeAccordion = ({ contributeItems }: { contributeItems: ContributeI
               {data.content.name}
             </p>
           </AccordionHeader>
-          <AccordionBody className='pt-0 max-w-[768px] text-gray-800'>{data.content.detail}</AccordionBody>
+          <AccordionBody className='pt-0 max-w-[768px] text-gray-800'>
+            <Viewer content={data.content.detail} />
+          </AccordionBody>
         </Accordion>
       ))}
     </>

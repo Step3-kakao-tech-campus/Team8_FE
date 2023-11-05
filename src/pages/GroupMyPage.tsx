@@ -160,15 +160,19 @@ const GroupMyPage = () => {
       <section className='p-4 mt-4'>
         <div className='flex justify-between items-center mb-2'>
           <h3 className='mb-2 font-extrabold'>내 문서 기여 목록</h3>
-          <Button
-            variant='outlined'
-            className='h-9 w-20 p-1 border-gray-400 text-gray-600 whitespace-nowrap rounded-sm'
-            onClick={() => navigate('contribute')}
-          >
-            전체보기
-          </Button>
+          {groupMyInfo?.historyList.length !== 0 && (
+            <Button
+              variant='outlined'
+              className='h-9 w-20 p-1 border-gray-400 text-gray-600 whitespace-nowrap rounded-sm'
+              onClick={() => navigate('contribute')}
+            >
+              전체보기
+            </Button>
+          )}
         </div>
-        <ContributeAccordion contributeItems={groupMyInfo?.historyList} />
+        <div className=' min-h-[120px]'>
+          <ContributeAccordion contributeItems={groupMyInfo?.historyList} />
+        </div>
       </section>
       <div className='text-right p-4'>
         <Button
