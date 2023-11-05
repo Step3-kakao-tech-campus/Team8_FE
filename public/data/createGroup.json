@@ -1,9 +1,9 @@
 {
   "success": true,
   "response": {
-    "groupId": 1,
-    "groupName": "공개 그룹8",
-    "groupImage": "공개 그룹.jpg",
+    "groupId": 48,
+    "groupName": "111111",
+    "groupImage": "",
     "inviteCode": "https://www.notion.so/55bd5b40558b4558a376aa70617b0e1a?v=d19fad98d6b6424da591b3c64dc118a8&p=a7a7a704b33e477e8b330f746166a22e&pm=s"
   },
   "error": null
