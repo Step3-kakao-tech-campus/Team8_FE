@@ -24,6 +24,7 @@ import NotFoundPage from '@pages/NotFoundPage';
 
 import MainLayout from '@components/Layout/MainLayout';
 import PageLayout from '@components/Layout/PageLayout';
+import NoHeaderLayout from '@components/Layout/NoHeaderLayout';
 import App from './App';
 
 const router = createBrowserRouter([
@@ -63,10 +64,6 @@ const router = createBrowserRouter([
             element: <GroupCreatePage />,
           },
           {
-            path: '/:groupId/join',
-            element: <GroupJoinPage />,
-          },
-          {
             path: '/:groupId/myPage',
             element: <GroupMyPage />,
           },
@@ -102,6 +99,15 @@ const router = createBrowserRouter([
           {
             path: '/:groupId/:page/:postId/edit',
             element: <PostEditPage />,
+          },
+        ],
+      },
+      {
+        element: <NoHeaderLayout />,
+        children: [
+          {
+            path: '/:groupId/join',
+            element: <GroupJoinPage />,
           },
         ],
       },
