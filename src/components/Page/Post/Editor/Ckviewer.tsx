@@ -8,7 +8,7 @@ interface ViewerProps {
 /* eslint-disable react/no-danger */
 const Viewer = ({ content }: ViewerProps) => {
   return (
-    <div className='mb-4 px-1 py-2'>
+    <div className='mb-4 px-1 py-2 text-sm'>
       <div className='ck-content ck-read-only' dangerouslySetInnerHTML={{ __html: content }} />
     </div>
   );

@@ -42,9 +42,9 @@ const CommentList = ({ groupId, postId, commentRef, isOpen, onCommentClose }: Co
     },
   });
 
-  const handleCreateComment = async () => {
+  const handleCreateComment = () => {
     if (!text) return;
-    await createComment({ groupId, postId, content: text });
+    createComment({ groupId, postId, content: text });
   };
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -62,13 +62,13 @@ const CommentList = ({ groupId, postId, commentRef, isOpen, onCommentClose }: Co
 
       {!isLoading && (
         <div>
-          <p className='pt-4 pl-4 font-bold border-t'>댓글 {comments.length}</p>
+          <p className='pt-4 pl-1 font-bold border-t text-sm'>댓글 {comments.length}</p>
           {comments.length === 0 ? (
             <p className='p-4 text-center text-gray-400'>댓글이 없습니다.</p>
           ) : (
-            <ul className='flex flex-col gap-5 p-4'>
+            <ul className='flex flex-col gap-5 px-2 py-4'>
               {comments.map((comment: Comment) => (
-                <Comment key={uuidv4()} comment={comment} />
+                <Comment key={uuidv4()} comment={comment} groupId={groupId} postId={postId} />
               ))}
             </ul>
           )}

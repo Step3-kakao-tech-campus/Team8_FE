@@ -39,3 +39,9 @@ export const getCommentsFn = ({ groupId, postId }: { groupId: number; postId: nu
 
 export const createCommentFn = ({ groupId, postId, content }: { groupId: number; postId: number; content: string }) =>
   instance.post(`/group/${groupId}/post/${postId}/comment`, { content });
+
+export const modifyCommentFn = ({ groupId, content }: { groupId: number; content: string }) =>
+  instance.patch(`/group/${groupId}/comment`, { content });
+
+export const deleteCommentFn = ({ groupId, commentId }: { groupId: number; commentId: number }) =>
+  instance.delete(`/group/${groupId}/comment/${commentId}`);
