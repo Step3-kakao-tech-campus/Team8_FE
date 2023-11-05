@@ -23,3 +23,5 @@ export const passwordChangeFn = ({ currentPassword, newPassword }: { currentPass
   instance.patch(`${ENDPOINT}/password/change`, { currentPassword, newPassword });
 
 export const getMyInfoFn = () => instance.get(`${ENDPOINT}/myinfo`).then(({ data }) => data.response);
+
+export const pnuMailAuthFn = ({ email }: { email: string }) => instance.post(`${ENDPOINT}/pusanuniv`, { email });
