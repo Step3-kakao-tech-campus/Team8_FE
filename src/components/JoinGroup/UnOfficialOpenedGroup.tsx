@@ -15,7 +15,7 @@ import { checkGroupPasswordFn, joinGroupFn } from '@apis/groupApi';
 import { AxiosError } from 'axios';
 import { GROUP_NICKNAME_PATTERN } from '@constants/validationPatterns';
 
-interface openedGroupInput {
+interface OpenedGroupInput {
   nickName: string;
   entrancePassword: string;
 }
@@ -29,7 +29,7 @@ const UnOfficialOpenedGroup = ({ data }: { data: GroupDetail }) => {
     setError,
     getValues,
     formState: { errors, isValid },
-  } = useForm<openedGroupInput>({
+  } = useForm<OpenedGroupInput>({
     defaultValues: {
       nickName: '',
       entrancePassword: '',

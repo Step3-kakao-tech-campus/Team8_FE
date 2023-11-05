@@ -9,7 +9,7 @@ import { GroupDetail } from '@apis/dto';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
-interface nickNameInput {
+interface NickNameInput {
   nickName: string;
 }
 
@@ -21,7 +21,7 @@ const UnOfficialClosedGroup = ({ data }: { data: GroupDetail }) => {
     handleSubmit,
     setError,
     formState: { errors, isValid },
-  } = useForm<nickNameInput>({
+  } = useForm<NickNameInput>({
     defaultValues: {
       nickName: '',
     },
