@@ -49,7 +49,7 @@ const CommentList = ({ groupId, postId, commentRef, isOpen, onCommentClose }: Co
 
   const handleCreateCommentOnEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (!text) return;
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey && e.nativeEvent.isComposing === false) {
       e.preventDefault();
       handleCreateComment();
     }
