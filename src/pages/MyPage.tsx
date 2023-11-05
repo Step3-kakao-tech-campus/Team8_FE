@@ -57,7 +57,7 @@ const MyPage = () => {
                 <Button
                   variant='outlined'
                   color='gray'
-                  className='ml-4 rounded-sm py-[11px] whitespace-nowrap'
+                  className='ml-4 rounded-sm py-[11px] whitespace-nowrap hover:opacity-100'
                   onClick={handleNickNameChage}
                 >
                   취소
@@ -65,7 +65,7 @@ const MyPage = () => {
                 <Button
                   variant='outlined'
                   color='gray'
-                  className='ml-2 rounded-sm py-[11px] whitespace-nowrap'
+                  className='ml-2 rounded-sm py-[11px] whitespace-nowrap hover:opacity-100'
                   onClick={handleNickNameChage}
                 >
                   변경하기

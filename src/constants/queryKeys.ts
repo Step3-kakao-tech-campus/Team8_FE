@@ -3,6 +3,7 @@ export const PAGE_KEYS = {
   recentChangeList: ({ groupId }: { groupId: number }) => ['recentChangeList', { groupId }] as const,
   searchKeyword: ({ groupId, keyword }: { groupId: number; keyword: string }) =>
     ['searchKeyword', { groupId, keyword }] as const,
+  indexList: ({ groupId, pageId }: { groupId: number; pageId: number }) => ['indexList', { groupId, pageId }] as const,
 };
 
 export const MAIN_KEYS = {
@@ -14,6 +15,7 @@ export const GROUP_KEYS = {
   groupInfo: ({ groupId }: { groupId: string }) => ['joinGroupInfo', groupId] as const,
   groupPassword: ({ groupId }: { groupId: string }) => ['groupPassword', groupId] as const,
   groupJoin: ({ groupId }: { groupId: number }) => ['groupJoin', groupId] as const,
+  groupMyInfo: ({ groupId }: { groupId: number }) => ['groupMyInfo', groupId] as const,
 };
 
 export const AUTH_KEYS = {

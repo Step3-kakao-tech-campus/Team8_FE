@@ -60,8 +60,8 @@ const Post = ({ postId, pageId, pageName, index, postTitle, content }: PostProps
               <MenuItem
                 className='flex items-center gap-2 py-1'
                 onClick={() =>
-                  navigate(`${postTitle}/edit`, {
-                    state: { postId, pageId, index, pageName, postTitle, content },
+                  navigate(`${postId}/edit`, {
+                    state: { pageId, index, pageName, postTitle, content },
                   })
                 }
               >

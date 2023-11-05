@@ -19,3 +19,6 @@ export const pageHateFn = ({ groupId, pageId }: { groupId: number; pageId: numbe
 
 export const searchPageFn = ({ groupId, keyword }: { groupId: number; keyword: string }) =>
   instance.get(`/group/${groupId}/page/search?keyword=${keyword}&page=1`);
+
+export const getIndexListFn = ({ groupId, pageId }: { groupId: number; pageId: number }) =>
+  instance.get(`/group/${groupId}/page/${pageId}/index`);
