@@ -37,3 +37,6 @@ export const setGroupMyInfo = ({ groupId, newGroupNickName }: { groupId: number;
   instance
     .patch(`${ENDPOINT}/${groupId}/myInfo`, { groupNickName: newGroupNickName })
     .then(({ data }) => data.response);
+
+export const getMyContributeListFn = (groupId: number) =>
+  instance.get(`${ENDPOINT}/${groupId}/myInfo/myHistory`).then(({ data }) => data.response);

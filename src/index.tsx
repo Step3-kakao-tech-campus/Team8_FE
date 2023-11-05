@@ -71,7 +71,7 @@ const router = createBrowserRouter([
             element: <GroupMyPage />,
           },
           {
-            path: '/:groupName/myPage/contribute',
+            path: '/:groupId/myPage/contribute',
             element: <MyContributePage />,
           },
           {
