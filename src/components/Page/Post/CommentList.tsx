@@ -47,6 +47,14 @@ const CommentList = ({ groupId, postId, commentRef, isOpen, onCommentClose }: Co
     createComment({ groupId, postId, content: text });
   };
 
+  const handleCreateCommentOnEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (!text) return;
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleCreateComment();
+    }
+  };
+
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
     // Textarea 높이 자동 조절
@@ -64,7 +72,7 @@ const CommentList = ({ groupId, postId, commentRef, isOpen, onCommentClose }: Co
         <div>
           <p className='pt-4 pl-1 font-bold border-t text-sm'>댓글 {comments.length}</p>
           {comments.length === 0 ? (
-            <p className='p-4 text-center text-gray-400'>댓글이 없습니다.</p>
+            <p className='p-4 text-center text-gray-400 text-xs mb-4'>댓글이 없습니다.</p>
           ) : (
             <ul className='flex flex-col gap-5 px-2 py-4'>
               {comments.map((comment: Comment) => (
@@ -83,11 +91,12 @@ const CommentList = ({ groupId, postId, commentRef, isOpen, onCommentClose }: Co
           label='댓글 작성'
           value={text}
           onChange={handleChangeText}
+          onKeyDown={handleCreateCommentOnEnter}
         />
         <button
           type='submit'
           disabled={!text}
-          className={`absolute right-5 bottom-7 p-[6px] rounded-full ${text ? 'hover:bg-gray-200' : ''}`}
+          className={`absolute right-5 bottom-5 p-[6px] rounded-full ${text ? 'hover:bg-gray-200' : ''}`}
           onClick={handleCreateComment}
         >
           <MdSend className={`text-xl transition-all ${text ? 'text-black' : 'text-gray-400'}`} />
