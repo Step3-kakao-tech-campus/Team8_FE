@@ -1,15 +1,26 @@
 import React from 'react';
-
 import { Dialog, DialogHeader, DialogBody, List, ListItem } from '@material-tailwind/react';
 import { MdClear } from 'react-icons/md';
-import { groupMember } from '@dummy/group';
+import { useQuery } from '@tanstack/react-query';
+import { v4 as uuidv4 } from 'uuid';
+import { GROUP_KEYS } from '@constants/queryKeys';
+import { getGroupMemberFn } from '@apis/groupApi';
 
 interface GroupMemberListProps {
   isOpen: boolean;
   handleModal: () => void;
+  groupId: string;
 }
 
-const GroupMemberListModal = ({ isOpen, handleModal }: GroupMemberListProps) => {
+const GroupMemberListModal = ({ isOpen, handleModal, groupId }: GroupMemberListProps) => {
+  const { data, isLoading } = useQuery({
+    queryKey: GROUP_KEYS.members({ groupId: Number(groupId) }),
+    queryFn: () => getGroupMemberFn(Number(groupId)),
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <Dialog size='xs' open={isOpen} handler={handleModal}>
       <button type='button' className='absolute top-4 right-4' onClick={handleModal}>
@@ -19,12 +30,7 @@ const GroupMemberListModal = ({ isOpen, handleModal }: GroupMemberListProps) => 
         <p className='text-lg'>그룹원 보기</p>
       </DialogHeader>
       <DialogBody className=' h-96 overflow-y-auto'>
-        <List>
-          {/* TODO: 키 값 여기도 처리해주세요 */}
-          {groupMember.map((member) => (
-            <ListItem key={member}>{member}</ListItem>
-          ))}
-        </List>
+        <List>{data?.nickNames.map((nickName: string) => <ListItem key={uuidv4()}>{nickName}</ListItem>)}</List>
       </DialogBody>
     </Dialog>
   );

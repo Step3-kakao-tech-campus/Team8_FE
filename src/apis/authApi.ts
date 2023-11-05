@@ -22,4 +22,9 @@ export const passwordFindFn = ({ email }: { email: string }) => instance.post(`$
 export const passwordChangeFn = ({ currentPassword, newPassword }: { currentPassword: string; newPassword: string }) =>
   instance.patch(`${ENDPOINT}/password/change`, { currentPassword, newPassword });
 
+export const getMyInfoFn = () => instance.get(`${ENDPOINT}/myinfo`).then(({ data }) => data.response);
+
+export const nickNameChangeFn = ({ newNickName }: { newNickName: string }) =>
+  instance.patch(`${ENDPOINT}/changename`, { newNickName });
+
 export const authDeleteFn = () => instance.delete(`${ENDPOINT}/delete`);

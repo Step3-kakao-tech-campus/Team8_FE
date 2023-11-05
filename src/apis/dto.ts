@@ -9,3 +9,16 @@ export interface MainGroups {
   officialGroup: Group[];
   unOfficialGroup: Group[];
 }
+
+export interface GroupDetail extends Group {
+  introduction: string;
+  memberCount: number;
+  created_at: string;
+  entranceHint: string;
+  groupType: 'UNOFFICIAL_OPENED' | 'UNOFFICIAL_CLOSED' | 'OFFICIAL';
+}
+
+export interface MyInfo {
+  mainNickName: string;
+  groupList: (Group & { groupNickName: string })[];
+}

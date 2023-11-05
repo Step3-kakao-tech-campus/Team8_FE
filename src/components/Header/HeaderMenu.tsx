@@ -5,9 +5,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import tokenState from '@recoil/atoms/auth';
 import { inviteCodeDummyData } from '@dummy/group';
-import useModal from '@hooks/useModal';
 import GroupMemberListModal from '@components/Modal/GroupMemberListModal';
-import InviteModal from '../Modal/InviteModal';
+import InviteModal from '@components/Modal/InviteModal';
+import useModal from '@hooks/useModal';
 
 const HeaderMenu = () => {
   const { groupId } = useParams();
@@ -44,7 +44,13 @@ const HeaderMenu = () => {
         </MenuList>
       </Menu>
       <InviteModal code={inviteCodeDummyData} isOpen={inviteModal.isOpen} onModalClick={inviteModal.handleModal} />
-      <GroupMemberListModal isOpen={groupMemberListModal.isOpen} handleModal={groupMemberListModal.handleModal} />
+      {groupId && (
+        <GroupMemberListModal
+          isOpen={groupMemberListModal.isOpen}
+          handleModal={groupMemberListModal.handleModal}
+          groupId={groupId}
+        />
+      )}
     </>
   );
 };

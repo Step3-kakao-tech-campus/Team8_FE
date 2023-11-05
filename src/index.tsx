@@ -63,11 +63,11 @@ const router = createBrowserRouter([
             element: <GroupCreatePage />,
           },
           {
-            path: '/:groupName/join',
+            path: '/:groupId/join',
             element: <GroupJoinPage />,
           },
           {
-            path: '/:groupName/myPage',
+            path: '/:groupId/myPage',
             element: <GroupMyPage />,
           },
           {
@@ -100,7 +100,7 @@ const router = createBrowserRouter([
             element: <GroupMainPage />,
           },
           {
-            path: '/:groupId/:page/:post/edit',
+            path: '/:groupId/:page/:postId/edit',
             element: <PostEditPage />,
           },
         ],
@@ -111,7 +111,7 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <RouterProvider router={router} />,
+  // </React.StrictMode>,
 );
