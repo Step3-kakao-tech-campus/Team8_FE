@@ -49,6 +49,7 @@ const MyPage = () => {
                 className: 'hidden',
               }}
               containerProps={{ className: 'min-w-[100px] max-w-[240px]' }}
+              disabled={!isNickNameChanging}
               onChange={handleNickName}
             />
             {isNickNameChanging ? (
