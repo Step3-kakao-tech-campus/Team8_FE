@@ -63,19 +63,20 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
   };
 
   return (
-    <Dialog open={isOpen} handler={handleModal} size='xs' className='bg-transparent shadow-none'>
+    <Dialog open={isOpen} handler={handleModal} size='sm' className='bg-transparent shadow-none'>
       <Card className='mx-auto w-full max-w-fit'>
         <CardBody className='flex gap-4 text-black text-center items-center w-fit'>
           <div className='flex flex-col gap-3'>
             <Input type='text' label='링크 이름' size='md' crossOrigin={undefined} onChange={handleLinkTextChange} />
             <Input
               type='text'
-              label='멘션할 페이지(페이지 이름)'
+              label={isExistence ? '존재하는 페이지입니다' : '페이지 검색'}
               size='md'
               crossOrigin={undefined}
               onChange={handlePageNameChange}
               color={isExistence ? 'gray' : 'red'}
             />
+            {!isExistence && <p className='text-xs font-normal'>페이지가 없는 경우 검색 결과로 이동합니다.</p>}
           </div>
           <div className='w-fit'>
             <Button onClick={handleSave}>확인</Button>
