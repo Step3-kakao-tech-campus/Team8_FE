@@ -9,3 +9,4 @@ export const GROUP_NICKNAME_ERROR_MSG = '닉네임은 2자 이상 8자 이하의
 
 export const GROUP_PASSWORD_ERROR_MSG = '정답이 아닙니다.';
 export const GROUP_EXIST_NICKNAME_ERROR_MSG = '해당 닉네임은 이미 사용중입니다.';
+export const GROUP_SAME_NICKNAME_ERROR_MSG = '기존 닉네임과 같은 닉네임입니다.';

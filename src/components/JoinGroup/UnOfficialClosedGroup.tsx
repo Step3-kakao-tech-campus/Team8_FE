@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button, Input } from '@material-tailwind/react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { GROUP_EXIST_NICKNAME_ERROR_MSG, GROUP_NICKNAME_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
-import { GROUP_NICKNAME_PATTERN } from '@constants/validationPatterns';
+import { GROUP_EXIST_NICKNAME_ERROR_MSG } from '@constants/errorMsg';
 import { useMutation } from '@tanstack/react-query';
 import { joinGroupFn } from '@apis/groupApi';
 import { GroupDetail } from '@apis/dto';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
+import { nickNameRegister } from '@utils/Form/nickName';
 
 interface NickNameInput {
   nickName: string;
@@ -67,18 +67,7 @@ const UnOfficialClosedGroup = ({ data }: { data: GroupDetail }) => {
             className: 'min-w-0 w-full',
           }}
           crossOrigin=''
-          {...register('nickName', {
-            required: REQUIRE_ERROR_MSG,
-            minLength: {
-              value: 2,
-              message: GROUP_NICKNAME_ERROR_MSG,
-            },
-            maxLength: {
-              value: 8,
-              message: GROUP_NICKNAME_ERROR_MSG,
-            },
-            pattern: GROUP_NICKNAME_PATTERN,
-          })}
+          {...register('nickName', nickNameRegister)}
         />
         {errors.nickName && <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.nickName.message}</p>}
       </div>
