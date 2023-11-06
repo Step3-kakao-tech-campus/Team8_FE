@@ -1,9 +1,11 @@
+import React, { useEffect } from 'react';
 import { checkInviteCodeFn } from '@apis/groupApi';
 import { GROUP_KEYS } from '@constants/queryKeys';
 import { Spinner, Typography } from '@material-tailwind/react';
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import tokenState from '@recoil/atoms/auth';
 
 interface InviteFetcherProps {
   inviteCode: string;
@@ -11,15 +13,27 @@ interface InviteFetcherProps {
 
 const InviteFetcher = ({ inviteCode }: InviteFetcherProps) => {
   const navigate = useNavigate();
-  const { data } = useQuery({
+  const token = useRecoilValue(tokenState);
+  const { data, isLoading } = useQuery({
     queryKey: GROUP_KEYS.checkGroupInviteCode({ inviteCode }),
     queryFn: () => checkInviteCodeFn(inviteCode),
   });
 
-  if (data) {
-    const { groupId } = data;
-    navigate(`/${groupId}/join`, { replace: true });
+  useEffect(() => {
+    if (!isLoading && data) {
+      const { groupId } = data;
+      if (token) {
+        navigate(`/${groupId}/join`, { replace: true });
+      } else {
+        navigate('/login');
+      }
+    }
+  }, [isLoading, data, navigate]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
+
   return (
     <>
       <Typography variant='h5'>잠시만 기다려주세요.</Typography>
