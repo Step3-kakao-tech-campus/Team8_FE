@@ -10,12 +10,17 @@ import { checkGroupPasswordFn, joinGroupFn } from '@apis/groupApi';
 import { AxiosError } from 'axios';
 import { nickNameRegister } from '@utils/Form/nickName';
 
+interface UnOfficialOpenedGroupProps {
+  data: GroupDetail;
+  onIsRegisteredAlertChange: () => void;
+}
+
 interface OpenedGroupInput {
   nickName: string;
   entrancePassword: string;
 }
 
-const UnOfficialOpenedGroup = ({ data }: { data: GroupDetail }) => {
+const UnOfficialOpenedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialOpenedGroupProps) => {
   const navigate = useNavigate();
   const { groupId, groupName, entranceHint } = data;
   const {
@@ -39,17 +44,27 @@ const UnOfficialOpenedGroup = ({ data }: { data: GroupDetail }) => {
       if (error instanceof AxiosError) {
         const errorData = error.response?.data.error;
         const { message, status } = errorData;
-        if (status === 400 && message === '해당 닉네임은 이미 사용중입니다.') {
-          setError(
-            'nickName',
-            {
-              type: 'exist',
-              message: GROUP_EXIST_NICKNAME_ERROR_MSG,
-            },
-            {
-              shouldFocus: true,
-            },
-          );
+        if (status === 400) {
+          switch (message) {
+            case '해당 닉네임은 이미 사용중입니다.':
+              setError(
+                'nickName',
+                {
+                  type: 'exist',
+                  message: GROUP_EXIST_NICKNAME_ERROR_MSG,
+                },
+                {
+                  shouldFocus: true,
+                },
+              );
+              break;
+            case '이미 가입된 회원입니다.':
+              console.log('asdf');
+              onIsRegisteredAlertChange();
+              break;
+            default:
+              break;
+          }
         }
       }
     },

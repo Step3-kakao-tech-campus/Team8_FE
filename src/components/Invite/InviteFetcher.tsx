@@ -25,7 +25,7 @@ const InviteFetcher = ({ inviteCode }: InviteFetcherProps) => {
       if (token) {
         navigate(`/${groupId}/join`, { replace: true });
       } else {
-        navigate('/login');
+        navigate('/login', { replace: true });
       }
     }
   }, [isLoading, data, navigate]);

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Typography } from '@material-tailwind/react';
+import { Alert, Button, Typography } from '@material-tailwind/react';
 import { GROUP_KEYS } from '@constants/queryKeys';
 import { getGroupInfoFn } from '@apis/groupApi';
 import Logo from '@assets/images/logo/logo.svg';
@@ -10,9 +10,11 @@ import UnOfficialOpenedGroup from '@components/JoinGroup/UnOfficialOpenedGroup';
 import UnOfficialClosedGroup from '@components/JoinGroup/UnOfficialClosedGroup';
 
 const GroupJoinPage = () => {
+  const navigate = useNavigate();
   const { groupId } = useParams();
   const numGroupId = Number(groupId);
-  const [isImgError, setImageError] = useState(false);
+  const [isImgError, setImageError] = useState<boolean>(false);
+  const [isRegisteredAlertOpen, setIsRegisteredAlertOpen] = useState<boolean>(false);
   const { data, isLoading } = useQuery({
     queryKey: GROUP_KEYS.groupInfo({ groupId: numGroupId }),
     queryFn: () => getGroupInfoFn(numGroupId),
@@ -22,6 +24,17 @@ const GroupJoinPage = () => {
     e.currentTarget.src = Logo;
     setImageError(true);
   };
+  const handleIsRegisteredAlertOpen = () => {
+    setIsRegisteredAlertOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const timer: NodeJS.Timeout = setTimeout(() => {
+      setIsRegisteredAlertOpen(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [isRegisteredAlertOpen]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -29,6 +42,25 @@ const GroupJoinPage = () => {
   const { groupName, groupImage, introduction, groupType, created_at: createdAt, memberCount } = data;
   return (
     <section className='max-w-fit mx-auto'>
+      <Alert
+        className='flex justify-between items-center py-3 font-semibold'
+        open={isRegisteredAlertOpen}
+        action={
+          <Button
+            variant='text'
+            className='p-1 text-white text-xs'
+            onClick={() => navigate(`/${groupId}/${data.groupName}`)}
+          >
+            메인페이지로
+          </Button>
+        }
+        animate={{
+          mount: { y: 0 },
+          unmount: { y: -50 },
+        }}
+      >
+        이미 가입된 그룹입니다.
+      </Alert>
       <div className='w-full'>
         <Typography variant='h4' className='font-normal'>
           <span className='font-bold'>[{groupName}]</span>에 가입해보세요.
@@ -48,8 +80,12 @@ const GroupJoinPage = () => {
           <Typography variant='h6'>{groupName}</Typography>
           <p className='text-xs min-w-[400px]'>{introduction}</p>
         </div>
-        {groupType === 'un_official_opened_group' && <UnOfficialOpenedGroup data={data} />}
-        {groupType === 'un_official_closed_group' && <UnOfficialClosedGroup data={data} />}
+        {groupType === 'un_official_opened_group' && (
+          <UnOfficialOpenedGroup data={data} onIsRegisteredAlertChange={handleIsRegisteredAlertOpen} />
+        )}
+        {groupType === 'un_official_closed_group' && (
+          <UnOfficialClosedGroup data={data} onIsRegisteredAlertChange={handleIsRegisteredAlertOpen} />
+        )}
         {groupType === 'official_group' && <OfficialGroup />}
       </div>
     </section>
