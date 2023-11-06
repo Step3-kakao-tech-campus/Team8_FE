@@ -1,15 +1,21 @@
 import { instance } from './axios';
 
+interface AuthInfo {
+  email: string;
+  password?: string;
+  name?: string;
+}
+
 const ENDPOINT = '/auth';
 
-export const signUpFn = ({ email, password, name }: { email: string; password: string; name: string }) =>
+export const signUpFn = ({ email, password, name }: AuthInfo) =>
   instance.post(`${ENDPOINT}/signup`, {
     email,
     password,
     nickName: name,
   });
 
-export const loginFn = ({ email, password }: { email: string; password: string }) =>
+export const loginFn = ({ email, password }: AuthInfo) =>
   instance
     .post(`${ENDPOINT}/signin`, {
       email,
@@ -17,7 +23,7 @@ export const loginFn = ({ email, password }: { email: string; password: string }
     })
     .then(({ data }) => data.response);
 
-export const passwordFindFn = ({ email }: { email: string }) => instance.post(`${ENDPOINT}/password/find`, { email });
+export const passwordFindFn = ({ email }: AuthInfo) => instance.post(`${ENDPOINT}/password/find`, { email });
 
 export const passwordChangeFn = ({ currentPassword, newPassword }: { currentPassword: string; newPassword: string }) =>
   instance.patch(`${ENDPOINT}/password/change`, { currentPassword, newPassword });
