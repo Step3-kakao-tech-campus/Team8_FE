@@ -79,7 +79,7 @@ const router = createBrowserRouter([
             element: <SearchResultPage />,
           },
           {
-            path: '/:groupName/:page/:postId/report',
+            path: '/:groupId/:page/:postId/report',
             element: <ReportPage />,
           },
           {

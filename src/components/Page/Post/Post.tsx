@@ -76,7 +76,7 @@ const Post = ({ postId, pageId, pageName, index, postTitle, content }: PostProps
                   히스토리
                 </Typography>
               </MenuItem>
-              <MenuItem className='flex items-center gap-2 py-1'>
+              <MenuItem className='flex items-center gap-2 py-1' onClick={() => navigate(`${postId}/report`)}>
                 <MdOutlineErrorOutline className='text-2xl' />
                 <Typography variant='small' className='font-semibold'>
                   신고

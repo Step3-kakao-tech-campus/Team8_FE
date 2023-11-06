@@ -22,3 +22,6 @@ export const deletePostFn = ({ groupId, postId }: PostInfo) => instance.delete(`
 
 export const getHistoryFn = ({ groupId, postId }: PostInfo) =>
   instance.get(`/group/${groupId}/post/${postId}/history?page=1`);
+
+export const reportPostFn = ({ groupId, postId, content }: PostInfo) =>
+  instance.post(`/group/${groupId}/post/report`, { postId, content });
