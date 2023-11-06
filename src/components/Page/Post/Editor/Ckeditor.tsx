@@ -26,7 +26,7 @@ const CKEditor = ({ content, onChange }: EditorProps) => {
     <div className='mb-4'>
       <div className='relative md:top-9 md:right-2 text-right sm:top-0 sm:right-1'>
         <Tooltip
-          content={<p>페이지를 링크해보세요.&nbsp;이름만으로도 링크가 가능합니다.</p>}
+          content={<p>페이지 이름만으로 링크를 추가해보세요.&nbsp;페이지 생성은 나중에 해도 괜찮아요.</p>}
           placement='top-end'
           className='border border-blue-gray-50 bg-white px-4 py-3 shadow-xl shadow-black/10 text-black'
         >

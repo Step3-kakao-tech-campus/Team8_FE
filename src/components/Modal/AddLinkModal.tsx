@@ -1,6 +1,12 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Dialog, Card, CardBody, Input, Button } from '@material-tailwind/react';
+import { useQuery } from '@tanstack/react-query';
+import { PAGE_KEYS } from '@constants/queryKeys';
+import { checkPageExistence } from '@apis/pageApi';
+import { AxiosError } from 'axios';
+import { getErrorMsg } from '@utils/serverError';
+import { queryClient } from '@apis/queryClient';
 
 interface AddLinkModalProps {
   onSave: (linkText: string, linkURL: string) => void;
@@ -11,8 +17,26 @@ interface AddLinkModalProps {
 const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
   const [linkText, setLinkText] = React.useState('');
   const [pageName, setPageName] = React.useState('');
+  const [isExistence, setIsExistence] = React.useState(false);
 
   const { groupId } = useParams();
+  const numGroupId = Number(groupId);
+
+  const { isLoading } = useQuery({
+    queryKey: PAGE_KEYS.isExistence({ groupId: numGroupId, title: pageName }),
+    queryFn: () => checkPageExistence({ groupId: numGroupId, title: pageName }),
+    enabled: pageName !== '',
+    onError: (error: AxiosError) => {
+      // 존재하지 않는 페이지인 경우
+      if (getErrorMsg(error) === '존재하지 않는 페이지 입니다.') {
+        setIsExistence(false);
+      }
+    },
+    // 존재하는 페이지인 경우
+    onSuccess: () => {
+      setIsExistence(true);
+    },
+  });
 
   const handleLinkTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLinkText(e.target.value);
@@ -20,10 +44,21 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
 
   const handlePageNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPageName(e.target.value);
+
+    // 내용이 바뀔 때마다 쿼리를 다시 보내기
+    if (e.target.value !== '') {
+      queryClient.invalidateQueries(PAGE_KEYS.isExistence({ groupId: numGroupId, title: e.target.value }));
+    }
   };
 
   const handleSave = () => {
-    onSave(`@${linkText}`, `/${groupId}/search?keyword=${pageName}`);
+    if (isLoading) return;
+    if (linkText === '' || pageName === '') return;
+    if (isExistence) {
+      onSave(`${linkText}`, `/${groupId}/${pageName}`);
+    } else {
+      onSave(`${linkText}`, `${groupId}/search?keyword=${pageName}`);
+    }
     handleModal();
   };
 
@@ -39,6 +74,7 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
               size='md'
               crossOrigin={undefined}
               onChange={handlePageNameChange}
+              color={isExistence ? 'gray' : 'red'}
             />
           </div>
           <div className='w-fit'>

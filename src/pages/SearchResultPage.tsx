@@ -9,6 +9,7 @@ import { createPageFn, getPageByTitleFn, searchPageFn } from '@apis/pageApi';
 import { PAGE_KEYS } from '@constants/queryKeys';
 import PageCreateModal from '@components/Modal/PageCreateModal';
 import useModal from '@hooks/useModal';
+import { queryClient } from '@apis/queryClient';
 
 interface Page {
   pageId: number;
@@ -72,6 +73,7 @@ const SearchResultPage = () => {
   const { mutate: createPage } = useMutation({
     mutationFn: createPageFn,
     onSuccess: () => {
+      queryClient.invalidateQueries(PAGE_KEYS.byTitle({ groupId: numGroupId, title: keyword }));
       navigate(`/${groupId}/${keyword}`);
     },
   });

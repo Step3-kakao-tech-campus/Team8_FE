@@ -22,3 +22,6 @@ export const searchPageFn = ({ groupId, keyword }: { groupId: number; keyword: s
 
 export const getIndexListFn = ({ groupId, pageId }: { groupId: number; pageId: number }) =>
   instance.get(`/group/${groupId}/page/${pageId}/index`);
+
+export const checkPageExistence = ({ groupId, title }: { groupId: number; title: string }) =>
+  instance.get(`/group/${groupId}/page/link?title=${title}`);
