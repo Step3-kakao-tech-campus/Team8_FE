@@ -25,7 +25,6 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
   const { isLoading } = useQuery({
     queryKey: PAGE_KEYS.isExistence({ groupId: numGroupId, title: pageName }),
     queryFn: () => checkPageExistence({ groupId: numGroupId, title: pageName }),
-    enabled: pageName !== '',
     onError: (error: AxiosError) => {
       // 존재하지 않는 페이지인 경우
       if (getErrorMsg(error) === '존재하지 않는 페이지 입니다.') {
@@ -55,9 +54,9 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
     if (isLoading) return;
     if (linkText === '' || pageName === '') return;
     if (isExistence) {
-      onSave(`${linkText}`, `/${groupId}/${pageName}`);
+      onSave(`#${linkText}`, `/${groupId}/${pageName}`);
     } else {
-      onSave(`${linkText}`, `${groupId}/search?keyword=${pageName}`);
+      onSave(`#${linkText}`, `/${groupId}/search?keyword=${pageName}`);
     }
     handleModal();
   };
@@ -66,20 +65,34 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
     <Dialog open={isOpen} handler={handleModal} size='sm' className='bg-transparent shadow-none'>
       <Card className='mx-auto w-full max-w-fit'>
         <CardBody className='flex gap-4 text-black text-center items-center w-fit'>
-          <div className='flex flex-col gap-3'>
-            <Input type='text' label='링크 이름' size='md' crossOrigin={undefined} onChange={handleLinkTextChange} />
+          <div className='flex flex-col gap-3 w-[260px]'>
             <Input
               type='text'
-              label={isExistence ? '존재하는 페이지입니다' : '페이지 검색'}
+              label='링크 이름'
               size='md'
+              value={linkText}
+              crossOrigin={undefined}
+              onChange={handleLinkTextChange}
+              required
+            />
+            <Input
+              type='text'
+              label={isExistence ? '해당 페이지 태그' : '페이지 검색'}
+              size='md'
+              value={pageName}
               crossOrigin={undefined}
               onChange={handlePageNameChange}
               color={isExistence ? 'gray' : 'red'}
+              required
             />
-            {!isExistence && <p className='text-xs font-normal'>페이지가 없는 경우 검색 결과로 이동합니다.</p>}
+            <p className='text-xs font-normal'>
+              {isExistence ? '가장 아래에 페이지 태그가 추가됩니다.' : '페이지가 없는 경우 검색 결과로 이동합니다.'}
+            </p>
           </div>
           <div className='w-fit'>
-            <Button onClick={handleSave}>확인</Button>
+            <Button type='submit' onClick={handleSave} disabled={!linkText || !pageName}>
+              확인
+            </Button>
           </div>
         </CardBody>
       </Card>
