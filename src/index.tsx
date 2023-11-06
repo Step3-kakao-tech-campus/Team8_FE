@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 
 import './tailwind.css';
 
@@ -19,12 +20,12 @@ import PostEditPage from '@pages/PostEditPage';
 import PostHistoryPage from '@pages/PostHistoryPage';
 import GroupJoinPage from '@pages/GroupJoinPage';
 import KakaoLoginPage from '@pages/KakaoLoginPage';
-
 import NotFoundPage from '@pages/NotFoundPage';
+import InviteProcessPage from '@pages/InviteProcessPage';
 
 import MainLayout from '@components/Layout/MainLayout';
 import PageLayout from '@components/Layout/PageLayout';
-import { RecoilRoot } from 'recoil';
+import NoHeaderLayout from '@components/Layout/NoHeaderLayout';
 import App from './App';
 
 const router = createBrowserRouter([
@@ -64,10 +65,6 @@ const router = createBrowserRouter([
             element: <GroupCreatePage />,
           },
           {
-            path: '/:groupId/join',
-            element: <GroupJoinPage />,
-          },
-          {
             path: '/:groupId/myPage',
             element: <GroupMyPage />,
           },
@@ -103,6 +100,19 @@ const router = createBrowserRouter([
           {
             path: '/:groupId/:page/:postId/edit',
             element: <PostEditPage />,
+          },
+        ],
+      },
+      {
+        element: <NoHeaderLayout />,
+        children: [
+          {
+            path: '/:groupId/join',
+            element: <GroupJoinPage />,
+          },
+          {
+            path: '/invite/:inviteCode',
+            element: <InviteProcessPage />,
           },
         ],
       },
