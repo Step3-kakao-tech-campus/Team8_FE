@@ -10,11 +10,12 @@ import UnOfficialOpenedGroup from '@components/JoinGroup/UnOfficialOpenedGroup';
 import UnOfficialClosedGroup from '@components/JoinGroup/UnOfficialClosedGroup';
 
 const GroupJoinPage = () => {
-  const { groupId } = useParams() as { groupId: string };
+  const { groupId } = useParams();
+  const numGroupId = Number(groupId);
   const [isImgError, setImageError] = useState(false);
   const { data, isLoading } = useQuery({
-    queryKey: GROUP_KEYS.groupInfo({ groupId }),
-    queryFn: () => getGroupInfoFn(Number(groupId)),
+    queryKey: GROUP_KEYS.groupInfo({ groupId: numGroupId }),
+    queryFn: () => getGroupInfoFn(numGroupId),
   });
 
   const handleImgError: React.ReactEventHandler<HTMLImageElement> = (e) => {

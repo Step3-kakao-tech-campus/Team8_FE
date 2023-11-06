@@ -12,11 +12,11 @@ export const MAIN_KEYS = {
 
 export const GROUP_KEYS = {
   groupSearch: ({ keyword }: { keyword: string }) => ['groupSearch', keyword] as const,
-  groupInfo: ({ groupId }: { groupId: string }) => ['joinGroupInfo', groupId] as const,
-  groupPassword: ({ groupId }: { groupId: string }) => ['groupPassword', groupId] as const,
+  groupInfo: ({ groupId }: { groupId: number }) => ['joinGroupInfo', groupId] as const,
   groupJoin: ({ groupId }: { groupId: number }) => ['groupJoin', groupId] as const,
   members: ({ groupId }: { groupId: number }) => ['members', groupId] as const,
   groupMyInfo: ({ groupId }: { groupId: number }) => ['groupMyInfo', groupId] as const,
+  myContributeList: ({ groupId }: { groupId: number }) => ['myContributeList', groupId] as const,
 };
 
 export const AUTH_KEYS = {
