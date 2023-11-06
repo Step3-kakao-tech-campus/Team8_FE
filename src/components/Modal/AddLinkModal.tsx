@@ -23,7 +23,7 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
   };
 
   const handleSave = () => {
-    onSave(`@${linkText}`, `/${groupId}/${pageName}`);
+    onSave(`@${linkText}`, `/${groupId}/search?keyword=${pageName}`);
     handleModal();
   };
 
