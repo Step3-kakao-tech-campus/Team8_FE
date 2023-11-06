@@ -14,6 +14,8 @@ const InviteModal = ({ code, isOpen, onModalClick }: InviteModalProps) => {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(code);
+    } catch (error) {
+      console.error(error);
     } finally {
       setIsAlertOpen(true);
     }

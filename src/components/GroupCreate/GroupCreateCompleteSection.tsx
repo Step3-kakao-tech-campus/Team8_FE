@@ -34,6 +34,8 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(inviteCode);
+    } catch (error) {
+      console.error(error);
     } finally {
       setIsAlertOpen(true);
     }
