@@ -19,6 +19,7 @@ const HeaderMenu = () => {
 
   const handleLogout = () => {
     setToken(null);
+    navigate(`/`);
   };
   const handleMyPageClick = () => {
     if (groupId) {
