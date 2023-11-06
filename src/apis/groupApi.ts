@@ -43,3 +43,6 @@ export const getMyContributeListFn = (groupId: number) =>
 
 export const getInviteCodeFn = (groupId: number) =>
   instance.get(`${ENDPOINT}/${groupId}/invitationLink`).then(({ data }) => data.response);
+
+export const checkInviteCodeFn = (inviteCode: string) =>
+  instance.get(`${ENDPOINT}/invitation/${inviteCode}`).then(({ data }) => data.response);
