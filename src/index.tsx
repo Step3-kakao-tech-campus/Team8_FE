@@ -83,7 +83,7 @@ const router = createBrowserRouter([
             element: <ReportPage />,
           },
           {
-            path: '/:groupName/:page/:postId/history',
+            path: '/:groupId/:page/:postId/history',
             element: <PostHistoryPage />,
           },
           {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Accordion, AccordionHeader, AccordionBody, Button, Chip } from '@material-tailwind/react';
 import { MdExpandMore, MdExpandLess } from 'react-icons/md';
+import Viewer from './Page/Post/Editor/Ckviewer';
 
 interface History {
   memberId: number;
@@ -57,7 +58,7 @@ const PostHistoryAccordion = ({ historyList }: PostHistoryAccordionProps) => {
             </div>
           </AccordionHeader>
           <AccordionBody className='whitespace-prewrap text-xs font-normal text-gray-600'>
-            {history.content}
+            <Viewer content={history.content} />
             {index !== 0 && (
               <div className='flex justify-end'>
                 <Button

@@ -70,10 +70,7 @@ const Post = ({ postId, pageId, pageName, index, postTitle, content }: PostProps
                   편집
                 </Typography>
               </MenuItem>
-              <MenuItem
-                className='flex items-center gap-2 py-1'
-                onClick={() => navigate(`${pageName}/${postTitle}/history`)}
-              >
+              <MenuItem className='flex items-center gap-2 py-1' onClick={() => navigate(`${postId}/history`)}>
                 <MdOutlineHistory className='text-2xl' />
                 <Typography variant='small' className='font-semibold'>
                   히스토리
