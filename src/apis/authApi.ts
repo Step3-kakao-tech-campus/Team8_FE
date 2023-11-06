@@ -26,3 +26,6 @@ export const getMyInfoFn = () => instance.get(`${ENDPOINT}/myinfo`).then(({ data
 
 export const nickNameChangeFn = ({ newNickName }: { newNickName: string }) =>
   instance.patch(`${ENDPOINT}/changename`, { newNickName });
+
+export const kakaoLoginFn = ({ code }: { code: string | null }) =>
+  instance.get(`${ENDPOINT}/kakao/signin?code=${code}`).then(({ data }) => data.response);

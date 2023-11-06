@@ -21,4 +21,5 @@ export const GROUP_KEYS = {
 
 export const AUTH_KEYS = {
   myInfo: ['myInfo'],
+  kakaoLogin: ({ code }: { code: string | null }) => ['kakaoLogin', code] as const,
 };
