@@ -1,0 +1,7 @@
+{
+  "success": true,
+  "response": {
+    "nickNames": ["그룹장의 닉네임", "12", "apple", "banana", "cherry"]
+  },
+  "error": null
+}
