@@ -24,6 +24,7 @@ import NotFoundPage from '@pages/NotFoundPage';
 
 import MainLayout from '@components/Layout/MainLayout';
 import PageLayout from '@components/Layout/PageLayout';
+import { RecoilRoot } from 'recoil';
 import App from './App';
 
 const router = createBrowserRouter([
@@ -112,6 +113,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   // <React.StrictMode>
-  <RouterProvider router={router} />,
+  <RecoilRoot>
+    <RouterProvider router={router} />
+  </RecoilRoot>,
   // </React.StrictMode>,
 );
