@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Alert } from '@material-tailwind/react';
+import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Alert, Input } from '@material-tailwind/react';
 import { MdContentCopy, MdClear } from 'react-icons/md';
+import { useQuery } from '@tanstack/react-query';
+import { GROUP_KEYS } from '@constants/queryKeys';
+import { getInviteCodeFn } from '@apis/groupApi';
 
 interface InviteModalProps {
-  code: string;
   isOpen: boolean;
   onModalClick: () => void;
+  groupId: string;
 }
 
-const InviteModal = ({ code, isOpen, onModalClick }: InviteModalProps) => {
+const InviteModal = ({ isOpen, onModalClick, groupId }: InviteModalProps) => {
+  const numGroupId = Number(groupId);
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+  const { data } = useQuery({
+    queryKey: GROUP_KEYS.groupInviteCode({ groupId: numGroupId }),
+    queryFn: () => getInviteCodeFn(numGroupId),
+  });
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(code);
+      await navigator.clipboard.writeText(data?.inviteCode);
     } finally {
       setIsAlertOpen(true);
     }
@@ -37,13 +45,16 @@ const InviteModal = ({ code, isOpen, onModalClick }: InviteModalProps) => {
         <p className='text-sm text-gray-600 font-normal'>클릭하여 링크 복사</p>
       </DialogHeader>
       <DialogBody className='flex'>
-        <p className='px-4 py-1 bg-blue-gray-50 text-black overflow-auto'>{code}</p>
-        <Button
-          className='bg-blue-gray-50 text-xl text-black rounded-none shadow-none hover:shadow-none'
+        <Input
+          className='truncate outline-none cursor-pointer'
+          label='초대 링크'
+          value={data?.inviteCode}
+          size='lg'
+          readOnly
+          crossOrigin=''
+          icon={<MdContentCopy onClick={handleCopy} />}
           onClick={handleCopy}
-        >
-          <MdContentCopy />
-        </Button>
+        />
       </DialogBody>
       <DialogFooter>
         {isAlertOpen ? (
