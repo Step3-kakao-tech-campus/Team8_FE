@@ -2,6 +2,9 @@ import React from 'react';
 import { Button, Dialog, DialogHeader, DialogBody, DialogFooter } from '@material-tailwind/react';
 import { useMutation } from '@tanstack/react-query';
 import { authDeleteFn } from '@apis/authApi';
+import { useSetRecoilState } from 'recoil';
+import tokenState from '@recoil/atoms/auth';
+import { useNavigate } from 'react-router-dom';
 
 interface AuthDeleteModalProps {
   isOpen: boolean;
@@ -10,11 +13,15 @@ interface AuthDeleteModalProps {
 
 const AuthDeleteModal = ({ isOpen, onClick }: AuthDeleteModalProps) => {
   const { mutate: authDelete } = useMutation({ mutationFn: authDeleteFn });
+  const navigate = useNavigate();
+  const setToken = useSetRecoilState(tokenState);
 
   const handleAuthDelete = () => {
     authDelete(undefined, {
       onSuccess: () => {
         onClick();
+        setToken(null);
+        navigate(`/`);
       },
     });
   };
