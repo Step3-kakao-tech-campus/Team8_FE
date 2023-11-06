@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { RiKakaoTalkFill } from 'react-icons/ri';
 import { Button, Input } from '@material-tailwind/react';
 import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
@@ -28,10 +28,11 @@ const LoginPage = () => {
     formState: { errors, isValid },
   } = useForm<LoginInputs>({ mode: 'onChange' });
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const setToken = useSetRecoilState(tokenState);
   const passwordFindModal = useModal();
 
   const { mutate: login, error } = useMutation({ mutationFn: loginFn });
-  const setToken = useSetRecoilState(tokenState);
 
   const handleLoginSubmit: SubmitHandler<FieldValues> = ({ email, password }) => {
     login(
@@ -39,6 +40,10 @@ const LoginPage = () => {
       {
         onSuccess: ({ grantType, accessToken }) => {
           setToken(`${grantType} ${accessToken}`);
+          if (state && state.path) {
+            navigate(state.path);
+            return;
+          }
           navigate('/');
         },
       },
@@ -48,7 +53,9 @@ const LoginPage = () => {
   return (
     <div className='flex min-h-full flex-col justify-center px-8'>
       <div className='mx-auto shadow space-y-4 w-full max-w-[450px] px-16 pt-9 pb-16'>
-        <TextLogo className='w-36 m-auto mb-8' data-testid='textLogo' />
+        <Link to='/'>
+          <TextLogo className='w-36 m-auto mb-8' data-testid='textLogo' />
+        </Link>
         <form className='space-y-12' onSubmit={handleSubmit(handleLoginSubmit)}>
           <div>
             <Input
@@ -82,7 +89,7 @@ const LoginPage = () => {
           </Button>
         </form>
         <div className='text-center text-xs'>
-          <Link to='/signUp' data-testid='signUpLink'>
+          <Link to='/signUp' data-testid='signUpLink' state={{ path: state?.path }}>
             회원가입
           </Link>
           {` | `}

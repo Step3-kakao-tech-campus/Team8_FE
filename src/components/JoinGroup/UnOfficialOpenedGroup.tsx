@@ -59,7 +59,6 @@ const UnOfficialOpenedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialOp
               );
               break;
             case '이미 가입된 회원입니다.':
-              console.log('asdf');
               onIsRegisteredAlertChange();
               break;
             default:

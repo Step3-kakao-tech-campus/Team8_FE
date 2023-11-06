@@ -41,18 +41,6 @@ const router = createBrowserRouter([
             element: <HomePage />,
           },
           {
-            path: '/signUp',
-            element: <SignUpPage />,
-          },
-          {
-            path: '/kakaoLogin',
-            element: <KakaoLoginPage />,
-          },
-          {
-            path: '/login',
-            element: <LoginPage />,
-          },
-          {
             path: '/myPage',
             element: <MyPage />,
           },
@@ -106,6 +94,18 @@ const router = createBrowserRouter([
       {
         element: <NoHeaderLayout />,
         children: [
+          {
+            path: '/signUp',
+            element: <SignUpPage />,
+          },
+          {
+            path: '/kakaoLogin',
+            element: <KakaoLoginPage />,
+          },
+          {
+            path: '/login',
+            element: <LoginPage />,
+          },
           {
             path: '/:groupId/join',
             element: <GroupJoinPage />,
