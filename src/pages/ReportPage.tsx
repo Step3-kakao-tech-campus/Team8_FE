@@ -25,9 +25,6 @@ const ReportPage = () => {
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(`${type}: ${e.target.value}`);
-    // Textarea 높이 자동 조절
-    e.target.style.height = 'auto';
-    e.target.style.height = `${e.target.scrollHeight}px`;
   };
 
   const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
