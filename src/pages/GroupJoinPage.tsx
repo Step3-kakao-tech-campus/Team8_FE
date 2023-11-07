@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Alert, Button, Typography } from '@material-tailwind/react';
@@ -8,13 +8,14 @@ import Logo from '@assets/images/logo/logo.svg';
 import OfficialGroup from '@components/JoinGroup/OfficialGroup';
 import UnOfficialOpenedGroup from '@components/JoinGroup/UnOfficialOpenedGroup';
 import UnOfficialClosedGroup from '@components/JoinGroup/UnOfficialClosedGroup';
+import useAlert from '@hooks/useAlert';
 
 const GroupJoinPage = () => {
   const navigate = useNavigate();
   const { groupId } = useParams();
   const numGroupId = Number(groupId);
   const [isImgError, setImageError] = useState<boolean>(false);
-  const [isRegisteredAlertOpen, setIsRegisteredAlertOpen] = useState<boolean>(false);
+  const { isOpen: isRegisteredAlertOpen, setIsOpen: setIsRegisteredAlertOpen } = useAlert();
   const { data, isLoading } = useQuery({
     queryKey: GROUP_KEYS.groupInfo({ groupId: numGroupId }),
     queryFn: () => getGroupInfoFn(numGroupId),
@@ -27,14 +28,6 @@ const GroupJoinPage = () => {
   const handleIsRegisteredAlertOpen = () => {
     setIsRegisteredAlertOpen((prev) => !prev);
   };
-
-  useEffect(() => {
-    const timer: NodeJS.Timeout = setTimeout(() => {
-      setIsRegisteredAlertOpen(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [isRegisteredAlertOpen]);
 
   if (isLoading) {
     return <div>Loading...</div>;

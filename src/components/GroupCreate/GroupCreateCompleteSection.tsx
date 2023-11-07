@@ -7,14 +7,15 @@ import { useRecoilValue } from 'recoil';
 import { groupCreateInfoState } from '@recoil/atoms/group';
 import { useMutation } from '@tanstack/react-query';
 import { createPageFn } from '@apis/pageApi';
+import useAlert from '@hooks/useAlert';
 
 interface GroupCreateCompleteSectionProps {
   groupName: string;
 }
 
 const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionProps) => {
-  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
-  const [isErrorAlertOpen, setIsErrorAlertOpen] = useState<boolean>(false);
+  const { isOpen: isAlertOpen, setIsOpen: setIsAlertOpen } = useAlert();
+  const { isOpen: isErrorAlertOpen, setIsOpen: setIsErrorAlertOpen } = useAlert();
   const [inviteCode, setInviteCode] = useState<string>('');
   const [groupId, setGroupId] = useState<number>(0);
   const groupInfo = useRecoilValue(groupCreateInfoState);
@@ -47,22 +48,6 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
   useEffect(() => {
     createGroupMutate();
   }, []);
-
-  useEffect(() => {
-    const timer: NodeJS.Timeout = setTimeout(() => {
-      setIsAlertOpen(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, [isAlertOpen]);
-
-  useEffect(() => {
-    const timer: NodeJS.Timeout = setTimeout(() => {
-      setIsErrorAlertOpen(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, [isErrorAlertOpen]);
 
   return (
     <section className='space-y-10 max-w-xl'>

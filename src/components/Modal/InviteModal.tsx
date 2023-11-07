@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Alert, Input } from '@material-tailwind/react';
 import { MdContentCopy, MdClear } from 'react-icons/md';
 import { useQuery } from '@tanstack/react-query';
 import { GROUP_KEYS } from '@constants/queryKeys';
 import { getInviteCodeFn } from '@apis/groupApi';
+import useAlert from '@hooks/useAlert';
 
 interface InviteModalProps {
   isOpen: boolean;
@@ -13,8 +14,8 @@ interface InviteModalProps {
 
 const InviteModal = ({ isOpen, onModalClick, groupId }: InviteModalProps) => {
   const numGroupId = Number(groupId);
-  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
-  const [isErrorAlertOpen, setIsErrorAlertOpen] = useState<boolean>(false);
+  const { isOpen: isAlertOpen, setIsOpen: setIsAlertOpen } = useAlert();
+  const { isOpen: isErrorAlertOpen, setIsOpen: setIsErrorAlertOpen } = useAlert();
   const { data } = useQuery({
     queryKey: GROUP_KEYS.groupInviteCode({ groupId: numGroupId }),
     queryFn: () => getInviteCodeFn(numGroupId),
@@ -28,22 +29,6 @@ const InviteModal = ({ isOpen, onModalClick, groupId }: InviteModalProps) => {
       setIsErrorAlertOpen(true);
     }
   };
-
-  useEffect(() => {
-    const timer: NodeJS.Timeout = setTimeout(() => {
-      setIsAlertOpen(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, [isAlertOpen]);
-
-  useEffect(() => {
-    const timer: NodeJS.Timeout = setTimeout(() => {
-      setIsErrorAlertOpen(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, [isErrorAlertOpen]);
 
   return (
     <Dialog open={isOpen} handler={onModalClick}>
