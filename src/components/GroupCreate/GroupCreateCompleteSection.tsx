@@ -14,6 +14,7 @@ interface GroupCreateCompleteSectionProps {
 
 const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionProps) => {
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+  const [isErrorAlertOpen, setIsErrorAlertOpen] = useState<boolean>(false);
   const [inviteCode, setInviteCode] = useState<string>('');
   const [groupId, setGroupId] = useState<number>(0);
   const groupInfo = useRecoilValue(groupCreateInfoState);
@@ -34,8 +35,9 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(inviteCode);
-    } finally {
       setIsAlertOpen(true);
+    } catch {
+      setIsErrorAlertOpen(true);
     }
   };
   const handleStartClick = () => {
@@ -53,6 +55,14 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
 
     return () => clearTimeout(timer);
   }, [isAlertOpen]);
+
+  useEffect(() => {
+    const timer: NodeJS.Timeout = setTimeout(() => {
+      setIsErrorAlertOpen(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [isErrorAlertOpen]);
 
   return (
     <section className='space-y-10 max-w-xl'>
@@ -75,18 +85,26 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
       <div className='flex justify-end'>
         <Button onClick={handleStartClick}>시작하기</Button>
       </div>
-      {isAlertOpen && (
-        <Alert
-          className='py-3 text-sm fixed top-10 z-30 max-w-xl min-w-max mx-auto bg-gray-200 text-gray-600'
-          open={isAlertOpen}
-          animate={{
-            mount: { y: 0 },
-            unmount: { y: 100 },
-          }}
-        >
-          초대코드가 복사되었습니다.
-        </Alert>
-      )}
+      <Alert
+        className='py-3 text-sm fixed top-10 z-30 max-w-xl min-w-max mx-auto bg-gray-200 text-gray-600'
+        open={isAlertOpen}
+        animate={{
+          mount: { y: 0 },
+          unmount: { y: 100 },
+        }}
+      >
+        초대코드가 복사되었습니다.
+      </Alert>
+      <Alert
+        className='py-3 text-sm fixed top-10 z-30 max-w-xl min-w-max mx-auto bg-gray-200 text-gray-600'
+        open={isErrorAlertOpen}
+        animate={{
+          mount: { y: 0 },
+          unmount: { y: 100 },
+        }}
+      >
+        죄송합니다. 다시 시도해주세요.
+      </Alert>
     </section>
   );
 };

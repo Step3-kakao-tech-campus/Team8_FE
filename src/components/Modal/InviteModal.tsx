@@ -14,6 +14,7 @@ interface InviteModalProps {
 const InviteModal = ({ isOpen, onModalClick, groupId }: InviteModalProps) => {
   const numGroupId = Number(groupId);
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+  const [isErrorAlertOpen, setIsErrorAlertOpen] = useState<boolean>(false);
   const { data } = useQuery({
     queryKey: GROUP_KEYS.groupInviteCode({ groupId: numGroupId }),
     queryFn: () => getInviteCodeFn(numGroupId),
@@ -22,8 +23,9 @@ const InviteModal = ({ isOpen, onModalClick, groupId }: InviteModalProps) => {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(data?.inviteCode);
-    } finally {
       setIsAlertOpen(true);
+    } catch {
+      setIsErrorAlertOpen(true);
     }
   };
 
@@ -34,6 +36,14 @@ const InviteModal = ({ isOpen, onModalClick, groupId }: InviteModalProps) => {
 
     return () => clearTimeout(timer);
   }, [isAlertOpen]);
+
+  useEffect(() => {
+    const timer: NodeJS.Timeout = setTimeout(() => {
+      setIsErrorAlertOpen(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [isErrorAlertOpen]);
 
   return (
     <Dialog open={isOpen} handler={onModalClick}>
@@ -57,19 +67,31 @@ const InviteModal = ({ isOpen, onModalClick, groupId }: InviteModalProps) => {
         />
       </DialogBody>
       <DialogFooter>
-        {isAlertOpen ? (
-          <Alert
-            className='py-3 font-semibold'
-            open={isAlertOpen}
-            animate={{
-              mount: { y: 0 },
-              unmount: { y: 100 },
-            }}
-          >
-            초대코드가 복사되었습니다.
-          </Alert>
+        {isAlertOpen || isErrorAlertOpen ? (
+          <>
+            <Alert
+              className='py-3 font-semibold'
+              open={isAlertOpen}
+              animate={{
+                mount: { y: 0 },
+                unmount: { y: 100 },
+              }}
+            >
+              초대코드가 복사되었습니다.
+            </Alert>
+            <Alert
+              className='py-3 font-semibold'
+              open={isErrorAlertOpen}
+              animate={{
+                mount: { y: 0 },
+                unmount: { y: 100 },
+              }}
+            >
+              죄송합니다. 다시 시도해주세요.
+            </Alert>
+          </>
         ) : (
-          <Button variant='filled' ripple={false} onClick={onModalClick}>
+          <Button variant='filled' className='h-12' ripple={false} onClick={onModalClick}>
             확인
           </Button>
         )}

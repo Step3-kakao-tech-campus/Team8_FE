@@ -31,7 +31,7 @@ const GroupJoinPage = () => {
   useEffect(() => {
     const timer: NodeJS.Timeout = setTimeout(() => {
       setIsRegisteredAlertOpen(false);
-    }, 2000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, [isRegisteredAlertOpen]);
@@ -43,19 +43,19 @@ const GroupJoinPage = () => {
   return (
     <section className='max-w-fit mx-auto'>
       <Alert
-        className='flex justify-between items-center py-3 font-semibold'
+        className='flex justify-between items-center py-3 font-semibold bg-gray-200 text-gray-600'
         open={isRegisteredAlertOpen}
         action={
           <Button
             variant='text'
-            className='p-1 text-white text-xs'
+            className='p-1 text-xs text-gray-600'
             onClick={() => navigate(`/${groupId}/${data.groupName}`)}
           >
             메인페이지로
           </Button>
         }
         animate={{
-          mount: { y: 0 },
+          mount: { y: -10 },
           unmount: { y: -50 },
         }}
       >
