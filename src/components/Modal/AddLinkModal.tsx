@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Dialog, Card, CardBody, Input, Button } from '@material-tailwind/react';
 import { useQuery } from '@tanstack/react-query';
@@ -15,9 +15,8 @@ interface AddLinkModalProps {
 }
 
 const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
-  const [linkText, setLinkText] = React.useState('');
-  const [pageName, setPageName] = React.useState('');
-  const [isExistence, setIsExistence] = React.useState(false);
+  const [pageName, setPageName] = useState('');
+  const [isExistence, setIsExistence] = useState(false);
 
   const { groupId } = useParams();
   const numGroupId = Number(groupId);
@@ -37,10 +36,6 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
     },
   });
 
-  const handleLinkTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLinkText(e.target.value);
-  };
-
   const handlePageNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPageName(e.target.value);
 
@@ -52,11 +47,11 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
 
   const handleSave = () => {
     if (isLoading) return;
-    if (linkText === '' || pageName === '') return;
+    if (pageName === '') return;
     if (isExistence) {
-      onSave(`#${linkText}`, `/${groupId}/${pageName}`);
+      onSave(`#${pageName}`, `/${groupId}/${pageName}`);
     } else {
-      onSave(`#${linkText}`, `/${groupId}/search?keyword=${pageName}`);
+      onSave(`#${pageName}`, `/${groupId}/search?keyword=${pageName}`);
     }
     handleModal();
   };
@@ -66,15 +61,6 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
       <Card className='mx-auto w-full max-w-fit'>
         <CardBody className='flex gap-4 text-black text-center items-center w-fit'>
           <div className='flex flex-col gap-3 w-[260px]'>
-            <Input
-              type='text'
-              label='링크 이름'
-              size='md'
-              value={linkText}
-              crossOrigin={undefined}
-              onChange={handleLinkTextChange}
-              required
-            />
             <Input
               type='text'
               label={isExistence ? '해당 페이지 태그' : '페이지 검색'}
@@ -90,7 +76,7 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
             </p>
           </div>
           <div className='w-fit'>
-            <Button type='submit' onClick={handleSave} disabled={!linkText || !pageName}>
+            <Button type='submit' onClick={handleSave} disabled={!pageName}>
               확인
             </Button>
           </div>
