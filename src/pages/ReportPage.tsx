@@ -17,14 +17,14 @@ const ReportPage = () => {
   const navigate = useNavigate();
 
   const { mutate: reportPost } = useMutation({
-    mutationFn: () => reportPostFn({ groupId: numGroupId, postId: numPostId, content }),
+    mutationFn: () => reportPostFn({ groupId: numGroupId, postId: numPostId, content: `${type}: ${content}` }),
     onSuccess: () => {
       setIsReported(true);
     },
   });
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(`${type}: ${e.target.value}`);
+    setContent(e.target.value);
   };
 
   const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -87,11 +87,13 @@ const ReportPage = () => {
                   required
                   wrap='soft'
                   onChange={handleContentChange}
+                  color={content ? 'gray' : 'red'}
+                  value={content}
                 />
               </div>
             </div>
             <div className='flex justify-end'>
-              <Button className='rounded-sm' onClick={handleReportClick}>
+              <Button className='rounded' onClick={handleReportClick}>
                 신고하기
               </Button>
             </div>
