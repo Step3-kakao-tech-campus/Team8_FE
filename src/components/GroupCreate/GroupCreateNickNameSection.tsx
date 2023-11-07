@@ -6,22 +6,22 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import getImageUrl from '@apis/image';
 import { nickNameRegister } from '@utils/Form/nickName';
 
-interface onNextStepProps {
+interface OnNextStepProps {
   onNextStep: () => void;
 }
 
-interface groupNickNameInput {
+interface GroupNickNameInput {
   groupNickName: string;
 }
 
-const GroupCreateNickNameSection = ({ onNextStep }: onNextStepProps) => {
+const GroupCreateNickNameSection = ({ onNextStep }: OnNextStepProps) => {
   const [groupInfo, setGroupInfo] = useRecoilState(groupCreateInfoState);
   const groupImageFile = useRecoilValue(groupImageFileState);
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<groupNickNameInput>({
+  } = useForm<GroupNickNameInput>({
     defaultValues: {
       groupNickName: groupInfo.groupNickName,
     },
