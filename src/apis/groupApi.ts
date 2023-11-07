@@ -5,7 +5,7 @@ const ENDPOINT = '/group';
 export const groupSearchFn = ({ keyword }: { keyword: string }) =>
   instance.get(`${ENDPOINT}/search?keyword=${keyword}`).then(({ data }) => data.response);
 
-interface groupInfoType {
+interface GroupInfoType {
   groupType: 'UNOFFICIAL_OPENED' | 'UNOFFICIAL_CLOSED';
   groupName: string;
   groupImage: string;
@@ -15,7 +15,7 @@ interface groupInfoType {
   entrancePassword: string;
 }
 
-export const createGroupFn = (groupInfo: groupInfoType) =>
+export const createGroupFn = (groupInfo: GroupInfoType) =>
   instance.post(`${ENDPOINT}/create`, groupInfo).then(({ data }) => data.response);
 
 export const getGroupInfoFn = (groupId: number) =>
