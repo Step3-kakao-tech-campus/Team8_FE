@@ -43,7 +43,6 @@ const SearchResultPage = () => {
   const { status, error } = useQuery({
     queryKey: PAGE_KEYS.byTitle({ groupId: numGroupId, title: keyword }),
     queryFn: () => getPageByTitleFn({ groupId: numGroupId, title: keyword }),
-    staleTime: 1000 * 60 * 60 * 24,
   });
 
   useEffect(() => {
