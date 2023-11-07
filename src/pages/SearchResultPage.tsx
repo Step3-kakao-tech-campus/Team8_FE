@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import RecentChangeList from '@components/Page/Common/RecentChangeList';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { MdArrowCircleRight } from 'react-icons/md';
@@ -38,7 +38,7 @@ const SearchResultPage = () => {
 
   const pageCreateModal = useModal();
 
-  const [hasMatchingPage, setHasMatchingPage] = React.useState<boolean>(true);
+  const [hasMatchingPage, setHasMatchingPage] = useState<boolean>(true);
 
   const { status, error } = useQuery({
     queryKey: PAGE_KEYS.byTitle({ groupId: numGroupId, title: keyword }),

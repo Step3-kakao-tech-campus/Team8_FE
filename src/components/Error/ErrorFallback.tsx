@@ -11,9 +11,17 @@ const ErrorFallback = ({ error }: ErrorFallbackProps) => {
   const message = getErrorMsg(error);
 
   useEffect(() => {
-    if (message === '해당 그룹에 대한 권한이 없습니다.' || message === '해당 그룹에 속한 회원이 아닙니다.') {
+    if (
+      message === '해당 그룹에 대한 권한이 없습니다.' ||
+      message === '해당 그룹에 속한 회원이 아닙니다.' ||
+      message === '해당 그룹의 회원이 아닙니다'
+    ) {
       navigate(`/${groupId}/join`, { replace: true });
-    } else if (message === '존재하지 않는 그룹입니다.' || message === '해당 그룹을 찾을 수 없습니다.') {
+    } else if (
+      message === '존재하지 않는 그룹입니다.' ||
+      message === '해당 그룹을 찾을 수 없습니다.' ||
+      message === '그룹을 찾을 수 없습니다.'
+    ) {
       setErrorMessage('존재하지 않는 그룹입니다.');
     }
   }, [groupId, message, setErrorMessage]);
