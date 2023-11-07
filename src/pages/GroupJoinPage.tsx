@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Alert, Button, Typography } from '@material-tailwind/react';
+import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
 import { GROUP_KEYS } from '@constants/queryKeys';
 import { getGroupInfoFn } from '@apis/groupApi';
 import Logo from '@assets/images/logo/logo.svg';
@@ -55,6 +56,9 @@ const GroupJoinPage = () => {
         이미 가입된 그룹입니다.
       </Alert>
       <div className='w-full'>
+        <Link to='/'>
+          <TextLogo className='w-36 m-auto mb-8' data-testid='textLogo' />
+        </Link>
         <Typography variant='h4' className='font-normal'>
           <span className='font-bold'>[{groupName}]</span>에 가입해보세요.
         </Typography>

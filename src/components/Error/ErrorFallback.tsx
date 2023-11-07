@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import { ErrorFallbackProps } from '@apis/dto';
 import { Button } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getErrorMsg } from '@utils/serverError';
