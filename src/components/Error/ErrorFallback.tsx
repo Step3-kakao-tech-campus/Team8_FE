@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { ErrorFallbackProps } from '@apis/dto';
+// import { ErrorFallbackProps } from '@apis/dto';
 import { Button } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getErrorMsg } from '@utils/serverError';
 import { NOT_EXIST_PAGE_ERROR_MSG } from '@constants/errorMsg';
+
+interface ErrorFallbackProps {
+  error: Error;
+}
 
 const ErrorFallback = ({ error }: ErrorFallbackProps) => {
   const navigate = useNavigate();

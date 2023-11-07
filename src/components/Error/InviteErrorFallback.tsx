@@ -1,8 +1,11 @@
 import React from 'react';
 import { Button, Typography } from '@material-tailwind/react';
 import { useNavigate } from 'react-router-dom';
-import { ErrorFallbackProps } from '@apis/dto';
 import { getErrorMsg } from '@utils/serverError';
+
+interface ErrorFallbackProps {
+  error: Error;
+}
 
 const InviteErrorFallback = ({ error }: ErrorFallbackProps) => {
   const navigate = useNavigate();
