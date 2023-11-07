@@ -8,6 +8,8 @@ import CKEditor from '@components/Page/Post/Editor/Ckeditor';
 import PostDeleteModal from '@components/Modal/PostDeleteModal';
 import { useMutation } from '@tanstack/react-query';
 import { createPostFn, modifyPostFn } from '@apis/postApi';
+import { queryClient } from '@apis/queryClient';
+import { PAGE_KEYS } from '@constants/queryKeys';
 
 const PostEditPage = () => {
   // url로 넘어온 group id, post id
@@ -39,20 +41,26 @@ const PostEditPage = () => {
   // 새로 작성
   const { mutate: createPost } = useMutation({
     mutationFn: () => createPostFn({ groupId: numGroupId, pageId, parentPostId, order, title, content }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(PAGE_KEYS.byTitle({ groupId: numGroupId, title: pageName }));
+    },
   });
 
   // 수정
   const { mutate: updatePost } = useMutation({
     mutationFn: () => modifyPostFn({ groupId: numGroupId, postId, title, content }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(PAGE_KEYS.byTitle({ groupId: numGroupId, title: pageName }));
+    },
   });
 
-  const handleSaveClick = async () => {
+  const handleSaveClick = () => {
     // 새로 작성하는 경우
     if (type === 'new') {
-      await createPost();
+      createPost();
     } else {
       // 있던 글 수정하는 경우
-      await updatePost();
+      updatePost();
     }
     navigate(`/${groupId}/${page}`, { replace: true });
   };

@@ -4,6 +4,7 @@ export const PAGE_KEYS = {
   searchKeyword: ({ groupId, keyword }: { groupId: number; keyword: string }) =>
     ['searchKeyword', { groupId, keyword }] as const,
   indexList: ({ groupId, pageId }: { groupId: number; pageId: number }) => ['indexList', { groupId, pageId }] as const,
+  isExistence: ({ groupId, title }: { groupId: number; title: string }) => ['isExistence', { groupId, title }] as const,
 };
 
 export const MAIN_KEYS = {
