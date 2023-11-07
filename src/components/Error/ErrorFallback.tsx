@@ -3,11 +3,12 @@ import { ErrorFallbackProps } from '@apis/dto';
 import { Button } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getErrorMsg } from '@utils/serverError';
+import { NOT_EXIST_PAGE_ERROR_MSG } from '@constants/errorMsg';
 
 const ErrorFallback = ({ error }: ErrorFallbackProps) => {
   const navigate = useNavigate();
   const { groupId } = useParams();
-  const [errorMessage, setErrorMessage] = useState<string>('페이지를 찾을 수 없습니다.');
+  const [errorMessage, setErrorMessage] = useState<string>(NOT_EXIST_PAGE_ERROR_MSG);
   const message = getErrorMsg(error);
 
   useEffect(() => {
