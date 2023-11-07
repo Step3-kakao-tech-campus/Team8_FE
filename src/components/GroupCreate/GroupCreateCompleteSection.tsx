@@ -63,7 +63,7 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
         <Typography variant='paragraph'>초대 링크를 통해 그룹원을 초대해보세요.</Typography>
       </div>
       <Input
-        className='truncate outline-none'
+        className='truncate outline-none cursor-pointer'
         label='초대 링크'
         value={inviteCode}
         size='lg'

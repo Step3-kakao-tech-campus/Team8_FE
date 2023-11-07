@@ -35,3 +35,8 @@ export interface ContributeItemProps {
   content: ContributeItemContent;
   createdAt: string;
 }
+
+export interface UnOfficialGroupProps {
+  data: GroupDetail;
+  onIsRegisteredAlertChange: () => void;
+}

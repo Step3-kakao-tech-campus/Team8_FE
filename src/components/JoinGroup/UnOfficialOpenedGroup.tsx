@@ -2,26 +2,20 @@ import React from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import DividerWithText from '@components/Common/DividerWithText';
 import { Button, Input, Typography } from '@material-tailwind/react';
-import { GroupDetail } from '@apis/dto';
-import { useNavigate } from 'react-router-dom';
-import { GROUP_EXIST_NICKNAME_ERROR_MSG, GROUP_PASSWORD_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
+import { UnOfficialGroupProps } from '@apis/dto';
+import { GROUP_PASSWORD_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
 import { useMutation } from '@tanstack/react-query';
-import { checkGroupPasswordFn, joinGroupFn } from '@apis/groupApi';
+import { checkGroupPasswordFn } from '@apis/groupApi';
 import { AxiosError } from 'axios';
 import { nickNameRegister } from '@utils/Form/nickName';
-
-interface UnOfficialOpenedGroupProps {
-  data: GroupDetail;
-  onIsRegisteredAlertChange: () => void;
-}
+import useJoinMutation from '@hooks/useJoinMutation';
 
 interface OpenedGroupInput {
   nickName: string;
   entrancePassword: string;
 }
 
-const UnOfficialOpenedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialOpenedGroupProps) => {
-  const navigate = useNavigate();
+const UnOfficialOpenedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGroupProps) => {
   const { groupId, groupName, entranceHint } = data;
   const {
     register,
@@ -35,38 +29,12 @@ const UnOfficialOpenedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialOp
       entrancePassword: '',
     },
   });
-  const { mutate: joinGroup } = useMutation({
-    mutationFn: () => joinGroupFn({ groupId, nickName: getValues('nickName') }),
-    onSuccess: () => {
-      navigate(`/${groupId}/${groupName}`, { replace: true });
-    },
-    onError: (error) => {
-      if (error instanceof AxiosError) {
-        const errorData = error.response?.data.error;
-        const { message, status } = errorData;
-        if (status === 400) {
-          switch (message) {
-            case '해당 닉네임은 이미 사용중입니다.':
-              setError(
-                'nickName',
-                {
-                  type: 'exist',
-                  message: GROUP_EXIST_NICKNAME_ERROR_MSG,
-                },
-                {
-                  shouldFocus: true,
-                },
-              );
-              break;
-            case '이미 가입된 회원입니다.':
-              onIsRegisteredAlertChange();
-              break;
-            default:
-              break;
-          }
-        }
-      }
-    },
+  const { mutate: joinGroup } = useJoinMutation({
+    groupId,
+    groupName,
+    nickName: getValues('nickName'),
+    setError,
+    onIsRegisteredAlertChange,
   });
   const { mutate: checkPassword } = useMutation({
     mutationFn: (entrancePassword: string) => checkGroupPasswordFn({ groupId, entrancePassword }),
