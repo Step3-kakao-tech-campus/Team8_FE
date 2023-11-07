@@ -58,17 +58,17 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
 
   return (
     <Dialog open={isOpen} handler={handleModal} size='sm' className='bg-transparent shadow-none'>
-      <Card className='mx-auto w-full max-w-fit'>
+      <Card className='mx-auto w-full min-w-fit max-w-fit'>
         <CardBody className='flex gap-4 text-black text-center items-center w-fit'>
-          <div className='flex flex-col gap-3 w-[260px]'>
+          <div className='flex flex-col gap-3 min-w-[260px]'>
             <Input
               type='text'
-              label={isExistence ? '해당 페이지 태그' : '페이지 검색'}
+              label={isExistence ? '입력한 페이지를 찾았어요' : '페이지 검색'}
               size='md'
               value={pageName}
               crossOrigin={undefined}
               onChange={handlePageNameChange}
-              color={isExistence ? 'gray' : 'red'}
+              color={isExistence ? 'gray' : 'blue'}
               required
             />
             <p className='text-xs font-normal'>
