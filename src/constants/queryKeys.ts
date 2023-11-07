@@ -17,6 +17,8 @@ export const GROUP_KEYS = {
   members: ({ groupId }: { groupId: number }) => ['members', groupId] as const,
   groupMyInfo: ({ groupId }: { groupId: number }) => ['groupMyInfo', groupId] as const,
   myContributeList: ({ groupId }: { groupId: number }) => ['myContributeList', groupId] as const,
+  groupInviteCode: ({ groupId }: { groupId: number }) => ['inviteCode', groupId] as const,
+  checkGroupInviteCode: ({ inviteCode }: { inviteCode: string }) => ['inviteCode', inviteCode] as const,
 };
 
 export const AUTH_KEYS = {

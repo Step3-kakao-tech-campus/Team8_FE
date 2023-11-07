@@ -40,3 +40,9 @@ export const setGroupMyInfoFn = ({ groupId, newGroupNickName }: { groupId: numbe
 
 export const getMyContributeListFn = (groupId: number) =>
   instance.get(`${ENDPOINT}/${groupId}/myInfo/myHistory`).then(({ data }) => data.response);
+
+export const getInviteCodeFn = (groupId: number) =>
+  instance.get(`${ENDPOINT}/${groupId}/invitationLink`).then(({ data }) => data.response);
+
+export const checkInviteCodeFn = (inviteCode: string) =>
+  instance.get(`${ENDPOINT}/invitation/${inviteCode}`).then(({ data }) => data.response);

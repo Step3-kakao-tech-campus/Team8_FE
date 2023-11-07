@@ -7,13 +7,15 @@ import { useRecoilValue } from 'recoil';
 import { groupCreateInfoState } from '@recoil/atoms/group';
 import { useMutation } from '@tanstack/react-query';
 import { createPageFn } from '@apis/pageApi';
+import useAlert from '@hooks/useAlert';
 
 interface GroupCreateCompleteSectionProps {
   groupName: string;
 }
 
 const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionProps) => {
-  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+  const { isOpen: isAlertOpen, setIsOpen: setIsAlertOpen } = useAlert();
+  const { isOpen: isErrorAlertOpen, setIsOpen: setIsErrorAlertOpen } = useAlert();
   const [inviteCode, setInviteCode] = useState<string>('');
   const [groupId, setGroupId] = useState<number>(0);
   const groupInfo = useRecoilValue(groupCreateInfoState);
@@ -34,10 +36,9 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(inviteCode);
-    } catch (error) {
-      console.error(error);
-    } finally {
       setIsAlertOpen(true);
+    } catch {
+      setIsErrorAlertOpen(true);
     }
   };
   const handleStartClick = () => {
@@ -48,14 +49,6 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
     createGroupMutate();
   }, []);
 
-  useEffect(() => {
-    const timer: NodeJS.Timeout = setTimeout(() => {
-      setIsAlertOpen(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, [isAlertOpen]);
-
   return (
     <section className='space-y-10 max-w-xl'>
       <div>
@@ -65,7 +58,7 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
         <Typography variant='paragraph'>초대 링크를 통해 그룹원을 초대해보세요.</Typography>
       </div>
       <Input
-        className='truncate outline-none'
+        className='truncate outline-none cursor-pointer'
         label='초대 링크'
         value={inviteCode}
         size='lg'
@@ -77,18 +70,26 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
       <div className='flex justify-end'>
         <Button onClick={handleStartClick}>시작하기</Button>
       </div>
-      {isAlertOpen && (
-        <Alert
-          className='py-3 text-sm fixed top-10 z-30 max-w-xl min-w-max mx-auto bg-gray-200 text-gray-600'
-          open={isAlertOpen}
-          animate={{
-            mount: { y: 0 },
-            unmount: { y: 100 },
-          }}
-        >
-          초대코드가 복사되었습니다.
-        </Alert>
-      )}
+      <Alert
+        className='py-3 text-sm fixed top-10 z-30 max-w-xl min-w-max mx-auto bg-gray-200 text-gray-600'
+        open={isAlertOpen}
+        animate={{
+          mount: { y: 0 },
+          unmount: { y: 100 },
+        }}
+      >
+        초대코드가 복사되었습니다.
+      </Alert>
+      <Alert
+        className='py-3 text-sm fixed top-10 z-30 max-w-xl min-w-max mx-auto bg-gray-200 text-gray-600'
+        open={isErrorAlertOpen}
+        animate={{
+          mount: { y: 0 },
+          unmount: { y: 100 },
+        }}
+      >
+        죄송합니다. 다시 시도해주세요.
+      </Alert>
     </section>
   );
 };
