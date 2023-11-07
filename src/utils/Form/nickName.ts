@@ -36,5 +36,8 @@ export const nickNameRegister = {
     value: 8,
     message: GROUP_NICKNAME_ERROR_MSG,
   },
-  pattern: GROUP_NICKNAME_PATTERN,
+  pattern: {
+    value: GROUP_NICKNAME_PATTERN,
+    message: GROUP_NICKNAME_ERROR_MSG,
+  },
 };
