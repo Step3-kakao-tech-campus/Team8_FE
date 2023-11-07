@@ -40,3 +40,7 @@ export interface UnOfficialGroupProps {
   data: GroupDetail;
   onIsRegisteredAlertChange: () => void;
 }
+
+export interface ErrorFallbackProps {
+  error: Error;
+}
