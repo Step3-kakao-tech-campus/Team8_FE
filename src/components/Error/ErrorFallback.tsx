@@ -18,7 +18,8 @@ const ErrorFallback = ({ error }: ErrorFallbackProps) => {
     if (
       message === '해당 그룹에 대한 권한이 없습니다.' ||
       message === '해당 그룹에 속한 회원이 아닙니다.' ||
-      message === '해당 그룹의 회원이 아닙니다'
+      message === '해당 그룹의 회원이 아닙니다' ||
+      message === '해당 그룹에 속한 회원이 아닙니다'
     ) {
       navigate(`/${groupId}/join`, { replace: true });
     } else if (
