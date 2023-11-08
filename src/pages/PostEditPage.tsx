@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import PageContainer from '@components/Page/Common/PageContainer';
 import PageTitleSection from '@components/Page/Common/PageTitleSection';
 import useModal from '@hooks/useModal';
@@ -16,10 +16,11 @@ const PostEditPage = () => {
   const { page, groupId, postId: post } = useParams();
   const numGroupId = Number(groupId);
   const postId = Number(post);
-
-  window.scrollTo({ top: 0, behavior: 'instant' });
-
   if (!groupId || !page) return null;
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
 
   // 페이지에서 넘어온 데이터
   const { pageId, parentPostId, order, index, pageName, postTitle, content: postContent, type } = useLocation().state;
@@ -62,6 +63,7 @@ const PostEditPage = () => {
       // 있던 글 수정하는 경우
       updatePost();
     }
+    navigate(`/${groupId}/${page}`, { replace: true });
   };
 
   return (
