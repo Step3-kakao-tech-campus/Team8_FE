@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Input } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
-import ContributeList from '@components/MyPage/ContributeList';
 import GroupQuitModal from '@components/Modal/GroupQuitModal';
 import useModal from '@hooks/useModal';
 import { useMutation, useQuery } from '@tanstack/react-query';
