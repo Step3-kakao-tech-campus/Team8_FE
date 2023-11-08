@@ -11,6 +11,11 @@ export const POST_KEYS = {
   history: ({ groupId, postId }: { groupId: number; postId: number }) => ['postHistory', { groupId, postId }] as const,
 };
 
+export const COMMENT_KEYS = {
+  commentList: ({ groupId, postId }: { groupId: number; postId: number }) =>
+    ['commentList', { groupId, postId }] as const,
+};
+
 export const MAIN_KEYS = {
   main: ['main'],
 };
