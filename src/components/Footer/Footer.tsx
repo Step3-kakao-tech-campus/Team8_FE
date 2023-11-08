@@ -8,7 +8,7 @@ const Footer = () => {
       <Link to='/' className='mr-4'>
         <Logo fill='black' width='42px' height='42px' />
       </Link>
-      <p className='text-sm text-gray-700'>Faire un don | A propos | Politique de confidentialité | Nous contacter</p>
+      <p className='text-sm text-gray-700'>카카오테크캠퍼스 1기 | 8조 | Wekiki | 부산대학교</p>
     </footer>
   );
 };
