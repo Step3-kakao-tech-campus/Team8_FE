@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Input } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
-import QuitModal from '@components/Modal/QuitModal';
+import ContributeList from '@components/MyPage/ContributeList';
+import GroupQuitModal from '@components/Modal/GroupQuitModal';
 import useModal from '@hooks/useModal';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { GROUP_KEYS } from '@constants/queryKeys';
@@ -183,7 +184,7 @@ const GroupMyPage = () => {
         >
           그룹 탈퇴하기
         </Button>
-        <QuitModal group={groupId} isOpen={quitModal.isOpen} onClick={quitModal.handleModal} />
+        <GroupQuitModal groupId={groupId} isOpen={quitModal.isOpen} onClick={quitModal.handleModal} />
       </div>
     </main>
   );
