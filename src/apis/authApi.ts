@@ -32,3 +32,5 @@ export const getMyInfoFn = () => instance.get(`${ENDPOINT}/myinfo`).then(({ data
 
 export const nickNameChangeFn = ({ newNickName }: { newNickName: string }) =>
   instance.patch(`${ENDPOINT}/changename`, { newNickName });
+
+export const authDeleteFn = () => instance.delete(`${ENDPOINT}/delete`);
