@@ -30,6 +30,16 @@ export const passwordChangeFn = ({ currentPassword, newPassword }: { currentPass
 
 export const getMyInfoFn = () => instance.get(`${ENDPOINT}/myinfo`).then(({ data }) => data.response);
 
+export const pnuMailAuthFn = ({ email }: { email: string }) => instance.post(`${ENDPOINT}/pusanuniv`, { email });
+
+export const pnuMailCertificationNumberCheckFn = ({
+  email,
+  certificationNumber,
+}: {
+  email: string;
+  certificationNumber: string;
+}) => instance.post(`${ENDPOINT}/pusanuniv/cert`, { email, certificationNumber });
+
 export const nickNameChangeFn = ({ newNickName }: { newNickName: string }) =>
   instance.patch(`${ENDPOINT}/changename`, { newNickName });
 
