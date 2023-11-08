@@ -13,9 +13,11 @@ interface GroupMemberListProps {
 }
 
 const GroupMemberListModal = ({ isOpen, handleModal, groupId }: GroupMemberListProps) => {
+  const numGroupId = Number(groupId);
+
   const { data, isLoading } = useQuery({
-    queryKey: GROUP_KEYS.members({ groupId: Number(groupId) }),
-    queryFn: () => getGroupMemberFn(Number(groupId)),
+    queryKey: GROUP_KEYS.members({ groupId: numGroupId }),
+    queryFn: () => getGroupMemberFn(numGroupId),
   });
 
   if (isLoading) {
@@ -30,11 +32,7 @@ const GroupMemberListModal = ({ isOpen, handleModal, groupId }: GroupMemberListP
         <p className='text-lg'>그룹원 보기</p>
       </DialogHeader>
       <DialogBody className=' h-96 overflow-y-auto'>
-        <List>
-          {data.nickNames.map((nickName: string) => (
-            <ListItem key={uuidv4()}>{nickName}</ListItem>
-          ))}
-        </List>
+        <List>{data?.nickNames.map((nickName: string) => <ListItem key={uuidv4()}>{nickName}</ListItem>)}</List>
       </DialogBody>
     </Dialog>
   );

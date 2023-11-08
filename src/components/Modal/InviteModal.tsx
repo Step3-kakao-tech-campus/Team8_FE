@@ -1,31 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Alert } from '@material-tailwind/react';
+import React from 'react';
+import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Alert, Input } from '@material-tailwind/react';
 import { MdContentCopy, MdClear } from 'react-icons/md';
+import { useQuery } from '@tanstack/react-query';
+import { GROUP_KEYS } from '@constants/queryKeys';
+import { getInviteCodeFn } from '@apis/groupApi';
+import useAlert from '@hooks/useAlert';
 
 interface InviteModalProps {
-  code: string;
   isOpen: boolean;
   onModalClick: () => void;
+  groupId: string;
 }
 
-const InviteModal = ({ code, isOpen, onModalClick }: InviteModalProps) => {
-  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+const InviteModal = ({ isOpen, onModalClick, groupId }: InviteModalProps) => {
+  const numGroupId = Number(groupId);
+  const { isOpen: isAlertOpen, setIsOpen: setIsAlertOpen } = useAlert();
+  const { isOpen: isErrorAlertOpen, setIsOpen: setIsErrorAlertOpen } = useAlert();
+  const { data } = useQuery({
+    queryKey: GROUP_KEYS.groupInviteCode({ groupId: numGroupId }),
+    queryFn: () => getInviteCodeFn(numGroupId),
+  });
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(code);
-    } finally {
+      await navigator.clipboard.writeText(data?.inviteCode);
       setIsAlertOpen(true);
+    } catch {
+      setIsErrorAlertOpen(true);
     }
   };
-
-  useEffect(() => {
-    const timer: NodeJS.Timeout = setTimeout(() => {
-      setIsAlertOpen(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, [isAlertOpen]);
 
   return (
     <Dialog open={isOpen} handler={onModalClick}>
@@ -37,28 +40,43 @@ const InviteModal = ({ code, isOpen, onModalClick }: InviteModalProps) => {
         <p className='text-sm text-gray-600 font-normal'>클릭하여 링크 복사</p>
       </DialogHeader>
       <DialogBody className='flex'>
-        <p className='px-4 py-1 bg-blue-gray-50 text-black overflow-auto'>{code}</p>
-        <Button
-          className='bg-blue-gray-50 text-xl text-black rounded-none shadow-none hover:shadow-none'
+        <Input
+          className='truncate outline-none cursor-pointer'
+          label='초대 링크'
+          value={data?.inviteCode}
+          size='lg'
+          readOnly
+          crossOrigin=''
+          icon={<MdContentCopy onClick={handleCopy} />}
           onClick={handleCopy}
-        >
-          <MdContentCopy />
-        </Button>
+        />
       </DialogBody>
       <DialogFooter>
-        {isAlertOpen ? (
-          <Alert
-            className='py-3 font-semibold'
-            open={isAlertOpen}
-            animate={{
-              mount: { y: 0 },
-              unmount: { y: 100 },
-            }}
-          >
-            초대코드가 복사되었습니다.
-          </Alert>
+        {isAlertOpen || isErrorAlertOpen ? (
+          <>
+            <Alert
+              className='py-3 font-semibold'
+              open={isAlertOpen}
+              animate={{
+                mount: { y: 0 },
+                unmount: { y: 100 },
+              }}
+            >
+              초대코드가 복사되었습니다.
+            </Alert>
+            <Alert
+              className='py-3 font-semibold'
+              open={isErrorAlertOpen}
+              animate={{
+                mount: { y: 0 },
+                unmount: { y: 100 },
+              }}
+            >
+              죄송합니다. 다시 시도해주세요.
+            </Alert>
+          </>
         ) : (
-          <Button variant='filled' ripple={false} onClick={onModalClick}>
+          <Button variant='filled' className='h-12' ripple={false} onClick={onModalClick}>
             확인
           </Button>
         )}
