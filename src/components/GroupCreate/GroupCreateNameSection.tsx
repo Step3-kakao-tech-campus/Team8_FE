@@ -26,9 +26,10 @@ const GroupCreateNameSection = ({ onNextStep }: GroupCreateNameSectionProps) => 
   });
 
   const handleNextStep: SubmitHandler<FieldValues> = ({ groupName }) => {
-    // TODO: 그룹 이름 중복 체크, 그룹 이름 길이 체크, 그 외 조건 체크
+    if (!isValid) return;
+
     setGroupInfo((prev) => ({ ...prev, groupName }));
-    if (isValid) onNextStep();
+    onNextStep();
   };
   return (
     <section className='space-y-10'>

@@ -11,7 +11,7 @@ import {
 } from '@constants/errorMsg';
 import { useMutation } from '@tanstack/react-query';
 import { checkInviteCodeFn } from '@apis/groupApi';
-import { AxiosError } from 'axios';
+import { getErrorMsg } from '@utils/serverError';
 
 interface ClosedGroupInput {
   nickName: string;
@@ -45,39 +45,29 @@ const UnOfficialClosedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGr
       joinGroup();
     },
     onError: (error) => {
-      if (error instanceof AxiosError) {
-        const errorData = error.response?.data.error;
-        const { message, status } = errorData;
-        if (status === 404) {
-          switch (message) {
-            case '잘못된 접근입니다.':
-              setError(
-                'inviteCode',
-                {
-                  type: 'wrong',
-                  message: GROUP_INVITE_CODE_ERROR_MSG,
-                },
-                {
-                  shouldFocus: true,
-                },
-              );
-              break;
-            case '이미 만료된 초대 링크입니다.':
-              setError(
-                'inviteCode',
-                {
-                  type: 'expired',
-                  message: GROUP_INVITE_CODE_EXPIRED_ERROR_MSG,
-                },
-                {
-                  shouldFocus: true,
-                },
-              );
-              break;
-            default:
-              break;
-          }
-        }
+      const message = getErrorMsg(error);
+      if (message === '잘못된 접근입니다.') {
+        setError(
+          'inviteCode',
+          {
+            type: 'wrong',
+            message: GROUP_INVITE_CODE_ERROR_MSG,
+          },
+          {
+            shouldFocus: true,
+          },
+        );
+      } else if (message === '이미 만료된 초대 링크입니다.') {
+        setError(
+          'inviteCode',
+          {
+            type: 'expired',
+            message: GROUP_INVITE_CODE_EXPIRED_ERROR_MSG,
+          },
+          {
+            shouldFocus: true,
+          },
+        );
       }
     },
   });

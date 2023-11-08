@@ -6,9 +6,9 @@ import { UnOfficialGroupProps } from '@apis/dto';
 import { GROUP_PASSWORD_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
 import { useMutation } from '@tanstack/react-query';
 import { checkGroupPasswordFn } from '@apis/groupApi';
-import { AxiosError } from 'axios';
 import { nickNameRegister } from '@utils/Form/nickName';
 import useJoinMutation from '@hooks/useJoinMutation';
+import { getErrorMsg } from '@utils/serverError';
 
 interface OpenedGroupInput {
   nickName: string;
@@ -42,21 +42,18 @@ const UnOfficialOpenedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGr
       joinGroup();
     },
     onError: (error) => {
-      if (error instanceof AxiosError) {
-        const errorData = error.response?.data.error;
-        const { message, status } = errorData;
-        if (status === 400 && message === '비밀번호가 틀렸습니다.') {
-          setError(
-            'entrancePassword',
-            {
-              type: 'wrong',
-              message: GROUP_PASSWORD_ERROR_MSG,
-            },
-            {
-              shouldFocus: true,
-            },
-          );
-        }
+      const message = getErrorMsg(error);
+      if (message === '비밀번호가 틀렸습니다.') {
+        setError(
+          'entrancePassword',
+          {
+            type: 'wrong',
+            message: GROUP_PASSWORD_ERROR_MSG,
+          },
+          {
+            shouldFocus: true,
+          },
+        );
       }
     },
   });

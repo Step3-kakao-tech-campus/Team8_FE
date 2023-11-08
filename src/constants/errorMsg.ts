@@ -14,4 +14,6 @@ export const GROUP_SAME_NICKNAME_ERROR_MSG = '기존 닉네임과 같은 닉네�
 export const GROUP_INVITE_CODE_ERROR_MSG = '잘못된 초대링크입니다.';
 export const GROUP_INVITE_CODE_EXPIRED_ERROR_MSG = '만료된 초대링크입니다.';
 
+export const NOT_EXIST_PAGE_ERROR_MSG = '페이지를 찾을 수 없습니다.';
+
 export const PNU_EMAIL_ERROR_MSG = '부산대 이메일이 아닙니다.';

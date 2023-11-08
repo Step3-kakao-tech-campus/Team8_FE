@@ -35,9 +35,6 @@ const GroupMainPage = () => {
   const { data, isLoading } = useQuery({
     queryKey: PAGE_KEYS.byTitle({ groupId: numGroupId, title: page }),
     queryFn: () => getPageByTitleFn({ groupId: numGroupId, title: page }),
-    onError: () => {
-      navigate('/404', { replace: true });
-    },
   });
 
   const { pageName, pageId, postList, goodCount, badCount } = data?.data?.response || {

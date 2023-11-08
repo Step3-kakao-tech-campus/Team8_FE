@@ -5,7 +5,7 @@ import { MdArrowCircleRight } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@material-tailwind/react';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createPageFn, getPageByTitleFn, searchPageFn } from '@apis/pageApi';
+import { createPageFn, searchPageFn } from '@apis/pageApi';
 import { PAGE_KEYS } from '@constants/queryKeys';
 import PageCreateModal from '@components/Modal/PageCreateModal';
 import useModal from '@hooks/useModal';
@@ -15,16 +15,6 @@ interface Page {
   pageId: number;
   pageName: string;
   content: string;
-}
-
-interface Error {
-  response: {
-    data: {
-      error: {
-        message: string;
-      };
-    };
-  };
 }
 
 const SearchResultPage = () => {
@@ -39,35 +29,21 @@ const SearchResultPage = () => {
 
   const pageCreateModal = useModal();
 
-  const [hasMatchingPage, setHasMatchingPage] = React.useState<boolean>(true);
-
-  const { status, error } = useQuery({
-    queryKey: PAGE_KEYS.byTitle({ groupId: numGroupId, title: keyword }),
-    queryFn: () => getPageByTitleFn({ groupId: numGroupId, title: keyword }),
-  });
-
-  useEffect(() => {
-    // 일치하는 페이지가 없는 경우에 검색 결과 받아오기
-    if (status === 'error') {
-      if ((error as Error).response?.data?.error?.message === '존재하지 않는 페이지 입니다.') {
-        setHasMatchingPage(false);
-      }
-    }
-
-    // 일치하는 페이지가 있는 경우 해당 페이지로 이동
-    if (status === 'success') {
-      setHasMatchingPage(true);
-      navigate(`/${groupId}/${keyword}`);
-    }
-  }, [status, error, keyword, groupId, navigate]);
-
+  // 검색 결과
   const { data: pageData } = useQuery({
     queryKey: PAGE_KEYS.searchKeyword({ groupId: numGroupId, keyword }),
     queryFn: () => searchPageFn({ groupId: numGroupId, keyword }),
-    enabled: !hasMatchingPage,
+    enabled: !!keyword,
   });
 
   const pages = pageData?.data?.response.pages || [];
+
+  // 이미 존재하는 페이지인 경우 바로 이동
+  useEffect(() => {
+    if (!keyword) return;
+    const isHasPage = pages[0]?.pageName === keyword;
+    if (isHasPage) navigate(`/${groupId}/${keyword}`);
+  }, [keyword, pages, navigate, groupId]);
 
   const { mutate: createPage } = useMutation({
     mutationFn: createPageFn,
@@ -78,6 +54,8 @@ const SearchResultPage = () => {
   });
 
   const handlePageCreate = () => {
+    if (!keyword) return;
+    // if(isHasPage) return navigate(`/${groupId}/${keyword}`);
     createPage({ groupId: numGroupId, pageName: keyword });
   };
 
@@ -111,10 +89,18 @@ const SearchResultPage = () => {
             </div>
           ) : (
             pages.map((page: Page) => (
-              <div key={uuidv4()} className='px-2 py-8 border-b border-gray-200'>
+              <button
+                type='button'
+                key={uuidv4()}
+                className='px-2 py-8 border-b border-gray-200 hover:underline w-full text-left'
+                onClick={() => navigate(`/${groupId}/${page.pageName}`)}
+              >
                 <h2 className='text-lg font-bold mb-1'>{page.pageName}</h2>
-                <p className='text-sm text-gray-500'>{page.content}</p>
-              </div>
+                <div
+                  className='ck-content ck-read-only text-sm text-gray-500'
+                  dangerouslySetInnerHTML={{ __html: page.content }}
+                />
+              </button>
             ))
           )}
         </section>
