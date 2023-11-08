@@ -5,7 +5,7 @@ import { Spinner, Typography } from '@material-tailwind/react';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import tokenState from '@recoil/atoms/auth';
+import isLoggedInState from '@recoil/atoms/auth';
 
 interface InviteFetcherProps {
   inviteCode: string;
@@ -14,7 +14,7 @@ interface InviteFetcherProps {
 const InviteFetcher = ({ inviteCode }: InviteFetcherProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const token = useRecoilValue(tokenState);
+  const isLoggedIn = useRecoilValue(isLoggedInState);
   const { data, isLoading } = useQuery({
     queryKey: GROUP_KEYS.checkGroupInviteCode({ inviteCode }),
     queryFn: () => checkInviteCodeFn(inviteCode),
@@ -23,7 +23,7 @@ const InviteFetcher = ({ inviteCode }: InviteFetcherProps) => {
   useEffect(() => {
     if (!isLoading && data) {
       const { groupId } = data;
-      if (token) {
+      if (isLoggedIn) {
         navigate(`/${groupId}/join`, { replace: true });
       } else {
         navigate('/login', { replace: true, state: { path: location.pathname } });
