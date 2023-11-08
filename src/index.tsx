@@ -27,6 +27,7 @@ import MainLayout from '@components/Layout/MainLayout';
 import PageLayout from '@components/Layout/PageLayout';
 import NoHeaderLayout from '@components/Layout/NoHeaderLayout';
 import App from './App';
+import PrivateRoute from './routes/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -54,7 +55,11 @@ const router = createBrowserRouter([
           },
           {
             path: '/myPage',
-            element: <MyPage />,
+            element: (
+              <PrivateRoute>
+                <MyPage />
+              </PrivateRoute>
+            ),
           },
           {
             path: '/search/group',
@@ -62,27 +67,51 @@ const router = createBrowserRouter([
           },
           {
             path: '/groupCreate',
-            element: <GroupCreatePage />,
+            element: (
+              <PrivateRoute>
+                <GroupCreatePage />
+              </PrivateRoute>
+            ),
           },
           {
             path: '/:groupId/myPage',
-            element: <GroupMyPage />,
+            element: (
+              <PrivateRoute>
+                <GroupMyPage />
+              </PrivateRoute>
+            ),
           },
           {
             path: '/:groupId/myPage/contribute',
-            element: <MyContributePage />,
+            element: (
+              <PrivateRoute>
+                <MyContributePage />
+              </PrivateRoute>
+            ),
           },
           {
             path: '/:groupId/search',
-            element: <SearchResultPage />,
+            element: (
+              <PrivateRoute>
+                <SearchResultPage />
+              </PrivateRoute>
+            ),
           },
           {
             path: '/:groupId/:page/:postId/report',
-            element: <ReportPage />,
+            element: (
+              <PrivateRoute>
+                <ReportPage />
+              </PrivateRoute>
+            ),
           },
           {
             path: '/:groupId/:page/:postId/history',
-            element: <PostHistoryPage />,
+            element: (
+              <PrivateRoute>
+                <PostHistoryPage />
+              </PrivateRoute>
+            ),
           },
           {
             path: '/404',
@@ -95,11 +124,19 @@ const router = createBrowserRouter([
         children: [
           {
             path: '/:groupId/:page',
-            element: <GroupMainPage />,
+            element: (
+              <PrivateRoute>
+                <GroupMainPage />
+              </PrivateRoute>
+            ),
           },
           {
             path: '/:groupId/:page/:postId/edit',
-            element: <PostEditPage />,
+            element: (
+              <PrivateRoute>
+                <PostEditPage />
+              </PrivateRoute>
+            ),
           },
         ],
       },
