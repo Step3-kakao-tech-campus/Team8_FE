@@ -37,6 +37,7 @@ const SearchResultPage = () => {
 
   const pages = pageData?.data?.response.pages || [];
 
+  // 이미 존재하는 페이지인 경우 바로 이동
   useEffect(() => {
     if (!keyword) return;
     const isHasPage = pages[0]?.pageName === keyword;
@@ -93,7 +94,10 @@ const SearchResultPage = () => {
                 onClick={() => navigate(`/${groupId}/${page.pageName}`)}
               >
                 <h2 className='text-lg font-bold mb-1'>{page.pageName}</h2>
-                <p className='text-sm text-gray-500'>{page.content}</p>
+                <div
+                  className='ck-content ck-read-only text-sm text-gray-500'
+                  dangerouslySetInnerHTML={{ __html: page.content }}
+                />
               </button>
             ))
           )}
