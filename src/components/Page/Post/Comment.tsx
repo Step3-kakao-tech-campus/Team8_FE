@@ -124,7 +124,7 @@ const Comment = ({
         </div>
       ) : (
         <Typography
-          className='p-3 text-sm font-normal bg-gray-100 border rounded-lg'
+          className='p-3 text-sm font-normal bg-gray-100 border rounded-lg whitespace-pre'
           style={{ backgroundColor: randomBackgroundColor }}
         >
           {content}
