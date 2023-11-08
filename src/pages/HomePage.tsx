@@ -7,12 +7,12 @@ import { ReactComponent as Logo } from '@assets/images/logo/logo.svg';
 import SearchInput from '@components/Common/SearchInput';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { groupCreateInfoState, groupImageFileState } from '@recoil/atoms/group';
-import tokenState from '@recoil/atoms/auth';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { MAIN_KEYS } from '@constants/queryKeys';
 import { getGroupListFn } from '@apis/mainApi';
 import { MainGroups } from '@apis/dto';
+import isLoggedInState from '@recoil/atoms/auth';
 
 const titleStyle = 'font-bold text-lg mb-4 mt-20';
 const defaultGroupInfo = {
@@ -29,7 +29,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   const setGroupInfo = useSetRecoilState(groupCreateInfoState);
   const setGroupImageFile = useSetRecoilState(groupImageFileState);
-  const isLoggedIn = Boolean(useRecoilValue(tokenState));
+  const isLoggedIn = useRecoilValue(isLoggedInState);
   const { data: groupList } = useQuery<MainGroups>({ queryKey: MAIN_KEYS.main, queryFn: getGroupListFn });
 
   const handleCreateClick = () => {

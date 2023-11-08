@@ -19,7 +19,6 @@ const CKEditor = ({ content, onChange }: EditorProps) => {
     const currentData = content;
     const newData = `${currentData}<a href="${linkURL}">${linkText}</a>`;
     onChange(newData.replace(/\r?\n|\r/g, ''));
-    console.log(content);
   };
 
   return (
