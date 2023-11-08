@@ -1,25 +1,24 @@
 import React, { useEffect } from 'react';
-
 import { kakaoLoginFn } from '@apis/authApi';
 import { AUTH_KEYS } from '@constants/queryKeys';
 import { Button, Spinner, Typography } from '@material-tailwind/react';
-import tokenState from '@recoil/atoms/auth';
-
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { setCookie } from 'typescript-cookie';
 import { useSetRecoilState } from 'recoil';
+import isLoggedInState from '@recoil/atoms/auth';
 
 const KakaoLoginPage = () => {
   const code = new URL(window.location.href).searchParams.get('code');
   const navigate = useNavigate();
-
-  const setToken = useSetRecoilState(tokenState);
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const { data, error } = useQuery({ queryKey: AUTH_KEYS.kakaoLogin({ code }), queryFn: () => kakaoLoginFn({ code }) });
 
   useEffect(() => {
     if (data) {
-      const { grantType, accessToken } = data;
-      setToken(`${grantType} ${accessToken}`);
+      const { grantType, accessToken, accessTokenValidTime } = data;
+      setCookie('accessToken', `${grantType} ${accessToken}`, { expires: new Date(accessTokenValidTime) });
+      setIsLoggedIn(true);
       navigate('/');
     }
   }, [data]);

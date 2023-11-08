@@ -30,8 +30,10 @@ const GroupCreateSearchSetting = ({ onNextStep }: GroupCreateSearchSettingProps)
   });
 
   const handleNextStep: SubmitHandler<FieldValues> = ({ introduction, entranceHint, entrancePassword }) => {
+    if (!isValid) return;
+
     setGroupInfo((prev) => ({ ...prev, introduction, entranceHint, entrancePassword }));
-    if (isValid) onNextStep();
+    onNextStep();
   };
   return (
     <section className='space-y-4'>
