@@ -3,7 +3,7 @@ import { Collapse, Textarea } from '@material-tailwind/react';
 import { MdSend, MdOutlineKeyboardArrowUp } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createCommentFn, getCommentsFn } from '@apis/postApi';
+import { createCommentFn, getCommentsFn } from '@apis/commentApi';
 import { COMMENT_KEYS } from '@constants/queryKeys';
 import { queryClient } from '@apis/queryClient';
 import Comment from './Comment';

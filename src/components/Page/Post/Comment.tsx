@@ -1,12 +1,12 @@
 import React from 'react';
 import { Button, ButtonGroup, Textarea, Typography } from '@material-tailwind/react';
 import { getFormattedDateTime } from '@utils/time';
-import { deleteCommentFn, modifyCommentFn } from '@apis/postApi';
 import { queryClient } from '@apis/queryClient';
 import { COMMENT_KEYS } from '@constants/queryKeys';
 import { useMutation } from '@tanstack/react-query';
 import ConfirmCancelModal from '@components/Modal/ConfirmCancelModal';
 import useModal from '@hooks/useModal';
+import { deleteCommentFn, modifyCommentFn } from '@apis/commentApi';
 
 interface CommentProps {
   commentId: number;
