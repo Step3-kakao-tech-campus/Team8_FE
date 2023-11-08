@@ -34,3 +34,6 @@ export const nickNameChangeFn = ({ newNickName }: { newNickName: string }) =>
   instance.patch(`${ENDPOINT}/changename`, { newNickName });
 
 export const authDeleteFn = () => instance.delete(`${ENDPOINT}/delete`);
+
+export const kakaoLoginFn = ({ code }: { code: string | null }) =>
+  instance.get(`${ENDPOINT}/kakao/signin?code=${code}`).then(({ data }) => data.response);
