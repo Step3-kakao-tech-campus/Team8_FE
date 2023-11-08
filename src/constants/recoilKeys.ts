@@ -1,7 +1,10 @@
 // auth 관련 key
-const AUTH_KEYS = {
+export const AUTH_KEYS = {
   token: 'tokenState',
 };
 
-// 더 생기면 default 없애기
-export default AUTH_KEYS;
+// 그룹 생성 관련 key
+export const GROUP_CREATE_RECOIL_KEYS = {
+  groupInfo: 'groupCreateInfoState',
+  groupImageFile: 'groupImageState',
+};

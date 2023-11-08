@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Accordion, AccordionHeader, AccordionBody, Button, Chip } from '@material-tailwind/react';
+import { Accordion, AccordionHeader, AccordionBody, Chip } from '@material-tailwind/react';
 import { MdExpandMore, MdExpandLess } from 'react-icons/md';
+import Viewer from './Page/Post/Editor/Ckviewer';
 
 interface History {
   memberId: number;
@@ -24,9 +25,9 @@ const PostHistoryAccordion = ({ historyList }: PostHistoryAccordionProps) => {
     setOpenAccordion(newAccordionState);
   };
 
-  const handleUndoButtonClick = () => {
-    // TODO: 되돌리기 모달 추후 구현
-  };
+  // const handleUndoButtonClick = () => {
+  //   TODO: 히스토리 복구 API 생성 시 구현
+  // };
 
   useEffect(() => {
     setOpenAccordion((prev) => {
@@ -57,8 +58,8 @@ const PostHistoryAccordion = ({ historyList }: PostHistoryAccordionProps) => {
             </div>
           </AccordionHeader>
           <AccordionBody className='whitespace-prewrap text-xs font-normal text-gray-600'>
-            {history.content}
-            {index !== 0 && (
+            <Viewer content={history.content} />
+            {/* {index !== 0 && (
               <div className='flex justify-end'>
                 <Button
                   ripple={false}
@@ -70,7 +71,7 @@ const PostHistoryAccordion = ({ historyList }: PostHistoryAccordionProps) => {
                   [해당 내용으로 되돌리기]
                 </Button>
               </div>
-            )}
+            )} */}
           </AccordionBody>
         </Accordion>
       ))}

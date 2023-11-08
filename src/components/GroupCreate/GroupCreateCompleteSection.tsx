@@ -1,32 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Button, Input, Typography } from '@material-tailwind/react';
 import { MdContentCopy } from 'react-icons/md';
-import { inviteCodeDummyData } from '@dummy/group';
 import { useNavigate } from 'react-router-dom';
+import { createGroupFn } from '@apis/groupApi';
+import { useRecoilValue } from 'recoil';
+import { groupCreateInfoState } from '@recoil/atoms/group';
+import { useMutation } from '@tanstack/react-query';
+import { createPageFn } from '@apis/pageApi';
+import useAlert from '@hooks/useAlert';
 
 interface GroupCreateCompleteSectionProps {
   groupName: string;
 }
 
 const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionProps) => {
-  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+  const { isOpen: isAlertOpen, setIsOpen: setIsAlertOpen } = useAlert();
+  const { isOpen: isErrorAlertOpen, setIsOpen: setIsErrorAlertOpen } = useAlert();
+  const [inviteCode, setInviteCode] = useState<string>('');
+  const [groupId, setGroupId] = useState<number>(0);
+  const groupInfo = useRecoilValue(groupCreateInfoState);
   const navigate = useNavigate();
+
+  const { mutateAsync: createPageMutate } = useMutation({
+    mutationFn: createPageFn,
+  });
+  const { mutateAsync: createGroupMutate } = useMutation({
+    mutationFn: () => createGroupFn(groupInfo),
+    onSuccess: (response) => {
+      setInviteCode(response.inviteCode);
+      setGroupId(response.groupId);
+      createPageMutate({ groupId: response.groupId, pageName: response.groupName });
+    },
+  });
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(inviteCodeDummyData);
-    } finally {
+      await navigator.clipboard.writeText(inviteCode);
       setIsAlertOpen(true);
+    } catch {
+      setIsErrorAlertOpen(true);
     }
+  };
+  const handleStartClick = () => {
+    navigate(`/${groupId}/${groupName}`, { replace: true });
   };
 
   useEffect(() => {
-    const timer: NodeJS.Timeout = setTimeout(() => {
-      setIsAlertOpen(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, [isAlertOpen]);
+    createGroupMutate();
+  }, []);
 
   return (
     <section className='space-y-10 max-w-xl'>
@@ -37,9 +58,9 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
         <Typography variant='paragraph'>초대 링크를 통해 그룹원을 초대해보세요.</Typography>
       </div>
       <Input
-        className='truncate outline-none'
+        className='truncate outline-none cursor-pointer'
         label='초대 링크'
-        value={inviteCodeDummyData}
+        value={inviteCode}
         size='lg'
         readOnly
         crossOrigin=''
@@ -47,20 +68,28 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
         onClick={handleCopy}
       />
       <div className='flex justify-end'>
-        <Button onClick={() => navigate(`/${groupName}`, { replace: true })}>시작하기</Button>
+        <Button onClick={handleStartClick}>시작하기</Button>
       </div>
-      {isAlertOpen && (
-        <Alert
-          className='py-3 text-sm fixed top-10 z-30 max-w-xl min-w-max mx-auto bg-gray-200 text-gray-600'
-          open={isAlertOpen}
-          animate={{
-            mount: { y: 0 },
-            unmount: { y: 100 },
-          }}
-        >
-          초대코드가 복사되었습니다.
-        </Alert>
-      )}
+      <Alert
+        className='py-3 text-sm fixed top-10 z-30 max-w-xl min-w-max mx-auto bg-gray-200 text-gray-600'
+        open={isAlertOpen}
+        animate={{
+          mount: { y: 0 },
+          unmount: { y: 100 },
+        }}
+      >
+        초대코드가 복사되었습니다.
+      </Alert>
+      <Alert
+        className='py-3 text-sm fixed top-10 z-30 max-w-xl min-w-max mx-auto bg-gray-200 text-gray-600'
+        open={isErrorAlertOpen}
+        animate={{
+          mount: { y: 0 },
+          unmount: { y: 100 },
+        }}
+      >
+        죄송합니다. 다시 시도해주세요.
+      </Alert>
     </section>
   );
 };

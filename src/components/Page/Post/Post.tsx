@@ -70,16 +70,13 @@ const Post = ({ groupId, postId, pageId, pageName, index, postTitle, content }: 
                   편집
                 </Typography>
               </MenuItem>
-              <MenuItem
-                className='flex items-center gap-2 py-1'
-                onClick={() => navigate(`${pageName}/${postTitle}/history`)}
-              >
+              <MenuItem className='flex items-center gap-2 py-1' onClick={() => navigate(`${postId}/history`)}>
                 <MdOutlineHistory className='text-2xl' />
                 <Typography variant='small' className='font-semibold'>
                   히스토리
                 </Typography>
               </MenuItem>
-              <MenuItem className='flex items-center gap-2 py-1'>
+              <MenuItem className='flex items-center gap-2 py-1' onClick={() => navigate(`${postId}/report`)}>
                 <MdOutlineErrorOutline className='text-2xl' />
                 <Typography variant='small' className='font-semibold'>
                   신고

@@ -1,26 +1,102 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Input } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ContributeList from '@components/MyPage/ContributeList';
-import QuitModal from '@components/Modal/QuitModal';
+import GroupQuitModal from '@components/Modal/GroupQuitModal';
 import useModal from '@hooks/useModal';
-import { groupMyPageDummyData } from '@dummy/group';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { GROUP_KEYS } from '@constants/queryKeys';
+import { getGroupMyInfoFn, setGroupMyInfoFn } from '@apis/groupApi';
+import { queryClient } from '@apis/queryClient';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { AxiosError } from 'axios';
+import ContributeAccordion from '@components/MyPage/ContributeAccordion';
+import { getNickNameError, nickNameRegister } from '@utils/Form/nickName';
+
+interface NickNameInput {
+  nickName: string;
+}
 
 const GroupMyPage = () => {
   const navigate = useNavigate();
-  const { groupName } = useParams();
-  const [nickName, setNickName] = useState(groupMyPageDummyData.groupNickName);
+  const { groupId } = useParams() as { groupId: string };
+  const numGroupId = Number(groupId);
+  const [nowNickName, setNowNickName] = useState<string>('');
   const [isNickNameChanging, setIsNickNameChanging] = useState<boolean>(false);
   const quitModal = useModal();
+  const { data: groupMyInfo, isLoading } = useQuery({
+    queryKey: GROUP_KEYS.groupMyInfo({ groupId: numGroupId }),
+    queryFn: () => getGroupMyInfoFn(numGroupId),
+  });
+  const {
+    register,
+    handleSubmit,
+    setError,
+    setValue,
+    clearErrors,
+    setFocus,
+    formState: { errors, isValid },
+  } = useForm<NickNameInput>({
+    defaultValues: {
+      nickName: '',
+    },
+  });
 
-  const handleNickName = (e: ChangeEvent<HTMLInputElement>) => {
-    setNickName(e.target.value);
-  };
-
-  const handleNickNameChage = () => {
+  const { mutate: setGroupMyInfoMutate } = useMutation({
+    mutationFn: (nickName: string) => setGroupMyInfoFn({ groupId: numGroupId, newGroupNickName: nickName }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(GROUP_KEYS.groupMyInfo({ groupId: numGroupId }));
+      setIsNickNameChanging(false);
+    },
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        const errorData = error.response?.data.error;
+        const { message, status } = errorData;
+        if (status === 400) {
+          const { type, errorMsg } = getNickNameError(message);
+          setError(
+            'nickName',
+            {
+              type,
+              message: errorMsg,
+            },
+            {
+              shouldFocus: true,
+            },
+          );
+        }
+      }
+    },
+  });
+  const handleChangeClick = () => {
     setIsNickNameChanging((prev) => !prev);
+    if (isNickNameChanging) {
+      setValue('nickName', nowNickName);
+      clearErrors();
+    }
+  };
+  const handleNickNameChange: SubmitHandler<FieldValues> = ({ nickName }) => {
+    if (!isValid) return;
+
+    setGroupMyInfoMutate(nickName);
   };
 
+  useEffect(() => {
+    if (groupMyInfo) {
+      setValue('nickName', groupMyInfo.groupNickName);
+      setNowNickName(groupMyInfo.groupNickName);
+    }
+  }, [groupMyInfo]);
+
+  useEffect(() => {
+    if (isNickNameChanging) {
+      setFocus('nickName');
+    }
+  }, [isNickNameChanging]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <main className='mb-10'>
       <h1 className='inline pb-4 pr-40 mb-20 text-xl font-extrabold border border-x-0 border-b-1 border-t-0 border-black'>
@@ -28,70 +104,76 @@ const GroupMyPage = () => {
       </h1>
       <section className='mt-20 p-4'>
         <div className='flex'>
-          <span className='text-2xl text-blue-900 font-extrabold'>{groupName}</span>
+          <span className='text-2xl text-blue-900 font-extrabold'>{groupId}</span>
         </div>
         <div className='flex items-center mt-10'>
           <span className='font-extrabold w-40'>그룹 닉네임</span>
-          <div className='flex items-center grow'>
-            <Input
-              type='text'
-              label='그룹 닉네임'
-              crossOrigin=''
-              disabled={!isNickNameChanging}
-              value={nickName}
-              placeholder='그룹 닉네임'
-              className='!border !border-t-blue-gray-20 !border-gray-400 text-gray-900 rounded-sm placeholder:text-gray-500 focus:!border-gray-900'
-              labelProps={{
-                className: 'hidden',
-              }}
-              containerProps={{ className: 'min-w-[100px] max-w-[240px]' }}
-              onChange={handleNickName}
-            />
+          <form className='flex items-center grow' onSubmit={handleSubmit(handleNickNameChange)}>
+            <div className='relative'>
+              <Input
+                type='text'
+                label='닉네임'
+                className='!border !border-t-blue-gray-20 !border-gray-400 text-gray-900 rounded-sm placeholder:text-gray-500 focus:!border-gray-900'
+                containerProps={{ className: 'min-w-[100px] max-w-[240px]' }}
+                labelProps={{
+                  className: 'hidden',
+                }}
+                crossOrigin=''
+                disabled={!isNickNameChanging}
+                {...register('nickName', nickNameRegister)}
+              />
+              {errors.nickName && (
+                <p className='absolute text-xs mt-1 mx-1 flex items-center text-error'>{errors.nickName.message}</p>
+              )}
+            </div>
             {isNickNameChanging ? (
               <>
-                {/* 취소, 변경처리는 api되면 생각해보기로.. */}
                 <Button
                   variant='outlined'
                   color='gray'
-                  className='ml-4 rounded-sm py-[11px] whitespace-nowrap'
-                  onClick={handleNickNameChage}
+                  className='ml-4 rounded-sm py-[11px] whitespace-nowrap hover:opacity-100'
+                  onClick={handleChangeClick}
                 >
                   취소
                 </Button>
                 <Button
+                  type='submit'
                   variant='outlined'
                   color='gray'
-                  className='ml-2 rounded-sm py-[11px] whitespace-nowrap'
-                  onClick={handleNickNameChage}
+                  className='ml-2 rounded-sm py-[11px] whitespace-nowrap hover:opacity-100'
                 >
-                  변경하기
+                  확인
                 </Button>
               </>
             ) : (
               <Button
                 variant='outlined'
                 color='gray'
-                className='ml-4 rounded-sm py-[11px] whitespace-nowrap'
-                onClick={handleNickNameChage}
+                className='ml-4 rounded-sm py-[11px] whitespace-nowrap hover:opacity-100'
+                onClick={handleChangeClick}
               >
                 변경하기
               </Button>
             )}
-          </div>
+          </form>
         </div>
       </section>
       <section className='p-4 mt-4'>
         <div className='flex justify-between items-center mb-2'>
           <h3 className='mb-2 font-extrabold'>내 문서 기여 목록</h3>
-          <Button
-            variant='outlined'
-            className='h-9 w-20 p-1 border-gray-400 text-gray-600 whitespace-nowrap rounded-sm'
-            onClick={() => navigate('contribute')}
-          >
-            전체보기
-          </Button>
+          {groupMyInfo?.historyList.length !== 0 && (
+            <Button
+              variant='outlined'
+              className='h-9 w-20 p-1 border-gray-400 text-gray-600 whitespace-nowrap rounded-sm'
+              onClick={() => navigate('contribute')}
+            >
+              전체보기
+            </Button>
+          )}
         </div>
-        <ContributeList contributeItems={groupMyPageDummyData.historyList} />
+        <div className=' min-h-[120px]'>
+          <ContributeAccordion contributeItems={groupMyInfo?.historyList} />
+        </div>
       </section>
       <div className='text-right p-4'>
         <Button
@@ -102,7 +184,7 @@ const GroupMyPage = () => {
         >
           그룹 탈퇴하기
         </Button>
-        <QuitModal group={groupName} isOpen={quitModal.isOpen} onClick={quitModal.handleModal} />
+        <GroupQuitModal groupId={groupId} isOpen={quitModal.isOpen} onClick={quitModal.handleModal} />
       </div>
     </main>
   );

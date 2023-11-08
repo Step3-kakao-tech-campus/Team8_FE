@@ -8,6 +8,8 @@ import CKEditor from '@components/Page/Post/Editor/Ckeditor';
 import PostDeleteModal from '@components/Modal/PostDeleteModal';
 import { useMutation } from '@tanstack/react-query';
 import { createPostFn, modifyPostFn } from '@apis/postApi';
+import { queryClient } from '@apis/queryClient';
+import { PAGE_KEYS } from '@constants/queryKeys';
 
 const PostEditPage = () => {
   // url로 넘어온 group id, post id
@@ -40,7 +42,7 @@ const PostEditPage = () => {
   const { mutate: createPost } = useMutation({
     mutationFn: () => createPostFn({ groupId: numGroupId, pageId, parentPostId, order, title, content }),
     onSuccess: () => {
-      navigate(`/${groupId}/${page}`, { replace: true });
+      queryClient.invalidateQueries(PAGE_KEYS.byTitle({ groupId: numGroupId, title: pageName }));
     },
   });
 
@@ -48,7 +50,7 @@ const PostEditPage = () => {
   const { mutate: updatePost } = useMutation({
     mutationFn: () => modifyPostFn({ groupId: numGroupId, postId, title, content }),
     onSuccess: () => {
-      navigate(`/${groupId}/${page}`, { replace: true });
+      queryClient.invalidateQueries(PAGE_KEYS.byTitle({ groupId: numGroupId, title: pageName }));
     },
   });
 
@@ -81,21 +83,24 @@ const PostEditPage = () => {
             />
           </div>
           <CKEditor content={content} onChange={handleContentChange} />
-          <div className='flex justify-between'>
-            <Tooltip
-              content='하위 목차가 존재하지 않는 포스트만 가능합니다.'
-              placement='bottom'
-              className='border border-blue-gray-50 bg-white px-4 py-3 shadow-xl shadow-black/10 text-black'
-            >
-              <Button
-                variant='text'
-                ripple={false}
-                className='py-1 px-3 text-red-600 hover:bg-transparent hover:underline active:bg-transparent decoration-black'
-                onClick={deleteModal.handleModal}
+          <div className={`flex justify-between ${type === 'new' && 'flex-row-reverse'}`}>
+            {type !== 'new' && (
+              <Tooltip
+                content='하위 목차가 존재하지 않는 포스트만 가능합니다.'
+                placement='bottom'
+                className='border border-blue-gray-50 bg-white px-4 py-3 shadow-xl shadow-black/10 text-black'
               >
-                삭제하기
-              </Button>
-            </Tooltip>
+                <Button
+                  variant='text'
+                  ripple={false}
+                  className='py-1 px-3 text-red-600 hover:bg-transparent hover:underline active:bg-transparent decoration-black'
+                  onClick={deleteModal.handleModal}
+                >
+                  삭제하기
+                </Button>
+              </Tooltip>
+            )}
+
             <div className='flex gap-3'>
               <Button
                 color='white'

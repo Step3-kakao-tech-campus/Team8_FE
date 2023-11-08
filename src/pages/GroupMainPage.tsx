@@ -36,7 +36,7 @@ const GroupMainPage = () => {
     queryKey: PAGE_KEYS.byTitle({ groupId: numGroupId, title: page }),
     queryFn: () => getPageByTitleFn({ groupId: numGroupId, title: page }),
     onError: () => {
-      navigate('/404');
+      navigate('/404', { replace: true });
     },
   });
 

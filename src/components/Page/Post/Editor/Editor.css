@@ -26,3 +26,7 @@
 .ck.ck-editor__main > .ck-editor__editable.ck-focused {
   @apply border-gray-400 shadow-none;
 }
+
+.ck-content a {
+  @apply text-blue-700;
+}
