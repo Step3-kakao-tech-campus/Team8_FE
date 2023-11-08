@@ -65,11 +65,11 @@ const router = createBrowserRouter([
             element: <SearchResultPage />,
           },
           {
-            path: '/:groupName/:page/:postId/report',
+            path: '/:groupId/:page/:postId/report',
             element: <ReportPage />,
           },
           {
-            path: '/:groupName/:page/:postId/history',
+            path: '/:groupId/:page/:postId/history',
             element: <PostHistoryPage />,
           },
           {

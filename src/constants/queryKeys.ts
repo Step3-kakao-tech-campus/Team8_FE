@@ -7,6 +7,10 @@ export const PAGE_KEYS = {
   isExistence: ({ groupId, title }: { groupId: number; title: string }) => ['isExistence', { groupId, title }] as const,
 };
 
+export const POST_KEYS = {
+  history: ({ groupId, postId }: { groupId: number; postId: number }) => ['postHistory', { groupId, postId }] as const,
+};
+
 export const MAIN_KEYS = {
   main: ['main'],
 };
