@@ -13,7 +13,7 @@ interface CommentProps {
   nickName: string;
   content: string;
   createdAt: string;
-  // isMyComment: boolean;
+  mine: boolean;
 }
 
 const getRandomColor = () => {
@@ -28,7 +28,7 @@ const getRandomColor = () => {
 };
 
 const Comment = ({
-  comment: { commentId, nickName, content, createdAt },
+  comment: { commentId, nickName, content, createdAt, mine },
   groupId,
   postId,
 }: {
@@ -36,7 +36,6 @@ const Comment = ({
   groupId: number;
   postId: number;
 }) => {
-  const isMyComment = true; // TODO: API 수정되면 data로 받아와야함!
   const deleteModal = useModal();
   const modifyModal = useModal();
   const [isModify, setIsModify] = React.useState<boolean>(false);
@@ -72,7 +71,7 @@ const Comment = ({
         <span className='text-[15px] font-semibold shrink-0'>{nickName}</span>
         <div className='flex gap-1 items-end'>
           <Typography className='mt-1 text-xs text-gray-600'>{getFormattedDateTime(createdAt)}</Typography>
-          {isMyComment &&
+          {mine &&
             (isModify ? (
               <ButtonGroup size='sm' variant='text' color='white'>
                 <Button

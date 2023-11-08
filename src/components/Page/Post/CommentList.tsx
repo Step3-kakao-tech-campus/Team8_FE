@@ -13,6 +13,7 @@ interface Comment {
   nickName: string;
   content: string;
   createdAt: string;
+  mine: boolean;
 }
 
 interface CommentListProps {
