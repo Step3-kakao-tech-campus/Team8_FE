@@ -75,6 +75,7 @@ const GroupMainPage = () => {
                 {postList.map((post: Post) => (
                   <li key={uuidv4()}>
                     <Post
+                      groupId={numGroupId}
                       postId={post.postId}
                       pageId={pageId}
                       pageName={pageName}

@@ -30,5 +30,20 @@ export const passwordChangeFn = ({ currentPassword, newPassword }: { currentPass
 
 export const getMyInfoFn = () => instance.get(`${ENDPOINT}/myinfo`).then(({ data }) => data.response);
 
+export const pnuMailAuthFn = ({ email }: { email: string }) => instance.post(`${ENDPOINT}/pusanuniv`, { email });
+
+export const pnuMailCertificationNumberCheckFn = ({
+  email,
+  certificationNumber,
+}: {
+  email: string;
+  certificationNumber: string;
+}) => instance.post(`${ENDPOINT}/pusanuniv/cert`, { email, certificationNumber });
+
 export const nickNameChangeFn = ({ newNickName }: { newNickName: string }) =>
   instance.patch(`${ENDPOINT}/changename`, { newNickName });
+
+export const authDeleteFn = () => instance.delete(`${ENDPOINT}/delete`);
+
+export const kakaoLoginFn = ({ code }: { code: string | null }) =>
+  instance.get(`${ENDPOINT}/kakao/signin?code=${code}`).then(({ data }) => data.response);

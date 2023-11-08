@@ -25,61 +25,59 @@ import { Table, TableToolbar } from '@ckeditor/ckeditor5-table';
 // See https://ckeditor.com/docs/ckeditor5/latest/installation/plugins/installing-plugins.html for details.
 
 class Editor extends ClassicEditor {
-	public static override builtinPlugins = [
-		Alignment,
-		Autoformat,
-		Autosave,
-		BlockQuote,
-		Bold,
-		CodeBlock,
-		Essentials,
-		Heading,
-		Image,
-		ImageStyle,
-		Indent,
-		Italic,
-		Link,
-		List,
-		Paragraph,
-		PasteFromOffice,
-		Strikethrough,
-		Table,
-		TableToolbar,
-		TodoList
-	];
+  public static override builtinPlugins = [
+    Alignment,
+    Autoformat,
+    Autosave,
+    BlockQuote,
+    Bold,
+    CodeBlock,
+    Essentials,
+    Heading,
+    Image,
+    ImageStyle,
+    Indent,
+    Italic,
+    Link,
+    List,
+    Paragraph,
+    PasteFromOffice,
+    Strikethrough,
+    Table,
+    TableToolbar,
+    TodoList,
+  ];
 
-	public static override defaultConfig = {
-		toolbar: {
-			items: [
-				'undo',
-				'redo',
-				'|',
-				'bold',
-				'strikethrough',
-				'italic',
-				'bulletedList',
-				'numberedList',
-				'todoList',
-				'|',
-				'link',
-				'blockQuote',
-				'insertTable',
-				'codeBlock',
-				'|',
-				'alignment',
-				'indent',
-				'outdent'
-			]
-		},
-		language: 'ko',
-		table: {
-			contentToolbar: [
-				'tableColumn',
-				'tableRow',
-				'mergeTableCells'
-			]
-		}
-	};
+  public static override defaultConfig = {
+    toolbar: {
+      items: [
+        'undo',
+        'redo',
+        '|',
+        'bold',
+        'strikethrough',
+        'italic',
+        'bulletedList',
+        'numberedList',
+        'todoList',
+        '|',
+        'link',
+        'blockQuote',
+        'insertTable',
+        'codeBlock',
+        '|',
+        'alignment',
+        'indent',
+        'outdent',
+      ],
+    },
+    language: 'ko',
+    table: {
+      contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
+    },
+    enterMode: 'br',
+    shiftEnterMode: 'br',
+  };
 }
 
 export default Editor;

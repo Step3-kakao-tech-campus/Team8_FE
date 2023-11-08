@@ -3,6 +3,7 @@ import useModal from '@hooks/useModal';
 import { Button, Input } from '@material-tailwind/react';
 import GroupList from '@components/Home/GroupList';
 import PasswordChangeModal from '@components/Modal/PasswordChangeModal';
+import AuthDeleteModal from '@components/Modal/AuthDeleteModal';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AUTH_KEYS } from '@constants/queryKeys';
 import { getMyInfoFn, nickNameChangeFn } from '@apis/authApi';
@@ -16,6 +17,7 @@ const MyPage = () => {
   const [isNickNameChanging, setIsNickNameChanging] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState('');
   const passwordChangeModal = useModal();
+  const authDeleteModal = useModal();
 
   const { data: myInfo } = useQuery<MyInfo>({ queryKey: AUTH_KEYS.myInfo, queryFn: getMyInfoFn });
   const { mutate: nickNameChange } = useMutation({ mutationFn: nickNameChangeFn });
@@ -141,6 +143,17 @@ const MyPage = () => {
         ) : (
           <p className='text-center my-10'>참여한 그룹이 없습니다.</p>
         )}
+      </div>
+      <div className='text-right p-4'>
+        <Button
+          variant='text'
+          ripple={false}
+          className='p-1 rounded-sm whitespace-nowrap text-red-600 hover:bg-transparent active:bg-transparent hover:underline decoration-black'
+          onClick={authDeleteModal.handleModal}
+        >
+          회원 탈퇴하기
+        </Button>
+        <AuthDeleteModal isOpen={authDeleteModal.isOpen} onClick={authDeleteModal.handleModal} />
       </div>
     </div>
   );

@@ -18,6 +18,9 @@ interface GroupInfoType {
 export const createGroupFn = (groupInfo: GroupInfoType) =>
   instance.post(`${ENDPOINT}/create`, groupInfo).then(({ data }) => data.response);
 
+export const quitGroupFn = (groupId: string) =>
+  instance.delete(`${ENDPOINT}/${groupId}`).then(({ data }) => data.response);
+
 export const getGroupInfoFn = (groupId: number) =>
   instance.get(`${ENDPOINT}/search/${groupId}`).then(({ data }) => data.response);
 

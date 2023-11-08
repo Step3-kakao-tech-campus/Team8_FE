@@ -41,6 +41,18 @@ const router = createBrowserRouter([
             element: <HomePage />,
           },
           {
+            path: '/signUp',
+            element: <SignUpPage />,
+          },
+          {
+            path: '/auth/kakao/signin',
+            element: <KakaoLoginPage />,
+          },
+          {
+            path: '/login',
+            element: <LoginPage />,
+          },
+          {
             path: '/myPage',
             element: <MyPage />,
           },
@@ -65,11 +77,11 @@ const router = createBrowserRouter([
             element: <SearchResultPage />,
           },
           {
-            path: '/:groupName/:page/:postId/report',
+            path: '/:groupId/:page/:postId/report',
             element: <ReportPage />,
           },
           {
-            path: '/:groupName/:page/:postId/history',
+            path: '/:groupId/:page/:postId/history',
             element: <PostHistoryPage />,
           },
           {

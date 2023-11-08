@@ -4,6 +4,16 @@ export const PAGE_KEYS = {
   searchKeyword: ({ groupId, keyword }: { groupId: number; keyword: string }) =>
     ['searchKeyword', { groupId, keyword }] as const,
   indexList: ({ groupId, pageId }: { groupId: number; pageId: number }) => ['indexList', { groupId, pageId }] as const,
+  isExistence: ({ groupId, title }: { groupId: number; title: string }) => ['isExistence', { groupId, title }] as const,
+};
+
+export const POST_KEYS = {
+  history: ({ groupId, postId }: { groupId: number; postId: number }) => ['postHistory', { groupId, postId }] as const,
+};
+
+export const COMMENT_KEYS = {
+  commentList: ({ groupId, postId }: { groupId: number; postId: number }) =>
+    ['commentList', { groupId, postId }] as const,
 };
 
 export const MAIN_KEYS = {
@@ -23,4 +33,5 @@ export const GROUP_KEYS = {
 
 export const AUTH_KEYS = {
   myInfo: ['myInfo'],
+  kakaoLogin: ({ code }: { code: string | null }) => ['kakaoLogin', code] as const,
 };

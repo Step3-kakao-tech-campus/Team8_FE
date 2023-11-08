@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import PageContainer from '@components/Page/Common/PageContainer';
 import PageTitleSection from '@components/Page/Common/PageTitleSection';
 import useModal from '@hooks/useModal';
@@ -8,16 +8,19 @@ import CKEditor from '@components/Page/Post/Editor/Ckeditor';
 import PostDeleteModal from '@components/Modal/PostDeleteModal';
 import { useMutation } from '@tanstack/react-query';
 import { createPostFn, modifyPostFn } from '@apis/postApi';
+import { queryClient } from '@apis/queryClient';
+import { PAGE_KEYS } from '@constants/queryKeys';
 
 const PostEditPage = () => {
   // url로 넘어온 group id, post id
   const { page, groupId, postId: post } = useParams();
   const numGroupId = Number(groupId);
   const postId = Number(post);
-
-  window.scrollTo({ top: 0, behavior: 'instant' });
-
   if (!groupId || !page) return null;
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
 
   // 페이지에서 넘어온 데이터
   const { pageId, parentPostId, order, index, pageName, postTitle, content: postContent, type } = useLocation().state;
@@ -39,20 +42,26 @@ const PostEditPage = () => {
   // 새로 작성
   const { mutate: createPost } = useMutation({
     mutationFn: () => createPostFn({ groupId: numGroupId, pageId, parentPostId, order, title, content }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(PAGE_KEYS.byTitle({ groupId: numGroupId, title: pageName }));
+    },
   });
 
   // 수정
   const { mutate: updatePost } = useMutation({
     mutationFn: () => modifyPostFn({ groupId: numGroupId, postId, title, content }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(PAGE_KEYS.byTitle({ groupId: numGroupId, title: pageName }));
+    },
   });
 
-  const handleSaveClick = async () => {
+  const handleSaveClick = () => {
     // 새로 작성하는 경우
     if (type === 'new') {
-      await createPost();
+      createPost();
     } else {
       // 있던 글 수정하는 경우
-      await updatePost();
+      updatePost();
     }
     navigate(`/${groupId}/${page}`, { replace: true });
   };

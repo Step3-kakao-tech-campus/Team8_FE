@@ -83,7 +83,7 @@ const GroupJoinPage = () => {
         {groupType === 'un_official_closed_group' && (
           <UnOfficialClosedGroup data={data} onIsRegisteredAlertChange={handleIsRegisteredAlertOpen} />
         )}
-        {groupType === 'official_group' && <OfficialGroup />}
+        {groupType === 'official_group' && <OfficialGroup data={data} />}
       </div>
     </section>
   );
