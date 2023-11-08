@@ -103,7 +103,7 @@ const GroupMyPage = () => {
       </h1>
       <section className='mt-20 p-4'>
         <div className='flex'>
-          <span className='text-2xl text-blue-900 font-extrabold'>{groupId}</span>
+          <span className='text-2xl text-blue-900 font-extrabold'>{groupMyInfo?.groupName}</span>
         </div>
         <div className='flex items-center mt-10'>
           <span className='font-extrabold w-40'>그룹 닉네임</span>
