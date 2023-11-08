@@ -45,6 +45,7 @@ const PostEditPage = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(PAGE_KEYS.byTitle({ groupId: numGroupId, title: pageName }));
       queryClient.invalidateQueries(PAGE_KEYS.indexList({ groupId: numGroupId, pageId }));
+      queryClient.invalidateQueries(PAGE_KEYS.recentChangeList({ groupId: numGroupId }));
     },
   });
 
@@ -54,6 +55,7 @@ const PostEditPage = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(PAGE_KEYS.byTitle({ groupId: numGroupId, title: pageName }));
       queryClient.invalidateQueries(PAGE_KEYS.indexList({ groupId: numGroupId, pageId }));
+      queryClient.invalidateQueries(PAGE_KEYS.recentChangeList({ groupId: numGroupId }));
     },
   });
 

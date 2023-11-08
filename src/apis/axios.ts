@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+// import { getErrorMsg } from '@utils/serverError';
 import axios, { InternalAxiosRequestConfig } from 'axios';
 import { getCookie } from 'typescript-cookie';
 
@@ -16,3 +17,15 @@ instance.interceptors.request.use((config: InternalAxiosRequestConfig): Internal
   }
   return config;
 });
+
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    if (error.response.data.error.message === '링크 실패') {
+      return Promise.resolve(error.response);
+    }
+    return Promise.reject(error);
+  },
+);
