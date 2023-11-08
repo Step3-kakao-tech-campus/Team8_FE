@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 
 import './tailwind.css';
 
@@ -19,11 +20,12 @@ import PostEditPage from '@pages/PostEditPage';
 import PostHistoryPage from '@pages/PostHistoryPage';
 import GroupJoinPage from '@pages/GroupJoinPage';
 import KakaoLoginPage from '@pages/KakaoLoginPage';
-
 import NotFoundPage from '@pages/NotFoundPage';
+import InviteProcessPage from '@pages/InviteProcessPage';
 
 import MainLayout from '@components/Layout/MainLayout';
 import PageLayout from '@components/Layout/PageLayout';
+import NoHeaderLayout from '@components/Layout/NoHeaderLayout';
 import App from './App';
 
 const router = createBrowserRouter([
@@ -43,7 +45,7 @@ const router = createBrowserRouter([
             element: <SignUpPage />,
           },
           {
-            path: '/kakaoLogin',
+            path: '/auth/kakao/signin',
             element: <KakaoLoginPage />,
           },
           {
@@ -63,15 +65,11 @@ const router = createBrowserRouter([
             element: <GroupCreatePage />,
           },
           {
-            path: '/:groupId/join',
-            element: <GroupJoinPage />,
-          },
-          {
             path: '/:groupId/myPage',
             element: <GroupMyPage />,
           },
           {
-            path: '/:groupName/myPage/contribute',
+            path: '/:groupId/myPage/contribute',
             element: <MyContributePage />,
           },
           {
@@ -79,11 +77,11 @@ const router = createBrowserRouter([
             element: <SearchResultPage />,
           },
           {
-            path: '/:groupName/:page/:postId/report',
+            path: '/:groupId/:page/:postId/report',
             element: <ReportPage />,
           },
           {
-            path: '/:groupName/:page/:postId/history',
+            path: '/:groupId/:page/:postId/history',
             element: <PostHistoryPage />,
           },
           {
@@ -105,6 +103,31 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        element: <NoHeaderLayout />,
+        children: [
+          {
+            path: '/signUp',
+            element: <SignUpPage />,
+          },
+          {
+            path: '/kakaoLogin',
+            element: <KakaoLoginPage />,
+          },
+          {
+            path: '/login',
+            element: <LoginPage />,
+          },
+          {
+            path: '/:groupId/join',
+            element: <GroupJoinPage />,
+          },
+          {
+            path: '/invite/:inviteCode',
+            element: <InviteProcessPage />,
+          },
+        ],
+      },
     ],
   },
 ]);
@@ -112,6 +135,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   // <React.StrictMode>
-  <RouterProvider router={router} />,
+  <RecoilRoot>
+    <RouterProvider router={router} />
+  </RecoilRoot>,
   // </React.StrictMode>,
 );

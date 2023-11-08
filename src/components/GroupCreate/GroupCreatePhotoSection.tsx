@@ -4,11 +4,11 @@ import { Button, Typography } from '@material-tailwind/react';
 import { useRecoilState } from 'recoil';
 import { groupImageFileState } from '@recoil/atoms/group';
 
-interface onNextStepProps {
+interface OnNextStepProps {
   onNextStep: () => void;
 }
 
-const GroupCreatePhotoSection = ({ onNextStep }: onNextStepProps) => {
+const GroupCreatePhotoSection = ({ onNextStep }: OnNextStepProps) => {
   const [groupImageFile, setGroupImageFile] = useRecoilState(groupImageFileState);
   const inputRef = useRef<HTMLInputElement>(null);
   const [imgPreview, setImgPreview] = useState<string>('');

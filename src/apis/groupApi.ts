@@ -5,7 +5,7 @@ const ENDPOINT = '/group';
 export const groupSearchFn = ({ keyword }: { keyword: string }) =>
   instance.get(`${ENDPOINT}/search?keyword=${keyword}`).then(({ data }) => data.response);
 
-interface groupInfoType {
+interface GroupInfoType {
   groupType: 'UNOFFICIAL_OPENED' | 'UNOFFICIAL_CLOSED';
   groupName: string;
   groupImage: string;
@@ -15,8 +15,11 @@ interface groupInfoType {
   entrancePassword: string;
 }
 
-export const createGroupFn = (groupInfo: groupInfoType) =>
+export const createGroupFn = (groupInfo: GroupInfoType) =>
   instance.post(`${ENDPOINT}/create`, groupInfo).then(({ data }) => data.response);
+
+export const quitGroupFn = (groupId: string) =>
+  instance.delete(`${ENDPOINT}/${groupId}`).then(({ data }) => data.response);
 
 export const getGroupInfoFn = (groupId: number) =>
   instance.get(`${ENDPOINT}/search/${groupId}`).then(({ data }) => data.response);
@@ -30,10 +33,19 @@ export const joinGroupFn = ({ groupId, nickName }: { groupId: number; nickName: 
 export const getGroupMemberFn = (groupId: number) =>
   instance.get(`${ENDPOINT}/${groupId}/groupMembers`).then(({ data }) => data.response);
 
-export const getGroupMyInfo = (groupId: number) =>
+export const getGroupMyInfoFn = (groupId: number) =>
   instance.get(`${ENDPOINT}/${groupId}/myInfo`).then(({ data }) => data.response);
 
-export const setGroupMyInfo = ({ groupId, newGroupNickName }: { groupId: number; newGroupNickName: string }) =>
+export const setGroupMyInfoFn = ({ groupId, newGroupNickName }: { groupId: number; newGroupNickName: string }) =>
   instance
     .patch(`${ENDPOINT}/${groupId}/myInfo`, { groupNickName: newGroupNickName })
     .then(({ data }) => data.response);
+
+export const getMyContributeListFn = (groupId: number) =>
+  instance.get(`${ENDPOINT}/${groupId}/myInfo/myHistory`).then(({ data }) => data.response);
+
+export const getInviteCodeFn = (groupId: number) =>
+  instance.get(`${ENDPOINT}/${groupId}/invitationLink`).then(({ data }) => data.response);
+
+export const checkInviteCodeFn = (inviteCode: string) =>
+  instance.get(`${ENDPOINT}/invitation/${inviteCode}`).then(({ data }) => data.response);

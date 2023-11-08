@@ -4,6 +4,11 @@ export const PAGE_KEYS = {
   searchKeyword: ({ groupId, keyword }: { groupId: number; keyword: string }) =>
     ['searchKeyword', { groupId, keyword }] as const,
   indexList: ({ groupId, pageId }: { groupId: number; pageId: number }) => ['indexList', { groupId, pageId }] as const,
+  isExistence: ({ groupId, title }: { groupId: number; title: string }) => ['isExistence', { groupId, title }] as const,
+};
+
+export const POST_KEYS = {
+  history: ({ groupId, postId }: { groupId: number; postId: number }) => ['postHistory', { groupId, postId }] as const,
 };
 
 export const MAIN_KEYS = {
@@ -12,13 +17,16 @@ export const MAIN_KEYS = {
 
 export const GROUP_KEYS = {
   groupSearch: ({ keyword }: { keyword: string }) => ['groupSearch', keyword] as const,
-  groupInfo: ({ groupId }: { groupId: string }) => ['joinGroupInfo', groupId] as const,
-  groupPassword: ({ groupId }: { groupId: string }) => ['groupPassword', groupId] as const,
+  groupInfo: ({ groupId }: { groupId: number }) => ['joinGroupInfo', groupId] as const,
   groupJoin: ({ groupId }: { groupId: number }) => ['groupJoin', groupId] as const,
   members: ({ groupId }: { groupId: number }) => ['members', groupId] as const,
   groupMyInfo: ({ groupId }: { groupId: number }) => ['groupMyInfo', groupId] as const,
+  myContributeList: ({ groupId }: { groupId: number }) => ['myContributeList', groupId] as const,
+  groupInviteCode: ({ groupId }: { groupId: number }) => ['inviteCode', groupId] as const,
+  checkGroupInviteCode: ({ inviteCode }: { inviteCode: string }) => ['inviteCode', inviteCode] as const,
 };
 
 export const AUTH_KEYS = {
   myInfo: ['myInfo'],
+  kakaoLogin: ({ code }: { code: string | null }) => ['kakaoLogin', code] as const,
 };

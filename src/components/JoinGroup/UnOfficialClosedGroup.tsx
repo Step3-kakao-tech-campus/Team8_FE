@@ -1,86 +1,120 @@
 import React from 'react';
 import { Button, Input } from '@material-tailwind/react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { GROUP_EXIST_NICKNAME_ERROR_MSG, GROUP_NICKNAME_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
-import { GROUP_NICKNAME_PATTERN } from '@constants/validationPatterns';
+import { UnOfficialGroupProps } from '@apis/dto';
+import { nickNameRegister } from '@utils/Form/nickName';
+import useJoinMutation from '@hooks/useJoinMutation';
+import {
+  GROUP_INVITE_CODE_ERROR_MSG,
+  GROUP_INVITE_CODE_EXPIRED_ERROR_MSG,
+  REQUIRE_ERROR_MSG,
+} from '@constants/errorMsg';
 import { useMutation } from '@tanstack/react-query';
-import { joinGroupFn } from '@apis/groupApi';
-import { GroupDetail } from '@apis/dto';
-import { useNavigate } from 'react-router-dom';
+import { checkInviteCodeFn } from '@apis/groupApi';
 import { AxiosError } from 'axios';
 
-interface NickNameInput {
+interface ClosedGroupInput {
   nickName: string;
+  inviteCode: string;
 }
 
-const UnOfficialClosedGroup = ({ data }: { data: GroupDetail }) => {
-  const navigate = useNavigate();
+const UnOfficialClosedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGroupProps) => {
   const { groupId, groupName } = data;
   const {
     register,
     handleSubmit,
     setError,
+    getValues,
     formState: { errors, isValid },
-  } = useForm<NickNameInput>({
+  } = useForm<ClosedGroupInput>({
     defaultValues: {
       nickName: '',
+      inviteCode: '',
     },
   });
-  const { mutate: joinGroup } = useMutation({
-    mutationFn: (nickName: string) => joinGroupFn({ groupId, nickName }),
+  const { mutate: joinGroup } = useJoinMutation({
+    groupId,
+    groupName,
+    nickName: getValues('nickName'),
+    setError,
+    onIsRegisteredAlertChange,
+  });
+  const { mutate: checkInviteCode } = useMutation({
+    mutationFn: checkInviteCodeFn,
     onSuccess: () => {
-      navigate(`/${groupId}/${groupName}`, { replace: true });
+      joinGroup();
     },
     onError: (error) => {
       if (error instanceof AxiosError) {
         const errorData = error.response?.data.error;
         const { message, status } = errorData;
-        if (status === 400 && message === '해당 닉네임은 이미 사용중입니다.') {
-          setError(
-            'nickName',
-            {
-              type: 'exist',
-              message: GROUP_EXIST_NICKNAME_ERROR_MSG,
-            },
-            {
-              shouldFocus: true,
-            },
-          );
+        if (status === 404) {
+          switch (message) {
+            case '잘못된 접근입니다.':
+              setError(
+                'inviteCode',
+                {
+                  type: 'wrong',
+                  message: GROUP_INVITE_CODE_ERROR_MSG,
+                },
+                {
+                  shouldFocus: true,
+                },
+              );
+              break;
+            case '이미 만료된 초대 링크입니다.':
+              setError(
+                'inviteCode',
+                {
+                  type: 'expired',
+                  message: GROUP_INVITE_CODE_EXPIRED_ERROR_MSG,
+                },
+                {
+                  shouldFocus: true,
+                },
+              );
+              break;
+            default:
+              break;
+          }
         }
       }
     },
   });
-
-  const handleJoin: SubmitHandler<FieldValues> = ({ nickName }) => {
+  const handleJoin: SubmitHandler<FieldValues> = ({ inviteCode }) => {
     if (!isValid) return;
 
-    joinGroup(nickName);
+    checkInviteCode(inviteCode);
   };
   return (
     <form className='flex flex-col gap-4 w-full' onSubmit={handleSubmit(handleJoin)}>
-      <div>
+      <div className='w-full'>
         <Input
           type='text'
           label='닉네임'
-          className=''
           containerProps={{
             className: 'min-w-0 w-full',
           }}
           crossOrigin=''
-          {...register('nickName', {
-            required: REQUIRE_ERROR_MSG,
-            minLength: {
-              value: 2,
-              message: GROUP_NICKNAME_ERROR_MSG,
-            },
-            maxLength: {
-              value: 8,
-              message: GROUP_NICKNAME_ERROR_MSG,
-            },
-            pattern: GROUP_NICKNAME_PATTERN,
-          })}
+          {...register('nickName', nickNameRegister)}
         />
         {errors.nickName && <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.nickName.message}</p>}
+      </div>
+      <div className='w-full'>
+        <Input
+          type='text'
+          label='초대코드 입력'
+          containerProps={{
+            className: 'min-w-0 w-full',
+          }}
+          crossOrigin=''
+          {...register('inviteCode', {
+            required: REQUIRE_ERROR_MSG,
+          })}
+        />
+        {errors.inviteCode && (
+          <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.inviteCode.message}</p>
+        )}
       </div>
       <Button type='submit'>가입하기</Button>
     </form>
