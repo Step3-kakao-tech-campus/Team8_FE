@@ -22,3 +22,21 @@ export interface MyInfo {
   mainNickName: string;
   groupList: (Group & { groupNickName: string })[];
 }
+
+export interface ContributeItemContent {
+  index: number;
+  name: string;
+  detail: string;
+}
+
+export interface ContributeItemProps {
+  historyId: number;
+  pageName: string;
+  content: ContributeItemContent;
+  createdAt: string;
+}
+
+export interface UnOfficialGroupProps {
+  data: GroupDetail;
+  onIsRegisteredAlertChange: () => void;
+}

@@ -3,33 +3,31 @@ import { Button, Input, Typography } from '@material-tailwind/react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { groupCreateInfoState, groupImageFileState } from '@recoil/atoms/group';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { GROUP_NICKNAME_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
-import { GROUP_NICKNAME_PATTERN } from '@constants/validationPatterns';
 import getImageUrl from '@apis/image';
+import { nickNameRegister } from '@utils/Form/nickName';
 
-interface onNextStepProps {
+interface OnNextStepProps {
   onNextStep: () => void;
 }
 
-interface groupNickNameInput {
+interface GroupNickNameInput {
   groupNickName: string;
 }
 
-const GroupCreateNickNameSection = ({ onNextStep }: onNextStepProps) => {
+const GroupCreateNickNameSection = ({ onNextStep }: OnNextStepProps) => {
   const [groupInfo, setGroupInfo] = useRecoilState(groupCreateInfoState);
   const groupImageFile = useRecoilValue(groupImageFileState);
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<groupNickNameInput>({
+  } = useForm<GroupNickNameInput>({
     defaultValues: {
       groupNickName: groupInfo.groupNickName,
     },
   });
 
   const handleNextStep: SubmitHandler<FieldValues> = async ({ groupNickName }) => {
-    // TODO: 닉네임 중복 체크
     if (!isValid) return;
 
     setGroupInfo((prev) => ({ ...prev, groupNickName }));
@@ -58,17 +56,10 @@ const GroupCreateNickNameSection = ({ onNextStep }: onNextStepProps) => {
             label='닉네임'
             containerProps={{ className: 'max-w-md' }}
             crossOrigin=''
-            {...register('groupNickName', {
-              required: REQUIRE_ERROR_MSG,
-              minLength: 2,
-              maxLength: 8,
-              pattern: GROUP_NICKNAME_PATTERN,
-            })}
+            {...register('groupNickName', nickNameRegister)}
           />
           {errors.groupNickName && (
-            <p className='text-xs mt-1 mx-1 flex items-center text-error'>
-              {errors.groupNickName.message ? REQUIRE_ERROR_MSG : GROUP_NICKNAME_ERROR_MSG}
-            </p>
+            <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.groupNickName.message}</p>
           )}
         </div>
         <div>
