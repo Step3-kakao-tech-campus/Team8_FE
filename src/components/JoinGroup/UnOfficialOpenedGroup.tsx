@@ -2,26 +2,20 @@ import React from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import DividerWithText from '@components/Common/DividerWithText';
 import { Button, Input, Typography } from '@material-tailwind/react';
-import { GroupDetail } from '@apis/dto';
-import { useNavigate } from 'react-router-dom';
-import {
-  GROUP_EXIST_NICKNAME_ERROR_MSG,
-  GROUP_NICKNAME_ERROR_MSG,
-  GROUP_PASSWORD_ERROR_MSG,
-  REQUIRE_ERROR_MSG,
-} from '@constants/errorMsg';
+import { UnOfficialGroupProps } from '@apis/dto';
+import { GROUP_PASSWORD_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
 import { useMutation } from '@tanstack/react-query';
-import { checkGroupPasswordFn, joinGroupFn } from '@apis/groupApi';
-import { AxiosError } from 'axios';
-import { GROUP_NICKNAME_PATTERN } from '@constants/validationPatterns';
+import { checkGroupPasswordFn } from '@apis/groupApi';
+import { nickNameRegister } from '@utils/Form/nickName';
+import useJoinMutation from '@hooks/useJoinMutation';
+import { getErrorMsg } from '@utils/serverError';
 
 interface OpenedGroupInput {
   nickName: string;
   entrancePassword: string;
 }
 
-const UnOfficialOpenedGroup = ({ data }: { data: GroupDetail }) => {
-  const navigate = useNavigate();
+const UnOfficialOpenedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGroupProps) => {
   const { groupId, groupName, entranceHint } = data;
   const {
     register,
@@ -35,29 +29,12 @@ const UnOfficialOpenedGroup = ({ data }: { data: GroupDetail }) => {
       entrancePassword: '',
     },
   });
-  const { mutate: joinGroup } = useMutation({
-    mutationFn: () => joinGroupFn({ groupId, nickName: getValues('nickName') }),
-    onSuccess: () => {
-      navigate(`/${groupId}/${groupName}`, { replace: true });
-    },
-    onError: (error) => {
-      if (error instanceof AxiosError) {
-        const errorData = error.response?.data.error;
-        const { message, status } = errorData;
-        if (status === 400 && message === '해당 닉네임은 이미 사용중입니다.') {
-          setError(
-            'nickName',
-            {
-              type: 'exist',
-              message: GROUP_EXIST_NICKNAME_ERROR_MSG,
-            },
-            {
-              shouldFocus: true,
-            },
-          );
-        }
-      }
-    },
+  const { mutate: joinGroup } = useJoinMutation({
+    groupId,
+    groupName,
+    nickName: getValues('nickName'),
+    setError,
+    onIsRegisteredAlertChange,
   });
   const { mutate: checkPassword } = useMutation({
     mutationFn: (entrancePassword: string) => checkGroupPasswordFn({ groupId, entrancePassword }),
@@ -65,21 +42,18 @@ const UnOfficialOpenedGroup = ({ data }: { data: GroupDetail }) => {
       joinGroup();
     },
     onError: (error) => {
-      if (error instanceof AxiosError) {
-        const errorData = error.response?.data.error;
-        const { message, status } = errorData;
-        if (status === 400 && message === '비밀번호가 틀렸습니다.') {
-          setError(
-            'entrancePassword',
-            {
-              type: 'wrong',
-              message: GROUP_PASSWORD_ERROR_MSG,
-            },
-            {
-              shouldFocus: true,
-            },
-          );
-        }
+      const message = getErrorMsg(error);
+      if (message === '비밀번호가 틀렸습니다.') {
+        setError(
+          'entrancePassword',
+          {
+            type: 'wrong',
+            message: GROUP_PASSWORD_ERROR_MSG,
+          },
+          {
+            shouldFocus: true,
+          },
+        );
       }
     },
   });
@@ -106,18 +80,7 @@ const UnOfficialOpenedGroup = ({ data }: { data: GroupDetail }) => {
                 className: 'min-w-0 w-full',
               }}
               crossOrigin=''
-              {...register('nickName', {
-                required: REQUIRE_ERROR_MSG,
-                minLength: {
-                  value: 2,
-                  message: GROUP_NICKNAME_ERROR_MSG,
-                },
-                maxLength: {
-                  value: 8,
-                  message: GROUP_NICKNAME_ERROR_MSG,
-                },
-                pattern: GROUP_NICKNAME_PATTERN,
-              })}
+              {...register('nickName', nickNameRegister)}
             />
             {errors.nickName && (
               <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.nickName.message}</p>

@@ -9,7 +9,7 @@ interface GroupCreateSearchSettingProps {
   onNextStep: () => void;
 }
 
-interface openGroupInputs {
+interface OpenGroupInputs {
   introduction: string;
   entranceHint: string;
   entrancePassword: string;
@@ -21,7 +21,7 @@ const GroupCreateSearchSetting = ({ onNextStep }: GroupCreateSearchSettingProps)
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<openGroupInputs>({
+  } = useForm<OpenGroupInputs>({
     defaultValues: {
       introduction: groupInfo.introduction,
       entranceHint: groupInfo.entranceHint,
@@ -30,8 +30,10 @@ const GroupCreateSearchSetting = ({ onNextStep }: GroupCreateSearchSettingProps)
   });
 
   const handleNextStep: SubmitHandler<FieldValues> = ({ introduction, entranceHint, entrancePassword }) => {
+    if (!isValid) return;
+
     setGroupInfo((prev) => ({ ...prev, introduction, entranceHint, entrancePassword }));
-    if (isValid) onNextStep();
+    onNextStep();
   };
   return (
     <section className='space-y-4'>

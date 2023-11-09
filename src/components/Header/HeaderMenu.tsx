@@ -2,23 +2,25 @@ import React from 'react';
 import { Menu, MenuHandler, MenuList, MenuItem, Button } from '@material-tailwind/react';
 import { MdMenu } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
-import tokenState from '@recoil/atoms/auth';
-import { inviteCodeDummyData } from '@dummy/group';
 import GroupMemberListModal from '@components/Modal/GroupMemberListModal';
 import InviteModal from '@components/Modal/InviteModal';
 import useModal from '@hooks/useModal';
+import { removeCookie } from 'typescript-cookie';
+import { useSetRecoilState } from 'recoil';
+import isLoggedInState from '@recoil/atoms/auth';
 
 const HeaderMenu = () => {
   const { groupId } = useParams();
   const navigate = useNavigate();
-  const setToken = useSetRecoilState(tokenState);
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
 
   const inviteModal = useModal();
   const groupMemberListModal = useModal();
 
   const handleLogout = () => {
-    setToken(null);
+    removeCookie('accessToken', { path: '/' });
+    setIsLoggedIn(false);
+    navigate(`/`);
   };
   const handleMyPageClick = () => {
     if (groupId) {
@@ -43,13 +45,15 @@ const HeaderMenu = () => {
           <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
         </MenuList>
       </Menu>
-      <InviteModal code={inviteCodeDummyData} isOpen={inviteModal.isOpen} onModalClick={inviteModal.handleModal} />
       {groupId && (
-        <GroupMemberListModal
-          isOpen={groupMemberListModal.isOpen}
-          handleModal={groupMemberListModal.handleModal}
-          groupId={groupId}
-        />
+        <>
+          <InviteModal isOpen={inviteModal.isOpen} onModalClick={inviteModal.handleModal} groupId={groupId} />
+          <GroupMemberListModal
+            isOpen={groupMemberListModal.isOpen}
+            handleModal={groupMemberListModal.handleModal}
+            groupId={groupId}
+          />
+        </>
       )}
     </>
   );

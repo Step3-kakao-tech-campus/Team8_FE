@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Input } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
-import ContributeList from '@components/MyPage/ContributeList';
-import QuitModal from '@components/Modal/QuitModal';
+import GroupQuitModal from '@components/Modal/GroupQuitModal';
 import useModal from '@hooks/useModal';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { GROUP_KEYS } from '@constants/queryKeys';
-import { getGroupMyInfo, setGroupMyInfo } from '@apis/groupApi';
+import { getGroupMyInfoFn, setGroupMyInfoFn } from '@apis/groupApi';
 import { queryClient } from '@apis/queryClient';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { REQUIRE_ERROR_MSG, GROUP_NICKNAME_ERROR_MSG } from '@constants/errorMsg';
-import { GROUP_NICKNAME_PATTERN } from '@constants/validationPatterns';
 import { AxiosError } from 'axios';
+import ContributeAccordion from '@components/MyPage/ContributeAccordion';
+import { getNickNameError, nickNameRegister } from '@utils/Form/nickName';
 
 interface NickNameInput {
   nickName: string;
@@ -26,7 +25,7 @@ const GroupMyPage = () => {
   const quitModal = useModal();
   const { data: groupMyInfo, isLoading } = useQuery({
     queryKey: GROUP_KEYS.groupMyInfo({ groupId: numGroupId }),
-    queryFn: () => getGroupMyInfo(numGroupId),
+    queryFn: () => getGroupMyInfoFn(numGroupId),
   });
   const {
     register,
@@ -34,6 +33,7 @@ const GroupMyPage = () => {
     setError,
     setValue,
     clearErrors,
+    setFocus,
     formState: { errors, isValid },
   } = useForm<NickNameInput>({
     defaultValues: {
@@ -42,7 +42,7 @@ const GroupMyPage = () => {
   });
 
   const { mutate: setGroupMyInfoMutate } = useMutation({
-    mutationFn: (nickName: string) => setGroupMyInfo({ groupId: numGroupId, newGroupNickName: nickName }),
+    mutationFn: (nickName: string) => setGroupMyInfoFn({ groupId: numGroupId, newGroupNickName: nickName }),
     onSuccess: () => {
       queryClient.invalidateQueries(GROUP_KEYS.groupMyInfo({ groupId: numGroupId }));
       setIsNickNameChanging(false);
@@ -51,12 +51,13 @@ const GroupMyPage = () => {
       if (error instanceof AxiosError) {
         const errorData = error.response?.data.error;
         const { message, status } = errorData;
-        if (status === 400 && message === '해당 닉네임은 이미 사용중입니다.') {
+        if (status === 400) {
+          const { type, errorMsg } = getNickNameError(message);
           setError(
             'nickName',
             {
-              type: 'manual',
-              message,
+              type,
+              message: errorMsg,
             },
             {
               shouldFocus: true,
@@ -67,11 +68,11 @@ const GroupMyPage = () => {
     },
   });
   const handleChangeClick = () => {
+    setIsNickNameChanging((prev) => !prev);
     if (isNickNameChanging) {
       setValue('nickName', nowNickName);
       clearErrors();
     }
-    setIsNickNameChanging((prev) => !prev);
   };
   const handleNickNameChange: SubmitHandler<FieldValues> = ({ nickName }) => {
     if (!isValid) return;
@@ -86,6 +87,12 @@ const GroupMyPage = () => {
     }
   }, [groupMyInfo]);
 
+  useEffect(() => {
+    if (isNickNameChanging) {
+      setFocus('nickName');
+    }
+  }, [isNickNameChanging]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -96,7 +103,7 @@ const GroupMyPage = () => {
       </h1>
       <section className='mt-20 p-4'>
         <div className='flex'>
-          <span className='text-2xl text-blue-900 font-extrabold'>{groupId}</span>
+          <span className='text-2xl text-blue-900 font-extrabold'>{groupMyInfo?.groupName}</span>
         </div>
         <div className='flex items-center mt-10'>
           <span className='font-extrabold w-40'>그룹 닉네임</span>
@@ -112,17 +119,10 @@ const GroupMyPage = () => {
                 }}
                 crossOrigin=''
                 disabled={!isNickNameChanging}
-                {...register('nickName', {
-                  required: REQUIRE_ERROR_MSG,
-                  minLength: 2,
-                  maxLength: 8,
-                  pattern: GROUP_NICKNAME_PATTERN,
-                })}
+                {...register('nickName', nickNameRegister)}
               />
               {errors.nickName && (
-                <p className='absolute text-xs mt-1 mx-1 flex items-center text-error'>
-                  {errors.nickName.message ? REQUIRE_ERROR_MSG : GROUP_NICKNAME_ERROR_MSG}
-                </p>
+                <p className='absolute text-xs mt-1 mx-1 flex items-center text-error'>{errors.nickName.message}</p>
               )}
             </div>
             {isNickNameChanging ? (
@@ -160,15 +160,19 @@ const GroupMyPage = () => {
       <section className='p-4 mt-4'>
         <div className='flex justify-between items-center mb-2'>
           <h3 className='mb-2 font-extrabold'>내 문서 기여 목록</h3>
-          <Button
-            variant='outlined'
-            className='h-9 w-20 p-1 border-gray-400 text-gray-600 whitespace-nowrap rounded-sm'
-            onClick={() => navigate('contribute')}
-          >
-            전체보기
-          </Button>
+          {groupMyInfo?.historyList.length !== 0 && (
+            <Button
+              variant='outlined'
+              className='h-9 w-20 p-1 border-gray-400 text-gray-600 whitespace-nowrap rounded-sm'
+              onClick={() => navigate('contribute')}
+            >
+              전체보기
+            </Button>
+          )}
         </div>
-        <ContributeList contributeItems={groupMyInfo.myHistorgiyDTOS} />
+        <div className=' min-h-[120px]'>
+          <ContributeAccordion contributeItems={groupMyInfo?.historyList} />
+        </div>
       </section>
       <div className='text-right p-4'>
         <Button
@@ -179,7 +183,7 @@ const GroupMyPage = () => {
         >
           그룹 탈퇴하기
         </Button>
-        <QuitModal group={groupId} isOpen={quitModal.isOpen} onClick={quitModal.handleModal} />
+        <GroupQuitModal groupId={groupId} isOpen={quitModal.isOpen} onClick={quitModal.handleModal} />
       </div>
     </main>
   );

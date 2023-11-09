@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { IconButton, Typography } from '@material-tailwind/react';
 import { MdArrowBack, MdArrowForward } from 'react-icons/md';
 

@@ -1,5 +1,5 @@
 import React, { useState, KeyboardEvent } from 'react';
-import { List, ListItem, Card, Input } from '@material-tailwind/react';
+import { Input } from '@material-tailwind/react';
 import { MdClear, MdSearch } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -32,9 +32,7 @@ const SearchInput = ({ isLoggedIn, className }: InputProps) => {
       <div className='relative'>
         <MdSearch className='absolute left-2 top-0 bottom-0 my-auto text-2xl text-gray-600 z-10' />
         <Input
-          className={`w-full px-9 !text-base !bg-gray-100 !border-none focus:!bg-white focus:shadow-md ${
-            searchBar ? 'rounded-b-none' : ''
-          }`}
+          className='w-full px-9 !text-base !bg-gray-100 !border-none focus:!bg-white focus:shadow-md'
           placeholder={groupId ? '페이지를 검색해보세요.' : '그룹을 검색해보세요.'}
           value={searchBar}
           crossOrigin=''
@@ -53,7 +51,7 @@ const SearchInput = ({ isLoggedIn, className }: InputProps) => {
           />
         )}
       </div>
-      {searchBar && (
+      {/* {searchBar && (
         <Card className='absolute w-full rounded-t-none'>
           <List>
             <ListItem>Inbox</ListItem>
@@ -61,7 +59,7 @@ const SearchInput = ({ isLoggedIn, className }: InputProps) => {
             <ListItem>Settings</ListItem>
           </List>
         </Card>
-      )}
+      )} */}
     </div>
   );
 };

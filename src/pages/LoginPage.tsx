@@ -11,8 +11,9 @@ import { useMutation } from '@tanstack/react-query';
 import { getErrorMsg } from '@utils/serverError';
 import useModal from '@hooks/useModal';
 import PasswordFindModal from '@components/Modal/PasswordFindModal';
+import { setCookie } from 'typescript-cookie';
 import { useSetRecoilState } from 'recoil';
-import tokenState from '@recoil/atoms/auth';
+import isLoggedInState from '@recoil/atoms/auth';
 
 const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URL}`;
 
@@ -28,17 +29,21 @@ const LoginPage = () => {
     formState: { errors, isValid },
   } = useForm<LoginInputs>({ mode: 'onChange' });
   const navigate = useNavigate();
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const passwordFindModal = useModal();
 
   const { mutate: login, error } = useMutation({ mutationFn: loginFn });
-  const setToken = useSetRecoilState(tokenState);
 
   const handleLoginSubmit: SubmitHandler<FieldValues> = ({ email, password }) => {
     login(
       { email, password },
       {
-        onSuccess: ({ grantType, accessToken }) => {
-          setToken(`${grantType} ${accessToken}`);
+        onSuccess: ({ grantType, accessToken, accessTokenValidTime }) => {
+          setCookie('accessToken', `${grantType} ${accessToken}`, {
+            expires: new Date(accessTokenValidTime),
+            path: '/',
+          });
+          setIsLoggedIn(true);
           navigate('/');
         },
       },
@@ -48,7 +53,9 @@ const LoginPage = () => {
   return (
     <div className='flex min-h-full flex-col justify-center px-8'>
       <div className='mx-auto shadow space-y-4 w-full max-w-[450px] px-16 pt-9 pb-16'>
-        <TextLogo className='w-36 m-auto mb-8' data-testid='textLogo' />
+        <Link to='/'>
+          <TextLogo className='w-36 m-auto mb-8' data-testid='textLogo' />
+        </Link>
         <form className='space-y-12' onSubmit={handleSubmit(handleLoginSubmit)}>
           <div>
             <Input

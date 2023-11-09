@@ -13,9 +13,10 @@ interface GroupMemberListProps {
 }
 
 const GroupMemberListModal = ({ isOpen, handleModal, groupId }: GroupMemberListProps) => {
+  const numGroupId = Number(groupId);
   const { data, isLoading } = useQuery({
-    queryKey: GROUP_KEYS.members({ groupId: Number(groupId) }),
-    queryFn: () => getGroupMemberFn(Number(groupId)),
+    queryKey: GROUP_KEYS.members({ groupId: numGroupId }),
+    queryFn: () => getGroupMemberFn(numGroupId),
   });
 
   if (isLoading) {

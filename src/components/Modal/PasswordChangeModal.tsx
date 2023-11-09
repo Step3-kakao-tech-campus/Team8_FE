@@ -18,7 +18,7 @@ interface PasswordChangeInputs {
   newPasswordConfirm: string;
 }
 
-const PasswordChangeModal: React.FC<PasswordChangeModalProps> = ({ isOpen, handleOpen }: PasswordChangeModalProps) => {
+const PasswordChangeModal = ({ isOpen, handleOpen }: PasswordChangeModalProps) => {
   const {
     register,
     handleSubmit,

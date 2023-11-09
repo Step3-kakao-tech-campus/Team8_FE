@@ -1,6 +1,6 @@
 // auth 관련 key
 export const AUTH_KEYS = {
-  token: 'tokenState',
+  isLoggedIn: 'isLoggedInState',
 };
 
 // 그룹 생성 관련 key

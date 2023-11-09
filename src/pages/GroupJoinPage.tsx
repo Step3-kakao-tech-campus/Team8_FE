@@ -1,25 +1,33 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Typography } from '@material-tailwind/react';
+import { Alert, Button, Typography } from '@material-tailwind/react';
+import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
 import { GROUP_KEYS } from '@constants/queryKeys';
 import { getGroupInfoFn } from '@apis/groupApi';
 import Logo from '@assets/images/logo/logo.svg';
 import OfficialGroup from '@components/JoinGroup/OfficialGroup';
 import UnOfficialOpenedGroup from '@components/JoinGroup/UnOfficialOpenedGroup';
 import UnOfficialClosedGroup from '@components/JoinGroup/UnOfficialClosedGroup';
+import useAlert from '@hooks/useAlert';
 
 const GroupJoinPage = () => {
-  const { groupId } = useParams() as { groupId: string };
-  const [isImgError, setImageError] = useState(false);
+  const navigate = useNavigate();
+  const { groupId } = useParams();
+  const numGroupId = Number(groupId);
+  const [isImgError, setImageError] = useState<boolean>(false);
+  const { isOpen: isRegisteredAlertOpen, setIsOpen: setIsRegisteredAlertOpen } = useAlert();
   const { data, isLoading } = useQuery({
-    queryKey: GROUP_KEYS.groupInfo({ groupId }),
-    queryFn: () => getGroupInfoFn(Number(groupId)),
+    queryKey: GROUP_KEYS.groupInfo({ groupId: numGroupId }),
+    queryFn: () => getGroupInfoFn(numGroupId),
   });
 
   const handleImgError: React.ReactEventHandler<HTMLImageElement> = (e) => {
     e.currentTarget.src = Logo;
     setImageError(true);
+  };
+  const handleIsRegisteredAlertOpen = () => {
+    setIsRegisteredAlertOpen((prev) => !prev);
   };
 
   if (isLoading) {
@@ -28,7 +36,29 @@ const GroupJoinPage = () => {
   const { groupName, groupImage, introduction, groupType, created_at: createdAt, memberCount } = data;
   return (
     <section className='max-w-fit mx-auto'>
+      <Alert
+        className='flex justify-between items-center py-3 font-semibold bg-gray-200 text-gray-600'
+        open={isRegisteredAlertOpen}
+        action={
+          <Button
+            variant='text'
+            className='p-1 text-xs text-gray-600'
+            onClick={() => navigate(`/${groupId}/${data.groupName}`)}
+          >
+            메인페이지로
+          </Button>
+        }
+        animate={{
+          mount: { y: -10 },
+          unmount: { y: -50 },
+        }}
+      >
+        이미 가입된 그룹입니다.
+      </Alert>
       <div className='w-full'>
+        <Link to='/'>
+          <TextLogo className='w-36 m-auto mb-8' data-testid='textLogo' />
+        </Link>
         <Typography variant='h4' className='font-normal'>
           <span className='font-bold'>[{groupName}]</span>에 가입해보세요.
         </Typography>
@@ -47,9 +77,13 @@ const GroupJoinPage = () => {
           <Typography variant='h6'>{groupName}</Typography>
           <p className='text-xs min-w-[400px]'>{introduction}</p>
         </div>
-        {groupType === 'un_official_opened_group' && <UnOfficialOpenedGroup data={data} />}
-        {groupType === 'un_official_closed_group' && <UnOfficialClosedGroup data={data} />}
-        {groupType === 'official_group' && <OfficialGroup />}
+        {groupType === 'un_official_opened_group' && (
+          <UnOfficialOpenedGroup data={data} onIsRegisteredAlertChange={handleIsRegisteredAlertOpen} />
+        )}
+        {groupType === 'un_official_closed_group' && (
+          <UnOfficialClosedGroup data={data} onIsRegisteredAlertChange={handleIsRegisteredAlertOpen} />
+        )}
+        {groupType === 'official_group' && <OfficialGroup data={data} />}
       </div>
     </section>
   );
