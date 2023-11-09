@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { RiKakaoTalkFill } from 'react-icons/ri';
 import { Button, Input } from '@material-tailwind/react';
 import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
@@ -29,7 +29,6 @@ const LoginPage = () => {
     formState: { errors, isValid },
   } = useForm<LoginInputs>({ mode: 'onChange' });
   const navigate = useNavigate();
-  const { state } = useLocation();
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const passwordFindModal = useModal();
 
@@ -45,10 +44,6 @@ const LoginPage = () => {
             path: '/',
           });
           setIsLoggedIn(true);
-          if (state && state.path) {
-            navigate(state.path);
-            return;
-          }
           navigate('/');
         },
       },
@@ -94,7 +89,7 @@ const LoginPage = () => {
           </Button>
         </form>
         <div className='text-center text-xs'>
-          <Link to='/signUp' data-testid='signUpLink' state={{ path: state?.path }}>
+          <Link to='/signUp' data-testid='signUpLink'>
             회원가입
           </Link>
           {` | `}

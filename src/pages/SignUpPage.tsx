@@ -12,7 +12,7 @@ import {
 } from '@constants/errorMsg';
 import { useMutation } from '@tanstack/react-query';
 import { signUpFn } from '@apis/authApi';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface SignUpInputs {
   email: string;
@@ -29,8 +29,6 @@ const SignUpPage = () => {
     formState: { errors, isValid },
   } = useForm<SignUpInputs>({ mode: 'onChange' });
   const navigate = useNavigate();
-  const { state } = useLocation();
-
   const { mutate: signUp } = useMutation({ mutationFn: signUpFn });
 
   const handleSignUpSubmit: SubmitHandler<FieldValues> = ({ email, password, name }) => {
@@ -38,7 +36,7 @@ const SignUpPage = () => {
       { email, password, name },
       {
         onSuccess: () => {
-          navigate('/login', { state: { path: state?.path } });
+          navigate('/login');
         },
       },
     );
