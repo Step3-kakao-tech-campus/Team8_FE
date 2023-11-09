@@ -42,18 +42,6 @@ const router = createBrowserRouter([
             element: <HomePage />,
           },
           {
-            path: '/signUp',
-            element: <SignUpPage />,
-          },
-          {
-            path: '/auth/kakao/signin',
-            element: <KakaoLoginPage />,
-          },
-          {
-            path: '/login',
-            element: <LoginPage />,
-          },
-          {
             path: '/myPage',
             element: (
               <PrivateRoute>
@@ -148,7 +136,7 @@ const router = createBrowserRouter([
             element: <SignUpPage />,
           },
           {
-            path: '/kakaoLogin',
+            path: '/auth/kakao/signin',
             element: <KakaoLoginPage />,
           },
           {

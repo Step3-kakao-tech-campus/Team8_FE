@@ -40,7 +40,10 @@ const LoginPage = () => {
       { email, password },
       {
         onSuccess: ({ grantType, accessToken, accessTokenValidTime }) => {
-          setCookie('accessToken', `${grantType} ${accessToken}`, { expires: new Date(accessTokenValidTime) });
+          setCookie('accessToken', `${grantType} ${accessToken}`, {
+            expires: new Date(accessTokenValidTime),
+            path: '/',
+          });
           setIsLoggedIn(true);
           if (state && state.path) {
             navigate(state.path);

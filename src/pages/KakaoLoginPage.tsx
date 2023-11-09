@@ -12,16 +12,21 @@ const KakaoLoginPage = () => {
   const code = new URL(window.location.href).searchParams.get('code');
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
-  const { data, error } = useQuery({ queryKey: AUTH_KEYS.kakaoLogin({ code }), queryFn: () => kakaoLoginFn({ code }) });
+  const { data, error } = useQuery({
+    queryKey: AUTH_KEYS.kakaoLogin({ code }),
+    queryFn: () => kakaoLoginFn({ code }),
+  });
 
   useEffect(() => {
     if (data) {
-      const { grantType, accessToken, accessTokenValidTime } = data;
-      setCookie('accessToken', `${grantType} ${accessToken}`, { expires: new Date(accessTokenValidTime) });
+      setCookie('accessToken', `${data.grantType} ${data.accessToken}`, {
+        expires: new Date(data.accessTokenValidTime),
+        path: '/',
+      });
       setIsLoggedIn(true);
       navigate('/');
     }
-  }, [data]);
+  }, [data, navigate, setIsLoggedIn]);
 
   return (
     <div className='flex min-h-full flex-col justify-center px-8'>
