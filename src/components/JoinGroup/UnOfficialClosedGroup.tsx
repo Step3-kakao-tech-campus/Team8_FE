@@ -46,7 +46,7 @@ const UnOfficialClosedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGr
     },
     onError: (error) => {
       const message = getErrorMsg(error);
-      if (message === '잘못된 접근입니다.') {
+      if (message === '잘못된 접근입니다.' || message === '존재하지 않는 초대 링크입니다.') {
         setError(
           'inviteCode',
           {
@@ -93,7 +93,7 @@ const UnOfficialClosedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGr
       <div className='w-full'>
         <Input
           type='text'
-          label='초대코드 입력'
+          label='초대링크 입력'
           containerProps={{
             className: 'min-w-0 w-full',
           }}
