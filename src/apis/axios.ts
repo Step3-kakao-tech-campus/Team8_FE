@@ -1,5 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-// import { getErrorMsg } from '@utils/serverError';
 import axios, { InternalAxiosRequestConfig } from 'axios';
 import { getCookie } from 'typescript-cookie';
 
@@ -8,10 +7,10 @@ export const instance = axios.create({
 });
 
 instance.interceptors.request.use((config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
-  const accessToken = getCookie('accessToken');
+  const accessToken = getCookie('access-token');
   if (accessToken) {
     const newConfig = config;
-    newConfig.headers.Authorization = getCookie('accessToken');
+    newConfig.headers.Authorization = accessToken;
 
     return newConfig;
   }

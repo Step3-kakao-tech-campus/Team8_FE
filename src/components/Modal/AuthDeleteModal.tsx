@@ -21,7 +21,7 @@ const AuthDeleteModal = ({ isOpen, onClick }: AuthDeleteModalProps) => {
     authDelete(undefined, {
       onSuccess: () => {
         onClick();
-        removeCookie('accessToken', { path: '/' });
+        removeCookie('access-token', { path: '/' });
         setIsLoggedIn(false);
         navigate(`/`);
       },
