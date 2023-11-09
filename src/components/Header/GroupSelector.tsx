@@ -22,10 +22,12 @@ const GroupSelector = () => {
     }
   };
   const getSelectedGroup = () => {
-    const selectedGroup = groupList?.myGroup.find((group) => group.groupId === Number(groupId));
+    if (groupList) {
+      const selectedGroup = groupList?.myGroup.find((group) => group.groupId === Number(groupId));
 
-    if (selectedGroup) {
-      return `/${selectedGroup.groupId}/${selectedGroup.groupName}`;
+      if (selectedGroup) {
+        return `/${selectedGroup.groupId}/${selectedGroup.groupName}`;
+      }
     }
     return '';
   };
