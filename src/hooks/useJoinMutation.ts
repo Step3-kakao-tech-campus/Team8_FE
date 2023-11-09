@@ -1,9 +1,11 @@
 import { AxiosError } from 'axios';
 import { useMutation } from '@tanstack/react-query';
+import { queryClient } from '@apis/queryClient';
 import { UseFormSetError } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { joinGroupFn } from '@apis/groupApi';
 import { GROUP_EXIST_NICKNAME_ERROR_MSG } from '@constants/errorMsg';
+import { GROUP_KEYS, PAGE_KEYS } from '@constants/queryKeys';
 
 interface NickNameInput {
   nickName: string;
@@ -23,6 +25,12 @@ const useJoinMutation = ({ groupId, groupName, nickName, setError, onIsRegistere
   return useMutation({
     mutationFn: () => joinGroupFn({ groupId, nickName }),
     onSuccess: () => {
+      queryClient.invalidateQueries(PAGE_KEYS.byTitle({ groupId, title: groupName }), {
+        refetchType: 'all',
+      });
+      queryClient.invalidateQueries(GROUP_KEYS.members({ groupId }), {
+        refetchType: 'all',
+      });
       navigate(`/${groupId}/${groupName}`, { replace: true });
     },
     onError: (error) => {
