@@ -10,7 +10,9 @@ import { getGroupListFn } from '@apis/mainApi';
 const GroupSelector = () => {
   const navigate = useNavigate();
   const { groupId } = useParams();
-  const { data: groupList, isLoading } = useQuery<MainGroups>({ queryKey: MAIN_KEYS.main, queryFn: getGroupListFn });
+  const { data, isLoading } = useQuery<MainGroups>({ queryKey: MAIN_KEYS.main, queryFn: getGroupListFn });
+
+  const groupList = data?.myGroup || [];
 
   if (isLoading) {
     return <Spinner />;
@@ -21,9 +23,11 @@ const GroupSelector = () => {
       navigate(value);
     }
   };
+
   const getSelectedGroup = () => {
-    if (groupList) {
-      const selectedGroup = groupList?.myGroup.find((group) => group.groupId === Number(groupId));
+    if (groupList.length > 0) {
+      console.log(groupId, groupList);
+      const selectedGroup = groupList.find((group) => group.groupId === Number(groupId));
 
       if (selectedGroup) {
         return `/${selectedGroup.groupId}/${selectedGroup.groupName}`;
@@ -46,7 +50,7 @@ const GroupSelector = () => {
           })
         }
       >
-        {groupList?.myGroup.map((group) => (
+        {groupList?.map((group) => (
           <Option key={uuidv4()} value={`/${group.groupId}/${group.groupName}`}>
             {group.groupName}
           </Option>
