@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Accordion, AccordionHeader, AccordionBody, Chip } from '@material-tailwind/react';
+import { getFormattedDateTime } from '@utils/time';
 import { MdExpandMore, MdExpandLess } from 'react-icons/md';
 import Viewer from './Page/Post/Editor/Ckviewer';
 
@@ -25,10 +26,6 @@ const PostHistoryAccordion = ({ historyList }: PostHistoryAccordionProps) => {
     setOpenAccordion(newAccordionState);
   };
 
-  // const handleUndoButtonClick = () => {
-  //   TODO: 히스토리 복구 API 생성 시 구현
-  // };
-
   useEffect(() => {
     setOpenAccordion((prev) => {
       const newAccordionState = [...prev];
@@ -40,7 +37,6 @@ const PostHistoryAccordion = ({ historyList }: PostHistoryAccordionProps) => {
   return (
     <>
       {historyList.map((history, index) => (
-        // TODO: 키 값 처리
         <Accordion
           key={history.historyId}
           open={openAccordion[index]}
@@ -51,7 +47,7 @@ const PostHistoryAccordion = ({ historyList }: PostHistoryAccordionProps) => {
             className='text-sm font-normal flex justify-between pb-2'
           >
             <div className='flex gap-2 items-center'>
-              {`${history.createdAt.replace('T', ' ')} by ${history.nickName}`}
+              {`${getFormattedDateTime(history.createdAt)} by ${history.nickName}`}
               {index === 0 && (
                 <Chip variant='ghost' size='sm' color='deep-orange' value='현재' className=' rounded-full' />
               )}
@@ -59,19 +55,6 @@ const PostHistoryAccordion = ({ historyList }: PostHistoryAccordionProps) => {
           </AccordionHeader>
           <AccordionBody className='whitespace-prewrap text-xs font-normal text-gray-600'>
             <Viewer content={history.content} />
-            {/* {index !== 0 && (
-              <div className='flex justify-end'>
-                <Button
-                  ripple={false}
-                  variant='text'
-                  size='sm'
-                  className=' text-red-300 px-2 py-1 text-right'
-                  onClick={handleUndoButtonClick}
-                >
-                  [해당 내용으로 되돌리기]
-                </Button>
-              </div>
-            )} */}
           </AccordionBody>
         </Accordion>
       ))}

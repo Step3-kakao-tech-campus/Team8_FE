@@ -1,14 +1,11 @@
 import React from 'react';
 import PostHistoryAccordion from '@components/PostHistoryAccordion';
-import Pagination from '@components/Common/Pagination';
 import { useQuery } from '@tanstack/react-query';
 import { getHistoryFn } from '@apis/postApi';
 import { POST_KEYS } from '@constants/queryKeys';
 import { useParams } from 'react-router-dom';
 
 const PostHistoryPage = () => {
-  const [active, setActive] = React.useState<number>(1);
-
   const { groupId, postId } = useParams();
   if (!groupId || !postId) return null;
 
@@ -35,8 +32,6 @@ const PostHistoryPage = () => {
           </div>
         </div>
       )}
-
-      <Pagination active={active} setActive={setActive} lastIndex={5} />
     </section>
   );
 };
