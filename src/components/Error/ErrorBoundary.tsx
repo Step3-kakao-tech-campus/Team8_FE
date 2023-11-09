@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-
+/* eslint-disable react/no-unused-prop-types */
 interface Props {
   children?: ReactNode;
   fallback: React.ElementType;

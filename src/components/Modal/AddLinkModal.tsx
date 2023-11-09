@@ -4,8 +4,6 @@ import { Dialog, Card, CardBody, Input, Button } from '@material-tailwind/react'
 import { useQuery } from '@tanstack/react-query';
 import { PAGE_KEYS } from '@constants/queryKeys';
 import { checkPageExistence } from '@apis/pageApi';
-import { AxiosError } from 'axios';
-import { getErrorMsg } from '@utils/serverError';
 import { queryClient } from '@apis/queryClient';
 
 interface AddLinkModalProps {
@@ -24,15 +22,14 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
   const { isLoading } = useQuery({
     queryKey: PAGE_KEYS.isExistence({ groupId: numGroupId, title: pageName }),
     queryFn: () => checkPageExistence({ groupId: numGroupId, title: pageName }),
-    onError: (error: AxiosError) => {
-      // 존재하지 않는 페이지인 경우
-      if (getErrorMsg(error) === '존재하지 않는 페이지 입니다.') {
-        setIsExistence(false);
-      }
+    onError: () => {
+      setIsExistence(false);
     },
     // 존재하는 페이지인 경우
-    onSuccess: () => {
-      setIsExistence(true);
+    onSuccess: (data) => {
+      if (data.status === 404) {
+        setIsExistence(false);
+      } else setIsExistence(true);
     },
   });
 
