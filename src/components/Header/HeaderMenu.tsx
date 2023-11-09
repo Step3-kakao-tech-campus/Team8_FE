@@ -18,7 +18,7 @@ const HeaderMenu = () => {
   const groupMemberListModal = useModal();
 
   const handleLogout = () => {
-    removeCookie('accessToken');
+    removeCookie('accessToken', { path: '/' });
     setIsLoggedIn(false);
     navigate(`/`);
   };

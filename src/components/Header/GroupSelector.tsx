@@ -26,7 +26,6 @@ const GroupSelector = () => {
 
   const getSelectedGroup = () => {
     if (groupList.length > 0) {
-      console.log(groupId, groupList);
       const selectedGroup = groupList.find((group) => group.groupId === Number(groupId));
 
       if (selectedGroup) {
