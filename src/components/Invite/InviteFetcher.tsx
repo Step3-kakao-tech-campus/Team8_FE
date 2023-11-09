@@ -3,7 +3,7 @@ import { checkInviteCodeFn } from '@apis/groupApi';
 import { GROUP_KEYS } from '@constants/queryKeys';
 import { Spinner, Typography } from '@material-tailwind/react';
 import { useQuery } from '@tanstack/react-query';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import isLoggedInState from '@recoil/atoms/auth';
 
@@ -13,7 +13,6 @@ interface InviteFetcherProps {
 
 const InviteFetcher = ({ inviteCode }: InviteFetcherProps) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const { data, isLoading } = useQuery({
     queryKey: GROUP_KEYS.checkGroupInviteCode({ inviteCode }),
@@ -25,8 +24,6 @@ const InviteFetcher = ({ inviteCode }: InviteFetcherProps) => {
       const { groupId } = data;
       if (isLoggedIn) {
         navigate(`/${groupId}/join`, { replace: true });
-      } else {
-        navigate('/login', { replace: true, state: { path: location.pathname } });
       }
     }
   }, [isLoading, data, navigate]);

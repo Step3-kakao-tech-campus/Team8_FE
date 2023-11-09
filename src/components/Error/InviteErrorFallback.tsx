@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Typography } from '@material-tailwind/react';
 import { useNavigate } from 'react-router-dom';
 import { getErrorMsg } from '@utils/serverError';
@@ -19,6 +19,12 @@ const InviteErrorFallback = ({ error }: ErrorFallbackProps) => {
       </>
     );
   }
+
+  useEffect(() => {
+    if (message === 'JWT 토큰이 잘못되었습니다.') {
+      navigate('/login');
+    }
+  }, [message]);
 
   return (
     <main className='flex flex-col justify-center items-center gap-2 w-screen h-screen'>
