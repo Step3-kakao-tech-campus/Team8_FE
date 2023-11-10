@@ -15,7 +15,7 @@ import { getErrorMsg } from '@utils/serverError';
 
 interface ClosedGroupInput {
   nickName: string;
-  inviteCode: string;
+  inviteLink: string;
 }
 
 const UnOfficialClosedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGroupProps) => {
@@ -29,7 +29,7 @@ const UnOfficialClosedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGr
   } = useForm<ClosedGroupInput>({
     defaultValues: {
       nickName: '',
-      inviteCode: '',
+      inviteLink: '',
     },
   });
   const { mutate: joinGroup } = useJoinMutation({
@@ -48,7 +48,7 @@ const UnOfficialClosedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGr
       const message = getErrorMsg(error);
       if (message === '잘못된 접근입니다.' || message === '존재하지 않는 초대 링크입니다.') {
         setError(
-          'inviteCode',
+          'inviteLink',
           {
             type: 'wrong',
             message: GROUP_INVITE_CODE_ERROR_MSG,
@@ -59,7 +59,7 @@ const UnOfficialClosedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGr
         );
       } else if (message === '이미 만료된 초대 링크입니다.') {
         setError(
-          'inviteCode',
+          'inviteLink',
           {
             type: 'expired',
             message: GROUP_INVITE_CODE_EXPIRED_ERROR_MSG,
@@ -71,9 +71,10 @@ const UnOfficialClosedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGr
       }
     },
   });
-  const handleJoin: SubmitHandler<FieldValues> = ({ inviteCode }) => {
+  const handleJoin: SubmitHandler<FieldValues> = ({ inviteLink }) => {
     if (!isValid) return;
-
+    const inviteLinkArray = inviteLink.split('/');
+    const inviteCode = inviteLinkArray[inviteLinkArray.length - 1];
     checkInviteCode(inviteCode);
   };
   return (
@@ -98,12 +99,12 @@ const UnOfficialClosedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGr
             className: 'min-w-0 w-full',
           }}
           crossOrigin=''
-          {...register('inviteCode', {
+          {...register('inviteLink', {
             required: REQUIRE_ERROR_MSG,
           })}
         />
-        {errors.inviteCode && (
-          <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.inviteCode.message}</p>
+        {errors.inviteLink && (
+          <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.inviteLink.message}</p>
         )}
       </div>
       <Button type='submit'>가입하기</Button>
