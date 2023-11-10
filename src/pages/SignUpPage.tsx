@@ -13,6 +13,7 @@ import {
 import { useMutation } from '@tanstack/react-query';
 import { signUpFn } from '@apis/authApi';
 import { Link, useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
 
 interface SignUpInputs {
   email: string;
@@ -26,6 +27,7 @@ const SignUpPage = () => {
     register,
     handleSubmit,
     getValues,
+    setError,
     formState: { errors, isValid },
   } = useForm<SignUpInputs>({ mode: 'onChange' });
   const navigate = useNavigate();
@@ -37,6 +39,24 @@ const SignUpPage = () => {
       {
         onSuccess: () => {
           navigate('/login');
+        },
+        onError: (error) => {
+          if (error instanceof AxiosError) {
+            const errorData = error.response?.data.error;
+            const { message, status } = errorData;
+            if (status === 400 && message === '이미 존재하는 회원입니다.') {
+              setError(
+                'email',
+                {
+                  type: 'exist',
+                  message,
+                },
+                {
+                  shouldFocus: true,
+                },
+              );
+            }
+          }
         },
       },
     );

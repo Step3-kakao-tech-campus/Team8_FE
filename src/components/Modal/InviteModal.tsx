@@ -23,7 +23,7 @@ const InviteModal = ({ isOpen, onModalClick, groupId }: InviteModalProps) => {
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(data?.inviteCode);
+      await navigator.clipboard.writeText(`${process.env.REACT_APP_API_URL}/invite/${data?.inviteCode}`);
       setIsAlertOpen(true);
     } catch {
       setIsErrorAlertOpen(true);
@@ -41,13 +41,13 @@ const InviteModal = ({ isOpen, onModalClick, groupId }: InviteModalProps) => {
       </DialogHeader>
       <DialogBody className='flex'>
         <Input
-          className='truncate outline-none cursor-pointer'
+          className='outline-none cursor-pointer'
           label='초대 링크'
-          value={data?.inviteCode}
+          value={`${process.env.REACT_APP_API_URL}/invite/${data?.inviteCode}`}
           size='lg'
           readOnly
           crossOrigin=''
-          icon={<MdContentCopy onClick={handleCopy} />}
+          icon={<MdContentCopy onClick={handleCopy} className='cursor-pointer' />}
           onClick={handleCopy}
         />
       </DialogBody>
