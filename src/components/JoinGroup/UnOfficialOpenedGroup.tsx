@@ -80,7 +80,6 @@ const UnOfficialOpenedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGr
             <Input
               type='text'
               label='닉네임'
-              className=''
               containerProps={{
                 className: 'min-w-0 w-full',
               }}
@@ -95,7 +94,6 @@ const UnOfficialOpenedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGr
             <Input
               type='text'
               label='정답 입력'
-              className='pr-24'
               containerProps={{
                 className: 'min-w-0 w-full',
               }}
