@@ -33,6 +33,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         element: <MainLayout />,
@@ -100,10 +101,6 @@ const router = createBrowserRouter([
                 <PostHistoryPage />
               </PrivateRoute>
             ),
-          },
-          {
-            path: '/404',
-            element: <NotFoundPage />,
           },
         ],
       },
