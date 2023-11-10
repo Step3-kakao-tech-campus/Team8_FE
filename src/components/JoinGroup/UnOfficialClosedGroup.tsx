@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Input } from '@material-tailwind/react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { UnOfficialGroupProps } from '@apis/dto';
+import { GroupDetail } from '@apis/dto';
 import { nickNameRegister } from '@utils/Form/nickName';
 import useJoinMutation from '@hooks/useJoinMutation';
 import {
@@ -18,7 +18,13 @@ interface ClosedGroupInput {
   inviteLink: string;
 }
 
-const UnOfficialClosedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGroupProps) => {
+interface UnOfficialGroupProps {
+  data: GroupDetail;
+  inviteCode: string;
+  onIsRegisteredAlertChange: () => void;
+}
+
+const UnOfficialClosedGroup = ({ data, inviteCode, onIsRegisteredAlertChange }: UnOfficialGroupProps) => {
   const { groupId, groupName } = data;
   const {
     register,
@@ -29,7 +35,7 @@ const UnOfficialClosedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGr
   } = useForm<ClosedGroupInput>({
     defaultValues: {
       nickName: '',
-      inviteLink: '',
+      inviteLink: `${process.env.REACT_APP_API_URL}/invite/${inviteCode}`,
     },
   });
   const { mutate: joinGroup } = useJoinMutation({
@@ -73,9 +79,9 @@ const UnOfficialClosedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGr
   });
   const handleJoin: SubmitHandler<FieldValues> = ({ inviteLink }) => {
     if (!isValid) return;
+
     const inviteLinkArray = inviteLink.split('/');
-    const inviteCode = inviteLinkArray[inviteLinkArray.length - 1];
-    checkInviteCode(inviteCode);
+    checkInviteCode(inviteLinkArray[inviteLinkArray.length - 1]);
   };
   return (
     <form className='flex flex-col gap-4 w-full' onSubmit={handleSubmit(handleJoin)}>

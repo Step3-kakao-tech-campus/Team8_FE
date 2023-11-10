@@ -23,7 +23,7 @@ const InviteFetcher = ({ inviteCode }: InviteFetcherProps) => {
     if (!isLoading && data) {
       const { groupId } = data;
       if (isLoggedIn) {
-        navigate(`/${groupId}/join`, { replace: true });
+        navigate(`/${groupId}/join`, { replace: true, state: { inviteCode } });
       }
     }
   }, [isLoading, data, navigate]);

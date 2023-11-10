@@ -2,17 +2,22 @@ import React from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import DividerWithText from '@components/Common/DividerWithText';
 import { Button, Input, Typography } from '@material-tailwind/react';
-import { UnOfficialGroupProps } from '@apis/dto';
 import { GROUP_PASSWORD_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
 import { useMutation } from '@tanstack/react-query';
 import { checkGroupPasswordFn } from '@apis/groupApi';
 import { nickNameRegister } from '@utils/Form/nickName';
 import useJoinMutation from '@hooks/useJoinMutation';
 import { getErrorMsg } from '@utils/serverError';
+import { GroupDetail } from '@apis/dto';
 
 interface OpenedGroupInput {
   nickName: string;
   entrancePassword: string;
+}
+
+interface UnOfficialGroupProps {
+  data: GroupDetail;
+  onIsRegisteredAlertChange: () => void;
 }
 
 const UnOfficialOpenedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGroupProps) => {
