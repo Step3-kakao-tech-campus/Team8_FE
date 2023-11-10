@@ -6,7 +6,7 @@ const NotFoundPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className='text-center p-40'>
+    <div className='flex flex-col justify-center items-center w-screen h-screen'>
       <h1 className='text-2xl font-extrabold'>404 NOT FOUND</h1>
       <p>페이지를 찾을 수 없습니다.</p>
       <Button className='mt-5' onClick={() => navigate(-1)}>

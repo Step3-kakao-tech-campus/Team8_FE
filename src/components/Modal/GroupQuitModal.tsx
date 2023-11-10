@@ -6,11 +6,12 @@ import { quitGroupFn } from '@apis/groupApi';
 
 interface GroupQuitModalProps {
   groupId: string;
+  groupName: string;
   isOpen: boolean;
   onClick: () => void;
 }
 
-const GroupQuitModal = ({ groupId, isOpen, onClick }: GroupQuitModalProps) => {
+const GroupQuitModal = ({ groupId, groupName, isOpen, onClick }: GroupQuitModalProps) => {
   const navigate = useNavigate();
   const { mutate: quitGroupMutate } = useMutation({
     mutationFn: () => quitGroupFn(groupId),
@@ -25,9 +26,9 @@ const GroupQuitModal = ({ groupId, isOpen, onClick }: GroupQuitModalProps) => {
   };
   return (
     <Dialog open={isOpen} handler={onClick} size='xs'>
-      <DialogHeader className='justify-center text-lg'>{groupId}</DialogHeader>
+      <DialogHeader className='justify-center text-lg'>{groupName}</DialogHeader>
       <DialogBody className='text-center text-black font-normal'>
-        정말 <span className='font-bold text-red-600'>[{groupId}]</span> 그룹을 탈퇴하시겠습니까?
+        정말 <span className='font-bold text-red-600'>[{groupName}]</span> 그룹을 탈퇴하시겠습니까?
       </DialogBody>
       <DialogFooter>
         <Button variant='text' ripple={false} color='red' onClick={handleQuitClick} className='mr-1'>

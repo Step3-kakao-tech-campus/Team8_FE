@@ -4,7 +4,7 @@ import { getCookie } from 'typescript-cookie';
 
 const isLoggedInState = atom<boolean>({
   key: AUTH_KEYS.isLoggedIn,
-  default: Boolean(getCookie('accessToken')),
+  default: Boolean(getCookie('access-token')),
 });
 
 export default isLoggedInState;

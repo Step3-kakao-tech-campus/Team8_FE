@@ -32,7 +32,7 @@ const GroupCreatePage = () => {
             </Step>
           ))}
         </Stepper>
-        {currentStep !== 5 && (
+        {currentStep !== 5 && currentStep !== 1 && (
           <Button
             variant='text'
             ripple={false}

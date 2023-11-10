@@ -11,7 +11,7 @@ const InviteErrorFallback = ({ error }: ErrorFallbackProps) => {
   const navigate = useNavigate();
   const message = getErrorMsg(error);
 
-  if (message === '존재하지 않는 초대링크입니다.' || message === '이미 만료된 초대 링크입니다.') {
+  if (message === '존재하지 않는 초대 링크입니다.' || message === '이미 만료된 초대 링크입니다.') {
     return (
       <>
         <Typography variant='h5'>{message}</Typography>

@@ -27,7 +27,7 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
   const { mutateAsync: createGroupMutate } = useMutation({
     mutationFn: () => createGroupFn(groupInfo),
     onSuccess: (response) => {
-      setInviteCode(response.inviteCode);
+      setInviteCode(`${process.env.REACT_APP_API_URL}/invite/${response.inviteCode}`);
       setGroupId(response.groupId);
       createPageMutate({ groupId: response.groupId, pageName: response.groupName });
     },
@@ -58,13 +58,13 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
         <Typography variant='paragraph'>초대 링크를 통해 그룹원을 초대해보세요.</Typography>
       </div>
       <Input
-        className='truncate outline-none cursor-pointer'
+        className='outline-none cursor-pointer'
         label='초대 링크'
         value={inviteCode}
         size='lg'
         readOnly
         crossOrigin=''
-        icon={<MdContentCopy onClick={handleCopy} />}
+        icon={<MdContentCopy onClick={handleCopy} className='cursor-pointer' />}
         onClick={handleCopy}
       />
       <div className='flex justify-end'>
