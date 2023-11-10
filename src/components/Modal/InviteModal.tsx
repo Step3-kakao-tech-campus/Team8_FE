@@ -47,7 +47,7 @@ const InviteModal = ({ isOpen, onModalClick, groupId }: InviteModalProps) => {
           size='lg'
           readOnly
           crossOrigin=''
-          icon={<MdContentCopy onClick={handleCopy} />}
+          icon={<MdContentCopy onClick={handleCopy} className='cursor-pointer' />}
           onClick={handleCopy}
         />
       </DialogBody>
