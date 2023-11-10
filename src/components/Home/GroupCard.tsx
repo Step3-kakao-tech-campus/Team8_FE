@@ -27,7 +27,9 @@ const GroupCard = ({ group }: GroupCardProps) => {
             src={group.groupImage}
             alt={`${group.groupName}`}
             onError={handleImgError}
-            className={`object-cover w-36 h-36 hover:scale-110 duration-300  ${isImgError ? 'opacity-10 p-10' : ''}`}
+            className={`object-cover w-36 h-36 hover:scale-110 duration-300 transition-transform ${
+              isImgError ? 'opacity-10 p-10' : ''
+            }`}
           />
         </CardHeader>
         <CardBody className='text-center pt-4 pb-1 px-1 text-black text-sm'>

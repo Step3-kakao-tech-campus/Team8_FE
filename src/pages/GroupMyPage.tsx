@@ -183,7 +183,12 @@ const GroupMyPage = () => {
         >
           그룹 탈퇴하기
         </Button>
-        <GroupQuitModal groupId={groupId} isOpen={quitModal.isOpen} onClick={quitModal.handleModal} />
+        <GroupQuitModal
+          groupId={groupId}
+          groupName={groupMyInfo?.groupName}
+          isOpen={quitModal.isOpen}
+          onClick={quitModal.handleModal}
+        />
       </div>
     </main>
   );

@@ -37,7 +37,7 @@ const GroupCreateNameSection = ({ onNextStep }: GroupCreateNameSectionProps) => 
         <Typography variant='lead'>
           새 그룹의 <strong>이름</strong>을 입력해주세요.
         </Typography>
-        <Typography variant='paragraph'>그룹 이름은 최대 12자까지 가능합니다.</Typography>
+        <Typography variant='paragraph'>그룹 이름은 최소 2자, 최대 12자까지 가능합니다.</Typography>
       </div>
       <form className='flex gap-2' onSubmit={handleSubmit(handleNextStep)}>
         <div className='grow'>

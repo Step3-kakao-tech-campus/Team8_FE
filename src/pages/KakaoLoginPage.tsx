@@ -19,7 +19,7 @@ const KakaoLoginPage = () => {
 
   useEffect(() => {
     if (data) {
-      setCookie('accessToken', `${data.grantType} ${data.accessToken}`, {
+      setCookie('access-token', `${data.grantType} ${data.accessToken}`, {
         expires: new Date(data.accessTokenValidTime),
         path: '/',
       });

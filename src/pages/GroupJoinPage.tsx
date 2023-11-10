@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Alert, Button, Typography } from '@material-tailwind/react';
 import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
@@ -14,6 +14,7 @@ import useAlert from '@hooks/useAlert';
 const GroupJoinPage = () => {
   const navigate = useNavigate();
   const { groupId } = useParams();
+  const { state } = useLocation();
   const numGroupId = Number(groupId);
   const [isImgError, setImageError] = useState<boolean>(false);
   const { isOpen: isRegisteredAlertOpen, setIsOpen: setIsRegisteredAlertOpen } = useAlert();
@@ -80,8 +81,12 @@ const GroupJoinPage = () => {
         {groupType === 'un_official_opened_group' && (
           <UnOfficialOpenedGroup data={data} onIsRegisteredAlertChange={handleIsRegisteredAlertOpen} />
         )}
-        {groupType === 'un_official_closed_group' && (
-          <UnOfficialClosedGroup data={data} onIsRegisteredAlertChange={handleIsRegisteredAlertOpen} />
+        {groupType === 'un_official_closed_group' && state && (
+          <UnOfficialClosedGroup
+            data={data}
+            inviteCode={state.inviteCode}
+            onIsRegisteredAlertChange={handleIsRegisteredAlertOpen}
+          />
         )}
         {groupType === 'official_group' && <OfficialGroup data={data} />}
       </div>
