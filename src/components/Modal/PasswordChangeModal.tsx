@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Input, Dialog, Card, CardBody, CardFooter, Typography } from '@material-tailwind/react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { PASSWORD_CONFIRM_ERROR_MSG, PASSWORD_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
@@ -23,8 +23,16 @@ const PasswordChangeModal = ({ isOpen, handleOpen }: PasswordChangeModalProps) =
     register,
     handleSubmit,
     getValues,
+    reset,
     formState: { errors, isValid },
-  } = useForm<PasswordChangeInputs>({ mode: 'onChange' });
+  } = useForm<PasswordChangeInputs>({
+    mode: 'onChange',
+    defaultValues: {
+      currentPassword: '',
+      newPassword: '',
+      newPasswordConfirm: '',
+    },
+  });
 
   const { mutate: passwordChange, error } = useMutation({ mutationFn: passwordChangeFn });
   const handlePasswordChangeSubmit: SubmitHandler<FieldValues> = ({ currentPassword, newPassword }) => {
@@ -37,6 +45,10 @@ const PasswordChangeModal = ({ isOpen, handleOpen }: PasswordChangeModalProps) =
       },
     );
   };
+
+  useEffect(() => {
+    reset();
+  }, [isOpen]);
 
   return (
     <Dialog size='xs' open={isOpen} handler={handleOpen} className='bg-transparent shadow-none'>
