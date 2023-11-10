@@ -39,7 +39,7 @@ const LoginPage = () => {
       { email, password },
       {
         onSuccess: ({ grantType, accessToken, accessTokenValidTime }) => {
-          setCookie('accessToken', `${grantType} ${accessToken}`, {
+          setCookie('access-token', `${grantType} ${accessToken}`, {
             expires: new Date(accessTokenValidTime),
             path: '/',
           });

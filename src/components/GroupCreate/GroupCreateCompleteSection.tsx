@@ -64,7 +64,7 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
         size='lg'
         readOnly
         crossOrigin=''
-        icon={<MdContentCopy onClick={handleCopy} />}
+        icon={<MdContentCopy onClick={handleCopy} className='cursor-pointer' />}
         onClick={handleCopy}
       />
       <div className='flex justify-end'>
