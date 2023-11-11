@@ -25,7 +25,7 @@ const GroupCreatePage = () => {
   return (
     <div className='flex flex-col pt-10 max-w-xl mx-auto mb-20 min-h-[500px]'>
       <div className='flex justify-between gap-4 mb-8'>
-        <Stepper className='w-40 mb-4 cursor-pointer' activeStep={currentStep - 1}>
+        <Stepper className='w-40 mb-4' activeStep={currentStep - 1}>
           {Object.keys(groupCreateSections).map((step) => (
             <Step key={uuidv4()} className='w-6 h-6 text-xs bg-gray-100'>
               {step}
