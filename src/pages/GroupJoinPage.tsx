@@ -42,6 +42,7 @@ const GroupJoinPage = () => {
         open={isRegisteredAlertOpen}
         action={
           <Button
+            ripple={false}
             variant='text'
             className='p-1 text-xs text-gray-600'
             onClick={() => navigate(`/${groupId}/${data.groupName}`)}

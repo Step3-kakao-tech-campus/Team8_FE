@@ -68,7 +68,9 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
         onClick={handleCopy}
       />
       <div className='flex justify-end'>
-        <Button onClick={handleStartClick}>시작하기</Button>
+        <Button ripple={false} onClick={handleStartClick}>
+          시작하기
+        </Button>
       </div>
       <Alert
         className='py-3 text-sm fixed top-10 z-30 max-w-xl min-w-max mx-auto bg-gray-200 text-gray-600'

@@ -34,7 +34,7 @@ const ScrollToTopButton = () => {
           className=' bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full shadow-md'
           onClick={scrollToTop}
         >
-          <MdArrowUpward className='w-5 h-5' />
+          <MdArrowUpward size={20} />
         </IconButton>
       )}
     </div>

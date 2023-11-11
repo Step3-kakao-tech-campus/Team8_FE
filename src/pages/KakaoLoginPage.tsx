@@ -36,7 +36,9 @@ const KakaoLoginPage = () => {
             <Typography variant='h6' className='text-error'>
               로그인에 실패하였습니다.
             </Typography>
-            <Button onClick={() => navigate(-1)}>뒤로가기</Button>
+            <Button ripple={false} onClick={() => navigate(-1)}>
+              뒤로가기
+            </Button>
           </>
         ) : (
           <>

@@ -15,7 +15,9 @@ const InviteErrorFallback = ({ error }: ErrorFallbackProps) => {
     return (
       <>
         <Typography variant='h5'>{message}</Typography>
-        <Button onClick={() => navigate('/', { replace: true })}>홈으로</Button>
+        <Button ripple={false} onClick={() => navigate('/', { replace: true })}>
+          홈으로
+        </Button>
       </>
     );
   }
@@ -30,7 +32,7 @@ const InviteErrorFallback = ({ error }: ErrorFallbackProps) => {
     <main className='flex flex-col justify-center items-center gap-2 w-screen h-screen'>
       <h1 className='text-2xl font-extrabold'>404 NOT FOUND</h1>
       <p>페이지를 찾을 수 없습니다.</p>
-      <Button className='mt-5' onClick={() => navigate('/', { replace: true })}>
+      <Button ripple={false} className='mt-5' onClick={() => navigate('/', { replace: true })}>
         홈으로
       </Button>
     </main>

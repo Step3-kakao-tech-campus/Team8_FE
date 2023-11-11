@@ -115,7 +115,7 @@ const PasswordChangeModal = ({ isOpen, handleOpen }: PasswordChangeModalProps) =
             {Boolean(error) && <p className='text-xs mx-1 text-center text-error'>{getErrorMsg(error)}</p>}
           </CardBody>
           <CardFooter className='pt-0'>
-            <Button type='submit' variant='gradient' fullWidth disabled={!isValid}>
+            <Button ripple={false} type='submit' variant='gradient' fullWidth disabled={!isValid}>
               변경하기
             </Button>
           </CardFooter>

@@ -129,7 +129,7 @@ const SignUpPage = () => {
             />
             {errors.name && <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.name.message}</p>}
           </div>
-          <Button type='submit' className='w-full' data-testid='signUpBtn' disabled={!isValid}>
+          <Button ripple={false} type='submit' className='w-full' data-testid='signUpBtn' disabled={!isValid}>
             회원가입
           </Button>
         </form>

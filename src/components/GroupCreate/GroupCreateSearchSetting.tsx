@@ -135,12 +135,16 @@ const GroupCreateSearchSetting = ({ onNextStep }: GroupCreateSearchSettingProps)
               )}
             </div>
             <div className='text-right max-w-xl'>
-              <Button type='submit'>확인</Button>
+              <Button ripple={false} type='submit'>
+                확인
+              </Button>
             </div>
           </form>
         ) : (
           <div className='text-right max-w-xl'>
-            <Button onClick={onNextStep}>확인</Button>
+            <Button ripple={false} onClick={onNextStep}>
+              확인
+            </Button>
           </div>
         )}
       </div>

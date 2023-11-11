@@ -73,7 +73,7 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
             </p>
           </div>
           <div className='w-fit'>
-            <Button type='submit' onClick={handleSave} disabled={!pageName}>
+            <Button ripple={false} type='submit' onClick={handleSave} disabled={!pageName}>
               확인
             </Button>
           </div>

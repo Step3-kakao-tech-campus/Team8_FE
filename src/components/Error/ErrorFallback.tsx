@@ -35,7 +35,7 @@ const ErrorFallback = ({ error }: ErrorFallbackProps) => {
     <main className='flex flex-col justify-center items-center gap-2 w-screen h-screen'>
       <h1 className='text-2xl font-extrabold'>404 NOT FOUND</h1>
       <p>{errorMessage}</p>
-      <Button className='mt-5' onClick={() => navigate('/', { replace: true })}>
+      <Button ripple={false} className='mt-5' onClick={() => navigate('/', { replace: true })}>
         홈으로
       </Button>
     </main>
