@@ -24,7 +24,7 @@ const KakaoLoginPage = () => {
         path: '/',
       });
       setIsLoggedIn(true);
-      navigate('/', { replace: true });
+      navigate('/');
     }
   }, [data, navigate, setIsLoggedIn]);
 

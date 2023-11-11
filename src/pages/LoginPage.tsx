@@ -44,7 +44,7 @@ const LoginPage = () => {
             path: '/',
           });
           setIsLoggedIn(true);
-          navigate('/', { replace: true });
+          navigate('/');
         },
       },
     );
