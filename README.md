@@ -136,6 +136,11 @@
 <p align="center"><img width="700" alt="image" src="https://github.com/Step3-kakao-tech-campus/Team8_FE/assets/104193739/0ec25716-2820-41e1-972b-1f1ee8ae6a95"></p>
 <br>
 
+## 시스템 구조도
+
+<p align="center"><img width="700" alt="image" src="https://github.com/Step3-kakao-tech-campus/Team8_FE/assets/78250089/2ce1ac1f-f322-40fb-8ecf-eb9395af6e0b"></p>
+<br>
+
 ## 프로젝트 실행 방법
 
 ### FE
