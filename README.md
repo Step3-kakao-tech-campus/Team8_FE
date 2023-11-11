@@ -131,12 +131,21 @@
 
 <br/>
 
+## ERD
+
+<p align="center"><img width="700" alt="image" src="https://github.com/Step3-kakao-tech-campus/Team8_FE/assets/104193739/0ec25716-2820-41e1-972b-1f1ee8ae6a95"></p>
+<br>
+
 ## 프로젝트 실행 방법
+
 ### FE
+
 개발 환경에서 프로젝트를 테스트하려면 아래의 항목이 필요합니다.
 
+- Node.js : 18.12.0
 
 ### 환경변수
+
 <table>
   <tr>
     <td><b>environment</b></td>
@@ -173,13 +182,14 @@
 </table>
 <br/>
 
-* 환경 변수를 바탕으로 .env 파일을 생성합니다.
+- 환경 변수를 바탕으로 .env 파일을 생성합니다.
 
 ```
 REACT_APP_API_URL={배포된 백엔드 API 주소}
 ...
 ```
-* 위의 과정을 마치고 프로그램을 실행합니다.
+
+- 위의 과정을 마치고 프로그램을 실행합니다.
 
 ```
 npm install
