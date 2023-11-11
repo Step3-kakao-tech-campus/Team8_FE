@@ -131,6 +131,63 @@
 
 <br/>
 
+## 프로젝트 실행 방법
+### FE
+개발 환경에서 프로젝트를 테스트하려면 아래의 항목이 필요합니다.
+
+
+### 환경변수
+<table>
+  <tr>
+    <td><b>environment</b></td>
+    <td><b>description</b></td>
+  </tr>
+  <tr>
+    <td>{REACT_APP_API_URL}</td>
+    <td>API 통신을 위한 서버의 URL을 입력해주세요.</td>
+  </tr>
+  <tr>
+    <td>{REACT_APP_BUCKET_NAME}</td>
+    <td>AWS S3 버킷의 이름을 입력해주세요.</td>
+  </tr>
+  <tr>
+    <td>{REACT_APP_REGION}</td>
+    <td>AWS S3 버킷이 저장된 위치를 입력해주세요.</td>
+  </tr>
+  <tr>
+    <td>{REACT_APP_ACCESS_KEY_ID}</td>
+    <td>AWS S3에 접근하기 위한 사용자의 access key를 입력해주세요.</td>
+  </tr>
+  <tr>
+    <td>{REACT_APP_SECRET_ACCESS_KEY}</td>
+    <td>AWS S3에 접근하기 위한 사용자의 secret access key를 입력해주세요.</td>
+  </tr>
+  <tr>
+    <td>{REACT_APP_KAKAO_REDIRECT_URL}</td>
+    <td>카카오 로그인을 위한 인가 코드를 전달받을 서비스 서버의 URL을 입력해주세요.</td>
+  </tr>
+  <tr>
+    <td>{REACT_APP_KAKAO_REST_API_KEY}</td>
+    <td>카카오 로그인의 client-id로 사용되는 앱 REST API 키를 입력해주세요.</td>
+  </tr>
+</table>
+<br/>
+
+* 환경 변수를 바탕으로 .env 파일을 생성합니다.
+
+```
+REACT_APP_API_URL={배포된 백엔드 API 주소}
+...
+```
+* 위의 과정을 마치고 프로그램을 실행합니다.
+
+```
+npm install
+npm start
+```
+
+</br>
+
 ## 디렉토리 구조
 
 ```
