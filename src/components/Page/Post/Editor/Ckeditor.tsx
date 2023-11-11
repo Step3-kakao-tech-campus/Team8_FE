@@ -34,7 +34,7 @@ const CKEditor = ({ content, onChange }: EditorProps) => {
             variant='text'
             color='blue'
             onClick={pageLinkModal.handleModal}
-            className='z-50 rounded-sm hover:bg-gray-200'
+            className='z-40 rounded-sm hover:bg-gray-200'
           >
             <MdAddLink size={20} />
           </IconButton>

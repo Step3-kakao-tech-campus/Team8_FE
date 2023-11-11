@@ -12,7 +12,7 @@ const Header = () => {
   const isLoggedIn = useRecoilValue(isLoggedInState);
 
   return (
-    <header className='fixed top-0 flex justify-between items-center w-full px-2 py-2 border-b md:px-6 bg-white z-30'>
+    <header className='fixed top-0 flex justify-between items-center w-full px-2 py-2 border-b md:px-6 bg-white z-50'>
       <Link to='/' className='mr-4'>
         <Logo fill='black' width='42px' height='42px' />
       </Link>
