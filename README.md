@@ -20,40 +20,23 @@
 
 <br/>
 
-## 팀소개
+## 팀 소개
 
-<table>
-    <tr>
-        <td align="center">
-        <a href="https://github.com/publdaze">
-            <img src="https://github.com/publdaze.png" width="100" alt="" />
-            <br />
-            <sub><b>publdaze</b></sub>
-        </a>
-        <br />
-        </td>
-        <td align="center">
-        <a href="https://github.com/GangHub1970">
-            <img src="https://github.com/GangHub1970.png" width="100" alt="" />
-            <br />
-            <sub><b>GangHub1970</b></sub>
-        </a>
-        <br />
-        </td>
-        <td align="center">
-        <a href="https://github.com/qwer15948">
-            <img src="https://github.com/qwer15948.png" width="100" alt="" />
-            <br />
-            <sub><b>qwer15948</b></sub>
-        </a>
-    </tr>
-</table>
+<div align="center">
+
+|            <img src="https://github.com/publdaze.png" width="100">            |          <img src="https://github.com/qwer15948.png" width="100">           | <img src="https://github.com/GangHub1970.png" width="100"> |
+| :---------------------------------------------------------------------------: | :-------------------------------------------------------------------------: | :--------------------------------------------------------: |
+|                                    김은지                                     |                                   송지혜                                    |                            윤강                            |
+|                    [publdaze](https://github.com/publdaze)                    |                  [qwer15948](https://github.com/qwer15948)                  |       [GangHub1970](https://github.com/GangHub1970)        |
+| Auth(카카오 API) <br> 이메일 인증 <br> 회원관리 <br> 마이페이지 <br> 퍼블리싱 | 페이지 관리 <br> 포스트(CkEditor5) <br> 댓글 <br> 페이지 링크 <br> 퍼블리싱 | 그룹 생성(s3) <br> 초대 <br> 그룹 마이페이지 <br> 퍼블리싱 |
+
+</div>
 
 <br/>
 
 ## 서비스 소개
 
-<img width="700" alt="image" src="https://github.com/Step3-kakao-tech-campus/Team8_FE/assets/104193739/c20e5078-49de-4153-a07e-41b41137f3c9">
+<p align="center"><img width="700" alt="image" src="https://github.com/Step3-kakao-tech-campus/Team8_FE/assets/104193739/c20e5078-49de-4153-a07e-41b41137f3c9"></p>
 
 우리만의 추억을 함께 기록하고, 즐거운 순간을 공유하며 소중한 경험을 함께 만들어보세요! 위키키는 친구, 동료와 함께 다양한 활동을 기록하며 우리만의 특별한 공간을 만들 수 있는 그룹형 커뮤니티 서비스입니다.
 
