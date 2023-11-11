@@ -1,4 +1,4 @@
-![image](https://github.com/Step3-kakao-tech-campus/Team8_FE/assets/48706964/7a3d7044-c413-49fb-9712-288326b7052c)<p align="center">
+<p align="center">
 <br/>
 <img width="700" src="https://github.com/Step3-kakao-tech-campus/Team8_FE/assets/104193739/a0436026-f30b-4d1c-9daa-97940267d30c">
 <br/>
