@@ -47,7 +47,7 @@ const SearchInput = ({ isLoggedIn, className }: InputProps) => {
         />
         {searchBar && (
           <div className='absolute right-2 top-0 bottom-0 flex items-center gap-2 text-gray-600'>
-            <span className=''>{12 - searchBar.length}</span>
+            <span>{12 - searchBar.length}</span>
             <MdClear className='my-auto text-2xl text-gray-600 cursor-pointer z-10' onClick={handleSearchBarClear} />
           </div>
         )}
