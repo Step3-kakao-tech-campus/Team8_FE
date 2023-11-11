@@ -1,5 +1,5 @@
 import React from 'react';
-import ScrollToTopButton from '@components/Common/ScrollToTop';
+import ScrollToTopButton from '@components/Common/ScrollToTopButton';
 import RecentChangeList from './RecentChangeList';
 import IndexList from './IndexList';
 

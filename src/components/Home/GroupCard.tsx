@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactEventHandler, useState } from 'react';
 import { Card, CardHeader, CardBody } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
 import Logo from '@assets/images/logo/logo.svg';
@@ -14,7 +14,7 @@ interface GroupCardProps {
 const GroupCard = ({ group }: GroupCardProps) => {
   const [isImgError, setImageError] = useState(false);
 
-  const handleImgError: React.ReactEventHandler<HTMLImageElement> = (e) => {
+  const handleImgError: ReactEventHandler<HTMLImageElement> = (e) => {
     e.currentTarget.src = Logo;
     setImageError(true);
   };

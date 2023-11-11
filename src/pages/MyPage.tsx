@@ -93,6 +93,7 @@ const MyPage = () => {
             {isNickNameChanging ? (
               <>
                 <Button
+                  ripple={false}
                   variant='outlined'
                   color='gray'
                   className='ml-4 rounded-sm py-[11px] whitespace-nowrap hover:opacity-100'
@@ -101,6 +102,7 @@ const MyPage = () => {
                   취소
                 </Button>
                 <Button
+                  ripple={false}
                   variant='outlined'
                   color='gray'
                   className='ml-2 rounded-sm py-[11px] whitespace-nowrap hover:opacity-100'
@@ -111,6 +113,7 @@ const MyPage = () => {
               </>
             ) : (
               <Button
+                ripple={false}
                 variant='outlined'
                 color='gray'
                 className='ml-4 rounded-sm py-[11px] whitespace-nowrap'
@@ -124,6 +127,7 @@ const MyPage = () => {
         <div className='flex items-baseline mt-10'>
           <span className='font-extrabold w-40'>비밀번호 변경</span>
           <Button
+            ripple={false}
             variant='outlined'
             color='gray'
             className='rounded-sm h-9 w-20 p-1 whitespace-nowrap'

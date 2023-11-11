@@ -86,6 +86,7 @@ const OfficialGroup = ({ data }: { data: GroupDetail }) => {
             />
             <Button
               size='sm'
+              ripple={false}
               color={email ? 'gray' : 'blue-gray'}
               disabled={!email}
               className='!absolute right-1 top-1 rounded'
@@ -113,6 +114,7 @@ const OfficialGroup = ({ data }: { data: GroupDetail }) => {
               />
               <Button
                 size='sm'
+                ripple={false}
                 color={certificationNumber ? 'gray' : 'blue-gray'}
                 disabled={!certificationNumber}
                 onClick={handleEmailCheck}

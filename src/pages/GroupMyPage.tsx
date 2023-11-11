@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Input } from '@material-tailwind/react';
+import { Button, Input, Typography } from '@material-tailwind/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import GroupQuitModal from '@components/Modal/GroupQuitModal';
 import useModal from '@hooks/useModal';
@@ -128,6 +128,7 @@ const GroupMyPage = () => {
             {isNickNameChanging ? (
               <>
                 <Button
+                  ripple={false}
                   variant='outlined'
                   color='gray'
                   className='ml-4 rounded-sm py-[11px] whitespace-nowrap hover:opacity-100'
@@ -136,6 +137,7 @@ const GroupMyPage = () => {
                   취소
                 </Button>
                 <Button
+                  ripple={false}
                   type='submit'
                   variant='outlined'
                   color='gray'
@@ -146,6 +148,7 @@ const GroupMyPage = () => {
               </>
             ) : (
               <Button
+                ripple={false}
                 variant='outlined'
                 color='gray'
                 className='ml-4 rounded-sm py-[11px] whitespace-nowrap hover:opacity-100'
@@ -162,6 +165,7 @@ const GroupMyPage = () => {
           <h3 className='mb-2 font-extrabold'>내 문서 기여 목록</h3>
           {groupMyInfo?.historyList.length !== 0 && (
             <Button
+              ripple={false}
               variant='outlined'
               className='h-9 w-20 p-1 border-gray-400 text-gray-600 whitespace-nowrap rounded-sm'
               onClick={() => navigate('contribute')}
@@ -171,7 +175,11 @@ const GroupMyPage = () => {
           )}
         </div>
         <div className=' min-h-[120px]'>
-          <ContributeAccordion contributeItems={groupMyInfo?.historyList} />
+          {groupMyInfo.historyList.length === 0 ? (
+            <Typography className='py-8 text-center text-gray-500'>문서 기여 목록이 없습니다.</Typography>
+          ) : (
+            <ContributeAccordion contributeItems={groupMyInfo?.historyList} />
+          )}
         </div>
       </section>
       <div className='text-right p-4'>

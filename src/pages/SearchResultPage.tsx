@@ -49,7 +49,7 @@ const SearchResultPage = () => {
     mutationFn: createPageFn,
     onSuccess: () => {
       queryClient.invalidateQueries(PAGE_KEYS.byTitle({ groupId: numGroupId, title: keyword }));
-      navigate(`/${groupId}/${keyword}`);
+      navigate(`/${groupId}/${keyword}`, { replace: true });
     },
   });
 

@@ -84,7 +84,7 @@ const LoginPage = () => {
             )}
           </div>
           {Boolean(error) && <p className='text-xs mx-1 text-center text-error'>{getErrorMsg(error)}</p>}
-          <Button type='submit' className='w-full' data-testid='loginBtn' disabled={!isValid}>
+          <Button ripple={false} type='submit' className='w-full' data-testid='loginBtn' disabled={!isValid}>
             로그인
           </Button>
         </form>
@@ -101,6 +101,7 @@ const LoginPage = () => {
         <DividerWithText>다른 계정으로 로그인</DividerWithText>
         <a href={KAKAO_URL}>
           <Button
+            ripple={false}
             className='flex font-[system-ui] justify-center w-full rounded-xl items-center gap-2 bg-kakaoContainer text-kakaoLabel'
             data-testid='kakaoLoginBtn'
           >

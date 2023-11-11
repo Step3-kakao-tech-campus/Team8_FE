@@ -10,7 +10,7 @@ const OfficialGroup = ({ officialGroups }: { officialGroups: Group[] }) => {
       {officialGroups.map((group) => (
         <Link to={`/${group.groupId}/${group.groupName}`} key={uuidv4()}>
           <div key={group.groupId} className='relative h-full w-full'>
-            <img src={group.groupImage} alt={group.groupName} className='w-full h-40 object-cover mx-auto' />
+            <img src={group.groupImage} alt={group.groupName} className='w-full h-40 object-contain mx-auto' />
             <div className='absolute inset-0 grid h-full w-full place-items-center bg-black/50'>
               <div className='w-3/4 text-center'>
                 <p className='text-white'>{group.groupName}</p>

@@ -85,6 +85,7 @@ const AddPostButton = ({ post, pageId, pageName, descendantCount }: Props) => {
   return (
     <div className='flex items-center justify-center mb-4 '>
       <Button
+        ripple={false}
         fullWidth
         className={`h-10 bg-gray-50 text-white hover:text-gray-400 shadow-none rounded-sm transition-all duration-300 ease-in-out p-0 ${
           isSplit ? 'w-0' : 'w-full'
@@ -95,10 +96,10 @@ const AddPostButton = ({ post, pageId, pageName, descendantCount }: Props) => {
       </Button>
       {isSplit && (
         <ButtonGroup color='white' fullWidth className='shadow-none border-gray-300 rounded-sm h-10'>
-          <Button className='bg-gray-50 text-gray-500 rounded-sm' onClick={handleAddNextPostClick}>
+          <Button ripple={false} className='bg-gray-50 text-gray-500 rounded-sm' onClick={handleAddNextPostClick}>
             다음 목차로 추가
           </Button>
-          <Button className='bg-gray-50 text-gray-500 rounded-sm' onClick={handleAddChildPostClick}>
+          <Button ripple={false} className='bg-gray-50 text-gray-500 rounded-sm' onClick={handleAddChildPostClick}>
             하위 목차로 추가
           </Button>
         </ButtonGroup>

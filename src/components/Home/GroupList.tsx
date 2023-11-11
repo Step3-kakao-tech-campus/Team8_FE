@@ -13,4 +13,4 @@ const GroupList = ({ groups }: { groups: Group[] }) => {
   );
 };
 
-export default GroupList;
+export default React.memo(GroupList);

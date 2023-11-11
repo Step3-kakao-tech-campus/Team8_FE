@@ -81,10 +81,12 @@ const PostEditPage = () => {
               className='!text-base !border !border-gray-400 bg-white rounded-md focus:!border-gray-700'
               crossOrigin=''
               value={title}
+              maxLength={16}
               placeholder='제목을 입력하세요.'
               labelProps={{
                 className: 'hidden',
               }}
+              icon={<span>{16 - title.length}</span>}
               onChange={handleTitleChange}
             />
           </div>

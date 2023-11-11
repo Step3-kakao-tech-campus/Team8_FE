@@ -14,7 +14,7 @@
 }
 
 .ck-content {
-  @apply min-h-[320px] max-h-[600px];
+  @apply min-h-[320px];
 }
 
 .ck-content.ck-read-only {

@@ -42,6 +42,7 @@ const GroupJoinPage = () => {
         open={isRegisteredAlertOpen}
         action={
           <Button
+            ripple={false}
             variant='text'
             className='p-1 text-xs text-gray-600'
             onClick={() => navigate(`/${groupId}/${data.groupName}`)}
@@ -61,7 +62,10 @@ const GroupJoinPage = () => {
           <TextLogo className='w-36 m-auto mb-8' data-testid='textLogo' />
         </Link>
         <Typography variant='h4' className='font-normal'>
-          <span className='font-bold'>[{groupName}]</span>에 가입해보세요.
+          <span className='font-bold'>[{groupName}]</span>
+          {groupType === 'un_official_closed_group' && !state
+            ? '은 초대링크를 통해서만 가입할 수 있습니다.'
+            : '에 가입해보세요.'}
         </Typography>
         <p className='mb-6 text-gray-600 text-sm'>
           {createdAt.split('T')[0]}일에 개설된 그룹이에요. 현재 {memberCount}명이 참여하고 있어요.

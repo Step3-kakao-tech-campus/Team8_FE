@@ -78,10 +78,17 @@ const PasswordFindModal = ({ isOpen, handleOpen }: PasswordFindModalProps) => {
             )}
           </CardBody>
           <CardFooter className='flex gap-2 pt-0'>
-            <Button variant='outlined' onClick={handleOpen} fullWidth>
+            <Button ripple={false} variant='outlined' onClick={handleOpen} fullWidth>
               취소
             </Button>
-            <Button type='submit' variant='gradient' onClick={handlePasswordReset} fullWidth disabled={!isValid}>
+            <Button
+              ripple={false}
+              type='submit'
+              variant='gradient'
+              onClick={handlePasswordReset}
+              fullWidth
+              disabled={!isValid}
+            >
               비밀번호 재설정
             </Button>
           </CardFooter>

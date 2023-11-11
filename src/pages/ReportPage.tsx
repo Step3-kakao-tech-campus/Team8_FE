@@ -44,7 +44,7 @@ const ReportPage = () => {
           <Typography variant='h6' color='gray' className='text-xs mt-2 mb-10'>
             검토 후 사유가 미흡하다고 판단되면 신고가 취소될 수 있습니다.
           </Typography>
-          <Button type='submit' className='rounded' onClick={() => navigate(`/${groupId}/${page}`)}>
+          <Button ripple={false} type='submit' className='rounded' onClick={() => navigate(`/${groupId}/${page}`)}>
             돌아가기
           </Button>
         </div>
@@ -93,7 +93,7 @@ const ReportPage = () => {
               </div>
             </div>
             <div className='flex justify-end'>
-              <Button type='submit' className='rounded' onClick={handleReportClick}>
+              <Button type='submit' ripple={false} className='rounded' onClick={handleReportClick}>
                 신고하기
               </Button>
             </div>

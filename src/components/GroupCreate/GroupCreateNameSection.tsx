@@ -63,7 +63,9 @@ const GroupCreateNameSection = ({ onNextStep }: GroupCreateNameSectionProps) => 
           )}
         </div>
         <div>
-          <Button type='submit'>확인</Button>
+          <Button ripple={false} type='submit'>
+            확인
+          </Button>
         </div>
       </form>
     </section>

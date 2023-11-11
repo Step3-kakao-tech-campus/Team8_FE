@@ -80,7 +80,6 @@ const UnOfficialOpenedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGr
             <Input
               type='text'
               label='닉네임'
-              className=''
               containerProps={{
                 className: 'min-w-0 w-full',
               }}
@@ -95,7 +94,6 @@ const UnOfficialOpenedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGr
             <Input
               type='text'
               label='정답 입력'
-              className='pr-24'
               containerProps={{
                 className: 'min-w-0 w-full',
               }}
@@ -108,7 +106,7 @@ const UnOfficialOpenedGroup = ({ data, onIsRegisteredAlertChange }: UnOfficialGr
               <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.entrancePassword.message}</p>
             )}
           </div>
-          <Button type='submit' className='rounded'>
+          <Button ripple={false} type='submit' className='rounded'>
             가입하기
           </Button>
         </form>
