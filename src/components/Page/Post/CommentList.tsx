@@ -44,12 +44,12 @@ const CommentList = ({ groupId, postId, commentRef, isOpen, onCommentClose }: Co
   });
 
   const handleCreateComment = () => {
-    if (!text) return;
-    createComment({ groupId, postId, content: text });
+    if (!text.trim()) return;
+    createComment({ groupId, postId, content: text.trim() });
   };
 
   const handleCreateCommentOnEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (!text) return;
+    if (!text.trim()) return;
     if (e.key === 'Enter' && !e.shiftKey && e.nativeEvent.isComposing === false) {
       e.preventDefault();
       handleCreateComment();
@@ -57,6 +57,8 @@ const CommentList = ({ groupId, postId, commentRef, isOpen, onCommentClose }: Co
   };
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value === '\n') return;
+
     setText(e.target.value);
     // Textarea 높이 자동 조절
     e.target.style.height = 'auto';
@@ -96,7 +98,7 @@ const CommentList = ({ groupId, postId, commentRef, isOpen, onCommentClose }: Co
         />
         <button
           type='submit'
-          disabled={!text}
+          disabled={!text.trim()}
           className={`absolute right-5 bottom-5 p-[6px] rounded-full ${text ? 'hover:bg-gray-200' : ''}`}
           onClick={handleCreateComment}
         >
