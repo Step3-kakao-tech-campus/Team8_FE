@@ -43,12 +43,6 @@ const Post = ({ groupId, postId, pageId, pageName, index, postTitle, content }: 
           <span className='text-indigo-500'>{index}</span> {postTitle}
         </h2>
         <div className='flex gap-1'>
-          {/* <Badge
-            content={commentCount}
-            className={`text-[10px] !min-w-[16px] !min-h-[16px] !top-[20%] !right-[12%] p-0 ${
-              !commentCount && 'hidden'
-            }`}
-          > */}
           <Badge
             content={commentCount}
             className={`text-[10px] !min-w-[16px] !min-h-[16px] !top-[46%] !right-[120%] p-0 bg-transparent text-black font-bold ${
