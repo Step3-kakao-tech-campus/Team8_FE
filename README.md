@@ -163,7 +163,7 @@
 
 ## 시스템 구조도
 
-<p align="center"><img width="700" alt="image" src="https://github.com/Step3-kakao-tech-campus/Team8_FE/assets/78250089/2ce1ac1f-f322-40fb-8ecf-eb9395af6e0b"></p>
+<p align="center"><img width="700" alt="image" src="https://github.com/Step3-kakao-tech-campus/Team8_FE/assets/78250089/70485cb4-00b4-4f04-b583-6eea6d3f6aca"></p>
 <br>
 
 ## 기술 스택
