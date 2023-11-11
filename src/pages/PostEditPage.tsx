@@ -11,6 +11,8 @@ import { createPostFn, modifyPostFn } from '@apis/postApi';
 import { queryClient } from '@apis/queryClient';
 import { PAGE_KEYS } from '@constants/queryKeys';
 
+const MAX_LENGTH = 16;
+
 const PostEditPage = () => {
   // url로 넘어온 group id, post id
   const { page, groupId, postId: post } = useParams();
@@ -32,6 +34,7 @@ const PostEditPage = () => {
   const deleteModal = useModal();
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length > MAX_LENGTH) return;
     setTitle(e.target.value);
   };
 
@@ -81,12 +84,12 @@ const PostEditPage = () => {
               className='!text-base !border !border-gray-400 bg-white rounded-md focus:!border-gray-700'
               crossOrigin=''
               value={title}
-              maxLength={16}
+              maxLength={MAX_LENGTH}
               placeholder='제목을 입력하세요.'
               labelProps={{
                 className: 'hidden',
               }}
-              icon={<span>{16 - title.length}</span>}
+              icon={<span>{MAX_LENGTH - title.length}</span>}
               onChange={handleTitleChange}
             />
           </div>

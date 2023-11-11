@@ -3,6 +3,8 @@ import { Input } from '@material-tailwind/react';
 import { MdClear, MdSearch } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 
+const MAX_LENGTH = 12;
+
 interface InputProps {
   isLoggedIn: boolean;
   className?: string;
@@ -14,6 +16,7 @@ const SearchInput = ({ isLoggedIn, className }: InputProps) => {
   const navigate = useNavigate();
 
   const handleSearchBarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length > MAX_LENGTH) return;
     setSearchBar(e.target.value);
   };
 
@@ -36,7 +39,7 @@ const SearchInput = ({ isLoggedIn, className }: InputProps) => {
           placeholder={groupId ? '페이지를 검색해보세요.' : '그룹을 검색해보세요.'}
           value={searchBar}
           crossOrigin=''
-          maxLength={12}
+          maxLength={MAX_LENGTH}
           labelProps={{
             className: 'hidden',
           }}
@@ -47,7 +50,7 @@ const SearchInput = ({ isLoggedIn, className }: InputProps) => {
         />
         {searchBar && (
           <div className='absolute right-2 top-0 bottom-0 flex items-center gap-2 text-gray-600'>
-            <span>{12 - searchBar.length}</span>
+            <span>{MAX_LENGTH - searchBar.length}</span>
             <MdClear className='my-auto text-2xl text-gray-600 cursor-pointer z-10' onClick={handleSearchBarClear} />
           </div>
         )}
