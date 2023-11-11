@@ -27,7 +27,7 @@ const GroupCard = ({ group }: GroupCardProps) => {
             src={group.groupImage}
             alt={`${group.groupName}`}
             onError={handleImgError}
-            className={`object-cover w-36 h-36 hover:scale-110 duration-300 transition-transform  ${
+            className={`object-cover w-36 h-36 hover:scale-110 duration-300 transition-transform ${
               isImgError ? 'opacity-10 p-10' : ''
             }`}
           />
