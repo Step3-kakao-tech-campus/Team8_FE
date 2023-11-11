@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@material-tailwind/react';
 import { ReactComponent as TextLogo } from '@assets/images/logo/textLogo.svg';
-import OfficialGroup from '@components/Home/OfficialGroup';
+// import OfficialGroup from '@components/Home/OfficialGroup';
 import GroupList from '@components/Home/GroupList';
 import { ReactComponent as Logo } from '@assets/images/logo/logo.svg';
 import SearchInput from '@components/Common/SearchInput';
@@ -65,14 +65,14 @@ const HomePage = () => {
               <p className='text-center my-10'>참여한 그룹이 없습니다.</p>
             )}
           </section>
-          <section>
+          {/* <section>
             <h2 className={titleStyle}>공식 그룹</h2>
             {groupList && groupList.officialGroup.length > 0 ? (
               <OfficialGroup officialGroups={groupList.officialGroup} />
             ) : (
               <p className='text-center my-10'>등록된 공식 그룹이 없습니다.</p>
             )}
-          </section>
+          </section> */}
         </div>
       )}
       <section>
