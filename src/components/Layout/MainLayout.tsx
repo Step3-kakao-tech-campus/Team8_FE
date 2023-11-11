@@ -4,12 +4,10 @@ import Footer from '@components/Footer/Footer';
 import Header from '@components/Header/Header';
 import ErrorBoundary from '@components/Error/ErrorBoundary';
 import ErrorFallback from '@components/Error/ErrorFallback';
-import ScrollToTop from '@components/Common/ScrollToTop';
 
 const MainLayout = () => {
   return (
     <ErrorBoundary fallback={ErrorFallback}>
-      <ScrollToTop />
       <Header />
       <div className='max-w-3xl min-w-max mx-auto mt-[59px] pt-20 pb-12'>
         <Outlet />
