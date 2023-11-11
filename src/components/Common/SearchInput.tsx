@@ -28,14 +28,15 @@ const SearchInput = ({ isLoggedIn, className }: InputProps) => {
   };
 
   return (
-    <div className={`relative ${isLoggedIn ? 'max-w-sm' : 'max-w-xl'} min-w-[240px] w-full ml-4 ${className}`}>
+    <div className={`${isLoggedIn ? 'max-w-sm' : 'max-w-xl'} min-w-[240px] w-full ml-4 ${className}`}>
       <div className='relative'>
         <MdSearch className='absolute left-2 top-0 bottom-0 my-auto text-2xl text-gray-600 z-10' />
         <Input
-          className='w-full px-9 !text-base !bg-gray-100 !border-none focus:!bg-white focus:shadow-md'
+          className='w-full pl-9 pr-16 !text-base !bg-gray-100 !border-none focus:!bg-white focus:shadow-md'
           placeholder={groupId ? '페이지를 검색해보세요.' : '그룹을 검색해보세요.'}
           value={searchBar}
           crossOrigin=''
+          maxLength={12}
           labelProps={{
             className: 'hidden',
           }}
@@ -45,21 +46,12 @@ const SearchInput = ({ isLoggedIn, className }: InputProps) => {
           onBlur={() => setSearchBar('')}
         />
         {searchBar && (
-          <MdClear
-            className='absolute right-2 top-0 bottom-0 my-auto text-2xl text-gray-600 cursor-pointer z-10'
-            onClick={handleSearchBarClear}
-          />
+          <div className='absolute right-2 top-0 bottom-0 flex items-center gap-2 text-gray-600'>
+            <span className=''>{12 - searchBar.length}</span>
+            <MdClear className='my-auto text-2xl text-gray-600 cursor-pointer z-10' onClick={handleSearchBarClear} />
+          </div>
         )}
       </div>
-      {/* {searchBar && (
-        <Card className='absolute w-full rounded-t-none'>
-          <List>
-            <ListItem>Inbox</ListItem>
-            <ListItem>Trash</ListItem>
-            <ListItem>Settings</ListItem>
-          </List>
-        </Card>
-      )} */}
     </div>
   );
 };
