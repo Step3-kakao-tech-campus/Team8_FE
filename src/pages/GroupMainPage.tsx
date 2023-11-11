@@ -38,7 +38,7 @@ const GroupMainPage = () => {
   });
 
   const { pageName, pageId, postList, goodCount, badCount } = data?.data?.response || {
-    pageName: 'test',
+    pageName: '',
     pageId: 1,
     postList: [],
     goodCount: 0,
