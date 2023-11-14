@@ -21,7 +21,7 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
 
   const { isLoading } = useQuery({
     queryKey: PAGE_KEYS.isExistence({ groupId: numGroupId, title: pageName }),
-    queryFn: () => checkPageExistence({ groupId: numGroupId, title: pageName }),
+    queryFn: () => checkPageExistence({ groupId: numGroupId, title: encodeURIComponent(pageName) }),
     onError: () => {
       setIsExistence(false);
     },

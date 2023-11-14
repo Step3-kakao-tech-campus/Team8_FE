@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Accordion, AccordionHeader, AccordionBody, Chip } from '@material-tailwind/react';
 import { getFormattedDateTime } from '@utils/time';
 import { MdExpandMore, MdExpandLess } from 'react-icons/md';
-import Viewer from './Page/Post/Editor/Ckviewer';
+import Viewer from './Editor/Ckviewer';
 
 interface History {
   memberId: number;

@@ -32,7 +32,7 @@ const SearchResultPage = () => {
   // 검색 결과
   const { data: pageData } = useQuery({
     queryKey: PAGE_KEYS.searchKeyword({ groupId: numGroupId, keyword }),
-    queryFn: () => searchPageFn({ groupId: numGroupId, keyword }),
+    queryFn: () => searchPageFn({ groupId: numGroupId, keyword: encodeURIComponent(keyword) }),
     enabled: !!keyword,
   });
 

@@ -29,7 +29,7 @@ const GroupSelector = () => {
       const selectedGroup = groupList.find((group) => group.groupId === Number(groupId));
 
       if (selectedGroup) {
-        return `/${selectedGroup.groupId}/${selectedGroup.groupName}`;
+        return `/${selectedGroup.groupId}/${encodeURIComponent(selectedGroup.groupName)}`;
       }
     }
     return '';

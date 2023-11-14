@@ -1,5 +1,5 @@
 import React from 'react';
-import PostHistoryAccordion from '@components/PostHistoryAccordion';
+import PostHistoryAccordion from '@components/Page/Post/PostHistoryAccordion';
 import { useQuery } from '@tanstack/react-query';
 import { getHistoryFn } from '@apis/postApi';
 import { POST_KEYS } from '@constants/queryKeys';

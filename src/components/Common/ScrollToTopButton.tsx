@@ -1,5 +1,5 @@
-import { IconButton } from '@material-tailwind/react';
 import React, { useState, useEffect } from 'react';
+import { IconButton } from '@material-tailwind/react';
 import { MdArrowUpward } from 'react-icons/md';
 
 const ScrollToTopButton = () => {

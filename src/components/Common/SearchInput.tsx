@@ -25,7 +25,11 @@ const SearchInput = ({ isLoggedIn, className }: InputProps) => {
   };
   const handleSubmit = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && searchBar && e.nativeEvent.isComposing === false) {
-      navigate(groupId ? `${groupId}/search?keyword=${searchBar}` : `/search/group?keyword=${searchBar}`);
+      navigate(
+        groupId
+          ? `${groupId}/search?keyword=${encodeURIComponent(searchBar)}`
+          : `/search/group?keyword=${encodeURIComponent(searchBar)}`,
+      );
       setSearchBar('');
     }
   };
