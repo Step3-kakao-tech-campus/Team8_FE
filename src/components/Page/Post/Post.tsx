@@ -8,7 +8,7 @@ import {
   MdOutlineErrorOutline,
   MdModeEditOutline,
 } from 'react-icons/md';
-import { Button, Menu, MenuHandler, MenuList, MenuItem, Typography } from '@material-tailwind/react';
+import { Button, Menu, MenuHandler, MenuList, MenuItem, Typography, Badge } from '@material-tailwind/react';
 import Viewer from '@components/Page/Post/Editor/Ckviewer';
 import CommentList from './CommentList';
 
@@ -24,6 +24,7 @@ interface PostProps {
 
 const Post = ({ groupId, postId, pageId, pageName, index, postTitle, content }: PostProps) => {
   const [isCommentOpen, setIsCommentOpen] = useState<boolean>(false);
+  const [commentCount, setCommentCount] = useState<number>(0);
   const commentRef = useRef<HTMLDivElement>(null);
 
   const navigate = useNavigate();
@@ -42,14 +43,21 @@ const Post = ({ groupId, postId, pageId, pageName, index, postTitle, content }: 
           <span className='text-indigo-500'>{index}</span> {postTitle}
         </h2>
         <div className='flex gap-1'>
-          <Button
-            variant='text'
-            ripple={false}
-            className='p-1 text-xl hover:bg-transparent active:bg-transparent'
-            onClick={handleCommentClick}
+          <Badge
+            content={commentCount}
+            className={`text-[10px] !min-w-[16px] !min-h-[16px] !top-[46%] !right-[120%] p-0 bg-transparent text-black font-bold ${
+              !commentCount && 'hidden'
+            }`}
           >
-            <MdOutlineModeComment />
-          </Button>
+            <Button
+              variant='text'
+              ripple={false}
+              className='p-1 text-xl hover:bg-transparent active:bg-transparent'
+              onClick={handleCommentClick}
+            >
+              <MdOutlineModeComment />
+            </Button>
+          </Badge>
           <Menu placement='right-start'>
             <MenuHandler>
               <Button variant='text' className='p-1 text-xl hover:bg-transparent active:bg-transparent'>
@@ -93,6 +101,7 @@ const Post = ({ groupId, postId, pageId, pageName, index, postTitle, content }: 
         commentRef={commentRef}
         isOpen={isCommentOpen}
         onCommentClose={handleCommentClick}
+        setCommentCount={setCommentCount}
       />
     </article>
   );

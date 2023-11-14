@@ -1,4 +1,4 @@
-import React, { ChangeEvent, RefObject, useState } from 'react';
+import React, { ChangeEvent, RefObject, useEffect, useState } from 'react';
 import { Collapse, Textarea } from '@material-tailwind/react';
 import { MdSend, MdOutlineKeyboardArrowUp } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
@@ -22,15 +22,15 @@ interface CommentListProps {
   commentRef: RefObject<HTMLDivElement>;
   isOpen: boolean;
   onCommentClose: () => void;
+  setCommentCount: (count: number) => void;
 }
 
-const CommentList = ({ groupId, postId, commentRef, isOpen, onCommentClose }: CommentListProps) => {
+const CommentList = ({ groupId, postId, commentRef, isOpen, onCommentClose, setCommentCount }: CommentListProps) => {
   const [text, setText] = useState<string>('');
 
   const { data, isLoading } = useQuery({
     queryKey: COMMENT_KEYS.commentList({ groupId, postId }),
     queryFn: () => getCommentsFn({ groupId, postId }),
-    staleTime: 1000 * 60 * 60 * 24,
   });
 
   const { comments } = data?.data?.response || [];
@@ -64,6 +64,11 @@ const CommentList = ({ groupId, postId, commentRef, isOpen, onCommentClose }: Co
     e.target.style.height = 'auto';
     e.target.style.height = `${e.target.scrollHeight}px`;
   };
+
+  useEffect(() => {
+    if (!comments) return;
+    setCommentCount(comments?.length);
+  }, [comments?.length, setCommentCount]);
 
   return (
     <Collapse open={isOpen} ref={commentRef} className='relative mb-4'>
