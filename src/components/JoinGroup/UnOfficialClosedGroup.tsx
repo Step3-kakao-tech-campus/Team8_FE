@@ -113,7 +113,7 @@ const UnOfficialClosedGroup = ({ data, inviteCode, onIsRegisteredAlertChange }: 
           <p className='text-xs mt-1 mx-1 flex items-center text-error'>{errors.inviteLink.message}</p>
         )}
       </div>
-      <Button ripple={false} type='submit'>
+      <Button ripple={false} type='submit' className='rounded'>
         가입하기
       </Button>
     </form>
