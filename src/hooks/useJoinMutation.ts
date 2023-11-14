@@ -31,7 +31,7 @@ const useJoinMutation = ({ groupId, groupName, nickName, setError, onIsRegistere
       queryClient.invalidateQueries(GROUP_KEYS.members({ groupId }), {
         refetchType: 'all',
       });
-      navigate(`/${groupId}/${groupName}`, { replace: true });
+      navigate(`/${groupId}/${encodeURIComponent(groupName)}`, { replace: true });
     },
     onError: (error) => {
       if (error instanceof AxiosError) {

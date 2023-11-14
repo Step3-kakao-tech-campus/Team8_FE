@@ -29,7 +29,7 @@ const RecentChangeList = () => {
         {recentPage &&
           recentPage.map((page: RecentChangePage) => (
             <li key={uuidv4()} className='my-2 leading-tight'>
-              <Link to={`/${groupId}/${page.pageName}`} className='hover:underline'>
+              <Link to={`/${groupId}/${encodeURIComponent(page.pageName)}`} className='hover:underline'>
                 {page.pageName}
               </Link>
             </li>

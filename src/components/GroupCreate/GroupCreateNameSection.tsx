@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import { groupCreateInfoState } from '@recoil/atoms/group';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { GROUP_NAME_ERROR_MSG, REQUIRE_ERROR_MSG } from '@constants/errorMsg';
+import { GROUP_NAME_PATTERN } from '@constants/validationPatterns';
 
 interface GroupCreateNameSectionProps {
   onNextStep: () => void;
@@ -37,7 +38,9 @@ const GroupCreateNameSection = ({ onNextStep }: GroupCreateNameSectionProps) => 
         <Typography variant='lead'>
           새 그룹의 <strong>이름</strong>을 입력해주세요.
         </Typography>
-        <Typography variant='paragraph'>그룹 이름은 최소 2자, 최대 12자까지 가능합니다.</Typography>
+        <Typography variant='paragraph'>
+          그룹 이름은 2자 이상 12자 이하(공백 포함)의 한글, 숫자 또는 영어로 구성해주세요.
+        </Typography>
       </div>
       <form className='flex gap-2' onSubmit={handleSubmit(handleNextStep)}>
         <div className='grow'>
@@ -54,6 +57,10 @@ const GroupCreateNameSection = ({ onNextStep }: GroupCreateNameSectionProps) => 
               },
               maxLength: {
                 value: 12,
+                message: GROUP_NAME_ERROR_MSG,
+              },
+              pattern: {
+                value: GROUP_NAME_PATTERN,
                 message: GROUP_NAME_ERROR_MSG,
               },
             })}

@@ -21,7 +21,7 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
 
   const { isLoading } = useQuery({
     queryKey: PAGE_KEYS.isExistence({ groupId: numGroupId, title: pageName }),
-    queryFn: () => checkPageExistence({ groupId: numGroupId, title: pageName }),
+    queryFn: () => checkPageExistence({ groupId: numGroupId, title: encodeURIComponent(pageName) }),
     onError: () => {
       setIsExistence(false);
     },
@@ -46,9 +46,9 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
     if (isLoading) return;
     if (pageName === '') return;
     if (isExistence) {
-      onSave(`#${pageName}`, `/${groupId}/${pageName}`);
+      onSave(`#${pageName}`, `/${groupId}/${encodeURIComponent(pageName)}`);
     } else {
-      onSave(`#${pageName}`, `/${groupId}/search?keyword=${pageName}`);
+      onSave(`#${pageName}`, `/${groupId}/search?keyword=${encodeURIComponent(pageName)}`);
     }
     handleModal();
   };

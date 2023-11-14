@@ -10,10 +10,10 @@ import { groupSearchFn } from '@apis/groupApi';
 const GroupSearchResultPage = () => {
   const [isOfficialGroup, setIsOfficialGroup] = useState<boolean>(true);
   const [searchParam] = useSearchParams();
-  const keyword = searchParam.get('keyword') || '테스트 키워드';
+  const keyword = searchParam.get('keyword') || '';
   const { data } = useQuery({
     queryKey: GROUP_KEYS.groupSearch({ keyword }),
-    queryFn: async () => groupSearchFn({ keyword }),
+    queryFn: async () => groupSearchFn({ keyword: encodeURIComponent(keyword) }),
   });
 
   const officialGroups = data?.officialGroups || [];

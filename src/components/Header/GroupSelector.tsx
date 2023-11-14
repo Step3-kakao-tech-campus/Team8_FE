@@ -29,7 +29,7 @@ const GroupSelector = () => {
       const selectedGroup = groupList.find((group) => group.groupId === Number(groupId));
 
       if (selectedGroup) {
-        return `/${selectedGroup.groupId}/${selectedGroup.groupName}`;
+        return `/${selectedGroup.groupId}/${encodeURIComponent(selectedGroup.groupName)}`;
       }
     }
     return '';
@@ -50,7 +50,7 @@ const GroupSelector = () => {
         }
       >
         {groupList?.map((group) => (
-          <Option key={uuidv4()} value={`/${group.groupId}/${group.groupName}`}>
+          <Option key={uuidv4()} value={`/${group.groupId}/${encodeURIComponent(group.groupName)}`}>
             {group.groupName}
           </Option>
         ))}

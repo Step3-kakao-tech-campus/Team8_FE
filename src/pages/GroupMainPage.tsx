@@ -34,7 +34,7 @@ const GroupMainPage = () => {
 
   const { data, isLoading } = useQuery({
     queryKey: PAGE_KEYS.byTitle({ groupId: numGroupId, title: page }),
-    queryFn: () => getPageByTitleFn({ groupId: numGroupId, title: page }),
+    queryFn: () => getPageByTitleFn({ groupId: numGroupId, title: encodeURIComponent(page) }),
   });
 
   const { pageName, pageId, postList, goodCount, badCount } = data?.data?.response || {

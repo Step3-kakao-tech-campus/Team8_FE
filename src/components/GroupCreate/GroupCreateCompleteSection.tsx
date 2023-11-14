@@ -16,7 +16,7 @@ interface GroupCreateCompleteSectionProps {
 const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionProps) => {
   const { isOpen: isAlertOpen, setIsOpen: setIsAlertOpen } = useAlert();
   const { isOpen: isErrorAlertOpen, setIsOpen: setIsErrorAlertOpen } = useAlert();
-  const [inviteCode, setInviteCode] = useState<string>('');
+  const [inviteCode, setInviteCode] = useState<string>('잠시만 기다려주세요.');
   const [groupId, setGroupId] = useState<number>(0);
   const groupInfo = useRecoilValue(groupCreateInfoState);
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
     }
   };
   const handleStartClick = () => {
-    navigate(`/${groupId}/${groupName}`, { replace: true });
+    navigate(`/${groupId}/${encodeURIComponent(groupName)}`, { replace: true });
   };
 
   useEffect(() => {

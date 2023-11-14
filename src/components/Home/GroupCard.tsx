@@ -20,7 +20,7 @@ const GroupCard = ({ group }: GroupCardProps) => {
   };
 
   return (
-    <Link to={`/${group.groupId}/${group.groupName}`}>
+    <Link to={`/${group.groupId}/${encodeURIComponent(group.groupName)}`}>
       <Card className='mt-6 w-max cursor-pointer mx-auto' shadow={false}>
         <CardHeader floated={false} className='m-0'>
           <img

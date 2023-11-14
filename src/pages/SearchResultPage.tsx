@@ -32,7 +32,7 @@ const SearchResultPage = () => {
   // 검색 결과
   const { data: pageData } = useQuery({
     queryKey: PAGE_KEYS.searchKeyword({ groupId: numGroupId, keyword }),
-    queryFn: () => searchPageFn({ groupId: numGroupId, keyword }),
+    queryFn: () => searchPageFn({ groupId: numGroupId, keyword: encodeURIComponent(keyword) }),
     enabled: !!keyword,
   });
 
@@ -42,14 +42,14 @@ const SearchResultPage = () => {
   useEffect(() => {
     if (!keyword) return;
     const isHasPage = pages[0]?.pageName === keyword;
-    if (isHasPage) navigate(`/${groupId}/${keyword}`);
+    if (isHasPage) navigate(`/${groupId}/${encodeURIComponent(keyword)}`);
   }, [keyword, pages, navigate, groupId]);
 
   const { mutate: createPage } = useMutation({
     mutationFn: createPageFn,
     onSuccess: () => {
       queryClient.invalidateQueries(PAGE_KEYS.byTitle({ groupId: numGroupId, title: keyword }));
-      navigate(`/${groupId}/${keyword}`, { replace: true });
+      navigate(`/${groupId}/${encodeURIComponent(keyword)}`, { replace: true });
     },
   });
 
@@ -93,7 +93,7 @@ const SearchResultPage = () => {
                 type='button'
                 key={uuidv4()}
                 className='px-2 py-8 border-b border-gray-200 hover:underline w-full text-left'
-                onClick={() => navigate(`/${groupId}/${page.pageName}`)}
+                onClick={() => navigate(`/${groupId}/${encodeURIComponent(page.pageName)}`)}
               >
                 <h2 className='text-lg font-bold mb-1'>{page.pageName}</h2>
                 <div
