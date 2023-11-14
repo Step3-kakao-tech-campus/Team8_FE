@@ -55,7 +55,7 @@ const OfficialGroup = ({ data }: { data: GroupDetail }) => {
       { email, certificationNumber },
       {
         onSuccess: () => {
-          navigate(`/${groupId}/${groupName}`, { replace: true });
+          navigate(`/${groupId}/${encodeURIComponent(groupName)}`, { replace: true });
         },
         onError: (error) => {
           const errorMsg = getErrorMsg(error);

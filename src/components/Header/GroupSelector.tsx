@@ -50,7 +50,7 @@ const GroupSelector = () => {
         }
       >
         {groupList?.map((group) => (
-          <Option key={uuidv4()} value={`/${group.groupId}/${group.groupName}`}>
+          <Option key={uuidv4()} value={`/${group.groupId}/${encodeURIComponent(group.groupName)}`}>
             {group.groupName}
           </Option>
         ))}
