@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { Accordion, AccordionHeader, AccordionBody } from '@material-tailwind/react';
 import { v4 as uuidv4 } from 'uuid';
 import { ContributeItemProps } from '@apis/dto';
@@ -36,4 +36,4 @@ const ContributeAccordion = ({ contributeItems }: { contributeItems: ContributeI
   );
 };
 
-export default ContributeAccordion;
+export default memo(ContributeAccordion);
