@@ -93,7 +93,7 @@ const SearchResultPage = () => {
                 type='button'
                 key={uuidv4()}
                 className='px-2 py-8 border-b border-gray-200 hover:underline w-full text-left'
-                onClick={() => navigate(`/${groupId}/${page.pageName}`)}
+                onClick={() => navigate(`/${groupId}/${encodeURIComponent(page.pageName)}`)}
               >
                 <h2 className='text-lg font-bold mb-1'>{page.pageName}</h2>
                 <div
