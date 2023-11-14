@@ -42,14 +42,14 @@ const SearchResultPage = () => {
   useEffect(() => {
     if (!keyword) return;
     const isHasPage = pages[0]?.pageName === keyword;
-    if (isHasPage) navigate(`/${groupId}/${keyword}`);
+    if (isHasPage) navigate(`/${groupId}/${encodeURIComponent(keyword)}`);
   }, [keyword, pages, navigate, groupId]);
 
   const { mutate: createPage } = useMutation({
     mutationFn: createPageFn,
     onSuccess: () => {
       queryClient.invalidateQueries(PAGE_KEYS.byTitle({ groupId: numGroupId, title: keyword }));
-      navigate(`/${groupId}/${keyword}`, { replace: true });
+      navigate(`/${groupId}/${encodeURIComponent(keyword)}`, { replace: true });
     },
   });
 

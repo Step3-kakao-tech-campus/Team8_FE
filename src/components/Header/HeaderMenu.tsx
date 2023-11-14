@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu, MenuHandler, MenuList, MenuItem, Button } from '@material-tailwind/react';
-import { MdMenu } from 'react-icons/md';
+import { MdHelpOutline, MdMenu } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 import GroupMemberListModal from '@components/Modal/GroupMemberListModal';
 import InviteModal from '@components/Modal/InviteModal';
@@ -32,6 +32,7 @@ const HeaderMenu = () => {
 
   return (
     <>
+      <MdHelpOutline className='w-6 h-6 text-black' />
       <Menu placement='bottom-end'>
         <MenuHandler>
           <Button className='p-1 bg-transparent shadow-none hover:shadow-none outline-none'>

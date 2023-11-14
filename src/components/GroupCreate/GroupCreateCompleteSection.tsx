@@ -42,7 +42,7 @@ const GroupCreateCompleteSection = ({ groupName }: GroupCreateCompleteSectionPro
     }
   };
   const handleStartClick = () => {
-    navigate(`/${groupId}/${groupName}`, { replace: true });
+    navigate(`/${groupId}/${encodeURIComponent(groupName)}`, { replace: true });
   };
 
   useEffect(() => {

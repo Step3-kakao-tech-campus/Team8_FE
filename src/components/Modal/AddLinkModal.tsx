@@ -46,9 +46,9 @@ const AddLinkModal = ({ onSave, isOpen, handleModal }: AddLinkModalProps) => {
     if (isLoading) return;
     if (pageName === '') return;
     if (isExistence) {
-      onSave(`#${pageName}`, `/${groupId}/${pageName}`);
+      onSave(`#${pageName}`, `/${groupId}/${encodeURIComponent(pageName)}`);
     } else {
-      onSave(`#${pageName}`, `/${groupId}/search?keyword=${pageName}`);
+      onSave(`#${pageName}`, `/${groupId}/search?keyword=${encodeURIComponent(pageName)}`);
     }
     handleModal();
   };

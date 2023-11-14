@@ -20,7 +20,7 @@ const Header = () => {
         {isLoggedIn && <GroupSelector />}
         <SearchInput isLoggedIn={isLoggedIn} />
       </div>
-      <nav className='flex gap-3 ml-4'>
+      <nav className='flex gap-3 ml-4 items-center'>
         {isLoggedIn ? (
           <HeaderMenu />
         ) : (

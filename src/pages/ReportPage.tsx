@@ -11,6 +11,7 @@ const ReportPage = () => {
   const [isReported, setIsReported] = useState<boolean>(false);
 
   const { groupId, page, postId } = useParams();
+  if (!groupId || !page || !postId) return null;
   const numGroupId = Number(groupId);
   const numPostId = Number(postId);
 
@@ -44,7 +45,12 @@ const ReportPage = () => {
           <Typography variant='h6' color='gray' className='text-xs mt-2 mb-10'>
             검토 후 사유가 미흡하다고 판단되면 신고가 취소될 수 있습니다.
           </Typography>
-          <Button ripple={false} type='submit' className='rounded' onClick={() => navigate(`/${groupId}/${page}`)}>
+          <Button
+            ripple={false}
+            type='submit'
+            className='rounded'
+            onClick={() => navigate(`/${groupId}/${encodeURIComponent(page)}`)}
+          >
             돌아가기
           </Button>
         </div>
